@@ -25,10 +25,23 @@ strong,.gold{color:#c9a84c}
 .subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
 .emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
 
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
 /* === VISUAL COMPONENTS === */
 
 /* Callout box */
-.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6}
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
 .callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
 
 /* Hebrew source text */
@@ -58,7 +71,7 @@ strong,.gold{color:#c9a84c}
 .compare-box.green h3{color:#4caf50}
 .compare-box.red h3{color:#f44336}
 .compare-box.blue h3{color:#5b8def}
-.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
 .compare-box li::before{content:'• ';color:#c9a84c}
 
 /* Debate bubbles */
@@ -67,7 +80,7 @@ strong,.gold{color:#c9a84c}
 .debate-line.right{flex-direction:row-reverse}
 .speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
 .debate-line.right .speaker{background:#5b8def}
-.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
 
 /* Process steps */
 .process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
@@ -157,200 +170,147 @@ strong,.gold{color:#c9a84c}
 
 <!-- SLIDE 3: Halachot 1-3 (Debate bubbles) -->
 <div class="slide" data-slide="2">
+
   <div class="slide-num">3 / 9</div>
   <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">God's Existence</h2>
   <div class="subtitle">הלכות א׳–ג׳ · The Foundation of Foundations</div>
-  
-  <div class="hebrew" style="text-align:center;font-size:1.1rem">
-    יְסוֹד הַיְסוֹדוֹת וְעַמּוּד הַחׇכְמוֹת — לֵידַע שֶׁיֵּשׁ שָׁם מָצוּי רִאשׁוֹן
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">The foundation of all foundations and the pillar of wisdom is to know that there is a Primary Being who brought into being all existence. All the beings of the heavens, the earth, and what is between them came into existence only from the truth of His being.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
-  <div class="debate">
-    <div class="debate-line">
-      <div class="speaker">ה׳א</div>
-      <div class="speech">There is a <strong>Primary Being</strong> who brought into existence everything that exists. All things in heaven and earth exist only through His true existence.</div>
-    </div>
-    <div class="debate-line right">
-      <div class="speaker" style="background:#ff9800">ה׳ב</div>
-      <div class="speech">If one would imagine that He does <strong>not exist</strong> — no other being could possibly exist.</div>
-    </div>
-    <div class="debate-line">
-      <div class="speaker" style="background:#4caf50">ה׳ג</div>
-      <div class="speech">If one would imagine that <strong>nothing else</strong> existed — He alone would continue to exist. He does <strong>not need any of them</strong>, but they all need Him.</div>
-    </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en">If one would imagine that He does not exist, no other being could possibly exist.</div>
+    
   </div>
-  
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">If one would imagine that none of the entities aside from Him exist, He alone would continue to exist, and the nullification of their [existence] would not nullify His existence, because all the [other] entities require Him and He, blessed be He, does not require them nor any one of them. Therefore, the truth of His [being] does not resemble the truth of any of their [beings].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
   <div class="callout">
     <div class="label">🔑 The Logic</div>
-    The Rambam builds a philosophical proof in 3 steps: God exists → Without Him nothing can exist → Without everything else, He still exists. This proves God is the only <strong>necessary being</strong>.
+    Three steps: God exists → Without Him nothing can exist → Without everything else, He still exists. This proves God is the only <strong>necessary being</strong>.
   </div>
 </div>
 
 <!-- SLIDE 4: Halachot 4-6 (Comparison boxes) -->
 <div class="slide" data-slide="3">
+
   <div class="slide-num">4 / 9</div>
   <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">True Existence & The Mitzvah</h2>
-  <div class="subtitle">הלכות ד׳–ו׳ · What makes God's existence unique</div>
-  
-  <div class="compare-row">
-    <div class="compare-box green">
-      <h3>🟢 God's Existence</h3>
-      <ul>
-        <li><strong>Necessary</strong> — cannot not exist</li>
-        <li>Not dependent on anything</li>
-        <li>"True existence" (אמיתת הימצאו)</li>
-        <li>Infinite, unbounded power</li>
-      </ul>
-    </div>
-    <div class="compare-box red">
-      <h3>🔴 Everything Else</h3>
-      <ul>
-        <li><strong>Contingent</strong> — could not exist</li>
-        <li>Depends on God</li>
-        <li>"Borrowed" existence</li>
-        <li>Limited, finite</li>
-      </ul>
-    </div>
+  <div class="subtitle">הלכות ד׳–ו׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">This is implied by the prophet's statement [Jeremiah 10:10]: "And God, your Lord, is true" - i.e., He alone is true and no other entity possesses truth that compares to His truth. This is what [is meant by] the Torah's statement [Deuteronomy 4:35]: "There is nothing else aside from Him" - i.e., aside from Him, there is no true existence like His.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
-  <div class="visual-box">
-    <div style="color:#c9a84c;font-size:0.85rem;margin-bottom:0.8rem">Jeremiah 10:10</div>
-    <div class="hebrew" style="border:none;background:transparent;padding:0;margin:0;font-size:1.2rem">
-      וַה׳ אֱלֹקִים אֱמֶת
-    </div>
-    <div style="color:#e0d5c1;font-size:0.95rem;margin-top:0.5rem">"And God, your Lord, is <strong>true</strong>"</div>
-    <div style="color:#888;font-size:0.85rem;margin-top:0.3rem">He alone is true — nothing else possesses truth like His truth</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">This entity is the God of the world and the Lord of the entire earth. He controls the sphere with infinite and unbounded power. This power [continues] without interruption, because the sphere is constantly revolving, and it is impossible for it to revolve without someone causing it to revolve. [That one is] He, blessed be He, who causes it to revolve without a hand or any [other] corporeal dimension.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">The knowledge of this concept is a positive commandment, as [implied by Exodus 20:2]: "I am God, your Lord...."Anyone who presumes that there is another god transgresses a negative commandment, as [Exodus 20:3] states: "You shall have no other gods before Me" and denies a fundamental principle [of faith], because this is the great principle [of faith] upon which all depends.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
   <div class="callout">
-    <div class="label">⚡ Halacha 6 — The Mitzvah</div>
-    Knowing this is a <strong>positive commandment</strong> (Exodus 20:2: "I am Hashem your God"). Anyone who entertains the idea that another god exists violates "You shall have no other gods."
+    <div class="label">⚡ Key Point</div>
+    Knowing God is a <strong>positive commandment</strong> (Exodus 20:2). Believing in another god violates "You shall have no other gods."
   </div>
 </div>
 
 <!-- SLIDE 5: Halacha 7 (Visual diagram) -->
 <div class="slide" data-slide="4">
+
   <div class="slide-num">5 / 9</div>
   <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">God is One</h2>
   <div class="subtitle">הלכה ז׳ · A unity unlike any other</div>
-  
-  <div class="hebrew" style="text-align:center;font-size:1.1rem;margin-bottom:1rem">
-    ה׳ זֶה — אֶחָד הוּא, וְאֵינוֹ שְׁנַיִם וְלֹא יֶתֶר עַל שְׁנַיִם, אֶלָּא אֶחָד
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">This God is one. He is not two or more, but one, unified in a manner which [surpasses] any unity that is found in the world; i.e., He is not one in the manner of a general category which includes many individual entities, nor one in the way that the body is divided into different portions and dimensions. Rather, He is unified, and there exists no unity similar to His in this world.If there were many gods, they would have body and form, because like entities are separated from each other only through the circumstances associated with body and form.Were the Creator to have body and form, He would have limitation and definition, because it is impossible for a body not to be limited. And any entity which itself is limited and defined [possesses] only limited and defined power. Since our God, blessed be His name, possesses unlimited power, as evidenced by the continuous revolution of the sphere, we see that His power is not the power of a body. Since He is not a body, the circumstances associated with bodies that produce division and separation are not relevant to Him. Therefore, it is impossible for Him to be anything other than one.The knowledge of this concept fulfills a positive commandment, as [implied by Deuteronomy 6:4]: "[Hear, Israel,] God is our Lord, God is one."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
   <div class="concept-grid">
     <div class="concept-card" style="border-color:#f4433640">
       <div class="icon">❌</div>
-      <h4 style="color:#f44336">Not "one" like a species</h4>
+      <h4 style="color:#f44336">Not like a species</h4>
       <p>Which includes many individuals</p>
     </div>
     <div class="concept-card" style="border-color:#f4433640">
       <div class="icon">❌</div>
-      <h4 style="color:#f44336">Not "one" like a body</h4>
+      <h4 style="color:#f44336">Not like a body</h4>
       <p>Which can be divided into parts</p>
     </div>
     <div class="concept-card" style="border-color:#f4433640">
       <div class="icon">❌</div>
-      <h4 style="color:#f44336">Not "one" like a simple number</h4>
+      <h4 style="color:#f44336">Not like a number</h4>
       <p>Which can be divided infinitely</p>
     </div>
     <div class="concept-card" style="border-color:#4caf5040">
       <div class="icon">✅</div>
       <h4 style="color:#4caf50">A unique unity</h4>
-      <p>That has no parallel in the world</p>
+      <p>No parallel in the world</p>
     </div>
-  </div>
-  
-  <div class="callout">
-    <div class="label">💡 Why This Matters</div>
-    The Rambam is saying: when we say "God is one," we don't mean what we normally mean by "one." Every other "one" thing is composed of parts, or is one instance of a type. God's oneness is <strong>absolutely unique</strong> — there's nothing to compare it to.
   </div>
 </div>
 
 <!-- SLIDE 6: Halachot 8-9 (Process steps) -->
 <div class="slide" data-slide="5">
+
   <div class="slide-num">6 / 9</div>
   <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">No Body, No Form</h2>
   <div class="subtitle">הלכות ח׳–ט׳ · Physical descriptions in Torah</div>
-  
-  <div class="debate">
-    <div class="debate-line">
-      <div class="speaker">🤔</div>
-      <div class="speech"><strong>Question:</strong> The Torah says "below His feet," "written by the finger of God," "the hand of God," "the eyes of God," "the ears of God." Does God have a body?</div>
-    </div>
-    <div class="debate-line right">
-      <div class="speaker" style="background:#4caf50">רמ</div>
-      <div class="speech"><strong>Rambam:</strong> Absolutely not. All of these are <strong>adapted to the understanding of humans</strong> — "the Torah speaks in the language of man." These are metaphors.</div>
-    </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ח׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">Behold, it is explicitly stated in the Torah and [the works of] the prophets that the Holy One, blessed be He, is not [confined to] a body or physical form, as [Deuteronomy 4:39, Joshua 2:11] states: "Because God, your Lord, is the Lord in the heavens above and the earth below," and a body cannot exist in two places [simultaneously].Also, [Deuteronomy 4:15] states: "For you did not see any image," and [Isaiah 40:25] states: "To whom can you liken Me, with whom I will be equal." Were He [confined to] a body, He would resemble other bodies.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
-  <div class="process-bar">
-    <div class="process-step">
-      <div class="num">📖</div>
-      <div class="step-title">Torah Says</div>
-      <div>"Hand of God"</div>
-    </div>
-    <div class="process-step highlight">
-      <div class="num">🔄</div>
-      <div class="step-title">Meaning</div>
-      <div>God's <strong>power</strong></div>
-    </div>
-    <div class="process-step">
-      <div class="num">📖</div>
-      <div class="step-title">Torah Says</div>
-      <div>"Eyes of God"</div>
-    </div>
-    <div class="process-step highlight">
-      <div class="num">🔄</div>
-      <div class="step-title">Meaning</div>
-      <div>God's <strong>awareness</strong></div>
-    </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ט׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">If so, what is the meaning of the expressions employed by the Torah: "Below His feet" [Exodus 24:10], "Written by the finger of God" [ibid. 31:18], "God's hand" [ibid. 9:3], "God's eyes" [Genesis 38:7], "God's ears" [Numbers 11:1], and the like?All these [expressions were used] to relate to human thought processes which know only corporeal imagery, for the Torah speaks in the language of man. They are only descriptive terms, as [apparent from Deuteronomy 32:41]: "I will whet My lightning sword." Does He have a sword? Does He need a sword to kill? Rather, this is metaphoric imagery. [Similarly,] all [such expressions] are metaphoric imagery.A proof of this concept: One prophet says that he saw the Holy One, blessed be He, "clothed in snow white" [Daniel 7:9], and another envisioned Him [coming] "with crimson garments from Batzra" [Isaiah 63:1]. Moses, our teacher, himself envisioned Him at the [Red] Sea as a mighty man, waging war, and, at Mount Sinai, [saw Him] as the leader of a congregation, wrapped [in a tallit].This shows that He has no image or form. All these are merely expressions of prophetic vision and imagery and the truth of this concept cannot be grasped or comprehended by human thought. This is what the verse [Job 11:7] states: "Can you find the comprehension of God? Can you find the ultimate bounds of the Almighty?"</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
   <div class="callout">
-    <div class="label">📜 Deuteronomy 4:15</div>
-    "You did not see any form" — on the day God spoke at Sinai, there was <strong>no form</strong>. This proves He has no body. If He did, He'd be limited and finite like all physical things.
+    <div class="label">📜 Key Principle</div>
+    <strong>דברה תורה כלשון בני אדם</strong> — "The Torah speaks in the language of man." Physical descriptions of God are <strong>metaphors</strong> adapted for human understanding.
   </div>
 </div>
 
 <!-- SLIDE 7: Halachot 10-12 (Debate + callout) -->
 <div class="slide" data-slide="6">
+
   <div class="slide-num">7 / 9</div>
   <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Moshe's Request</h2>
   <div class="subtitle">הלכות י׳–י״ב · What can we know about God?</div>
-  
-  <div class="debate">
-    <div class="debate-line">
-      <div class="speaker" style="background:#9c27b0">משה</div>
-      <div class="speech"><strong>"Please show me Your glory"</strong> (Exodus 33:18)<br><br>Moshe wanted to know God's <strong>true nature</strong> — to understand Him as clearly as recognizing a friend's face in a crowd.</div>
-    </div>
-    <div class="debate-line right">
-      <div class="speaker" style="background:#c9a84c">ה׳</div>
-      <div class="speech"><strong>"You cannot see My face, for no man can see Me and live"</strong> (Exodus 33:20)<br><br>A living human in a physical body <strong>cannot</strong> fully grasp God's essence.</div>
-    </div>
-    <div class="debate-line">
-      <div class="speaker" style="background:#4caf50">רמ</div>
-      <div class="speech">But God did reveal to Moshe what <strong>no one before or after</strong> attained — he understood God's nature like seeing someone from behind: you know it's them, but you can't see their face.</div>
-    </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">[If so,] what did Moses, our teacher, want to comprehend when he requested: "Please show me Your glory" [Exodus 33:18]?He asked to know the truth of the existence of the Holy One, blessed be He, to the extent that it could be internalized within his mind, as one knows a particular person whose face he saw and whose image has been engraved within one's heart. Thus, this person's [identity] is distinguished within one's mind from [that of] other men. Similarly, Moses, our teacher, asked that the existence of the Holy One, blessed be He, be distinguished in his mind from the existence of other entities, to the extent that he would know the truth of His existence as it is [in its own right].He, blessed be He, replied to him that it is not within the potential of a living man, [a creature of] body and soul, to comprehend this matter in its entirety. [Nevertheless,] He, blessed be He, revealed to [Moses] matters which no other man had known before him - nor would ever know afterward - until he was able to comprehend [enough] from the truth of His existence, for the Holy One, blessed be He, to be distinguished in his mind from other entities, as a person is distinguished from other men when one sees his back and knows the structure of his body and [the manner in which] he is clothed.This is alluded to by the verse [Exodus 33:23]: "You shall see My back, but you shall not see My face."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
-  
-  <div class="compare-row">
-    <div class="compare-box blue">
-      <h3>What Moshe Learned</h3>
-      <ul>
-        <li>God's attributes of action</li>
-        <li>How God relates to creation</li>
-        <li>More than any prophet ever knew</li>
-      </ul>
-    </div>
-    <div class="compare-box" style="border-top-color:#555">
-      <h3 style="color:#888">What Remains Hidden</h3>
-      <ul>
-        <li>God's essential nature</li>
-        <li>What He truly "is"</li>
-        <li>Beyond any human comprehension</li>
-      </ul>
-    </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״א׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">Since it has been clarified that He does not have a body or corporeal form, it is also clear that none of the functions of the body are appropriate to Him: neither connection nor separation, neither place nor measure, neither ascent nor descent, neither right nor left, neither front nor back, neither standing nor sitting.He is not found within time, so that He would possess a beginning, an end, or age. He does not change, for there is nothing that can cause Him to change.[The concept of] death is not applicable to Him, nor is [that of] life within the context of physical life. [The concept of] foolishness is not applicable to Him, nor is [that of] wisdom in terms of human wisdom.Neither sleep nor waking, neither anger nor laughter, neither joy nor sadness, neither silence nor speech in the human understanding of speech [are appropriate terms with which to describe Him]. Our Sages declared: "Above, there is no sitting or standing, separation or connection."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״ב׳</div>
+    <div class="halacha-he"></div>
+    <div class="halacha-en long">Since this is so, all such [descriptions] and the like which are related in the Torah and the words of the Prophets - all these are metaphors and imagery. [For example,] "He who sits in the heavens shall laugh" [Psalms 2:4], "They angered Me with their emptiness" [Deuteronomy 32:21], and "As God rejoiced" [ibid. 28:63]. With regard to all such statements, our Sages said: "The Torah speaks in the language of man."This is [borne out by the rhetorical question (Jeremiah 7:19 :] "Are they enraging Me?" Behold, [Malachi 3:6] states: "I, God, have not changed." Now were He to at times be enraged and at times be happy, He would change. Rather, all these matters are found only with regard to the dark and low bodies, those who dwell in houses of clay, whose foundation is dust. In contrast, He, blessed be He, is elevated and exalted above all this.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
   </div>
 </div>
 
@@ -409,6 +369,18 @@ strong,.gold{color:#c9a84c}
 </div>
 
 <script>
+
+function toggleExpand(btn) {
+  const card = btn.closest('.halacha-card');
+  const text = card.querySelector('.halacha-en');
+  if (text.classList.contains('expanded')) {
+    text.classList.remove('expanded');
+    btn.textContent = 'Read full text ▼';
+  } else {
+    text.classList.add('expanded');
+    btn.textContent = 'Show less ▲';
+  }
+}
 let cur=0;const total=9;
 function go(d){goTo(cur+d)}
 function goTo(n){
