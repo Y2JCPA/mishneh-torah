@@ -2,197 +2,412 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>יסודי התורה פרק א׳ — משנה תורה</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh;touch-action:pan-y}
-.nav-bar{position:fixed;top:0;left:0;right:0;background:#1a1a1a;border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
-.nav-bar a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
-.nav-bar .title{color:#a89060;font-size:0.85rem}
-.slide-container{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
-.slide{display:none;min-height:100%;max-width:700px;margin:0 auto}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
 .slide.active{display:block}
-.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
 .arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
 .arrow:hover{background:#c9a84c;color:#1a1a1a}
 .arrow:disabled{opacity:0.3;cursor:default}
 .dots{display:flex;gap:6px}
 .dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
 .dot.active{background:#c9a84c;transform:scale(1.3)}
-.counter{color:#888;font-size:0.8rem}
-strong{color:#c9a84c}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
 </style>
 </head>
 <body>
-<div class="nav-bar">
+<div class="nav">
   <a href="../">← יסודי התורה</a>
   <span class="title">פרק א׳ · Chapter 1</span>
 </div>
-<div class="slide-container">
-  <div class="slide active" data-slide="0">
-    <div style="text-align:center;padding:2rem 1rem">
-      <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
-      <h1 style="font-size:2.2rem;color:#c9a84c;margin-bottom:0.5rem">הלכות יסודי התורה</h1>
-      <h2 style="font-size:1.3rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
-      <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
-      <div style="font-size:1.8rem;color:#c9a84c;margin-bottom:0.5rem">פרק א׳</div>
-      <div style="font-size:1rem;color:#888">Chapter 1 · 12 Halachot</div>
-      <div style="margin-top:2rem;padding:1rem;background:#c9a84c15;border-radius:8px;border:1px solid #c9a84c30">
-        <div style="color:#a89060;font-size:0.9rem">The existence, unity, and incorporeality of God — the most fundamental principles of Judaism</div>
+<div class="slide-wrap">
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק א׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 1 · 12 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">
+        🌟 God's existence — the ultimate foundation<br>
+        ⚡ The mitzvah to know God<br>
+        ☝️ Absolute divine unity<br>
+        🔮 God has no body or form<br>
+        📜 Torah speaks in human language
       </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="1">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.3rem;margin-bottom:1rem;text-align:center">📍 Where We Are</h2>
-      <div style="background:#222;border:1px solid #333;border-radius:10px;padding:1.2rem;margin-bottom:1rem">
-        <div style="color:#a89060;font-size:0.85rem;margin-bottom:0.5rem">THE STRUCTURE</div>
-        <div style="color:#e0d5c1;font-size:0.95rem;line-height:1.6">
-          The Rambam opens his entire Mishneh Torah with the most basic question: <strong style="color:#c9a84c">Does God exist?</strong><br><br>
-          Before any halacha about Shabbat, kashrus, or prayer, he establishes the philosophical foundation everything rests on.
-        </div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:10px;padding:1.2rem">
-        <div style="color:#a89060;font-size:0.85rem;margin-bottom:0.5rem">THIS CHAPTER COVERS</div>
-        <div style="display:grid;gap:0.5rem">
-          <div style="display:flex;gap:0.5rem;align-items:start"><span style="color:#c9a84c">①</span><span style="color:#e0d5c1;font-size:0.9rem">God's existence is the foundation of all foundations (הלכות א-ד)</span></div>
-          <div style="display:flex;gap:0.5rem;align-items:start"><span style="color:#c9a84c">②</span><span style="color:#e0d5c1;font-size:0.9rem">Knowing God is a positive mitzvah (הלכות ה-ו)</span></div>
-          <div style="display:flex;gap:0.5rem;align-items:start"><span style="color:#c9a84c">③</span><span style="color:#e0d5c1;font-size:0.9rem">God is One — absolute unity (הלכה ז)</span></div>
-          <div style="display:flex;gap:0.5rem;align-items:start"><span style="color:#c9a84c">④</span><span style="color:#e0d5c1;font-size:0.9rem">God has no body or form (הלכות ח-י״ב)</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="2">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.2rem;margin-bottom:0.3rem;text-align:center">God's Existence</h2>
-      <div style="color:#888;font-size:0.85rem;text-align:center;margin-bottom:1rem">הלכות א-ג</div>
-      
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה א׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">The foundation of all foundations and the pillar of wisdom is to know that there is a Primary Being who brought into being all existence. All the beings of the heavens, the earth, and what is between ...</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ב׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">If one would imagine that He does not exist, no other being could possibly exist....</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ג׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">If one would imagine that none of the entities aside from Him exist, He alone would continue to exist, and the nullification of their [existence] would not nullify His existence, because all the [othe...</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="3">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.2rem;margin-bottom:0.3rem;text-align:center">True Existence & Power</h2>
-      <div style="color:#888;font-size:0.85rem;text-align:center;margin-bottom:1rem">הלכות ד-ה</div>
-      
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ד׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem"></div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">This is implied by the prophet's statement [Jeremiah 10:10]: "And God, your Lord, is true" - i.e., He alone is true and no other entity possesses truth that compares to His truth. This is what [is meant by] the Torah's statement [Deuteronomy 4:35]: "There is nothing else aside from Him" - i.e., aside from Him, there is no true existence like His.</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ה׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem"></div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">This entity is the God of the world and the Lord of the entire earth. He controls the sphere with infinite and unbounded power. This power [continues] without interruption, because the sphere is constantly revolving, and it is impossible for it to revolve without someone causing it to revolve. [That one is] He, blessed be He, who causes it to revolve without a hand or any [other] corporeal dimension.</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="4">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.2rem;margin-bottom:0.3rem;text-align:center">The Mitzvah & Unity</h2>
-      <div style="color:#888;font-size:0.85rem;text-align:center;margin-bottom:1rem">הלכות ו-ז</div>
-      
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ו׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">The knowledge of this concept is a positive commandment, as [implied by Exodus 20:2]: "I am God, your Lord...."Anyone who presumes that there is another god transgresses a negative commandment, as [Exodus 20:3] states: "You shall have no other gods b...</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ז׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">This God is one. He is not two or more, but one, unified in a manner which [surpasses] any unity that is found in the world; i.e., He is not one in the manner of a general category which includes many individual entities, nor one in the way that the ...</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="5">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.2rem;margin-bottom:0.3rem;text-align:center">God Has No Body</h2>
-      <div style="color:#888;font-size:0.85rem;text-align:center;margin-bottom:1rem">הלכות ח-ט</div>
-      
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ח׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">Behold, it is explicitly stated in the Torah and [the works of] the prophets that the Holy One, blessed be He, is not [confined to] a body or physical form, as [Deuteronomy 4:39, Joshua 2:11] states: "Because God, your Lord, is the Lord in the heaven...</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה ט׳</div>
-        <div style="color:#a89060;font-size:0.85rem;line-height:1.5;direction:rtl;margin-bottom:0.5rem">...</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">If so, what is the meaning of the expressions employed by the Torah: "Below His feet" [Exodus 24:10], "Written by the finger of God" [ibid. 31:18], "God's hand" [ibid. 9:3], "God's eyes" [Genesis 38:7], "God's ears" [Numbers 11:1], and the like?All t...</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="6">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.2rem;margin-bottom:0.3rem;text-align:center">Understanding God's Ways</h2>
-      <div style="color:#888;font-size:0.85rem;text-align:center;margin-bottom:1rem">הלכות י-י״ב</div>
-      
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה י׳</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">[If so,] what did Moses, our teacher, want to comprehend when he requested: "Please show me Your glory" [Exodus 33:18]?He asked to know the truth of the existence of the Holy One, blessed be He, to th...</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה י״א׳</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">Since it has been clarified that He does not have a body or corporeal form, it is also clear that none of the functions of the body are appropriate to Him: neither connection nor separation, neither p...</div>
-      </div>
-      <div style="background:#222;border:1px solid #333;border-radius:8px;padding:1rem;margin-bottom:0.8rem">
-        <div style="color:#c9a84c;font-size:0.8rem;margin-bottom:0.4rem">הלכה י״ב׳</div>
-        <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">Since this is so, all such [descriptions] and the like which are related in the Torah and the words of the Prophets - all these are metaphors and imagery. [For example,] "He who sits in the heavens sh...</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="7">
-    <div style="padding:1.5rem 1rem">
-      <h2 style="color:#c9a84c;font-size:1.3rem;margin-bottom:1.2rem;text-align:center">💡 Key Principles</h2>
-      <div style="display:grid;gap:1rem">
-        <div style="background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1.2rem">
-          <div style="color:#c9a84c;font-size:1rem;margin-bottom:0.4rem">① יסוד היסודות</div>
-          <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">God's existence is the <strong>foundation of all foundations</strong>. Without it, nothing else in Torah has meaning. This is why the Rambam starts here.</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1.2rem">
-          <div style="color:#c9a84c;font-size:1rem;margin-bottom:0.4rem">② Necessary vs. Contingent</div>
-          <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">God is the only <strong>necessary being</strong> — everything else could theoretically not exist. God cannot not exist. This is what "true existence" means.</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1.2rem">
-          <div style="color:#c9a84c;font-size:1rem;margin-bottom:0.4rem">③ Absolute Unity</div>
-          <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">God's oneness isn't like "one apple." It's a <strong>unique, incomparable unity</strong> — no parts, no body, no division.</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1.2rem">
-          <div style="color:#c9a84c;font-size:1rem;margin-bottom:0.4rem">④ Torah Speaks in Human Language</div>
-          <div style="color:#e0d5c1;font-size:0.9rem;line-height:1.5">Physical descriptions of God ("hand of God," "eyes of God") are <strong>metaphors</strong> for human understanding, not literal descriptions.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide" data-slide="8">
-    <div style="padding:2rem 1rem;text-align:center">
-      <div style="font-size:3rem;margin-bottom:1rem">🎓</div>
-      <h2 style="color:#c9a84c;font-size:1.5rem;margin-bottom:1rem">Test Your Knowledge</h2>
-      <p style="color:#888;margin-bottom:2rem">3 questions on הלכות יסודי התורה פרק א׳</p>
-      <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:0.8rem 2rem;border-radius:8px;text-decoration:none;font-weight:bold;font-size:1.1rem">Start Quiz →</a>
     </div>
   </div>
 </div>
+
+<!-- SLIDE 2: OVERVIEW (Flowchart) -->
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">The Chapter's Structure</h2>
+  <div class="subtitle">How the Rambam builds his argument</div>
+  <div class="flowchart">
+    <div class="flow-box highlight">🏗️ <strong>Foundation</strong><br><span style="font-size:0.8rem">There exists a Primary Being</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box question">🤔 <strong>What if He didn't exist?</strong><br><span style="font-size:0.8rem">Nothing else could exist either</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box action">⚡ <strong>True vs. Contingent</strong><br><span style="font-size:0.8rem">Only God's existence is necessary</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box result-good">✅ <strong>Mitzvah to Know</strong><br><span style="font-size:0.8rem">"I am Hashem your God"</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-branch">
+      <div class="flow-box" style="border-color:#9c27b0">☝️ <strong>Unity</strong><br><span style="font-size:0.8rem">Not like any other "one"</span></div>
+      <div class="flow-box" style="border-color:#ff9800">🔮 <strong>No Body</strong><br><span style="font-size:0.8rem">All physical terms = metaphor</span></div>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="label">💡 Why This Order?</div>
+    The Rambam doesn't start with Shabbat or kashrus. He starts with <strong>why anything matters at all</strong> — if God doesn't exist, there's no Torah, no mitzvot, nothing. This is literally the foundation of foundations.
+  </div>
+</div>
+
+<!-- SLIDE 3: Halachot 1-3 (Debate bubbles) -->
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">God's Existence</h2>
+  <div class="subtitle">הלכות א׳–ג׳ · The Foundation of Foundations</div>
+  
+  <div class="hebrew" style="text-align:center;font-size:1.1rem">
+    יְסוֹד הַיְסוֹדוֹת וְעַמּוּד הַחׇכְמוֹת — לֵידַע שֶׁיֵּשׁ שָׁם מָצוּי רִאשׁוֹן
+  </div>
+  
+  <div class="debate">
+    <div class="debate-line">
+      <div class="speaker">ה׳א</div>
+      <div class="speech">There is a <strong>Primary Being</strong> who brought into existence everything that exists. All things in heaven and earth exist only through His true existence.</div>
+    </div>
+    <div class="debate-line right">
+      <div class="speaker" style="background:#ff9800">ה׳ב</div>
+      <div class="speech">If one would imagine that He does <strong>not exist</strong> — no other being could possibly exist.</div>
+    </div>
+    <div class="debate-line">
+      <div class="speaker" style="background:#4caf50">ה׳ג</div>
+      <div class="speech">If one would imagine that <strong>nothing else</strong> existed — He alone would continue to exist. He does <strong>not need any of them</strong>, but they all need Him.</div>
+    </div>
+  </div>
+  
+  <div class="callout">
+    <div class="label">🔑 The Logic</div>
+    The Rambam builds a philosophical proof in 3 steps: God exists → Without Him nothing can exist → Without everything else, He still exists. This proves God is the only <strong>necessary being</strong>.
+  </div>
+</div>
+
+<!-- SLIDE 4: Halachot 4-6 (Comparison boxes) -->
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">True Existence & The Mitzvah</h2>
+  <div class="subtitle">הלכות ד׳–ו׳ · What makes God's existence unique</div>
+  
+  <div class="compare-row">
+    <div class="compare-box green">
+      <h3>🟢 God's Existence</h3>
+      <ul>
+        <li><strong>Necessary</strong> — cannot not exist</li>
+        <li>Not dependent on anything</li>
+        <li>"True existence" (אמיתת הימצאו)</li>
+        <li>Infinite, unbounded power</li>
+      </ul>
+    </div>
+    <div class="compare-box red">
+      <h3>🔴 Everything Else</h3>
+      <ul>
+        <li><strong>Contingent</strong> — could not exist</li>
+        <li>Depends on God</li>
+        <li>"Borrowed" existence</li>
+        <li>Limited, finite</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="visual-box">
+    <div style="color:#c9a84c;font-size:0.85rem;margin-bottom:0.8rem">Jeremiah 10:10</div>
+    <div class="hebrew" style="border:none;background:transparent;padding:0;margin:0;font-size:1.2rem">
+      וַה׳ אֱלֹקִים אֱמֶת
+    </div>
+    <div style="color:#e0d5c1;font-size:0.95rem;margin-top:0.5rem">"And God, your Lord, is <strong>true</strong>"</div>
+    <div style="color:#888;font-size:0.85rem;margin-top:0.3rem">He alone is true — nothing else possesses truth like His truth</div>
+  </div>
+  
+  <div class="callout">
+    <div class="label">⚡ Halacha 6 — The Mitzvah</div>
+    Knowing this is a <strong>positive commandment</strong> (Exodus 20:2: "I am Hashem your God"). Anyone who entertains the idea that another god exists violates "You shall have no other gods."
+  </div>
+</div>
+
+<!-- SLIDE 5: Halacha 7 (Visual diagram) -->
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">God is One</h2>
+  <div class="subtitle">הלכה ז׳ · A unity unlike any other</div>
+  
+  <div class="hebrew" style="text-align:center;font-size:1.1rem;margin-bottom:1rem">
+    ה׳ זֶה — אֶחָד הוּא, וְאֵינוֹ שְׁנַיִם וְלֹא יֶתֶר עַל שְׁנַיִם, אֶלָּא אֶחָד
+  </div>
+  
+  <div class="concept-grid">
+    <div class="concept-card" style="border-color:#f4433640">
+      <div class="icon">❌</div>
+      <h4 style="color:#f44336">Not "one" like a species</h4>
+      <p>Which includes many individuals</p>
+    </div>
+    <div class="concept-card" style="border-color:#f4433640">
+      <div class="icon">❌</div>
+      <h4 style="color:#f44336">Not "one" like a body</h4>
+      <p>Which can be divided into parts</p>
+    </div>
+    <div class="concept-card" style="border-color:#f4433640">
+      <div class="icon">❌</div>
+      <h4 style="color:#f44336">Not "one" like a simple number</h4>
+      <p>Which can be divided infinitely</p>
+    </div>
+    <div class="concept-card" style="border-color:#4caf5040">
+      <div class="icon">✅</div>
+      <h4 style="color:#4caf50">A unique unity</h4>
+      <p>That has no parallel in the world</p>
+    </div>
+  </div>
+  
+  <div class="callout">
+    <div class="label">💡 Why This Matters</div>
+    The Rambam is saying: when we say "God is one," we don't mean what we normally mean by "one." Every other "one" thing is composed of parts, or is one instance of a type. God's oneness is <strong>absolutely unique</strong> — there's nothing to compare it to.
+  </div>
+</div>
+
+<!-- SLIDE 6: Halachot 8-9 (Process steps) -->
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">No Body, No Form</h2>
+  <div class="subtitle">הלכות ח׳–ט׳ · Physical descriptions in Torah</div>
+  
+  <div class="debate">
+    <div class="debate-line">
+      <div class="speaker">🤔</div>
+      <div class="speech"><strong>Question:</strong> The Torah says "below His feet," "written by the finger of God," "the hand of God," "the eyes of God," "the ears of God." Does God have a body?</div>
+    </div>
+    <div class="debate-line right">
+      <div class="speaker" style="background:#4caf50">רמ</div>
+      <div class="speech"><strong>Rambam:</strong> Absolutely not. All of these are <strong>adapted to the understanding of humans</strong> — "the Torah speaks in the language of man." These are metaphors.</div>
+    </div>
+  </div>
+  
+  <div class="process-bar">
+    <div class="process-step">
+      <div class="num">📖</div>
+      <div class="step-title">Torah Says</div>
+      <div>"Hand of God"</div>
+    </div>
+    <div class="process-step highlight">
+      <div class="num">🔄</div>
+      <div class="step-title">Meaning</div>
+      <div>God's <strong>power</strong></div>
+    </div>
+    <div class="process-step">
+      <div class="num">📖</div>
+      <div class="step-title">Torah Says</div>
+      <div>"Eyes of God"</div>
+    </div>
+    <div class="process-step highlight">
+      <div class="num">🔄</div>
+      <div class="step-title">Meaning</div>
+      <div>God's <strong>awareness</strong></div>
+    </div>
+  </div>
+  
+  <div class="callout">
+    <div class="label">📜 Deuteronomy 4:15</div>
+    "You did not see any form" — on the day God spoke at Sinai, there was <strong>no form</strong>. This proves He has no body. If He did, He'd be limited and finite like all physical things.
+  </div>
+</div>
+
+<!-- SLIDE 7: Halachot 10-12 (Debate + callout) -->
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Moshe's Request</h2>
+  <div class="subtitle">הלכות י׳–י״ב · What can we know about God?</div>
+  
+  <div class="debate">
+    <div class="debate-line">
+      <div class="speaker" style="background:#9c27b0">משה</div>
+      <div class="speech"><strong>"Please show me Your glory"</strong> (Exodus 33:18)<br><br>Moshe wanted to know God's <strong>true nature</strong> — to understand Him as clearly as recognizing a friend's face in a crowd.</div>
+    </div>
+    <div class="debate-line right">
+      <div class="speaker" style="background:#c9a84c">ה׳</div>
+      <div class="speech"><strong>"You cannot see My face, for no man can see Me and live"</strong> (Exodus 33:20)<br><br>A living human in a physical body <strong>cannot</strong> fully grasp God's essence.</div>
+    </div>
+    <div class="debate-line">
+      <div class="speaker" style="background:#4caf50">רמ</div>
+      <div class="speech">But God did reveal to Moshe what <strong>no one before or after</strong> attained — he understood God's nature like seeing someone from behind: you know it's them, but you can't see their face.</div>
+    </div>
+  </div>
+  
+  <div class="compare-row">
+    <div class="compare-box blue">
+      <h3>What Moshe Learned</h3>
+      <ul>
+        <li>God's attributes of action</li>
+        <li>How God relates to creation</li>
+        <li>More than any prophet ever knew</li>
+      </ul>
+    </div>
+    <div class="compare-box" style="border-top-color:#555">
+      <h3 style="color:#888">What Remains Hidden</h3>
+      <ul>
+        <li>God's essential nature</li>
+        <li>What He truly "is"</li>
+        <li>Beyond any human comprehension</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: KEY PRINCIPLES (Summary) -->
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The four pillars of Chapter 1</div>
+  
+  <div class="flowchart" style="gap:0.8rem">
+    <div class="flow-box highlight" style="width:100%;max-width:100%">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem">🏗️</div>
+      <strong>יסוד היסודות</strong><br>
+      <span style="font-size:0.9rem">God's existence is the foundation of everything. Without it, nothing — no Torah, no world, no meaning — can exist. This is why the Rambam starts here.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem">⚡</div>
+      <strong>Necessary vs. Contingent</strong><br>
+      <span style="font-size:0.9rem">Only God's existence is necessary. Everything else is contingent — it exists because God wills it. Remove God, remove everything.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem">☝️</div>
+      <strong>Absolute Unity</strong><br>
+      <span style="font-size:0.9rem">God's oneness is unique — no parts, no body, no division. Not "one" like anything else in creation.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem">📜</div>
+      <strong>דברה תורה כלשון בני אדם</strong><br>
+      <span style="font-size:0.9rem">The Torah speaks in human language. All physical descriptions of God are metaphors — adapted for human understanding.</span>
+    </div>
+  </div>
+  
+  <div style="text-align:center;margin-top:1rem;padding:0.8rem;background:#c9a84c15;border-radius:8px">
+    <span style="color:#a89060;font-size:0.85rem">יסודי התורה א׳ · Foundations of the Torah Ch.1</span>
+  </div>
+</div>
+
+<!-- SLIDE 9: QUIZ CTA -->
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem;font-size:1rem">יסודי התורה פרק א׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem;transition:all 0.2s">Start Quiz →</a>
+  </div>
+</div>
+
+</div>
+
 <div class="controls">
   <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
   <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
   <button class="arrow" id="next" onclick="go(1)">←</button>
 </div>
+
 <script>
 let cur=0;const total=9;
 function go(d){goTo(cur+d)}
@@ -205,7 +420,7 @@ function goTo(n){
   cur=n;
   document.getElementById('prev').disabled=cur===0;
   document.getElementById('next').disabled=cur===total-1;
-  document.querySelector('.slide-container').scrollTop=0;
+  document.querySelector('.slide-wrap').scrollTop=0;
 }
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
 let tx=0;
