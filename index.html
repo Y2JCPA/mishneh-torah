@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משנה תורה — Visual Study Guides</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a1a1a 0%,#2a2520 100%);border-bottom:2px solid #c9a84c;padding:2rem 1rem;text-align:center}
+.header h1{font-size:2.5rem;color:#c9a84c;margin-bottom:0.3rem;font-weight:700}
+.header .subtitle{font-size:1.1rem;color:#a89060;margin-bottom:0.5rem}
+.header .stats{font-size:0.9rem;color:#888;margin-top:0.5rem}
+.container{max-width:900px;margin:0 auto;padding:1rem}
+.sefer{margin:1.5rem 0;border:1px solid #333;border-radius:12px;overflow:hidden;background:#222}
+.sefer-header{background:linear-gradient(90deg,#2a2520,#1a1a1a);padding:1rem 1.2rem;cursor:pointer;display:flex;align-items:center;gap:0.8rem;border-bottom:1px solid #333}
+.sefer-header:hover{background:#2a2520}
+.sefer-icon{font-size:1.8rem}
+.sefer-title{flex:1}
+.sefer-title h2{color:#c9a84c;font-size:1.3rem;margin-bottom:0.15rem}
+.sefer-title .he-title{color:#a89060;font-size:1rem}
+.sefer-count{color:#666;font-size:0.85rem;white-space:nowrap}
+.sefer-body{padding:0.5rem}
+.section{display:flex;align-items:center;padding:0.7rem 1rem;margin:0.3rem;border-radius:8px;text-decoration:none;color:#e0d5c1;transition:all 0.2s;border:1px solid transparent}
+.section:hover{background:#2a2520;border-color:#c9a84c40}
+.section-info{flex:1}
+.section-name{font-size:1rem;color:#e0d5c1}
+.section-he{font-size:0.9rem;color:#a89060;margin-top:0.1rem}
+.section-chapters{color:#666;font-size:0.85rem;white-space:nowrap;margin-right:1rem}
+.progress-bar{width:60px;height:6px;background:#333;border-radius:3px;overflow:hidden;margin-right:0.5rem}
+.progress-fill{height:100%;background:#c9a84c;border-radius:3px;width:0%}
+.badge{display:inline-block;background:#c9a84c20;color:#c9a84c;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.75rem;margin-right:0.5rem}
+.footer{text-align:center;padding:2rem 1rem;color:#555;font-size:0.85rem;border-top:1px solid #333;margin-top:2rem}
+.footer a{color:#c9a84c;text-decoration:none}
+@media(max-width:600px){
+  .header h1{font-size:1.8rem}
+  .sefer-header{padding:0.8rem}
+  .section{padding:0.6rem 0.8rem}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>משנה תורה</h1>
+  <div class="subtitle">Mishneh Torah — Visual Study Guides</div>
+  <div class="stats">14 ספרים · 83 הלכות · 1006 פרקים</div>
+</div>
+<div class="container">
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">📖</span>
+    <div class="sefer-title">
+      <h2>Sefer Madda</h2>
+      <div class="he-title">ספר מדע</div>
+    </div>
+    <span class="sefer-count">46 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="madda/foundations-of-the-torah/" class="section">
+      <div class="section-info">
+        <div class="section-name">Foundations of the Torah</div>
+        <div class="section-he">הלכות יסודי התורה</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="madda/human-dispositions/" class="section">
+      <div class="section-info">
+        <div class="section-name">Human Dispositions</div>
+        <div class="section-he">הלכות דעות</div>
+      </div>
+      <span class="section-chapters">7 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="madda/torah-study/" class="section">
+      <div class="section-info">
+        <div class="section-name">Torah Study</div>
+        <div class="section-he">הלכות תלמוד תורה</div>
+      </div>
+      <span class="section-chapters">7 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="madda/foreign-worship-and-customs-of-the-nations/" class="section">
+      <div class="section-info">
+        <div class="section-name">Foreign Worship and Customs of the Nations</div>
+        <div class="section-he">הלכות עבודה זרה וחוקות הגויים</div>
+      </div>
+      <span class="section-chapters">12 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="madda/repentance/" class="section">
+      <div class="section-info">
+        <div class="section-name">Repentance</div>
+        <div class="section-he">הלכות תשובה</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">❤️</span>
+    <div class="sefer-title">
+      <h2>Sefer Ahavah</h2>
+      <div class="he-title">ספר אהבה</div>
+    </div>
+    <span class="sefer-count">51 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="ahavah/reading-the-shema/" class="section">
+      <div class="section-info">
+        <div class="section-name">Reading the Shema</div>
+        <div class="section-he">הלכות קריאת שמע</div>
+      </div>
+      <span class="section-chapters">4 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/prayer-and-the-priestly-blessing/" class="section">
+      <div class="section-info">
+        <div class="section-name">Prayer and the Priestly Blessing</div>
+        <div class="section-he">הלכות תפילה וברכת כהנים</div>
+      </div>
+      <span class="section-chapters">15 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/tefillin-mezuzah-and-the-torah-scroll/" class="section">
+      <div class="section-info">
+        <div class="section-name">Tefillin, Mezuzah and the Torah Scroll</div>
+        <div class="section-he">הלכות תפילין ומזוזה וספר תורה</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/fringes/" class="section">
+      <div class="section-info">
+        <div class="section-name">Fringes</div>
+        <div class="section-he">הלכות ציצית</div>
+      </div>
+      <span class="section-chapters">3 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/blessings/" class="section">
+      <div class="section-info">
+        <div class="section-name">Blessings</div>
+        <div class="section-he">הלכות ברכות</div>
+      </div>
+      <span class="section-chapters">11 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/circumcision/" class="section">
+      <div class="section-info">
+        <div class="section-name">Circumcision</div>
+        <div class="section-he">הלכות מילה</div>
+      </div>
+      <span class="section-chapters">3 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="ahavah/the-order-of-prayer/" class="section">
+      <div class="section-info">
+        <div class="section-name">The Order of Prayer</div>
+        <div class="section-he">סדר התפילה</div>
+      </div>
+      <span class="section-chapters">5 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">📅</span>
+    <div class="sefer-title">
+      <h2>Sefer Zemanim</h2>
+      <div class="he-title">ספר זמנים</div>
+    </div>
+    <span class="sefer-count">98 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="zemanim/sabbath/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sabbath</div>
+        <div class="section-he">הלכות שבת</div>
+      </div>
+      <span class="section-chapters">30 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/eruvin/" class="section">
+      <div class="section-info">
+        <div class="section-name">Eruvin</div>
+        <div class="section-he">הלכות עירובין</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/rest-on-the-tenth-of-tishrei/" class="section">
+      <div class="section-info">
+        <div class="section-name">Rest on the Tenth of Tishrei</div>
+        <div class="section-he">הלכות שביתת עשור</div>
+      </div>
+      <span class="section-chapters">3 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/rest-on-a-holiday/" class="section">
+      <div class="section-info">
+        <div class="section-name">Rest on a Holiday</div>
+        <div class="section-he">הלכות שביתת יום טוב</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/leavened-and-unleavened-bread/" class="section">
+      <div class="section-info">
+        <div class="section-name">Leavened and Unleavened Bread</div>
+        <div class="section-he">הלכות חמץ ומצה</div>
+      </div>
+      <span class="section-chapters">9 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/shofar-sukkah-and-lulav/" class="section">
+      <div class="section-info">
+        <div class="section-name">Shofar, Sukkah and Lulav</div>
+        <div class="section-he">הלכות שופר וסוכה ולולב</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/sheqel-dues/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sheqel Dues</div>
+        <div class="section-he">הלכות שקלים</div>
+      </div>
+      <span class="section-chapters">4 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/sanctification-of-the-new-month/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sanctification of the New Month</div>
+        <div class="section-he">הלכות קידוש החודש</div>
+      </div>
+      <span class="section-chapters">19 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/fasts/" class="section">
+      <div class="section-info">
+        <div class="section-name">Fasts</div>
+        <div class="section-he">הלכות תעניות</div>
+      </div>
+      <span class="section-chapters">5 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zemanim/scroll-of-esther-and-hanukkah/" class="section">
+      <div class="section-info">
+        <div class="section-name">Scroll of Esther and Hanukkah</div>
+        <div class="section-he">הלכות מגילה וחנוכה</div>
+      </div>
+      <span class="section-chapters">4 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">💍</span>
+    <div class="sefer-title">
+      <h2>Sefer Nashim</h2>
+      <div class="he-title">ספר נשים</div>
+    </div>
+    <span class="sefer-count">53 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="nashim/marriage/" class="section">
+      <div class="section-info">
+        <div class="section-name">Marriage</div>
+        <div class="section-he">הלכות אישות</div>
+      </div>
+      <span class="section-chapters">25 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nashim/divorce/" class="section">
+      <div class="section-info">
+        <div class="section-name">Divorce</div>
+        <div class="section-he">הלכות גירושין</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nashim/levirate-marriage-and-release/" class="section">
+      <div class="section-info">
+        <div class="section-name">Levirate Marriage and Release</div>
+        <div class="section-he">הלכות יבום וחליצה</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nashim/virgin-maiden/" class="section">
+      <div class="section-info">
+        <div class="section-name">Virgin Maiden</div>
+        <div class="section-he">הלכות נערה בתולה</div>
+      </div>
+      <span class="section-chapters">3 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nashim/woman-suspected-of-infidelity/" class="section">
+      <div class="section-info">
+        <div class="section-name">Woman Suspected of Infidelity</div>
+        <div class="section-he">הלכות סוטה</div>
+      </div>
+      <span class="section-chapters">4 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">✡️</span>
+    <div class="sefer-title">
+      <h2>Sefer Kedushah</h2>
+      <div class="he-title">ספר קדושה</div>
+    </div>
+    <span class="sefer-count">53 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="kedushah/forbidden-intercourse/" class="section">
+      <div class="section-info">
+        <div class="section-name">Forbidden Intercourse</div>
+        <div class="section-he">הלכות איסורי ביאה</div>
+      </div>
+      <span class="section-chapters">22 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kedushah/forbidden-foods/" class="section">
+      <div class="section-info">
+        <div class="section-name">Forbidden Foods</div>
+        <div class="section-he">הלכות מאכלות אסורות</div>
+      </div>
+      <span class="section-chapters">17 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kedushah/ritual-slaughter/" class="section">
+      <div class="section-info">
+        <div class="section-name">Ritual Slaughter</div>
+        <div class="section-he">הלכות שחיטה</div>
+      </div>
+      <span class="section-chapters">14 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">🤝</span>
+    <div class="sefer-title">
+      <h2>Sefer Haflaah</h2>
+      <div class="he-title">ספר הפלאה</div>
+    </div>
+    <span class="sefer-count">43 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="haflaah/oaths/" class="section">
+      <div class="section-info">
+        <div class="section-name">Oaths</div>
+        <div class="section-he">הלכות שבועות</div>
+      </div>
+      <span class="section-chapters">12 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="haflaah/vows/" class="section">
+      <div class="section-info">
+        <div class="section-name">Vows</div>
+        <div class="section-he">הלכות נדרים</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="haflaah/nazariteship/" class="section">
+      <div class="section-info">
+        <div class="section-name">Nazariteship</div>
+        <div class="section-he">הלכות נזירות</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="haflaah/appraisals-and-devoted-property/" class="section">
+      <div class="section-info">
+        <div class="section-name">Appraisals and Devoted Property</div>
+        <div class="section-he">הלכות ערכים וחרמין</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">🌱</span>
+    <div class="sefer-title">
+      <h2>Sefer Zeraim</h2>
+      <div class="he-title">ספר זרעים</div>
+    </div>
+    <span class="sefer-count">85 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="zeraim/diverse-species/" class="section">
+      <div class="section-info">
+        <div class="section-name">Diverse Species</div>
+        <div class="section-he">הלכות כלאים</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/gifts-to-the-poor/" class="section">
+      <div class="section-info">
+        <div class="section-name">Gifts to the Poor</div>
+        <div class="section-he">הלכות מתנות עניים</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/heave-offerings/" class="section">
+      <div class="section-info">
+        <div class="section-name">Heave Offerings</div>
+        <div class="section-he">הלכות תרומות</div>
+      </div>
+      <span class="section-chapters">15 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/tithes/" class="section">
+      <div class="section-info">
+        <div class="section-name">Tithes</div>
+        <div class="section-he">הלכות מעשרות</div>
+      </div>
+      <span class="section-chapters">14 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/second-tithes-and-fourth-year-s-fruit/" class="section">
+      <div class="section-info">
+        <div class="section-name">Second Tithes and Fourth Year's Fruit</div>
+        <div class="section-he">הלכות מעשר שני ונטע רבעי</div>
+      </div>
+      <span class="section-chapters">11 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/first-fruits-and-other-gifts-to-priests-outside-the-sanctuary/" class="section">
+      <div class="section-info">
+        <div class="section-name">First Fruits and other Gifts to Priests Outside the Sanctuary</div>
+        <div class="section-he">הלכות ביכורים ושאר מתנות כהונה שבגבולין</div>
+      </div>
+      <span class="section-chapters">12 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="zeraim/sabbatical-year-and-the-jubilee/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sabbatical Year and the Jubilee</div>
+        <div class="section-he">הלכות שמיטה ויובל</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">🏛️</span>
+    <div class="sefer-title">
+      <h2>Sefer Avodah</h2>
+      <div class="he-title">ספר עבודה</div>
+    </div>
+    <span class="sefer-count">95 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="avodah/the-chosen-temple/" class="section">
+      <div class="section-info">
+        <div class="section-name">The Chosen Temple</div>
+        <div class="section-he">הלכות בית הבחירה</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/vessels-of-the-sanctuary-and-those-who-serve-therein/" class="section">
+      <div class="section-info">
+        <div class="section-name">Vessels of the Sanctuary and Those Who Serve Therein</div>
+        <div class="section-he">הלכות כלי המקדש והעובדין בו</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/admission-into-the-sanctuary/" class="section">
+      <div class="section-info">
+        <div class="section-name">Admission into the Sanctuary</div>
+        <div class="section-he">הלכות ביאת מקדש</div>
+      </div>
+      <span class="section-chapters">9 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/things-forbidden-on-the-altar/" class="section">
+      <div class="section-info">
+        <div class="section-name">Things Forbidden on the Altar</div>
+        <div class="section-he">הלכות איסורי המזבח</div>
+      </div>
+      <span class="section-chapters">7 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/sacrificial-procedure/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sacrificial Procedure</div>
+        <div class="section-he">הלכות מעשה הקרבנות</div>
+      </div>
+      <span class="section-chapters">19 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/daily-offerings-and-additional-offerings/" class="section">
+      <div class="section-info">
+        <div class="section-name">Daily Offerings and Additional Offerings</div>
+        <div class="section-he">הלכות תמידים ומוספין</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/sacrifices-rendered-unfit/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sacrifices Rendered Unfit</div>
+        <div class="section-he">הלכות פסולי המוקדשין</div>
+      </div>
+      <span class="section-chapters">19 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/service-on-the-day-of-atonement/" class="section">
+      <div class="section-info">
+        <div class="section-name">Service on the Day of Atonement</div>
+        <div class="section-he">הלכות עבודת יום הכפורים</div>
+      </div>
+      <span class="section-chapters">5 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="avodah/trespass/" class="section">
+      <div class="section-info">
+        <div class="section-name">Trespass</div>
+        <div class="section-he">הלכות מעילה</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">🔥</span>
+    <div class="sefer-title">
+      <h2>Sefer Korbanot</h2>
+      <div class="he-title">ספר קורבנות</div>
+    </div>
+    <span class="sefer-count">45 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="korbanot/paschal-offering/" class="section">
+      <div class="section-info">
+        <div class="section-name">Paschal Offering</div>
+        <div class="section-he">הלכות קרבן פסח</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="korbanot/festival-offering/" class="section">
+      <div class="section-info">
+        <div class="section-name">Festival Offering</div>
+        <div class="section-he">הלכות חגיגה</div>
+      </div>
+      <span class="section-chapters">3 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="korbanot/firstlings/" class="section">
+      <div class="section-info">
+        <div class="section-name">Firstlings</div>
+        <div class="section-he">הלכות בכורות</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="korbanot/offerings-for-unintentional-transgressions/" class="section">
+      <div class="section-info">
+        <div class="section-name">Offerings for Unintentional Transgressions</div>
+        <div class="section-he">הלכות שגגות</div>
+      </div>
+      <span class="section-chapters">15 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="korbanot/offerings-for-those-with-incomplete-atonement/" class="section">
+      <div class="section-info">
+        <div class="section-name">Offerings for Those with Incomplete Atonement</div>
+        <div class="section-he">הלכות מחוסרי כפרה</div>
+      </div>
+      <span class="section-chapters">5 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="korbanot/substitution/" class="section">
+      <div class="section-info">
+        <div class="section-name">Substitution</div>
+        <div class="section-he">הלכות תמורה</div>
+      </div>
+      <span class="section-chapters">4 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">💧</span>
+    <div class="sefer-title">
+      <h2>Sefer Taharah</h2>
+      <div class="he-title">ספר טהרה</div>
+    </div>
+    <span class="sefer-count">144 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="taharah/defilement-by-a-corpse/" class="section">
+      <div class="section-info">
+        <div class="section-name">Defilement by a Corpse</div>
+        <div class="section-he">הלכות טומאת מת</div>
+      </div>
+      <span class="section-chapters">25 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/red-heifer/" class="section">
+      <div class="section-info">
+        <div class="section-name">Red Heifer</div>
+        <div class="section-he">הלכות פרה אדומה</div>
+      </div>
+      <span class="section-chapters">15 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/defilement-by-leprosy/" class="section">
+      <div class="section-info">
+        <div class="section-name">Defilement by Leprosy</div>
+        <div class="section-he">הלכות טומאת צרעת</div>
+      </div>
+      <span class="section-chapters">16 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/those-who-defile-bed-or-seat/" class="section">
+      <div class="section-info">
+        <div class="section-name">Those Who Defile Bed or Seat</div>
+        <div class="section-he">הלכות מטמאי משכב ומושב</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/other-sources-of-defilement/" class="section">
+      <div class="section-info">
+        <div class="section-name">Other Sources of Defilement</div>
+        <div class="section-he">הלכות שאר אבות הטומאות</div>
+      </div>
+      <span class="section-chapters">20 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/defilement-of-foods/" class="section">
+      <div class="section-info">
+        <div class="section-name">Defilement of Foods</div>
+        <div class="section-he">הלכות טומאת אוכלים</div>
+      </div>
+      <span class="section-chapters">16 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/vessels/" class="section">
+      <div class="section-info">
+        <div class="section-name">Vessels</div>
+        <div class="section-he">הלכות כלים</div>
+      </div>
+      <span class="section-chapters">28 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="taharah/immersion-pools/" class="section">
+      <div class="section-info">
+        <div class="section-name">Immersion Pools</div>
+        <div class="section-he">הלכות מקואות</div>
+      </div>
+      <span class="section-chapters">11 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">⚖️</span>
+    <div class="sefer-title">
+      <h2>Sefer Nezikim</h2>
+      <div class="he-title">ספר נזיקין</div>
+    </div>
+    <span class="sefer-count">62 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="nezikim/damages-to-property/" class="section">
+      <div class="section-info">
+        <div class="section-name">Damages to Property</div>
+        <div class="section-he">הלכות נזקי ממון</div>
+      </div>
+      <span class="section-chapters">14 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nezikim/theft/" class="section">
+      <div class="section-info">
+        <div class="section-name">Theft</div>
+        <div class="section-he">הלכות גניבה</div>
+      </div>
+      <span class="section-chapters">9 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nezikim/robbery-and-lost-property/" class="section">
+      <div class="section-info">
+        <div class="section-name">Robbery and Lost Property</div>
+        <div class="section-he">הלכות גזילה ואבידה</div>
+      </div>
+      <span class="section-chapters">18 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nezikim/one-who-injures-a-person-or-property/" class="section">
+      <div class="section-info">
+        <div class="section-name">One Who Injures a Person or Property</div>
+        <div class="section-he">הלכות חובל ומזיק</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="nezikim/murderer-and-the-preservation-of-life/" class="section">
+      <div class="section-info">
+        <div class="section-name">Murderer and the Preservation of Life</div>
+        <div class="section-he">הלכות רוצח ושמירת נפש</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">🏠</span>
+    <div class="sefer-title">
+      <h2>Sefer Kinyan</h2>
+      <div class="he-title">ספר קניין</div>
+    </div>
+    <span class="sefer-count">75 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="kinyan/sales/" class="section">
+      <div class="section-info">
+        <div class="section-name">Sales</div>
+        <div class="section-he">הלכות מכירה</div>
+      </div>
+      <span class="section-chapters">30 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kinyan/ownerless-property-and-gifts/" class="section">
+      <div class="section-info">
+        <div class="section-name">Ownerless Property and Gifts</div>
+        <div class="section-he">הלכות זכייה ומתנה</div>
+      </div>
+      <span class="section-chapters">12 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kinyan/neighbors/" class="section">
+      <div class="section-info">
+        <div class="section-name">Neighbors</div>
+        <div class="section-he">הלכות שכנים</div>
+      </div>
+      <span class="section-chapters">14 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kinyan/agents-and-partners/" class="section">
+      <div class="section-info">
+        <div class="section-name">Agents and Partners</div>
+        <div class="section-he">הלכות שלוחין ושותפין</div>
+      </div>
+      <span class="section-chapters">10 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="kinyan/slaves/" class="section">
+      <div class="section-info">
+        <div class="section-name">Slaves</div>
+        <div class="section-he">הלכות עבדים</div>
+      </div>
+      <span class="section-chapters">9 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">📜</span>
+    <div class="sefer-title">
+      <h2>Sefer Mishpatim</h2>
+      <div class="he-title">ספר משפטים</div>
+    </div>
+    <span class="sefer-count">75 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="mishpatim/hiring/" class="section">
+      <div class="section-info">
+        <div class="section-name">Hiring</div>
+        <div class="section-he">הלכות שכירות</div>
+      </div>
+      <span class="section-chapters">13 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="mishpatim/borrowing-and-deposit/" class="section">
+      <div class="section-info">
+        <div class="section-name">Borrowing and Deposit</div>
+        <div class="section-he">הלכות שאלה ופיקדון</div>
+      </div>
+      <span class="section-chapters">8 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="mishpatim/creditor-and-debtor/" class="section">
+      <div class="section-info">
+        <div class="section-name">Creditor and Debtor</div>
+        <div class="section-he">הלכות מלווה ולווה</div>
+      </div>
+      <span class="section-chapters">27 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="mishpatim/plaintiff-and-defendant/" class="section">
+      <div class="section-info">
+        <div class="section-name">Plaintiff and Defendant</div>
+        <div class="section-he">הלכות טוען ונטען</div>
+      </div>
+      <span class="section-chapters">16 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="mishpatim/inheritances/" class="section">
+      <div class="section-info">
+        <div class="section-name">Inheritances</div>
+        <div class="section-he">הלכות נחלות</div>
+      </div>
+      <span class="section-chapters">11 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+<div class="sefer">
+  <div class="sefer-header" onclick="this.parentElement.querySelector('.sefer-body').classList.toggle('collapsed')">
+    <span class="sefer-icon">👑</span>
+    <div class="sefer-title">
+      <h2>Sefer Shoftim</h2>
+      <div class="he-title">ספר שופטים</div>
+    </div>
+    <span class="sefer-count">81 פרקים</span>
+  </div>
+  <div class="sefer-body">
+    <a href="shoftim/the-sanhedrin-and-the-penalties-within-their-jurisdiction/" class="section">
+      <div class="section-info">
+        <div class="section-name">The Sanhedrin and the Penalties within Their Jurisdiction</div>
+        <div class="section-he">הלכות סנהדרין והעונשין המסורין להם</div>
+      </div>
+      <span class="section-chapters">26 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="shoftim/testimony/" class="section">
+      <div class="section-info">
+        <div class="section-name">Testimony</div>
+        <div class="section-he">הלכות עדות</div>
+      </div>
+      <span class="section-chapters">22 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="shoftim/rebels/" class="section">
+      <div class="section-info">
+        <div class="section-name">Rebels</div>
+        <div class="section-he">הלכות ממרים</div>
+      </div>
+      <span class="section-chapters">7 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="shoftim/mourning/" class="section">
+      <div class="section-info">
+        <div class="section-name">Mourning</div>
+        <div class="section-he">הלכות אבל</div>
+      </div>
+      <span class="section-chapters">14 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+    <a href="shoftim/kings-and-wars/" class="section">
+      <div class="section-info">
+        <div class="section-name">Kings and Wars</div>
+        <div class="section-he">הלכות מלכים ומלחמות</div>
+      </div>
+      <span class="section-chapters">12 פרקים</span>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+    </a>
+  </div>
+</div>
+</div>
+<div class="footer">
+  <p>Content sourced from <a href="https://www.sefaria.org" target="_blank">Sefaria</a> · Built by Yaacov Jacob</p>
+</div>
+<script>
+// Collapse all but first sefer on load
+document.querySelectorAll('.sefer-body').forEach((el, i) => {
+  if (i > 0) el.classList.add('collapsed');
+});
+</script>
+<style>.sefer-body.collapsed{display:none}</style>
+</body>
+</html>
