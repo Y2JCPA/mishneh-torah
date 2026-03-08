@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק ד׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק ד׳ · Chapter 4</span>
+</div>
+<div class="slide-wrap">
+
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק ד׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 4 · 13 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">
+        📛 The seven Names of God<br>
+        ✡️ The Tetragrammaton<br>
+        🚫 Prohibitions on erasing God's names<br>
+        🌍 God created ex nihilo<br>
+        ♾️ God's eternal creative power
+      </div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">God's Names & The World's Creation</h2>
+  <div class="subtitle">Chapter 4 · Overview</div>
+  <div class="flowchart">
+    
+    <div class="flow-box highlight">The Seven Holy Names<br><span style="font-size:0.8rem;color:#888">הלכות א׳–ג׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">Erasing God's Names<br><span style="font-size:0.8rem;color:#888">הלכות ד׳–ו׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">Titles vs. Names<br><span style="font-size:0.8rem;color:#888">הלכות ז׳–ט׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">Creation Ex Nihilo<br><span style="font-size:0.8rem;color:#888">הלכות י׳–י״א</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">God's Sustaining Power<br><span style="font-size:0.8rem;color:#888">הלכות י״ב–י״ג</span></div>
+    
+    
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Seven Holy Names</h2>
+  <div class="subtitle">הלכות א׳–ג׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">אַרְבָּעָה גּוּפִים הַלָּלוּ שֶׁהֵם אֵשׁ וְרוּחַ וּמַיִם וְאֶרֶץ הֵם יְסוֹדוֹת כָּל הַנִּבְרָאִים לְמַטָּה מִן הָרָקִיעַ. וְכָל שֶׁיִּהְיֶה מֵאָדָם וּמִבְּהֵמָה וְעוֹף וְרֶמֶשׂ וְדָג וְצֶמַח וּמַתֶּכֶת וַאֲבָנִים טוֹבוֹת וּמַרְגָּלִיּוֹת וּשְׁאָר אַבְנֵי בִּנְיָן וְהָרִים וְגוּשֵׁי עָפָר הַכּל גָּלְמָן מְחֻבָּר מֵאַרְבָּעָה יְסוֹדוֹת הַלָּלוּ. נִמְצְאוּ כָּל הַגּוּפִים שֶׁלְּמַטָּה מִן הָרָקִיעַ חוּץ מֵאַרְבָּעָה יְסוֹדוֹת הָאֵלּוּ מְחֻבָּרִים מִגֹּלֶם וְצוּרָה. וְגֹלֶם שֶׁלָּהֶם מְחֻבָּר מֵאַרְבָּעָה יְסוֹדוֹת הָאֵלּוּ. אֲבָל כָּל אֶחָד מֵאַרְבָּעָה הַיְסוֹדוֹת אֵינוֹ מְחֻבָּר אֶלָּא מִגֹּלֶם וְצוּרָה בִּלְבַד:</div>
+    <div class="halacha-en long">These four bodies: fire, wind, water, and earth are the fundamental [elements] of all the creations below the sky. Everything that exists - [be it] man, beast, fowl, crawling creature, fish, plant, metal, precious stone, pearl, building stone, mountain, or lump of earth - the body of all these [entities] is a combination of these four fundamental [elements].Thus, all the bodies which are found below the sky, with the exception of these four bodies, are a combination of matter and form,1Here and in the following halachot, the word "form" refers to the entity's spiritual qualities, and not its physical shape. and their matter is a combination of these fundamental [elements]. These fundamental [elements], however, are a combination of matter and form [as they exist in a hylian state] alone.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">דֶּרֶךְ הָאֵשׁ וְהָרוּחַ לִהְיוֹת מַהֲלָכָם מִמַּטָּה מִטַּבּוּר הָאָרֶץ לְמַעְלָה כְּלַפֵּי הָרָקִיעַ. וְדֶרֶךְ הַמַּיִם וְהָאָרֶץ לִהְיוֹת מַהֲלָכָם מִתַּחַת הָרָקִיעַ לְמַטָּה עַד לָאֶמְצַע. שֶׁאֶמְצַע הָרָקִיעַ הוּא הַמַּטָּה שֶׁאֵין לְמַטָּה מִמֶּנּוּ. וְאֵין הִלּוּכָם לֹא בְּדַעְתָּם וְלֹא בְּחֶפְצָם אֶלָּא מִנְהָג שֶׁנִּקְבַּע בָּהֶן וְטֶבַע שֶׁנִּטְבַּע בָּהֶן. טֶבַע הָאֵשׁ חַם וְיָבֵשׁ וְהוּא קַל מִכֻּלָּם. וְהָרוּחַ חַם וְלַח. וְהַמַּיִם קָרִים וְלַחִים. וְהָאָרֶץ יְבֵשָׁה וְקָרָה. וְהִיא כְּבֵדָה מִכֻּלָּם וְהַמַּיִם קַלִּים מִמֶּנָּה לְפִיכָךְ נִמְצָאִים לְמַעְלָה עַל הָאָרֶץ. וְהָרוּחַ קַל מִן הַמַּיִם לְפִיכָךְ הוּא מְרַחֵף עַל פְּנֵי הַמַּיִם. וְהָאֵשׁ קַל מִן הָרוּחַ. וּמִפְּנֵי שֶׁהֵם יְסוֹדוֹת לְכָל גּוּפִים שֶׁתַּחַת הָרָקִיעַ יִמָּצֵא כָּל גּוּף וְגוּף מֵאָדָם וּבְהֵמָה וְחַיָּה וְעוֹף וְדַג וְצֶמַח וּמַתֶּכֶת וְאֶבֶן גָּלְמוֹ מְחֻבָּר מֵאֵשׁ וְרוּחַ וּמַיִם וְעָפָר. וְאַרְבַּעְתָּן יִתְעָרְבוּ בְּיַחַד וְיִשְׁתַּנּוּ כָּל אֶחָד מֵהֶם בְּעֵת הָעֵרוּב עַד שֶׁיִּמָּצֵא הַמְחֻבָּר מֵאַרְבַּעְתָּן אֵינוֹ דּוֹמֶה לְאֶחָד מֵהֶן כְּשֶׁהוּא לְבַדּוֹ. וְאֵין בַּמְעֹרָב מֵהֶן אֲפִלּוּ חֵלֶק אֶחָד שֶׁהוּא אֵשׁ בִּפְנֵי עַצְמוֹ אוֹ מַיִם בִּפְנֵי עַצְמָן אוֹ אֶרֶץ בִּפְנֵי עַצְמָהּ אוֹ רוּחַ בִּפְנֵי עַצְמָהּ אֶלָּא הַכּל נִשְׁתַּנּוּ וְנַעֲשׂוּ גּוּף אֶחָד. וְכָל גּוּף וְגוּף הַמְחֻבָּר מֵאַרְבַּעְתָּן יִמָּצֵא בּוֹ קֹר וְחֹם לַח וְיָבֵשׁ כְּאֶחָד. אֲבָל יֵשׁ מֵהֶם גּוּפִים שֶׁיִּהְיֶה בָּהֶם חָזְקָה מִיסוֹד הָאֵשׁ כְּמוֹ בַּעֲלֵי נֶפֶשׁ חַיָּה. לְפִיכָךְ יֵרָאֶה בָּהֶם הַחֹם יָתֵר. וְיֵשׁ מֵהֶן גּוּפִין שֶׁיִּהְיֶה בָּהֶן חָזְקָה מִיסוֹד הָאָרֶץ כְּמוֹ הָאֲבָנִים. לְפִיכָךְ יֵרָאֶה בָּהֶם הַיֹּבֶשׁ הַרְבֵּה. וְיֵשׁ מֵהֶן גּוּפִין שֶׁיִּהְיֶה בָּהֶן חָזְקָה מִיסוֹד הַמַּיִם. לְפִיכָךְ יֵרָאֶה בָּהֶם הַלַּח יָתֵר. וְעַל הַדֶּרֶךְ הַזֶּה יִמָּצֵא גּוּף חַם יֶתֶר מִגּוּף אַחֵר חַם. וְגוּף יָבֵשׁ יֶתֶר מִגּוּף אַחֵר יָבֵשׁ. וְכֵן יִמָּצְאוּ גּוּפִים שֶׁיֵּרָאֶה בָּהֶן הַקֹּר בִּלְבַד. וְגוּפִים יֵרָאֶה בָּהֶן הַלַּח בִּלְבַד. וְגוּפִים יֵרָאֶה בָּהֶן הַקֹּר וְהַיֹּבֶשׁ כְּאֶחָד בְּשָׁוֶה. אוֹ הַקֹּר וְהַלַּח כְּאֶחָד בְּשָׁוֶה. אוֹ הַחֹם וְהַיֹּבֶשׁ כְּאֶחָד בְּשָׁוֶה. אוֹ הַחֹם וְהַלַּח כְּאֶחָד בְּשָׁוֶה. לְפִי רֹב הַיְסוֹד שֶׁהָיָה בְּעִקַּר הַתַּעֲרֹבֶת יֵרָאֶה מַעֲשֵׂה אוֹתוֹ הַיְסוֹד וְטִבְעוֹ בַּגּוּף הַמְעֹרָב:</div>
+    <div class="halacha-en long">The tendency of fire and wind is to ascend upwards from the depths of the earth toward the sky. The tendency of water and earth is to descend from the sky to the midpoint of the sky, [i.e., the center of the Earth,] for the midpoint of the sky is the lowest point, below which nothing is lower.2Since the heavens are spherical, anything past the midpoint of the Earth can be considered to be "higher" when approaching from the opposite side. These tendencies are not a conscious matter, nor are they willful. Rather, it is a pattern affixed within them and a nature they were given.The natural characteristics of fire are that it is warm and dry. It is the lightest of all [these fundamental elements]. Wind is warm and moist. Water is cold and moist, and earth is dry and cold. It is the heaviest of all [these fundamental elements].Water is lighter than earth. Therefore, it is found above it. Wind is lighter than water. Therefore, it hovers above it. Fire is even lighter than wind.Since these are the fundamental [elements] for all the bodies below the sky, the matter of every single body - man, animal, beast, fowl, fish, plant, metal, and stone - is a combination of fire, wind, water, and earth. [In the process of] the combination of these four, each one of them changes while they are being combined. Thus, the combination of the four [fundamental elements] does not resemble any one of the [elements] as it exists alone. [Similarly,] in any combination of them, there cannot be found even one portion of fire as it exists alone, wind as it exists alone, water as it exists alone, nor earth as it exists alone. Rather, they have all changed and become a single body.Each and every body which is a combination of these four [fundamental elements] will have a combination of cold and warmth, moistness and dryness. There are some bodies which have a more powerful [concentration] of the fundamental [element] of fire - for example, creatures with living souls. Accordingly, they have a higher temperature. [Conversely,] there are some bodies with a more powerful concentration of the element of earth - for example, the stones. Accordingly, they are very dry. Similarly, some of them have bodies with a greater concentration of the element of water. Accordingly, they are moist.3From the above statements, it appears that the "fundamental elements" of fire, wind, water, and earth are different from the entities to which we generally refer with these names.In this manner, one may find one body which is warmer than another body, which is itself warm, and one body drier than another body, which is itself dry. Similarly, there are bodies in which cold alone is noticeable, and other bodies in which moistness alone is noticeable. In some bodies, cold and dryness are equally noticeable; in others, cold and moistness are equally noticeable; in others, warmth and dryness are equally noticeable; and in others, warmth and moistness are equally noticeable. According to the predominance of the element that is found in the essential combination, the inclination and nature of that element will be expressed in the body [resulting from] a mixture [of all the elements].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">וְכָל הַמְחֻבָּר מֵאַרְבָּעָה יְסוֹדוֹת אֵלּוּ הוּא נִפְרָד בַּסּוֹף. יֵשׁ שֶׁהוּא נִפְרָד לְאַחַר יָמִים אֲחָדִים. וְיֵשׁ שֶׁהוּא נִפְרָד לְאַחַר שָׁנִים רַבּוֹת. וְכָל שֶׁנִּתְחַבֵּר מֵהֶם אִי אֶפְשָׁר שֶׁלֹּא יִפָּרֵד לָהֶן. אֲפִלּוּ הַזָּהָב וְהָאֹדֶם אִי אֶפְשָׁר שֶׁלֹּא יִפָּסֵד וְיַחֲזֹר לִיסוֹדוֹתָיו. וְיָשׁוּב מִקְצָתוֹ לָאֵשׁ. וּמִקְצָתוֹ לַמַּיִם. וּמִקְצָתוֹ לָרוּחַ. וּמִקְצָתוֹ לָאָרֶץ:</div>
+    <div class="halacha-en long">Every entity which is a combination of these four fundamental [elements] will ultimately decompose into them.4Note the similarities to the concept of entropy. Some will decompose after a mere few days, and others will decompose after many years. [However,] it is impossible for everything which is a combination of them not to decompose into them. It is impossible even for gold and ruby not to decompose and return to their fundamental elements: a portion becoming fire, a portion water, a portion wind, and a portion earth.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">✡️ The Special Name</div>The Tetragrammaton (יהוה) is unique — it refers to God's <strong>essence</strong>, not His actions. The other 6 names (Kel, Elokim, etc.) describe His attributes. This name may never be erased.</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Erasing God's Names</h2>
+  <div class="subtitle">הלכות ד׳–ו׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">הוֹאִיל וְכָל הַנִּפְסָד יִפָּרֵד לִיסוֹדוֹת אֵלּוּ לָמָּה נֶאֱמַר לָאָדָם (בראשית ג יט) "וְאֶל עָפָר תָּשׁוּב". לְפִי שֶׁרֹב בִּנְיָנוֹ מִן הֶעָפָר. וְלֹא כָּל הַנִּפְסָד כְּשֶׁיִּפָּסֵד מִיָּד יַחֲזֹר לְאַרְבָּעָה הַיְסוֹדוֹת. אֶלָּא יִפָּסֵד וְיַחֲזֹר לְדָבָר אַחֵר וְדָבָר אַחֵר לְדָבָר אַחֵר וְסוֹף הַדְּבָרִים יַחֲזֹר לַיְסוֹדוֹת וְנִמְצְאוּ כָּל הַדְּבָרִים חוֹזְרִין חֲלִילָה:</div>
+    <div class="halacha-en long">Since every [entity will] decompose and separate into these four fundamental [elements], why was Adam told: "You will return to dust," [implying that man will return to dust alone]? Because the major part of man's composition is from dust. 5This statement appears to contradict the statement in Halacha 2 that creatures with souls are predominantly from the element of fire. It is possible to explain that Halachah 2 refers even to animal life, while this halacha refers explicitly to man. Man's body – being predominantly from earth – is less refined than that of the animals. His soul, however, is on a much higher level that the animal's life-force. every [entity that] decomposes will not return to the four fundamental [elements] immediately. Rather, it will decompose and change into another entity. That entity will, in turn, change into another entity, until ultimately, it will return to the elements. Thus, all entities are constantly returning [to their elemental state] in a cycle.6The cycle of change is discussed in the following halachah.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">אַרְבָּעָה יְסוֹדוֹת הָאֵלּוּ מִשְׁתַּנִּים זֶה לָזֶה תָּמִיד בְּכָל יוֹם וּבְכָל שָׁעָה מִקְצָתָן לֹא כָּל גּוּפָן. כֵּיצַד. מִקְצָת הָאָרֶץ הַקְּרוֹבָה מִן הַמַּיִם מִשְׁתַּנֵּית וּמִתְפּוֹרֶרֶת וְנַעֲשֵׂית מַיִם. וְכֵן מִקְצָת הַמַּיִם הַסְּמוּכִים לָרוּחַ מִשְׁתַּנִּין וּמִתְמַסְמְסִין וְהֹוִין רוּחַ. וְכֵן הָרוּחַ מִקְצָתוֹ הַסָּמוּךְ לָאֵשׁ מִשְׁתַּנֶּה וּמִתְחוֹלֵל וְנַעֲשֶׂה אֵשׁ. וְכֵן הָאֵשׁ מִקְצָתָהּ הַסָּמוּךְ לָרוּחַ מִתְחוֹלֵל מִשְׁתַּנֶּה וּמִתְכַּנֵּס וְנַעֲשֶׂה רוּחַ. וְכֵן הָרוּחַ מִקְצָתוֹ הַסָּמוּךְ לַמַּיִם מִשְׁתַּנֶּה וּמִתְכַּנֵּס וְנַעֲשֶׂה מַיִם. וְכֵן הַמַּיִם מִקְצָתוֹ הַסָּמוּךְ לָאָרֶץ מִשְׁתַּנֶּה וּמִתְכַּנֵּס וְנַעֲשֶׂה אֶרֶץ. וְשִׁנּוּי זֶה מְעַט מְעַט וּלְפִי אֹרֶךְ הַיָּמִים. וְאֵין כָּל הַיְסוֹד מִשְׁתַּנֶּה עַד שֶׁיֵּעָשֶׂה כָּל הַמַּיִם רוּחַ אוֹ כָּל הָרוּחַ אֵשׁ. שֶׁאִי אֶפְשָׁר שֶׁיִּבָּטֵל אֶחָד מִן הַיְסוֹדוֹת הָאַרְבָּעָה. אֶלָּא מִקְצָת יִשְׁתַּנֶּה מֵאֵשׁ לְרוּחַ וּמִקְצָת יִשְׁתַּנֶּה מֵרוּחַ לְאֵשׁ. וְכֵן בֵּין כָּל אֶחָד וַחֲבֵרוֹ יִמָּצֵא הַשִּׁנּוּי בֵּין אַרְבַּעְתָּן וְחוֹזְרוֹת חֲלִילָה לְעוֹלָם:</div>
+    <div class="halacha-en long">These four fundamental [elements] are in a constant [state of flux], with a certain portion - but never the entire matter - of one changing into another every day and every hour.What is implied? A portion of the earth which is close to the water changes, dissolves, and becomes water. Similarly, a portion of the water which is close to the wind changes, evaporates, and becomes wind. A portion of the wind which is close to the fire changes, goes through a metamorphosis, and becomes fire.Similarly, a portion of the fire close to the wind goes through a metamorphosis, changes, contracts and becomes wind. The wind which is close to the water changes, contracts, and becomes water; and the water which is close to the earth changes, contracts, and becomes earth.This [cycle of] change [proceeds] little by little over the course of time. The entire fundamental [element] will never change – [for example], all the water will never become wind, nor all the wind fire – because it is impossible for [the existence of] one of the four fundamental [elements] to be nullified. Rather, a portion of the fire will change to wind, and a portion of the wind to fire. Similarly, between each pair of these four, change will go on in an unceasing recurrent cycle.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he">וְשִׁנּוּי זֶה יִהְיֶה בִּסְבִיבַת הַגַּלְגַּל וּמִסְּבִיבָתוֹ יִתְחַבְּרוּ אַרְבַּעְתָּן וְיִהְיֶה מֵהֶן שְׁאָר גָּלְמֵי בְּנֵי אָדָם וְנֶפֶשׁ חַיָּה צֶמַח וְאֶבֶן וּמַתֶּכֶת. וְהָאֵל נוֹתֵן לְכָל גֹּלֶם וְגֹלֶם צוּרָה רְאוּיָה לוֹ עַל יְדֵי מַלְאָךְ הָעֲשִׂירִי שֶׁהִיא הַצּוּרָה הַנִּקְרֵאת אִישִׁים:</div>
+    <div class="halacha-en long">This [cycle of] change is caused by the revolution of the sphere. Its revolution causes the four [fundamental elements] to combine, and thus forms the matter of men, living beasts, plants, stones, and metals.God gives each body the form appropriate to it through the angels of the tenth [level], which are the form called ishim.7Bereshit Rabbah 10:6 states: "There is no blade of grass that grows without having a spiritual force... telling it to grow."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🚫 The Prohibition</div>Anyone who destroys one of the 7 holy names receives lashes. Names written with a description prefix (like "the merciful God") — only the Name itself is sacred, not the prefix.</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Titles vs. Names</h2>
+  <div class="subtitle">הלכות ז׳–ט׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he">לְעוֹלָם אֵין אַתָּה רוֹאֶה גֹּלֶם בְּלֹא צוּרָה אוֹ צוּרָה בְּלֹא גֹּלֶם. אֶלָּא לֵב הָאָדָם הוּא שֶׁמְּחַלֵּק גּוּף הַנִּמְצָא בְּדַעְתּוֹ וְיוֹדֵעַ שֶׁהוּא מְחֻבָּר מִגֹּלֶם וְצוּרָה. וְיוֹדֵעַ שֶׁיֵּשׁ שָׁם גּוּפִים שֶׁגָּלְמָם מְחֻבָּר מֵאַרְבַּעַת הַיְסוֹדוֹת. וְגוּפִים שֶׁגָּלְמָם פָּשׁוּט וְאֵינוֹ מְחֻבָּר מִגֹּלֶם אַחֵר. וְהַצּוּרוֹת שֶׁאֵין לָהֶם גֹּלֶם אֵינָן נִרְאִין לָעַיִן אֶלָּא בְּעֵין הַלֵּב הֵן יְדוּעִין. כְּמוֹ שֶׁיָּדַעְנוּ אֲדוֹן הַכּל בְּלֹא רְאִיַּת עַיִן:</div>
+    <div class="halacha-en long">You will never see matter without form, or form without matter.8Every entity in this world has physical matter and a spiritual life force. However, the two cannot be separated from each other. The matter cannot exist without the life force, nor can the life force be discerned by human eyes except through its expression in a body. It is the heart of man which in its knowledge considers the bodies that are found and knows that they are a combination of matter and form.It appreciates that there are bodies whose matter is a combination of the four fundamental [elements],9This refers to the creations of our physical world, as explained in Halachah 2. bodies whose matter is simple and contains only one type of matter,10This refers to the spheres and the stars. As explained in Chapter 3, Halachah 3, and Chapter 2, Halachah 3, they are composed of a different type of matter from the creations in our world. and forms which have no matter and cannot be seen by the eye.11This refers to the angels. As explained in Chapter 2, Halachah 4, they are spiritual beings without material bodies. [The latter] are discernible only to the eye of the heart. [We can appreciate their existence, just] as we know of [the existence of] the Master of everything, [though we do] not see [Him] with [our] eyes.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ח׳</div>
+    <div class="halacha-he">נֶפֶשׁ כָּל בָּשָׂר הִיא צוּרָתוֹ שֶׁנָּתַן לוֹ הָאֵל וְהַדַּעַת הַיְתֵרָה הַמְּצוּיָה בְּנַפְשׁוֹ שֶׁל אָדָם הִיא צוּרַת הָאָדָם הַשָּׁלֵם בְּדַעְתּוֹ. וְעַל צוּרָה זוֹ נֶאֱמַר בַּתּוֹרָה נַעֲשֶׂה אָדָם בְּצַלְמֵנוּ כִּדְמוּתֵנוּ כְּלוֹמַר שֶׁתִּהְיֶה לוֹ צוּרָה הַיּוֹדַעַת וּמַשֶּׂגֶת הַדֵּעוֹת שֶׁאֵין לָהֶם גֹּלֶם כְּמוֹ הַמַּלְאָכִים שֶׁהֵם צוּרָה בְּלֹא גֹּלֶם עַד שֶׁיִּדְמֶה לָהֶן. וְאֵינוֹ אוֹמֵר עַל צוּרָה זוֹ הַנִּכֶּרֶת לָעֵינַיִם שֶׁהִיא הַפֶּה וְהַחֹטֶם וְהַלְּסָתוֹת וּשְׁאָר רשֶׁם הַגּוּף שֶׁזּוֹ תֹּאַר שְׁמָהּ. וְאֵינָהּ הַנֶּפֶשׁ הַמְּצוּיָה לְכָל נֶפֶשׁ חַיָּה שֶׁבָּהּ אוֹכֵל וְשׁוֹתֶה וּמוֹלִיד וּמַרְגִּישׁ וּמְהַרְהֵר. אֶלָּא הַדֵּעָה שֶׁהִיא צוּרַת הַנֶּפֶשׁ וּבְצוּרַת הַנֶּפֶשׁ הַכָּתוּב מְדַבֵּר בְּצַלְמֵנוּ כִּדְמוּתֵנוּ. וּפְעָמִים רַבּוֹת תִּקָּרֵא זֹאת הַצּוּרָה נֶפֶשׁ וְרוּחַ. וּלְפִיכָךְ צָרִיךְ לְהִזָּהֵר בִּשְׁמוֹתָן שֶׁלֹּא יִטְעֶה אָדָם בָּהֶן. וְכָל שֵׁם וְשֵׁם יִלָּמֵד מֵעִנְיָנוֹ:</div>
+    <div class="halacha-en long">The soul of all flesh is the form which it was given by God. The extra dimension which is found in the soul of man is the form of man who is perfect in his knowledge. Concerning this form, the Torah states [Genesis 1:26]: "Let us make man in our image and in our likeness" - i.e., granting man a form which knows and comprehends ideas that are not material, like the angels, who are form without body, until he can resemble them.[This statement] does not refer to the form of the body perceived by the eye - i.e., the mouth, the nose, the cheeks, and the remainder of the structure of the body. This is referred to as to'ar (appearance).It is not the soul found in all living flesh which allows it to eat, drink, reproduce, feel, and think. Rather, knowledge is the form of this [dimension of] soul and it is concerning this form of the soul, that the verse states: "in our image and in our likeness." Frequently, this form is referred to as nefesh or ruach. Therefore, one must be careful regarding these names, lest another person err regarding them. Each name reveals its characteristics.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ט׳</div>
+    <div class="halacha-he">אֵין צוּרַת הַנֶּפֶשׁ הַזֹּאת מְחֻבֶּרֶת מִן הַיְסוֹדוֹת כְּדֵי שֶׁתִּפָּרֵד לָהֶם, וְאֵינָהּ מִכֹּחַ הַנְּשָׁמָה עַד שֶׁתְּהֵא צְרִיכָה לַנְּשָׁמָה כְּמוֹ שֶׁהַנְּשָׁמָה צְרִיכָה לַגּוּף. אֶלָּא מֵאֵת ה' מִן הַשָּׁמַיִם הִיא. לְפִיכָךְ כְּשֶׁיִּפָּרֵד הַגֹּלֶם שֶׁהוּא מְחֻבָּר מִן הַיְסוֹדוֹת וְתֹאבַד הַנְּשָׁמָה מִפְּנֵי שֶׁאֵינָהּ מְצוּיָה אֶלָּא עִם הַגּוּף וּצְרִיכָה לַגּוּף בְּכָל מַעֲשֶׂיהָ לֹא תִּכָּרֵת הַצּוּרָה הַזֹּאת. לְפִי שֶׁאֵינָהּ צְרִיכָה לַנְּשָׁמָה בְּמַעֲשֶׂיהָ. אֶלָּא יוֹדַעַת וּמַשֶּׂגֶת הַדֵּעוֹת הַפְּרוּדוֹת מִן הַגְּלָמִים וְיוֹדַעַת בּוֹרֵא הַכּל וְעוֹמֶדֶת לְעוֹלָם וּלְעוֹלְמֵי עוֹלָמִים. הוּא שֶׁאָמַר שְׁלֹמֹה בְּחָכְמָתוֹ (קהלת יב ז) "וְיָשֹׁב הֶעָפָר עַל הָאָרֶץ כְּשֶׁהָיָה וְהָרוּחַ תָּשׁוּב אֶל הָאֱלֹהִים אֲשֶׁר נְתָנָהּ":</div>
+    <div class="halacha-en long">The form of this soul is not a combination of the fundamental [elements] into which it will ultimately decompose, nor does it come from the neshamah so that it would require the neshamah, as the neshamah requires the body. Rather, it is from God, from heaven.Therefore, when the matter [of the body], which is a combination of the fundamental [elements], decomposes, and the neshamah ceases to exist - for [the neshamah] exists only together with the body and requires the body for all its deeds - this form will not be cut off, for this form does not require the neshamah for its deeds. Rather, it knows and comprehends knowledge which is above matter, knows the Creator of all things, and exists forever. In his wisdom, Solomon [gave this description (Ecclesiastes 12:7 ]: "The dust will return to the Earth as it [originally] was, and the ruach will return to God who granted it."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📖 Important Distinction</div>Titles like "The Great," "The Mighty," "The Awesome," "The Faithful" are <strong>descriptions</strong>, not names — they may be erased. Only the 7 specific names have sanctity.</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Creation Ex Nihilo</h2>
+  <div class="subtitle">הלכות י׳–י״א</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י׳</div>
+    <div class="halacha-he">כָּל הַדְּבָרִים הָאֵלּוּ שֶׁדִּבַּרְנוּ בְּעִנְיָן זֶה כְּמַר מִדְּלִי הֵם וּדְבָרִים עֲמֻקִּים הֵם. אֲבָל אֵינָם כְּעִנְיַן עֹמֶק פֶּרֶק רִאשׁוֹן וְשֵׁנִי. וּבֵאוּר כָּל אֵלּוּ הַדְּבָרִים שֶׁבְּפֶרֶק שְׁלִישִׁי וּרְבִיעִי הוּא הַנִּקְרָא מַעֲשֵׂה בְּרֵאשִׁית. וְכָךְ צִוּוּ הַחֲכָמִים הָרִאשׁוֹנִים שֶׁאֵין דּוֹרְשִׁין בַּדְּבָרִים הָאֵלּוּ בָּרַבִּים אֶלָּא לְאָדָם אֶחָד מוֹדִיעִין דְּבָרִים אֵלּוּ וּמְלַמְּדִין אוֹתָן:</div>
+    <div class="halacha-en long">All these concepts which we have explained in this context are like a drop in a bucket. They are deep matters. Nevertheless, their depth does not approach the depth of the subject matter of the first and second chapters.The explanation of all the subject matter in the third and fourth chapters is referred to as Ma'aseh Bereshit (“the work of Creation”).The Sages of the early generations commanded that these matters should not be expounded upon in public. Rather, a single individual should be informed about them and taught them.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״א׳</div>
+    <div class="halacha-he">וּמָה בֵּין עִנְיַן מַעֲשֵׂה מֶרְכָּבָה לְעִנְיַן מַעֲשֵׂה בְּרֵאשִׁית. שֶׁעִנְיַן מַעֲשֵׂה מֶרְכָּבָה אֲפִלּוּ לְאֶחָד אֵין דּוֹרְשִׁים בּוֹ אֶלָּא אִם כֵּן הָיָה חָכָם וּמֵבִין מִדַּעְתּוֹ מוֹסְרִין לוֹ רָאשֵׁי הַפְּרָקִים. וְעִנְיַן מַעֲשֵׂה בְּרֵאשִׁית מְלַמְּדִין אוֹתוֹ לְיָחִיד אַף עַל פִּי שֶׁאֵינוֹ מֵבִין אוֹתוֹ מִדַּעְתּוֹ וּמוֹדִיעִים אוֹתוֹ כָּל מַה שֶּׁיָּכוֹל לֵידַע מִדְּבָרִים אֵלּוּ. וְלָמָּה אֵין מְלַמְּדִין אוֹתוֹ לָרַבִּים. לְפִי שֶׁאֵין כָּל אָדָם יֵשׁ לוֹ דַּעַת רְחָבָה לְהַשִּׂיג פֵּרוּשׁ וּבֵאוּר כָּל הַדְּבָרִים עַל בֻּרְיָן:</div>
+    <div class="halacha-en long">What is the difference between the subject matter of Ma'aseh Merkavah and the subject matter of Ma'aseh Bereshit? The subject matter of Ma'aseh Merkavah should never be expounded upon - even to a single individual - unless he is wise and capable of understanding, [in which instance,] he is given fundamental points.[In contrast,] the subject matter of Ma'aseh Bereshit may be taught to an individual even though he is incapable of comprehending it with his own powers of understanding [alone]. He may be informed about everything that he can possibly know about these matters. Why are they not taught publicly? Because not every person has the vast knowledge necessary to grasp the interpretation and the explanation of these matters in a complete manner.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🌍 The Rambam's Position</div>God created everything <strong>from nothing</strong> (yesh me'ayin). Even time itself was created. Before creation, only God existed — in His simple, absolute unity.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">God's Sustaining Power</h2>
+  <div class="subtitle">הלכות י״ב–י״ג</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״ב׳</div>
+    <div class="halacha-he">בִּזְמַן שֶׁאָדָם מִתְבּוֹנֵן בַּדְּבָרִים הָאֵלּוּ וּמַכִּיר כָּל הַבְּרוּאִים מִמַּלְאָךְ וְגַלְגַּל וְאָדָם כַּיּוֹצֵא בּוֹ וְיִרְאֶה חָכְמָתוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא בְּכָל הַיְצוּרִים וְכָל הַבְּרוּאִים. מוֹסִיף אַהֲבָה לַמָּקוֹם וְתִצְמָא נַפְשׁוֹ וְיִכְמַהּ בְּשָׂרוֹ לֶאֱהֹב הַמָּקוֹם בָּרוּךְ הוּא. וְיִירָא וְיִפְחַד מִשִּׁפְלוּתוֹ וְדַלּוּתוֹ וְקַלּוּתוֹ כְּשֶׁיַּעֲרִיךְ עַצְמוֹ לְאֶחָד מֵהַגּוּפוֹת הַקְּדוֹשִׁים הַגְּדוֹלִים. וְכָל שֶׁכֵּן לְאַחַת מֵהַצּוּרוֹת הַטְּהוֹרוֹת הַנִּפְרָדוֹת מִן הַגְּלָמִים שֶׁלֹּא נִתְחַבְּרוּ בַּגֹּלֶם כְּלָל. וְיִמְצָא עַצְמוֹ שֶׁהוּא כִּכְלִי מָלֵא בּוּשָׁה וּכְלִמָּה רֵיק וְחָסֵר:</div>
+    <div class="halacha-en long">When a person meditates on these matters and recognizes all the creations, the angels, the spheres, man, and the like, and appreciates the wisdom of the Holy One, blessed be He, in all these creations, he will add to his love for God. His soul will thirst and his flesh will long with love for God, blessed be He.He will stand in awe and fear from his humble, lowly, and base [nature] when he compares himself to one of the great and holy bodies, how much more so when comparing himself to the pure forms which are separate from matter and do not share any connection with it. He will see himself as a vessel full of embarrassment and shame, empty and lacking.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״ג׳</div>
+    <div class="halacha-he">וְעִנְיְנֵי אַרְבָּעָה פְּרָקִים אֵלּוּ שֶׁבְּחָמֵשׁ מִצְוֹת הָאֵלּוּ הֵם שֶׁחֲכָמִים הָרִאשׁוֹנִים קוֹרְאִין אוֹתוֹ פַּרְדֵּס כְּמוֹ שֶׁאָמְרוּ אַרְבָּעָה נִכְנְסוּ לַפַּרְדֵּס. וְאַף עַל פִּי שֶׁגְּדוֹלֵי יִשְׂרָאֵל הָיוּ וַחֲכָמִים גְּדוֹלִים הָיוּ לֹא כֻּלָּם הָיָה בָּהֶן כֹּחַ לֵידַע וּלְהַשִּׂיג כָּל הַדְּבָרִים עַל בֻּרְיָן. וַאֲנִי אוֹמֵר שֶׁאֵין רָאוּי לְטַיֵּל בַּפַּרְדֵּס אֶלָּא מִי שֶׁנִּתְמַלֵּא כְּרֵסוֹ לֶחֶם וּבָשָׂר. וְלֶחֶם וּבָשָׂר הוּא לֵידַע הָאָסוּר וְהַמֻּתָּר וְכַיּוֹצֵא בָּהֶם מִשְּׁאָר הַמִּצְוֹת. וְאַף עַל פִּי שֶׁדְּבָרִים אֵלּוּ דָּבָר קָטָן קָרְאוּ אוֹתָן חֲכָמִים שֶׁהֲרֵי אָמְרוּ חֲכָמִים דָּבָר גָּדוֹל מַעֲשֵׂה מֶרְכָּבָה וְדָבָר קָטָן הֲוָיוֹת דְּאַבַּיֵּי וְרָבָא. אַף עַל פִּי כֵן רְאוּיִין הֵן לְהַקְדִּימָן. שֶׁהֵן מְיַשְּׁבִין דַּעְתּוֹ שֶׁל אָדָם תְּחִלָּה. וְעוֹד שֶׁהֵם הַטּוֹבָה הַגְּדוֹלָה שֶׁהִשְׁפִּיעַ הַקָּדוֹשׁ בָּרוּךְ הוּא לְיִשּׁוּב הָעוֹלָם הַזֶּה כְּדֵי לִנְחל חַיֵּי הָעוֹלָם הַבָּא. וְאֶפְשָׁר שֶׁיְּדָעֵם הַכּל קָטָן וְגָדוֹל אִישׁ וְאִשָּׁה בַּעַל לֵב רָחָב וּבַעַל לֵב קָצָר:</div>
+    <div class="halacha-en long">The matters discussed in these four chapters concerning these five mitzvot are what the Sages of the early generations termed the Pardes, as they related: "Four entered the Pardes...." Even though they were great men of Israel and great Sages, not all of them had the potential to know and comprehend all these matters in their totality.I maintain that it is not proper for a person to stroll in the Pardes unless he has filled his belly with bread and meat. "Bread and meat" refer to the knowledge of what is permitted and what is forbidden, and similar matters concerning other mitzvot. Even though the Sages referred to these as "a small matter" - for our Sages said: "'A great matter,’ this refers to Ma'aseh Merkavah. `A small matter,’ this refers to the debates of Abbaye and Ravva" - nevertheless, it is fitting for them to be given precedence, because they settle a person's mind.Also, they are the great good which the Holy One, blessed be He, has granted, [to allow for] stable [living] within this world and the acquisition of the life of the world to come. They can be known in their totality by the great and the small, man or woman, whether [granted] expansive knowledge or limited knowledge.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">♾️ Continuous Creation</div>God didn't just create the world and step back. He <strong>continuously sustains</strong> all existence. If He withdrew His awareness for a moment, everything would cease to exist.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 4</div>
+  <div class="flowchart" style="gap:0.8rem">
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">✡️</div>
+      <strong>Seven Sacred Names</strong><br>
+      <span style="font-size:0.9rem">Only 7 specific names of God have full sanctity and may never be erased. The Tetragrammaton is unique — it alone describes God's essence.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">📛</div>
+      <strong>Names vs. Titles</strong><br>
+      <span style="font-size:0.9rem">Descriptions like "Merciful" or "Great" can be erased — they're attributes, not names. This distinction has practical halachic consequences.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">💥</div>
+      <strong>Creation from Nothing</strong><br>
+      <span style="font-size:0.9rem">The Rambam affirms creation ex nihilo — God brought everything into being from absolute nothing. Time itself was created.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🔄</div>
+      <strong>Continuous Sustenance</strong><br>
+      <span style="font-size:0.9rem">Creation isn't a one-time event. God sustains reality every moment. His "withdrawal" would mean instant annihilation of everything.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק ד׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>

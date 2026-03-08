@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק ג׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק ג׳ · Chapter 3</span>
+</div>
+<div class="slide-wrap">
+
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק ג׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 3 · 11 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">
+        🏛️ Ma'aseh Merkavah (the Chariot)<br>
+        🌟 Ma'aseh Bereshit (Creation)<br>
+        ⚡ The four elements<br>
+        🌊 Form and matter<br>
+        🧠 Human intellect as divine gift
+      </div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">The Throne, the Chariot & Prophecy</h2>
+  <div class="subtitle">Chapter 3 · Overview</div>
+  <div class="flowchart">
+    
+    <div class="flow-box highlight">The Chariot & Creation<br><span style="font-size:0.8rem;color:#888">הלכות א׳–ב׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">The Four Elements<br><span style="font-size:0.8rem;color:#888">הלכות ג׳–ה׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">Form and Matter<br><span style="font-size:0.8rem;color:#888">הלכות ו׳–ח׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">The Sublunar World<br><span style="font-size:0.8rem;color:#888">הלכות ט׳–י׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    
+    <div class="flow-box">The Human Intellect<br><span style="font-size:0.8rem;color:#888">הלכה י״א</span></div>
+    
+    
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Chariot & Creation</h2>
+  <div class="subtitle">הלכות א׳–ב׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">הַגַּלְגַּלִים הֵם הַנִּקְרָאִים שָׁמַיִם וְרָקִיעַ וּזְבוּל וַעֲרָבוֹת. וְהֵם תִּשְׁעָה גַּלְגַּלִּים. גַּלְגַּל הַקָּרוֹב מִמֶּנּוּ הוּא גַּלְגַּל הַיָּרֵחַ. וְהַשֵּׁנִי שֶׁלְּמַעְלָה מִמֶּנּוּ הוּא גַּלְגַּל שֶׁבּוֹ הַכּוֹכָב הַנִּקְרָא כּוֹכָב. וְגַלְגַּל שְׁלִישִׁי שֶׁלְּמַעְלָה מִמֶּנּוּ שֶׁבּוֹ נֹגַהּ. וְגַלְגַּל רְבִיעִי שֶׁבּוֹ חַמָּה. וְגַלְגַּל חֲמִישִׁי שֶׁבּוֹ מַאֲדִים. וְגַלְגַּל שִׁשִּׁי שֶׁבּוֹ כּוֹכַב צֶדֶק. וְגַלְגַּל שְׁבִיעִי שֶׁבּוֹ שַׁבְּתַי. וְגַלְגַּל שְׁמִינִי שֶׁבּוֹ שְׁאָר כָּל הַכּוֹכָבִים שֶׁנִּרְאִים בָּרָקִיעַ. וְגַלְגַּל תְּשִׁיעִי הוּא גַּלְגַּל הַחוֹזֵר בְּכָל יוֹם מִן הַמִּזְרָח לַמַּעֲרָב וְהוּא הַמַּקִּיף וּמְסַבֵּב אֶת הַכּל. וְזֶה שֶׁתִּרְאֶה כָּל הַכּוֹכָבִים כְּאִלּוּ הֵם כֻּלָּם בְּגַלְגַּל אֶחָד וְאַף עַל פִּי שֶׁיֵּשׁ בָּהֶן זֶה לְמַעְלָה מִזֶּה. מִפְּנֵי שֶׁהַגַּלְגַּלִּים טְהוֹרִים וְזַכִּים כִּזְכוּכִית וּכְסַפִּיר לְפִיכָךְ נִרְאִים הַכּוֹכָבִים שֶׁבַּגַּלְגַּל הַשְּׁמִינִי מִתַּחַת גַּלְגַּל הָרִאשׁוֹן:</div>
+    <div class="halacha-en long">The spheres are called the heavens, the firmament, the habitation, the skies.There are nine spheres. The closest sphere is the sphere of the moon. The second sphere, which is above it, is the sphere which contains the planet Kochav. 1In translation, this word means "star" or "planet." It refers to the planet Mercury. The third sphere, which is above it, contains [the planet] Nogah. 2In translation, this word means "shining." It refers to the planet Venus. The fourth sphere contains the sun. The fifth sphere contains [the planet] Ma'dim. 3In translation, this word means "reddening." It refers to the planet Mars. The sixth sphere contains the planet Tzedek. 4In translation, this word means "justice." It refers to the planet Jupiter. The seventh sphere contains [the planet] Shabbtai. 5In translation, this word means "the Sabbatical." It refers to the planet Saturn.The eighth sphere contains all the stars which are seen in the sky. The ninth sphere is the sphere which revolves each day from the east to the west.6Sanhedrin 91b states that the Shechinah (Divine Presence) is in the west. Hence, the movement of this sphere in this direction can be considered an act of service to God. It surrounds and encompasses everything.The planets and stars all appear to be in one sphere, even though one is higher than another. This is because the spheres are pure and refined like glass or sapphire. Therefore, the stars in the eighth sphere appear lower than the first sphere.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">כָּל גַּלְגַּל וְגַלְגַּל מִשְּׁמוֹנָה הַגַּלְגַּלִּים שֶׁבָּהֶן הַכּוֹכָבִים נֶחְלָק לְגַלְגַּלִּים הַרְבֵּה זֶה לְמַעְלָה מִזֶּה כְּמוֹ גִּלְדֵי בְּצָלִים. מֵהֶן גַּלְגַּלִּים סוֹבְבִים מִמַּעֲרָב לְמִזְרָח. וּמֵהֶן סוֹבְבִים מִמִּזְרָח לְמַעֲרָב כְּמוֹ הַגַּלְגַּל הַתְּשִׁיעִי הַחוֹזֵר מִמִּזְרָח לְמַעֲרָב. וְכֻלָּן אֵין בֵּינֵיהֶם מָקוֹם פָּנוּי:</div>
+    <div class="halacha-en long">Each of the eight spheres which contain the planets and stars are themselves divided into many spheres, one above the other like the layers of an onion. Some of these spheres revolve from the west to the east, and some revolve from the east to the west, such as the ninth sphere, which revolves from the east to the west. There is no empty space between any of them.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🏛️ Pardes</div>Ma'aseh Merkavah (the Chariot) and Ma'aseh Bereshit (Creation) are the Rambam's terms for <strong>metaphysics and physics</strong>. These are the deepest Torah wisdom — what the Sages call "Pardes."</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Four Elements</h2>
+  <div class="subtitle">הלכות ג׳–ה׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">כָּל הַגַּלְגַּלִּים אֵינָן לֹא קַלִּים וְלֹא כְּבֵדִים וְאֵין לָהֶם לֹא עַיִן אָדֹם וְלֹא עַיִן שָׁחֹר וְלֹא שְׁאָר עֵינוֹת. וְזֶה שֶׁאָנוּ רוֹאִין אוֹתָם כְּעֵין הַתְּכֵלֶת לְמַרְאִית הָעַיִן בִּלְבַד הוּא לְפִי גֹּבַהּ הָאֲוִיר. וְכֵן אֵין לָהֶם לֹא טַעַם וְלֹא רֵיחַ לְפִי שֶׁאֵין אֵלּוּ הַמְאֹרָעִין מְצוּיִין אֶלָּא בַּגּוּפוֹת שֶׁלְּמַטָּה מֵהֶן:</div>
+    <div class="halacha-en long">None of the spheres are light or heavy. They are neither red, black, nor any other color. Though we see them as blue, this is only our perception, because of the height of the atmosphere.Similarly, they have neither taste nor smell, because these phenomena are present only in matter lower than they. 7As stated in Halachah 10 and in Chapter 2, Halachah 3, the state of matter of the spheres differs from the state of matter in our world.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">כָּל הַגַּלְגַּלִּים הָאֵלּוּ הַמַּקִּיפִין אֶת הָעוֹלָם הֵן עֲגֻלִּין כְּכַדּוּר וְהָאָרֶץ תְּלוּיָה בָּאֶמְצַע. וְיֵשׁ לְמִקְצָת מִן הַכּוֹכָבִים גַּלְגַּלִּים קְטַנִּים שֶׁהֵן קְבוּעִים בָּהֶן וְאֵין אוֹתָם הַגַּלְגַּלִּים מַקִּיפִין אֶת הָאָרֶץ אֶלָּא גַּלְגַּל קָטָן שֶׁאֵינוֹ מַקִּיף קָבוּעַ בַּגַּלְגַּל הַגָּדוֹל הַמַּקִּיף:</div>
+    <div class="halacha-en long">All these [nine] spheres which surround the world are spherical like a ball, and the Earth is suspended in their midst.Some of the planets have small spheres fixed [around] them. These spheres do not surround the Earth. Rather, a small sphere which does not surround the Earth is fixed within a large sphere which does.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">מִסְפַּר כָּל הַגַּלְגַּלִּים הַמַּקִּיפִין אֶת כָּל הָעוֹלָם שְׁמוֹנָה עָשָׂר. וּמִסְפַּר הַגַּלְגַּלִּים הַקְּטַנִּים שֶׁאֵינָן מַקִּיפִין שְׁמוֹנָה. וּמִמַּהֲלַךְ הַכּוֹכָבִים וִידִיעַת שִׁעוּר סְבִיבָתָן בְּכָל יוֹם וּבְכָל שָׁעָה וּמִנְּטִיָּתָן מֵרוּחַ דָּרוֹם לְרוּחַ צָפוֹן וּמֵרוּחַ צָפוֹן לְרוּחַ דָּרוֹם וּמִגָּבְהָן מֵעַל הָאָרֶץ וּקְרִיבָתָן יִוָדַּע מִסְפַּר כָּל אֵלּוּ הַגַּלְגַּלִּים וְצוּרַת הֲלִיכָתָן וְדֶרֶךְ הַקָּפָתָן. וְזוֹ הִיא חָכְמַת חֶשְׁבּוֹן תְּקוּפוֹת וּמַזָּלוֹת. וּסְפָרִים רַבִּים חִבְּרוּ בָּהֶן חַכְמֵי יָוָן:</div>
+    <div class="halacha-en long">The total number of spheres which surround the Earth entirely is eighteen,9These include some of the smaller spheres which are included with the eight larger spheres. and the number of smaller spheres which do not surround [the world] is eight.From the movement of the planets and the knowledge of the extent of their revolution each day and each moment, their position either northward or southward, and their distance above the Earth and closeness to it, [it is possible to] know the number of all these spheres, the manner in which they proceed, and the nature of their orbit. This is the science of calculating the seasons and astronomy. Many books about these subjects were written by the wise men of Greece.10Note the Rambam's remarks in Hilchot Kiddush HaChodesh 17:24:This is the science of the seasons and geometry about which the wise men of Greece composed many books. These are presently found in the hands of the Sages. However, the texts which were composed by the Sages of Israel of the tribe of Issachar in the time of the Prophets have not reached us.[Nevertheless,] since these concepts have been proven conclusively... we are not concerned about the author, regardless of whether they were authored by the prophets or the gentiles.... We are not relying on the person who states or teaches the concept, but on the proofs.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔬 Ancient Physics</div>Fire, wind/air, water, earth — the four classical elements. The Rambam adopts Aristotelian physics here: everything below the moon is composed of these four in various combinations.</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Form and Matter</h2>
+  <div class="subtitle">הלכות ו׳–ח׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he">גַּלְגַּל הַתְּשִׁיעִי שֶׁהוּא מַקִּיף אֶת הַכּל חִלְּקוּהוּ הַחֲכָמִים הַקַּדְמוֹנִים לִשְׁנֵים עָשָׂר חֲלָקִים. כָּל חֵלֶק וְחֵלֶק הֶעֱלוּ לוֹ שֵׁם עַל שֵׁם צוּרָה זוֹ שֶׁתֵּרָאֶה בּוֹ מִן הַכּוֹכָבִים שֶׁלְּמַטָּה מִמֶּנּוּ שֶׁהֵם מְכֻוָּנִים תַּחְתָּיו. וְהֵם הַמַּזָּלוֹת שֶׁשְּׁמוֹתָם טָלֶה. שׁוֹר. תְּאוֹמִים. סַרְטָן. אַרְיֵה. בְּתוּלָה. מֹאזְנַיִם. עַקְרָב. קֶשֶׁת. גְּדִי. דְּלִי. דָּגִים:</div>
+    <div class="halacha-en long">The ninth sphere, which encompasses all the others, was divided by the Sages of the early generations into twelve sections. They gave each of these sections a name, based on the shapes that appeared to be formed by the stars below it which correspond to it.These are the mazalot,11The term mazal literally means "source of influence." In the Rambam's time, it was commonly felt that the position of the stars affected one's future. For this reason, the word mazal is often translated as "fortune" or "luck." Many Torah Sages shared these ideas - albeit with the qualification that a Jew always has the potential to rise above these influences. (See the Ra'avad's comments to Hilchot Teshuvah 5:5; Ramban, Responsum 282; and the Nimukei Yosef, Sanhedrin, Chapter 7).The Rambam totally dismisses the influence of astrology. In his Commentary on the Mishnah, Avodah Zarah 4:7, he describes it as "empty words and lies," and in Shemonah Perakim, Chapter 8, he mentions "the madness with which the astrologers attempt to deceive." which are called the lamb, the ox, the twins, the crab, the lion, the virgin, the scales, the scorpion, the bow, the goat, the bucket, and the fish.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he">גַּלְגַּל הַתְּשִׁיעִי עַצְמוֹ אֵין בּוֹ לֹא חֲלוּקָה וְלֹא צוּרָה מִכָּל הַצּוּרוֹת הָאֵלּוּ וְלֹא כּוֹכָב. אֶלָּא בְּחִבּוּר הַכּוֹכָבִים שֶׁבַּגַּלְגַּל הַשְּׁמִינִי הוּא שֶׁיֵּרָאֶה בְּכוֹכָבִים גְּדוֹלִים שֶׁבּוֹ תַּבְנִית הַצּוּרוֹת הָאֵלּוּ אוֹ קָרוֹב מֵהֶן. וְאֵלּוּ הַשְּׁנֵים עָשָׂר צוּרוֹת לֹא הָיוּ מְכֻוָּנוֹת כְּנֶגֶד אוֹתָן הַחֲלָקִים אֶלָּא בִּזְמַן הַמַּבּוּל שֶׁאָז הֶעֱלוּ לָהֶן שֵׁמוֹת אֵלּוּ. אֲבָל בַּזְּמַן הַזֶּה כְּבָר סָבְבוּ מְעַט. לְפִי שֶׁכָּל הַכּוֹכָבִים שֶׁבְּגַלְגַּל שְׁמִינִי כֻּלָּם סוֹבְבִים כְּמוֹ הַשֶּׁמֶשׁ וְהַיָּרֵחַ אֶלָּא שֶׁהֵן סוֹבְבִין בִּכְבֵדוּת. וְחֵלֶק שֶׁיִּתְהַלֵּךְ הַשֶּׁמֶשׁ וְהַיָּרֵחַ כְּנֶגְדּוֹ בְּיוֹם אֶחָד יֵלֵךְ כְּנֶגְדּוֹ כָּל כּוֹכָב מֵהֶן בְּקֵרוּב מִשִּׁבְעִים שָׁנָה:</div>
+    <div class="halacha-en long">The ninth sphere itself has no division, nor does it possess any of these shapes or any stars. Rather, the larger stars of the constellations of the eighth sphere are seen in the shape of these forms, or [in a form] resembling them.These twelve forms corresponded to these divisions only at the time of the flood and then, they were given these names. However, at present, they have already moved slightly, because all the stars in the eighth sphere move, as the sun and the moon do. It is just that [these stars] move more slowly. It would take any of these stars approximately seventy years to move the [same] distance which the sun and the moon'' move in one day.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ח׳</div>
+    <div class="halacha-he">כָּל הַכּוֹכָבִים הַנִּרְאִים יֵשׁ מֵהֶן כּוֹכָבִים קְטַנִּים שֶׁהָאָרֶץ גְּדוֹלָה מֵאֶחָד מֵהֶן. וְיֵשׁ מֵהֶן כּוֹכָבִים גְּדוֹלִים שֶׁכָּל אֶחָד מֵהֶן גָּדוֹל מִן הָאָרֶץ כַּמָּה פְּעָמִים. וְהָאָרֶץ גְּדוֹלָה מִן הַיָּרֵחַ כְּמוֹ אַרְבָּעִים פְּעָמִים. וְהַשֶּׁמֶשׁ גְּדוֹלָה מִן הָאָרֶץ כְּמוֹ מֵאָה וְשִׁבְעִים פְּעָמִים. נִמְצָא הַיָּרֵחַ אֶחָד מִשֵּׁשֶׁת אֲלָפִים וּשְׁמוֹנֶה מֵאוֹת מִן הַשֶּׁמֶשׁ בְּקֵרוּב. וְאֵין בְּכָל הַכּוֹכָבִים כּוֹכָב גָּדוֹל מִן הַשֶּׁמֶשׁ וְלֹא קָטָן מִכּוֹכָב שֶׁבַּגַּלְגַּל הַשֵּׁנִי:</div>
+    <div class="halacha-en long">[Among] all the stars we see are small ones which the Earth surpasses in size and large ones which are several times larger than the Earth.Our Earth is approximately 40 times larger than the moon, and the sun is approximately 170 times larger than the Earth. Thus, the moon is approximately one 6800th the size of the sun. None of the other stars is as large as the sun, nor is one as small as [the planet] Kochav, in the second sphere.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">💡 Key Distinction</div><strong>Matter</strong> (substance) never exists without <strong>form</strong> (structure), and form never exists without matter — except for angels and God. This is core Aristotelian metaphysics applied to Torah.</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Sublunar World</h2>
+  <div class="subtitle">הלכות ט׳–י׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ט׳</div>
+    <div class="halacha-he">כָּל הַכּוֹכָבִים וְהַגַּלְגַּלִּים כֻּלָּן בַּעֲלֵי נֶפֶשׁ וְדֵעָה וְהַשְׂכֵּל הֵם. וְהֵם חַיִּים וְעוֹמְדִים וּמַכִּירִין אֶת מִי שֶׁאָמַר וְהָיָה הָעוֹלָם. כָּל אֶחָד וְאֶחָד לְפִי גָּדְלוֹ וּלְפִי מַעֲלָתוֹ מְשַׁבְּחִים וּמְפָאֲרִים לְיוֹצְרָם כְּמוֹ הַמַּלְאָכִים. וּכְשֵׁם שֶׁמַּכִּירִין הַקָּדוֹשׁ בָּרוּךְ הוּא כָּךְ מַכִּירִין אֶת עַצְמָן וּמַכִּירִין אֶת הַמַּלְאָכִים שֶׁלְּמַעְלָה מֵהֶן. וְדַעַת הַכּוֹכָבִים וְהַגַּלְגַּלִּים מְעוּטָה מִדַּעַת הַמַּלְאָכִים וּגְדוֹלָה מִדַּעַת בְּנֵי אָדָם:</div>
+    <div class="halacha-en long">All the stars and spheres possess a soul, knowledge, and intellect. They are alive and stand in recognition of the One who spoke and [thus brought] the world into being.According to their size and level, each one praises and glorifies their Creator as the angels do.12Thus, Pesachim 2a interprets Psalms 148:3, "Praise Him all shining stars," simply - i.e., the stars render praise to God. However, note how the Targum and the Midrash Sachar Tov interpret Psalms 19:2, "The heavens relate the glory of God," as "The heavens cause others to relate. Just as they are aware of the Holy One, blessed be He, they are also aware of themselves and of the angels which surpass them. The knowledge of the stars and the spheres is less than the knowledge of the angels, but greater than that of men.13Note the differences between this halachah and Chapter 2, Halachah 8.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י׳</div>
+    <div class="halacha-he">בָּרָא הָאֵל לְמַטָּה מִגַּלְגַּל הַיָּרֵחַ גּלֶם אֶחָד שֶׁאֵינוֹ כְּגלֶם הַגַּלְגַּלִּים. וּבָרָא אַרְבַּע צוּרוֹת לְגלֶם זֶה וְאֵינָן כְּצוּרַת הַגַּלְגַּלִּים וְנִקְבַּע כָּל צוּרָה וְצוּרָה בְּמִקְצָת גּלֶם זֶה. צוּרָה רִאשׁוֹנָה צוּרַת הָאֵשׁ נִתְחַבְּרָה בְּמִקְצָת גּלֶם זֶה וְנִהְיָה מִשְּׁנֵיהֶן גּוּף הָאֵשׁ. וְצוּרָה שְׁנִיָּה צוּרַת הָרוּחַ נִתְחַבְּרָה בְּמִקְצָתוֹ וְנִהְיָה מִשְּׁנֵיהֶן גּוּף הָרוּחַ. וְצוּרָה שְׁלִישִׁית צוּרַת הַמַּיִם נִתְחַבְּרָה בְּמִקְצָתוֹ וְנִהְיָה מִשְּׁנֵיהֶם גּוּף הַמַּיִם. וְצוּרָה רְבִיעִית צוּרַת הָאָרֶץ נִתְחַבְּרָה בְּמִקְצָתוֹ וְנִהְיָה מִשְּׁנֵיהֶם גּוּף הָאָרֶץ. נִמְצָא לְמַטָּה מִן הָרָקִיעַ אַרְבָּעָה גּוּפִין מֻחְלָקִין זֶה לְמַעְלָה מִזֶּה וְכָל אֶחָד וְאֶחָד מַקִּיף אֶת שֶׁלְּמַטָּה מִמֶּנּוּ מִכָּל רוּחוֹתָיו כְּמוֹ גַּלְגַּל. הַגּוּף הָרִאשׁוֹן הַסָּמוּךְ לְגַלְגַּל הַיָּרֵחַ הוּא גּוּף הָאֵשׁ. לְמַטָּה מִמֶּנּוּ גּוּף הָרוּחַ. לְמַטָּה מִמֶּנּוּ גּוּף הַמַּיִם. לְמַטָּה מִמֶּנּוּ גּוּף הָאָרֶץ. וְאֵין בֵּינֵיהֶם מָקוֹם פָּנוּי בְּלֹא גּוּף כְּלָל:</div>
+    <div class="halacha-en long">Below the sphere of the moon, God created a [type of] matter14This refers to primeval, unformed matter. In Greek terminology, it is referred to as hyli. which differs from the matter of the spheres. He created four forms15The word "form" in this context refers to the entity's spiritual qualities and not its physical shape. for this matter, which differ from the forms of matter of the spheres.Each of these forms was fixed in a portion of this matter [as it exists in its totality]. The first of these forms is the form of fire. [When] it became connected to a portion of this matter, from the two there came into being a body of fire.The second of these forms is the form of wind. [When] it became connected to a portion of this matter, from the two there came into being a body of wind.The third of these forms is the form of water. [When] it became connected to a portion of this matter, from the two there came into being a body of water.The fourth of these forms is the form of earth. [When] it became connected to a portion of this matter, from the two there came into being a body of earth.Thus, below the sky there are four different states of matter, one above the other, each one encompassing the one below it from all directions, like a sphere. The first of these bodies, which is closest to the sphere of the moon, is that of fire. Below it is the body of wind, below it the body of water, and below it the body of Earth. There is no empty space without any matter between them at all.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🌍 Change & Decay</div>Everything below the moon is subject to change, decay, and death. The celestial spheres above are constant. This explains why our world is impermanent.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Human Intellect</h2>
+  <div class="subtitle">הלכה י״א</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״א׳</div>
+    <div class="halacha-he">אַרְבָּעָה גּוּפוֹת הָאֵלּוּ אֵינָם בַּעֲלֵי נֶפֶשׁ וְאֵינָם יוֹדְעִים וְלֹא מַכִּירִים אֶלָּא כְּגוּפִים מֵתִים. וְיֵשׁ לְכָל אֶחָד וְאֶחָד מֵהֶם מִנְהָג שֶׁאֵינוֹ יוֹדְעוֹ וְלֹא מַשִּׂיגוֹ וְאֵינוֹ יָכוֹל לְשַׁנּוֹתוֹ. וְזֶה שֶׁאָמַר דָּוִד (תהילים קמח ז) "הַלְלוּ אֶת ה' מִן הָאָרֶץ תַּנִּינִים וְכָל תְּהֹמוֹת" (תהילים קמח ח) "אֵשׁ וּבָרָד שֶׁלֶג וְקִיטוֹר". וּבֵאוּר עִנְיַן הַדְּבָרִים הַלְלוּהוּ בְּנֵי אָדָם מִגְּבוּרוֹתָיו שֶׁתִּרְאוּ בָּאֵשׁ וּבַבָּרָד וּבִשְׁאָר בְּרוּאִים שֶׁתִּרְאוּ לְמַטָּה מִן הָרָקִיעַ שֶׁגְּבוּרָתָם תָּמִיד נִכֶּרֶת לַקָּטָן וְלַגָּדוֹל:</div>
+    <div class="halacha-en long">These four bodies do not possess a soul, nor are they conscious or knowing. Rather, they are like dead bodies. Each one has its inclinations. However, it is not conscious or knowledgeable [of these inclinations], nor can it change them.David's statement (Psalms 148:7-8): "Praise God from the Earth, sea-monsters and all the depths; fire and hail, snow and vapor" [does not contradict the above statement].16Although Notes 6 and 11 mention the Sages' interpretation of the movement of the stars and spheres as an expression of their praise of God, such a statement cannot be made with regard to these four fundamental elements. They, unlike the stars, are not conscious beings, and their movement and activity are merely natural patterns imprinted within them by God, as explained in Chapter 4, Halachah 2. That verse should be interpreted: Men, praise [God] for His mightiness which is apparent in the fire, hail, and other creations that can be seen below the sky, because their power is always visible to [both] the great and the small.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🧠 The Divine Gift</div>The human intellect — our ability to grasp abstract concepts — is the "form" that makes us human. It's what connects us to the angels and to God Himself. It's not physical and doesn't die with the body.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 3</div>
+  <div class="flowchart" style="gap:0.8rem">
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🏛️</div>
+      <strong>Torah = Physics + Metaphysics</strong><br>
+      <span style="font-size:0.9rem">Ma'aseh Bereshit is physics; Ma'aseh Merkavah is metaphysics. The Rambam sees studying the natural world as studying Torah's deepest secrets.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🔥</div>
+      <strong>Four Elements</strong><br>
+      <span style="font-size:0.9rem">All matter is composed of fire, air, water, and earth in different combinations. Each element has a natural place and tendency.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🧬</div>
+      <strong>Form & Matter</strong><br>
+      <span style="font-size:0.9rem">Everything physical has form (structure) and matter (substance). They can't exist without each other in the physical world.</span>
+    </div>
+    
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🧠</div>
+      <strong>The Immortal Intellect</strong><br>
+      <span style="font-size:0.9rem">The human soul/intellect is our "form" — it's what makes us uniquely human. Unlike the body, it doesn't decay.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק ג׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>
