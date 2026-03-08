@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק ה׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק ה׳ · Chapter 5</span>
+</div>
+<div class="slide-wrap">
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק ה׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 5 · 11 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">⚔️ Kiddush Hashem — dying for God's name<br>🛡️ When to sacrifice your life vs. transgress<br>📜 The three cardinal sins<br>👥 Public vs. private situations<br>🌟 Chillul Hashem — desecrating God's name</div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">Sanctification of God's Name</h2>
+  <div class="subtitle">Chapter 5 · Overview</div>
+  <div class="flowchart">
+    <div class="flow-box highlight">The Mitzvah of Kiddush Hashem<br><span style="font-size:0.8rem;color:#888">הלכות א׳–ב׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Times of Persecution<br><span style="font-size:0.8rem;color:#888">הלכות ג׳–ד׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Coercion and Medical Exceptions<br><span style="font-size:0.8rem;color:#888">הלכות ה׳–ו׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">The Three Cardinal Sins<br><span style="font-size:0.8rem;color:#888">הלכות ז׳–ט׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Chillul Hashem — Desecration<br><span style="font-size:0.8rem;color:#888">הלכות י׳–י״א</span></div>
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Mitzvah of Kiddush Hashem</h2>
+  <div class="subtitle">הלכות א׳–ב׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">כָּל בֵּית יִשְׂרָאֵל מְצֻוִּין עַל קִדּוּשׁ הַשֵּׁם הַגָּדוֹל הַזֶּה שֶׁנֶּאֱמַר (ויקרא כב לב) "וְנִקְדַּשְׁתִּי בְּתוֹךְ בְּנֵי יִשְׂרָאֵל". וּמֻזְהָרִין שֶׁלֹּא לְחַלְּלוֹ שֶׁנֶּאֱמַר (ויקרא כב לב) "וְלֹא תְחַלְּלוּ אֶת שֵׁם קָדְשִׁי". כֵּיצַד. כְּשֶׁיַּעֲמֹד עוֹבֵד כּוֹכָבִים וְיֶאֱנֹס אֶת יִשְׂרָאֵל לַעֲבֹר עַל אַחַת מִכָּל מִצְוֹת הָאֲמוּרוֹת בַּתּוֹרָה אוֹ יַהַרְגֶּנּוּ יַעֲבֹר וְאַל יֵהָרֵג שֶׁנֶּאֱמַר בַּמִּצְוֹת (ויקרא יח ה) "אֲשֶׁר יַעֲשֶׂה אוֹתָם הָאָדָם וָחַי בָּהֶם". וָחַי בָּהֶם וְלֹא שֶׁיָּמוּת בָּהֶם. וְאִם מֵת וְלֹא עָבַר הֲרֵי זֶה מִתְחַיֵּב בְּנַפְשׁוֹ:</div>
+    <div class="halacha-en long">The entire house of Israel are commanded regarding the sanctification of [God's] great name, as [Leviticus 22:32] states: "And I shall be sanctified amidst the children of Israel." Also, they are warned against desecrating [His holy name], as [the above verse] states: "And they shall not desecrate My holy name."What is implied? Should a gentile arise and force a Jew to violate one of the Torah's commandments at the pain of death, he should violate the commandment rather than be killed, because [Leviticus 18:5] states concerning the mitzvot: "which a man will perform and live by them." [They were given so that] one may live by them and not die because of them. If a person dies rather than transgress, he is held accountable for his life.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">בַּמֶּה דְּבָרִים אֲמוּרִים בִּשְׁאָר מִצְוֹת חוּץ מֵעֲבוֹדַת כּוֹכָבִים וְגִלּוּי עֲרָיוֹת וּשְׁפִיכַת דָּמִים. אֲבָל שָׁלֹשׁ עֲבֵרוֹת אֵלּוּ אִם יֹאמַר לוֹ עֲבֹר עַל אַחַת מֵהֶן אוֹ תֵּהָרֵג. יֵהָרֵג וְאַל יַעֲבֹר. בַּמֶּה דְּבָרִים אֲמוּרִים בִּזְמַן שֶׁהָעוֹבֵד כּוֹכָבִים מִתְכַּוֵּן לַהֲנָאַת עַצְמוֹ. כְּגוֹן שֶׁאֲנָסוֹ לִבְנוֹת לוֹ בֵּיתוֹ בְּשַׁבָּת אוֹ לְבַשֵּׁל לוֹ תַּבְשִׁילוֹ. אוֹ אָנַס אִשָּׁה לְבָעֳלָהּ וְכַיּוֹצֵא בָּזֶה. אֲבָל אִם נִתְכַּוֵּן לְהַעֲבִירוֹ עַל הַמִּצְוֹת בִּלְבַד. אִם הָיָה בֵּינוֹ לְבֵין עַצְמוֹ וְאֵין שָׁם עֲשָׂרָה מִיִּשְׂרָאֵל יַעֲבֹר וְאַל יֵהָרֵג. וְאִם אֲנָסוֹ לְהַעֲבִירוֹ בַּעֲשָׂרָה מִיִּשְׂרָאֵל יֵהָרֵג וְאַל יַעֲבֹר. וַאֲפִלּוּ לֹא נִתְכַּוֵּן לְהַעֲבִירוֹ אֶלָּא עַל מִצְוָה מִשְּׁאָר מִצְוֹת בִּלְבַד:</div>
+    <div class="halacha-en long">When does the above apply? With regard to other mitzvot, with the exception of the worship of other gods, forbidden sexual relations, and murder. However, with regard to these three sins, if one is ordered: "Transgress one of them or be killed," one should sacrifice his life rather than transgress.When does the above apply? When the gentile desires his own personal benefit - for example, he forces a person to build a house or cook food for him on the Sabbath, he rapes a woman, or the like. However, if his intention is solely to have him violate the mitzvot, [the following rules apply:] If he is alone and there are not ten other Jews present, he should transgress and not sacrifice his life. However, if he forces him [to transgress] with the intention that he violate [a mitzvah] in the presence of ten Jews, he should sacrifice his life and not transgress. [This applies] even if [the gentile] intended merely that he violate only one of the [Torah's] mitzvot.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">⚔️ The Obligation</div>All of Israel is commanded to sanctify God's name. The general rule: for most mitzvot, <strong>transgress rather than die</strong>. But for the three cardinal sins — idolatry, forbidden relations, and murder — <strong>die rather than transgress</strong>.</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Times of Persecution</h2>
+  <div class="subtitle">הלכות ג׳–ד׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">וְכָל הַדְּבָרִים הָאֵלּוּ שֶׁלֹּא בִּשְׁעַת הַגְּזֵרָה אֲבָל בִּשְׁעַת הַגְּזֵרָה וְהוּא שֶׁיַּעֲמֹד מֶלֶךְ רָשָׁע כִּנְבוּכַדְנֶצַּר וַחֲבֵרָיו וְיִגְזֹר גְּזֵרָה עַל יִשְׂרָאֵל לְבַטֵּל דָּתָם אוֹ מִצְוָה מִן הַמִּצְוֹת. יֵהָרֵג וְאַל יַעֲבֹר אֲפִלּוּ עַל אַחַת מִשְּׁאָר מִצְוֹת בֵּין נֶאֱנָס בְּתוֹךְ עֲשָׂרָה בֵּין נֶאֱנָס בֵּינוֹ לְבֵין עוֹבְדֵי כּוֹכָבִים:</div>
+    <div class="halacha-en long">All the above [distinctions] apply [only in times] other than times of a decree. However, in times of a decree - i.e., when a wicked king like Nebuchadnezzar or his like will arise and issue a decree against the Jews to nullify their faith or one of the mitzvot - one should sacrifice one's life rather than transgress any of the other mitzvot, whether one is compelled [to transgress] amidst ten [Jews] or one is compelled [to transgress merely] amidst gentiles.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">כָּל מִי שֶׁנֶּאֱמַר בּוֹ יַעֲבֹר וְאַל יֵהָרֵג וְנֶהֱרַג וְלֹא עָבַר הֲרֵי זֶה מִתְחַיֵּב בְּנַפְשׁוֹ. וְכָל מִי שֶׁנֶּאֱמַר בּוֹ יֵהָרֵג וְאַל יַעֲבֹר וְנֶהֱרַג וְלֹא עָבַר הֲרֵי זֶה קִדֵּשׁ אֶת הַשֵּׁם. וְאִם הָיָה בַּעֲשָׂרָה מִיִּשְׂרָאֵל הֲרֵי זֶה קִדֵּשׁ אֶת הַשֵּׁם בָּרַבִּים כְּדָנִיֵּאל חֲנַנְיָה מִישָׁאֵל וַעֲזַרְיָה וְרַבִּי עֲקִיבָא וַחֲבֵרָיו. וְאֵלּוּ הֵן הֲרוּגֵי מַלְכוּת שֶׁאֵין מַעֲלָה עַל מַעֲלָתָן. וַעֲלֵיהֶן נֶאֱמַר (תהילים מד כג) "כִּי עָלֶיךָ הֹרַגְנוּ כָל הַיּוֹם נֶחְשַׁבְנוּ כְּצֹאן טִבְחָה". וַעֲלֵיהֶם נֶאֱמַר (תהילים נ ה) "אִסְפוּ לִי חֲסִידָי כֹּרְתֵי בְרִיתִי עֲלֵי זָבַח". וְכָל מִי שֶׁנֶּאֱמַר בּוֹ יֵהָרֵג וְאַל יַעֲבֹר וְעָבַר וְלֹא נֶהֱרַג הֲרֵי זֶה מְחַלֵּל אֶת הַשֵּׁם. וְאִם הָיָה בַּעֲשָׂרָה מִיִּשְׂרָאֵל הֲרֵי זֶה חִלֵּל אֶת הַשֵּׁם בָּרַבִּים וּבִטֵּל מִצְוַת עֲשֵׂה שֶׁהִיא קִדּוּשׁ הַשֵּׁם וְעָבַר עַל מִצְוַת לֹא תַעֲשֶׂה שֶׁהִיא חִלּוּל הַשֵּׁם. וְאַף עַל פִּי כֵן מִפְּנֵי שֶׁעָבַר בְּאֹנֶס אֵין מַלְקִין אוֹתוֹ וְאֵין צָרִיךְ לוֹמַר שֶׁאֵין מְמִיתִין אוֹתוֹ בֵּית דִּין אֲפִלּוּ הָרַג בְּאֹנֶס. שֶׁאֵין מַלְקִין וּמְמִיתִין אֶלָּא לְעוֹבֵר בִּרְצוֹנוֹ וּבְעֵדִים וְהַתְרָאָה שֶׁנֶּאֱמַר בְּנוֹתֵן מִזַּרְעוֹ לַמּלֶךְ (ויקרא כ ה) "(וְנָתַתִּי) [וְשַׂמְתִּי] אֲנִי אֶת פָּנַי בָּאִישׁ הַהוּא". מִפִּי הַשְּׁמוּעָה לָמְדוּ הַהוּא לֹא אָנוּס וְלֹא שׁוֹגֵג וְלֹא מֻטְעֶה. וּמָה אִם עֲבוֹדַת כּוֹכָבִים שֶׁהִיא חֲמוּרָה מִן הַכּל הָעוֹבֵד אוֹתָהּ בְּאֹנֶס אֵינוֹ חַיָּב כָּרֵת וְאֵין צָרִיךְ לוֹמַר מִיתַת בֵּית דִּין. קַל וָחֹמֶר לִשְׁאָר מִצְוֹת הָאֲמוּרוֹת בַּתּוֹרָה. וּבַעֲרָיוֹת הוּא אוֹמֵר (דברים כב כו) "וְלַנַּעֲרָה לֹא תַעֲשֶׂה דָבָר". אֲבָל אִם יָכוֹל לְמַלֵּט נַפְשׁוֹ וְלִבְרֹחַ מִתַּחַת יַד הַמֶּלֶךְ הָרָשָׁע וְאֵינוֹ עוֹשֶׂה הִנֵּה הוּא כְּכֶלֶב שָׁב עַל קֵאוֹ. וְהוּא נִקְרָא עוֹבֵד עֲבוֹדַת כּוֹכָבִים בְּמֵזִיד וְהוּא נִטְרָד מִן הָעוֹלָם הַבָּא וְיוֹרֵד לַמַּדְרֵגָה הַתַּחְתּוֹנָה שֶׁל גֵּיהִנֹּם:</div>
+    <div class="halacha-en long">If anyone about whom it is said: "Transgress and do not sacrifice your life," sacrifices his life and does not transgress, he is held accountable for his life.When anyone about whom it is said: "Sacrifice your life and do not transgress," sacrifices his life and does not transgress, he sanctifies [God's] name. If he does so in the presence of ten Jews, he sanctifies [God's] name in public, like Daniel, Chananiah, Mishael, Azariah, and Rabbi Akiva and his colleagues. These are those slain by [the wicked] kingdom, above whom there is no higher level. Concerning them, [Psalms 44:23] states: "For Your sake, we have been slain all day, we are viewed as sheep for the slaughter," and [Psalms 50:5] states: "Gather unto Me, My pious ones, those who have made a covenant with Me by slaughter."When anyone about whom it is said: "Sacrifice your life and do not transgress," transgresses instead of sacrificing his life, he desecrates [God's] name. If he does so in the presence of ten Jews, he desecrates [God's] name in public, nullifies [the fulfillment of] the positive commandment of the sanctification of [God's] name, and violates the negative commandment against the desecration of God's name.Nevertheless, since he was forced to transgress, he is not [punished by] lashing, and, needless to say, is not executed by the court even if he was forced to slay [a person]. The [punishments of] lashes and execution are administered only to one who transgresses voluntarily, [when the transgression is observed by] witnesses, and [when] a warning [was given], as [Leviticus 20:5] states concerning one who gives his children to [the worship of] Molech: "I will turn My face against that person."The oral tradition teaches [that we can infer]: "that person" and not one who is forced [to transgress, who transgresses] inadvertently, or [who transgresses] because of an error. If, concerning the worship of false gods, which is the most serious [of sins], a person who is forced to worship is not liable for karet, nor, needless to say, execution by a court, how much more so [does this principle apply] regarding the other mitzvot of the Torah? [Similarly,] regarding forbidden sexual relations, [Deuteronomy 22:26] states: "Do not do anything to the maiden."One who could, however, escape and flee from under the power of a wicked king and fails to do so is like a dog who returns [to lick] his vomit. He is considered as one who worships false gods willingly. He will be prevented from reaching the world to come and will descend to the lowest levels of Gehinnom.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔥 The Exception</div>During a royal decree against Judaism, one must die rather than violate <strong>even a minor custom</strong>. Someone who dies al kiddush Hashem reaches the highest level. But someone who dies when halacha says to transgress is <strong>responsible for their own death</strong>.</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Coercion and Medical Exceptions</h2>
+  <div class="subtitle">הלכות ה׳–ו׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">נָשִׁים שֶׁאָמְרוּ לָהֶם עוֹבְדֵי כּוֹכָבִים תְּנוּ לָנוּ אַחַת מִכֶּן וּנְטַמֵּא אוֹתָהּ וְאִם לָאו נְטַמֵּא אֶת כֻּלְּכֶן יִטָּמְאוּ כֻּלָּן וְאַל יִמְסְרוּ לָהֶם נֶפֶשׁ אַחַת מִיִּשְׂרָאֵל. וְכֵן אִם אָמְרוּ לָהֶם עוֹבְדֵי כּוֹכָבִים תְּנוּ לָנוּ אֶחָד מִכֶּם וְנַהַרְגֶּנּוּ וְאִם לָאו נַהֲרֹג כֻּלְּכֶם. יֵהָרְגוּ כֻּלָּם וְאַל יִמְסְרוּ לָהֶם נֶפֶשׁ אַחַת מִיִּשְׂרָאֵל. וְאִם יִחֲדוּהוּ לָהֶם וְאָמְרוּ תְּנוּ לָנוּ פְּלוֹנִי אוֹ נַהֲרֹג אֶת כֻּלְּכֶם. אִם הָיָה מְחֻיָּב מִיתָה כְּשֶׁבַע בֶּן בִּכְרִי יִתְּנוּ אוֹתוֹ לָהֶם. וְאֵין מוֹרִין לָהֶם כֵּן לְכַתְּחִלָּה. וְאִם אֵינוֹ חַיָּב מִיתָה יֵהָרְגוּ כֻּלָּן וְאַל יִמְסְרוּ לָהֶם נֶפֶשׁ אַחַת מִיִּשְׂרָאֵל:</div>
+    <div class="halacha-en long">If gentiles tell [a group of] women: "Give us one of you to defile. If not, we will defile all of you," they should allow themselves all to be defiled rather than give over a single Jewish soul to [the gentiles].Similarly, if gentiles told [a group of Jews]: "Give us one of you to kill. If not, we will kill all of you," they should allow themselves all to be killed rather than give over a single soul to [the gentiles].However, if [the gentiles] single out [a specific individual] and say: "Give us so and so or we will kill all of you," [different rules apply]: If the person is obligated to die like Sheva ben Bichri, they may give him over to them. Initially, however, this instruction is not conveyed to them. If he is not obligated to die, they should allow themselves all to be killed rather than give over a single soul to [the gentiles].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he">כָּעִנְיָן שֶׁאָמְרוּ בָּאֳנָסִין כָּךְ אָמְרוּ בָּחֳלָאִים. כֵּיצַד. מִי שֶׁחָלָה וְנָטָה לָמוּת וְאָמְרוּ הָרוֹפְאִים שֶׁרְפוּאָתוֹ בְּדָבָר פְּלוֹנִי מֵאִסּוּרִין שֶׁבַּתּוֹרָה עוֹשִׂין. וּמִתְרַפְּאִין בְּכָל אִסּוּרִין שֶׁבַּתּוֹרָה בִּמְקוֹם סַכָּנָה חוּץ מֵעֲבוֹדַת כּוֹכָבִים וְגִלּוּי עֲרָיוֹת וּשְׁפִיכַת דָּמִים שֶׁאֲפִלּוּ בִּמְקוֹם סַכָּנָה אֵין מִתְרַפְּאִין בָּהֶן. וְאִם עָבַר וְנִתְרַפֵּא עוֹנְשִׁין אוֹתוֹ בֵּית דִּין עֹנֶשׁ הָרָאוּי לוֹ:</div>
+    <div class="halacha-en long">Just as these principles apply regarding being forced [to transgress], they also apply regarding sicknesses. What is implied?When a person becomes sick and is in danger of dying, if the physicians say that his cure involves transgressing a given Torah prohibition, [the physicians' advice] should be followed. When there is a danger [to life], one may use any of the Torah prohibitions as a remedy, with the exception of the worship of false gods, forbidden sexual relations, and murder. Even when there is a danger [to life], one may not use them as a remedy. If one transgresses and uses them as a remedy, the court may impose the appropriate punishment upon him.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">💊 Healing with Prohibitions</div>One may use prohibited substances for healing only when life is in danger and only when the benefit doesn't come through eating. The sick person's case is treated like coercion — they're not acting willingly.</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Three Cardinal Sins</h2>
+  <div class="subtitle">הלכות ז׳–ט׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he">וּמִנַּיִן שֶׁאֲפִלּוּ בִּמְקוֹם סַכָּנַת נְפָשׁוֹת אֵין עוֹבְרִין עַל אַחַת מִשָּׁלֹשׁ עֲבֵרוֹת אֵלּוּ שֶׁנֶּאֱמַר (דברים ו ה) "וְאָהַבְתָּ אֵת ה' אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ" אֲפִלּוּ הוּא נוֹטֵל אֶת נַפְשְׁךָ. וַהֲרִיגַת נֶפֶשׁ מִיִּשְׂרָאֵל לְרַפְּאוֹת נֶפֶשׁ אַחֶרֶת אוֹ לְהַצִּיל אָדָם מִיַּד אַנָּס דָּבָר שֶׁהַדַּעַת נוֹטָה לוֹ הוּא שֶׁאֵין מְאַבְּדִין נֶפֶשׁ מִפְּנֵי נֶפֶשׁ. וַעֲרָיוֹת הֻקְּשׁוּ לִנְפָשׁוֹת שֶׁנֶּאֱמַר (דברים כב כו) "כִּי כַּאֲשֶׁר יָקוּם אִישׁ עַל רֵעֵהוּ וּרְצָחוֹ נֶפֶשׁ כֵּן הַדָּבָר הַזֶּה":</div>
+    <div class="halacha-en long">What is the source [which teaches] that even when there is a danger to life, these three sins should not be violated? [Deuteronomy 6:5] states: "And you shall love God, your Lord, with all your heart, with all your soul, and with all your might." [The words "with all your soul" imply] even if one takes your soul.With regard to the killing of a Jewish person to heal another person or to save a person from one who is compelling him, it is logical that one person's life should not be sacrificed for another. [The Torah has] established an equation between forbidden sexual relations and murder, as [Deuteronomy 22:26] states: "This matter is just like a case where a person rises up against his colleague and slays him."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ח׳</div>
+    <div class="halacha-he">בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁאֵין מִתְרַפְּאִין בִּשְׁאָר אִסּוּרִים אֶלָּא בִּמְקוֹם סַכָּנָה. בִּזְמַן שֶׁהֵן דֶּרֶךְ הֲנָאָתָן כְּגוֹן שֶׁמַּאֲכִילִין אֶת הַחוֹלֶה שְׁקָצִים וּרְמָשִׂים אוֹ חָמֵץ בְּפֶסַח אוֹ שֶׁמַּאֲכִילִין אוֹתוֹ בְּיוֹם הַכִּפּוּרִים. אֲבָל שֶׁלֹּא דֶּרֶךְ הֲנָאָתָן כְּגוֹן שֶׁעוֹשִׂין לוֹ רְטִיָּה אוֹ מְלוּגְמָא מֵחָמֵץ אוֹ מֵעָרְלָה. אוֹ שֶׁמַּשְׁקִין אוֹתוֹ דְּבָרִים שֶׁיֵּשׁ בָּהֶן מַר מְעֹרָב עִם אִסּוּרֵי מַאֲכָל שֶׁהֲרֵי אֵין בָּהֶן הֲנָאָה לַחֵךְ הֲרֵי זֶה מֻתָּר וַאֲפִלּוּ שֶׁלֹּא בִּמְקוֹם סַכָּנָה. חוּץ מִכִּלְאֵי הַכֶּרֶם וּבָשָׂר בְּחָלָב שֵׁהֵן אֲסוּרִים אֲפִלּוּ שֵׁלֹּא דֵּרֵךְ הֲנָאָתָן. לְפִיכָךְ אֵין מִתְרַפְּאִין מֵהֶן אֲפִלּוּ שֶׁלֹּא דֶּרֵךְ הֲנָאָתָן אֵלָּא בִּמִקוֹם סַכָּנָה:</div>
+    <div class="halacha-en long">When does the above - that one may be healed using other prohibitions only when [one's life] is in danger - apply? When one uses them in a way which affords satisfaction - e.g., when one feeds a sick person insects or creeping animals, or chametz on Pesach, or when one is fed on Yom Kippur.When, however, [the prohibited substances are used] in a way that does not grant satisfaction - e.g., one makes a bandage or compress of chametz on Pesach or from orlah, or when one is given bitter-tasting substances mixed with forbidden foods to drink - since one's palate derives no satisfaction, it is permitted even when no danger to life is involved.Exceptions [to this leniency] are kilai hakerem and [mixtures of] milk and meat. [Deriving benefit] from them is forbidden even in a way that does not offer satisfaction. Therefore, they may not be used as a remedy even in a manner which does not grant satisfaction, except when there is danger [to life].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ט׳</div>
+    <div class="halacha-he">מִי שֶׁנָּתַן עֵינָיו בְּאִשָּׁה וְחָלָה וְנָטָה לָמוּת וְאָמְרוּ הָרוֹפְאִים אֵין לוֹ רְפוּאָה עַד שֶׁתִּבָּעֵל לוֹ. יָמוּת וְאַל תִּבָּעֵל לוֹ אֲפִלּוּ הָיְתָה פְּנוּיָה. וַאֲפִלּוּ לְדַבֵּר עִמָּהּ מֵאֲחוֹרֵי הַגָּדֵר אֵין מוֹרִין לוֹ בְּכָךְ וְיָמוּת וְלֹא יוֹרוּ לְדַבֵּר עִמָּהּ מֵאֲחוֹרֵי הַגָּדֵר שֶׁלֹּא יְהוּ בְּנוֹת יִשְׂרָאֵל הֶפְקֵר וְיָבוֹאוּ בִּדְבָרִים אֵלּוּ לִפְרֹץ בַּעֲרָיוֹת:</div>
+    <div class="halacha-en long">[When] someone becomes attracted to a woman and is [love-]sick [to the extent that] he is in danger of dying, [although] the physicians say he has no remedy except engaging in sexual relations with her, he should be allowed to die rather than engage in sexual relations with her. [This applies] even if she is unmarried.He is even not to be given instructions to speak to her [in private] behind a fence. Rather, he should die rather than be given instructions to speak to her behind a fence. [These restrictions were instituted] so that Jewish women would not be regarded capriciously, and [to prevent] these matters from [ultimately] leading to promiscuity.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📖 Sources</div>Murder: "Do not stand by your brother's blood" — whose blood is redder? Forbidden relations: compared to murder in Deuteronomy. Idolatry: "love God with all your soul" — even if He takes your soul.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Chillul Hashem — Desecration</h2>
+  <div class="subtitle">הלכות י׳–י״א</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י׳</div>
+    <div class="halacha-he">כָּל הָעוֹבֵר מִדַּעְתּוֹ בְּלֹא אֹנֶס עַל אַחַת מִכָּל מִצְוֹת הָאֲמוּרוֹת בַּתּוֹרָה בִּשְׁאָט בְּנֶפֶשׁ לְהַכְעִיס הֲרֵי זֶה מְחַלֵּל אֶת הַשֵּׁם. וּלְפִיכָךְ נֶאֱמַר בִּשְׁבוּעַת שֶׁקֶר (ויקרא יט יב) "וְחִלַּלְתָּ אֶת שֵׁם אֱלֹהֶיךָ אֲנִי ה'". וְאִם עָבַר בַּעֲשָׂרָה מִיִּשְׂרָאֵל הֲרֵי זֶה חִלֵּל אֶת הַשֵּׁם בָּרַבִּים. וְכֵן כָּל הַפּוֹרֵשׁ מֵעֲבֵרָה אוֹ עָשָׂה מִצְוָה לֹא מִפְּנֵי דָּבָר בָּעוֹלָם לֹא פַּחַד וְלֹא יִרְאָה וְלֹא לְבַקֵּשׁ כָּבוֹד אֶלָּא מִפְּנֵי הַבּוֹרֵא בָּרוּךְ הוּא כִּמְנִיעַת יוֹסֵף הַצַּדִּיק עַצְמוֹ מֵאֵשֶׁת רַבּוֹ הֲרֵי זֶה מְקַדֵּשׁ אֶת הַשֵּׁם:</div>
+    <div class="halacha-en long">Whoever consciously transgresses one of the mitzvot related in the Torah, without being forced to, in a spirit of derision, to arouse [Divine] anger, desecrates [God's] name. Therefore, [Leviticus 19:12] states, regarding [taking] an oath in vain: "[for] you are desecrating the name of your Lord; I am God." If he transgresses amidst ten Jews, he desecrates [God's] name in public.Conversely, anyone who refrains from committing a sin or performs a mitzvah for no ulterior motive, neither out of fear or dread, nor to seek honor, but for the sake of the Creator, blessed be He - as Joseph held himself back from his master's wife - sanctifies God's name.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה י״א׳</div>
+    <div class="halacha-he">וְיֵשׁ דְּבָרִים אֲחֵרִים שֶׁהֵן בִּכְלַל חִלּוּל הַשֵּׁם. וְהוּא שֶׁיַּעֲשֶׂה אוֹתָם אָדָם גָּדוֹל בַּתּוֹרָה וּמְפֻרְסָם בַּחֲסִידוּת דְּבָרִים שֶׁהַבְּרִיּוֹת מְרַנְּנִים אַחֲרָיו בִּשְׁבִילָם. וְאַף עַל פִּי שֶׁאֵינָן עֲבֵרוֹת הֲרֵי זֶה חִלֵּל אֶת הַשֵּׁם כְּגוֹן שֶׁלָּקַח וְאֵינוֹ נוֹתֵן דְּמֵי הַמִּקָּח לְאַלְתַּר. וְהוּא שֶׁיֵּשׁ לוֹ וְנִמְצְאוּ הַמּוֹכְרִים תּוֹבְעִין וְהוּא מַקִּיפָן. אוֹ שֶׁיַּרְבֶּה בִּשְׂחוֹק אוֹ בַּאֲכִילָה וּשְׁתִיָּה אֵצֶל עַמֵּי הָאָרֶץ וּבֵינֵיהֶן. אוֹ שֶׁדִּבּוּרוֹ עִם הַבְּרִיּוֹת אֵינוֹ בְּנַחַת וְאֵינוֹ מְקַבְּלָן בְּסֵבֶר פָּנִים יָפוֹת אֶלָּא בַּעַל קְטָטָה וְכַעַס. וְכַיּוֹצֵא בַּדְּבָרִים הָאֵלּוּ הַכּל לְפִי גָּדְלוֹ שֶׁל חָכָם צָרִיךְ שֶׁיְּדַקְדֵּק עַל עַצְמוֹ וְיַעֲשֶׂה לִפְנִים מִשּׁוּרַת הַדִּין. וְכֵן אִם דִּקְדֵּק הֶחָכָם עַל עַצְמוֹ וְהָיָה דִּבּוּרוֹ בְּנַחַת עִם הַבְּרִיּוֹת וְדַעְתּוֹ מְעֹרֶבֶת עִמָּהֶם וּמְקַבְּלָם בְּסֵבֶר פָּנִים יָפוֹת וְנֶעֱלָב מֵהֶם וְאֵינוֹ עוֹלְבָם. מְכַבֵּד לָהֶן וַאֲפִלּוּ לַמְקִלִּין לוֹ. וְנוֹשֵׂא וְנוֹתֵן בֶּאֱמוּנָה. וְלֹא יַרְבֶּה בַּאֲרִיחוּת עַמֵּי הָאָרֶץ וִישִׁיבָתָן. וְלֹא יֵרָאֶה תָּמִיד אֶלָּא עוֹסֵק בַּתּוֹרָה עָטוּף בְּצִיצִית מֻכְתָּר בִּתְפִלִּין וְעוֹשֶׂה בְּכָל מַעֲשָׂיו לִפְנִים מִשּׁוּרַת הַדִּין. וְהוּא שֶׁלֹּא יִתְרַחֵק הַרְבֵּה וְלֹא יִשְׁתּוֹמֵם. עַד שֶׁיִּמָּצְאוּ הַכּל מְקַלְּסִין אוֹתוֹ וְאוֹהֲבִים אוֹתוֹ וּמִתְאַוִּים לְמַעֲשָׂיו. הֲרֵי זֶה קִדֵּשׁ אֶת ה' וְעָלָיו הַכָּתוּב אוֹמֵר (ישעיה מט ג) "וַיֹּאמֶר לִי עַבְדִּי אָתָּה יִשְׂרָאֵל אֲשֶׁר בְּךָ אֶתְפָּאָר":</div>
+    <div class="halacha-en long">There are other deeds which are also included in [the category of] the desecration of [God's] name, if performed by a person of great Torah stature who is renowned for his piety - i.e., deeds which, although they are not transgressions, [will cause] people to speak disparagingly of him. This also constitutes the desecration of [God's] name.For example, a person who purchases [merchandise] and does not pay for it immediately, although he possesses the money, and thus, the sellers demand payment and he pushes them off; a person who jests immoderately; or who eats and drinks near or among the common people; or whose conduct with other people is not gentle and he does not receive them with a favorable countenance, but rather contests with them and vents his anger; and the like. Everything depends on the stature of the sage. [The extent to which] he must be careful with himself and go beyond the measure of the law [depends on the level of his Torah stature.][The converse is] also [true]. When a sage is stringent with himself, speaks pleasantly with others, his social conduct is [attractive] to others, he receives them pleasantly, he is humbled by them and does not humble them in return, he honors them - even though they disrespect him - he does business faithfully, and does not frequently accept the hospitality of the common people or sit with them, and at all times is seen only studying Torah, wrapped in tzitzit, crowned with tefillin, and carrying out all his deeds beyond the measure of the law - provided he does not separate too far [from normal living] and thus become forlorn – to the extent that all praise him, love him, and find his deeds attractive - such a person sanctifies [God's] name. The verse [Isaiah 49:3]: "And He said to me: `Israel, you are My servant, in whom I will be glorified'" refers to him.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">⚠️ The Flip Side</div>A Torah scholar who behaves dishonestly — cheating in business, being rude, not paying promptly — this is a <strong>chillul Hashem</strong>, the opposite of sanctification. The greater the person, the higher the standard.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 5</div>
+  <div class="flowchart" style="gap:0.8rem">
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">⚔️</div>
+      <strong>Die for Three</strong><br><span style="font-size:0.9rem">Idolatry, forbidden relations, and murder — die rather than transgress, always. For everything else, transgress rather than die.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🔥</div>
+      <strong>Persecution Changes Rules</strong><br><span style="font-size:0.9rem">During a decree against Judaism, even the smallest custom becomes worth dying for — it's about standing firm, not the specific mitzvah.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">⚖️</div>
+      <strong>Proportional Response</strong><br><span style="font-size:0.9rem">The halacha is precise: don't die when you should transgress (that's self-harm), and don't transgress when you should die (that's betrayal).</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🌟</div>
+      <strong>Living as Kiddush Hashem</strong><br><span style="font-size:0.9rem">Sanctification isn't only about dying. A scholar who acts with integrity, treats people well, and represents Torah positively — that's daily kiddush Hashem.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק ה׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>

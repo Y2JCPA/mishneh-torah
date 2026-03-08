@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק ז׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק ז׳ · Chapter 7</span>
+</div>
+<div class="slide-wrap">
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק ז׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 7 · 7 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">🔮 Requirements for prophecy<br>📊 Levels among prophets<br>🌙 Prophecy through visions and metaphors<br>⚡ How prophecy feels physically<br>👑 Moshe's unique prophecy</div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">Prophecy</h2>
+  <div class="subtitle">Chapter 7 · Overview</div>
+  <div class="flowchart">
+    <div class="flow-box highlight">Who Can Become a Prophet?<br><span style="font-size:0.8rem;color:#888">הלכה א׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Levels of Prophecy<br><span style="font-size:0.8rem;color:#888">הלכות ב׳–ג׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">The Prophetic Experience<br><span style="font-size:0.8rem;color:#888">הלכות ד׳–ה׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Moshe vs. All Other Prophets<br><span style="font-size:0.8rem;color:#888">הלכה ו׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Personal vs. Public Prophecy<br><span style="font-size:0.8rem;color:#888">הלכה ז׳</span></div>
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Who Can Become a Prophet?</h2>
+  <div class="subtitle">הלכה א׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">מִיסוֹדֵי הַדָּת לֵידַע שֶׁהָאֵל מְנַבֵּא אֶת בְּנֵי הָאָדָם. וְאֵין הַנְּבוּאָה חָלָה אֶלָּא עַל חָכָם גָּדוֹל בַּחָכְמָה, גִּבּוֹר בְּמִדּוֹתָיו, וְלֹא יְהֵא יִצְרוֹ מִתְגַּבֵּר עָלָיו בְּדָבָר בָּעוֹלָם אֶלָּא הוּא מִתְגַּבֵּר בְּדַעְתּוֹ עַל יִצְרוֹ תָּמִיד. וְהוּא בַּעַל דֵּעָה רְחָבָה נְכוֹנָה עַד מְאֹד. אָדָם שֶׁהוּא מְמֻלָּא בְּכָל הַמִּדּוֹת הָאֵלּוּ שָׁלֵם בְּגוּפוֹ, כְּשֶׁיִּכָּנֵס לַפַּרְדֵּס וְיִמָּשֵׁךְ בְּאוֹתָן הָעִנְיָנִים הַגְּדוֹלִים הָרְחוֹקִים, וְתִהְיֶה לוֹ דֵּעָה נְכוֹנָה לְהָבִין וּלְהַשִּׂיג וְהוּא מִתְקַדֵּשׁ וְהוֹלֵךְ וּפוֹרֵשׁ מִדַּרְכֵי כְּלַל הָעָם הַהוֹלְכִים בְּמַחֲשַׁכֵּי הַזְּמַן, וְהוֹלֵךְ וּמְזָרֵז עַצְמוֹ וּמְלַמֵּד נַפְשׁוֹ שֶׁלֹּא תִּהְיֶה לוֹ מַחֲשָׁבָה כְּלָל בְּאֶחָד מִדְּבָרִים בְּטֵלִים וְלֹא מֵהַבְלֵי הַזְּמַן וְתַחְבּוּלוֹתָיו, אֶלָּא דַּעְתּוֹ פְּנוּיָה תָּמִיד לְמַעְלָה קְשׁוּרָה תַּחַת הַכִּסֵּא לְהָבִין בְּאוֹתָן הַצּוּרוֹת הַקְּדוֹשׁוֹת הַטְּהוֹרוֹת, וּמִסְתַּכֵּל בְּחָכְמָתוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא כֻּלָּהּ מִצּוּרָה רִאשׁוֹנָה עַד טַבּוּר הָאָרֶץ וְיוֹדֵעַ מֵהֶן גָּדְלוֹ, מִיָּד רוּחַ הַקֹּדֶשׁ שׁוֹרָה עָלָיו. וּבְעֵת שֶׁתָּנוּחַ עָלָיו הָרוּחַ תִּתְעָרֵב נַפְשׁוֹ בְּמַעֲלַת הַמַּלְאָכִים הַנִּקְרָאִים אִישִׁים וְיֵהָפֵךְ לְאִישׁ אַחֵר וְיָבִין בְּדַעְתּוֹ שֶׁאֵינוֹ כְּמוֹת שֶׁהָיָה אֶלָּא שֶׁנִּתְעַלָּה עַל מַעֲלַת שְׁאָר בְּנֵי אָדָם הַחֲכָמִים, כְּמוֹ שֶׁנֶּאֱמַר בְּשָׁאוּל (שמואל א י ו) "וְהִתְנַבִּיתָ עִמָּם וְנֶהְפַּכְתָּ לְאִישׁ אַחֵר":</div>
+    <div class="halacha-en long">It is [one] of the foundations of [our] faith that God conveys prophecy to man.Prophecy is bestowed only upon a very wise sage of a strong character, who is never overcome by his natural inclinations in any regard. Instead, with his mind, he overcomes his natural inclinations at all times. He must [also] possess a very broad and accurate mental capacity.A person who is full of all these qualities and is physically sound [is fit for prophecy]. When he enters the Pardes and is drawn into these great and sublime concepts, if he possesses an accurate mental capacity to comprehend and grasp [them], he will become holy. He will advance and separate himself from the masses who proceed in the darkness of the time. He must continue and diligently train himself not to have any thoughts whatsoever about fruitless things or the vanities and intrigues of the times.Instead, his mind should constantly be directed upward, bound beneath [God's] throne [of Glory, striving] to comprehend the holy and pure forms and gazing at the wisdom of the Holy One, blessed be He, in its entirety, [in its manifold manifestations] from the most elevated [spiritual] form until the navel of the earth, appreciating His greatness from them. [After these preparations,] the divine spirit will immediately rest upon him.When the spirit rests upon him, his soul becomes intermingled with the angels called ishim, and he will be transformed into a different person and will understand with a knowledge different from what it was previously. He will rise above the level of other wise men, as [the prophet, Samuel] told Saul [I Samuel 10:6]: "[The spirit of God will descend upon you] and you shall prophesy with them. And you will be transformed into a different person."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔮 The Prerequisites</div>Prophecy requires: great <strong>wisdom</strong>, strong <strong>character</strong>, and never being overcome by the yetzer hara. The mind must be extremely broad and the character supremely refined. Only then may the Shechinah rest on a person.</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Levels of Prophecy</h2>
+  <div class="subtitle">הלכות ב׳–ג׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">הַנְּבִיאִים מַעֲלוֹת מַעֲלוֹת הֵן. כְּמוֹ שֶׁיֵּשׁ בַּחָכְמָה חָכָם גָּדוֹל מֵחֲבֵרוֹ כָּךְ בַּנְּבוּאָה נָבִיא גָּדוֹל מִנָּבִיא. וְכֻלָּן אֵין רוֹאִין מַרְאֵה הַנְּבוּאָה אֶלָּא בַּחֲלוֹם בְּחֶזְיוֹן לַיְלָה. אוֹ בַּיּוֹם אַחַר שֶׁתִּפּל עֲלֵיהֶן תַּרְדֵּמָה כְּמוֹ שֶׁנֶּאֱמַר (במדבר יב ו) "בַּמַּרְאָה אֵלָיו אֶתְוַדָּע בַּחֲלוֹם אֲדַבֶּר בּוֹ". וְכֻלָּן כְּשֶׁמִּתְנַבְּאִים אֵיבְרֵיהֶן מִזְדַּעְזְעִין וְכֹחַ הַגּוּף כָּשֵׁל וְעֶשְׁתּוֹנוֹתֵיהֶם מִתְטָרְפוֹת וְתִשָּׁאֵר הַדַּעַת פְּנוּיָה לְהָבִין מַה שֶּׁתִּרְאֶה. כְּמוֹ שֶׁנֶּאֱמַר בְּאַבְרָהָם (בראשית טו יב) "וְהִנֵּה אֵימָה חֲשֵׁכָה גְדלָה נֹפֶלֶת עָלָיו". וּכְמוֹ שֶׁנֶּאֱמַר בְּדָנִיֵּאל (דניאל י ח) "וְהוֹדִי נֶהְפַּךְ עָלַי לְמַשְׁחִית וְלֹא עָצַרְתִּי כֹּחַ":</div>
+    <div class="halacha-en long">There are a number of levels among the prophets. Just as with regard to wisdom, one sage is greater than his colleague, so, too, with regard to prophecy, one prophet is greater than another. They all, [however, share certain commonalities]. They receive prophetic visions only in a visionary dream or during the day after slumber has overtaken them, as [Numbers 12:6] states: "I make Myself known to him in a vision. I speak to him in a dream."When any of them prophesy, their limbs tremble, their physical powers become weak, they lose control of their senses, and thus, their minds are free to comprehend what they see, as [Genesis 15:12] states concerning Abraham: "and a great, dark dread fell over him." Similarly, Daniel [10:8] states: "My appearance was horribly changed and I retained no strength."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">הַדְּבָרִים שֶׁמּוֹדִיעִים לַנָּבִיא בְּמַרְאֵה הַנְּבוּאָה דֶּרֶךְ מָשָׁל מוֹדִיעִין לוֹ וּמִיָּד יֵחָקֵק בְּלִבּוֹ פִּתְרוֹן הַמָּשָׁל בְּמַרְאֵה הַנְּבוּאָה וְיֵדַע מָה הוּא. כְּמוֹ הַסֻּלָּם שֶׁרָאָה יַעֲקֹב אָבִינוּ וּמַלְאָכִים עוֹלִים וְיוֹרְדִים בּוֹ וְהוּא הָיָה מָשָׁל לְמַלְכֻיּוֹת וְשִׁעְבּוּדָן. וּכְמוֹ הַחַיּוֹת שֶׁרָאָה יְחֶזְקֵאל וְהַסִּיר נָפוּחַ וּמַקֵּל שָׁקֵד שֶׁרָאָה יִרְמְיָה וְהַמְּגִלָּה שֶׁרָאָה יְחֶזְקֵאל וְהָאֵיפָה שֶׁרָאָה זְכַרְיָה. וְכֵן שְׁאָר הַנְּבִיאִים. מֵהֶם אוֹמְרִים הַמָּשָׁל וּפִתְרוֹנוֹ כְּמוֹ אֵלּוּ. וְיֵשׁ שֶׁהֵן אוֹמְרִים הַפִּתְרוֹן בִּלְבַד. וּפְעָמִים אוֹמְרִים הַמָּשָׁל בִּלְבַד בְּלֹא פִּתְרוֹן כְּמִקְצָת דִּבְרֵי יְחֶזְקֵאל וּזְכַרְיָה וְכֻלָּן בְּמָשָׁל וְדֶרֶךְ חִידָה הֵם מִתְנַבְּאִים:</div>
+    <div class="halacha-en long">When a prophet is informed of a message in a vision, it is granted to him in metaphoric imagery. Immediately, the interpretation of the imagery is imprinted upon his heart, and he knows its meaning.For example, the ladder with the angels ascending and descending envisioned by the patriarch, Jacob, was an allegory for the empires and their subjugation [of his descendants]. Similarly, the creatures Ezekiel saw, the boiling pot and the rod from an almond tree envisioned by Jeremiah, the scroll Ezekiel saw, and the measure seen by Zechariah [were all metaphoric images]. This is also true with regard to the other prophets.Some would relate the allegory and its explanation as these did. Others would relate only the explanation. At times, they would relate only the imagery without explaining it, as can be seen in some of the prophecies of Ezekiel and Zechariah.All of the prophecies come in the form of metaphoric imagery and allegories.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📊 Not All Equal</div>Just as some sages are wiser than others, some prophets are greater. All receive prophecy through <strong>visions and metaphors</strong> — the meaning is immediately implanted in their minds. They know it's prophecy, not a dream.</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Prophetic Experience</h2>
+  <div class="subtitle">הלכות ד׳–ה׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">כָּל הַנְּבִיאִים אֵין מִתְנַבְּאִין בְּכָל עֵת שֶׁיִּרְצוּ אֶלָּא מְכַוְּנִים דַּעְתָּם וְיוֹשְׁבִים שְׂמֵחִים וְטוֹבֵי לֵב וּמִתְבּוֹדְדִים. שֶׁאֵין הַנְּבוּאָה שׁוֹרָה לֹא מִתּוֹךְ עַצְבוּת וְלֹא מִתּוֹךְ עַצְלוּת אֶלָּא מִתּוֹךְ שִׂמְחָה. לְפִיכָךְ בְּנֵי הַנְּבִיאִים לִפְנֵיהֶם נֵבֶל וְתֹף וְחָלִיל וְכִנּוֹר וְהֵם מְבַקְּשִׁים הַנְּבוּאָה. וְזֶהוּ שֶׁנֶּאֱמַר (שמואל א י ה) "וְהֵמָּה מִתְנַבְּאִים" כְּלוֹמַר מְהַלְּכִין בְּדֶרֶךְ הַנְּבוּאָה עַד שֶׁיִּנָּבְאוּ כְּמוֹ שֶׁאַתָּה אוֹמֵר פְּלוֹנִי מִתְגַּדֵּל:</div>
+    <div class="halacha-en long">All the prophets do not prophesy whenever they desire. Instead, they must concentrate their attention [upon spiritual concepts] and seclude themselves, [waiting] in a happy, joyous mood, because prophecy cannot rest upon a person when he is sad or languid, but only when he is happy.Therefore, the prophets' disciples would always have a harp, drum, flute, and lyre [before them when] they were seeking prophecy. This is what is meant by the expression [I Samuel 10:5]: "They were prophesying" - i.e., following the path of prophecy until they would actually prophesy - as one might say, "So and so aspires to greatness."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">אֵלּוּ שֶׁהֵם מְבַקְּשִׁין לְהִתְנַבֵּא הֵם הַנִּקְרָאִים בְּנֵי הַנְּבִיאִים. וְאַף עַל פִּי שֶׁמְּכַוְּנִים דַּעְתָּם אֶפְשָׁר שֶׁתִּשְׁרֶה שְׁכִינָה עֲלֵיהֶן וְאֶפְשָׁר שֶׁלֹּא תִּשְׁרֶה:</div>
+    <div class="halacha-en">Those who aspire to prophecy are called "the disciples of the prophets." Even though they concentrate their attention, it is possible that the Divine Presence will rest upon them, and it is possible that it will not rest upon them.</div>
+    
+  </div>
+  <div class="callout"><div class="label">⚡ Physical Effects</div>Prophecy doesn't come on command. Prophets concentrate and wait — and even then it may not come. Their limbs <strong>tremble</strong>, their body weakens, and their rational mind is freed to grasp the vision.</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Moshe vs. All Other Prophets</h2>
+  <div class="subtitle">הלכה ו׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he">כָּל הַדְּבָרִים שֶׁאָמַרְנוּ הֵם דֶּרֶךְ נְבוּאָה לְכָל הַנְּבִיאִים הָרִאשׁוֹנִים וְהָאַחֲרוֹנִים חוּץ מִמּשֶׁה רַבֵּנוּ רַבָּן שֶׁל כָּל הַנְּבִיאִים. וּמַה הֶפְרֵשׁ יֵשׁ בֵּין נְבוּאַת משֶׁה לִשְׁאָר כָּל הַנְּבִיאִים. שֶׁכָּל הַנְּבִיאִים בַּחֲלוֹם אוֹ בְּמַרְאֶה וּמשֶׁה רַבֵּנוּ מִתְנַבֵּא וְהוּא עֵר וְעוֹמֵד שֶׁנֶּאֱמַר (במדבר ז פט) "וּבְבֹא משֶׁה אֶל אֹהֶל מוֹעֵד לְדַבֵּר אִתּוֹ וַיִּשְׁמַע אֶת הַקּוֹל מִדַּבֵּר אֵלָיו". כָּל הַנְּבִיאִים עַל יְדֵי מַלְאָךְ. לְפִיכָךְ רוֹאִים מַה שֶּׁהֵם רוֹאִים בְּמָשָׁל וְחִידָה. משֶׁה רַבֵּנוּ לֹא עַל יְדֵי מַלְאָךְ שֶׁנֶּאֱמַר (במדבר יב ח) "פֶּה אֶל פֶּה אֲדַבֶּר בּוֹ". וְנֶאֱמַר (שמות לג יא) "וְדִבֶּר ה' אֶל משֶׁה פָּנִים אֶל פָּנִים". וְנֶאֱמַר (במדבר יב ח) "וּתְמֻנַת ה' יַבִּיט" כְּלוֹמַר שֶׁאֵין שָׁם מָשָׁל אֶלָּא רוֹאֶה הַדָּבָר עַל בֻּרְיוֹ בְּלֹא חִידָה וּבְלֹא מָשָׁל. הוּא שֶׁהַתּוֹרָה מְעִידָה עָלָיו (במדבר יב ח) "בְּמַרְאֶה וְלֹא בְּחִידוֹת" שֶׁאֵינוֹ מִתְנַבֵּא בְּחִידָה אֶלָּא בְּמַרְאֶה שֶׁרוֹאֶה הַדָּבָר עַל בֻּרְיוֹ. כָּל הַנְּבִיאִים יְרֵאִים וְנִבְהָלִים וּמִתְמוֹגְגִין וּמשֶׁה רַבֵּנוּ אֵינוֹ כֵן הוּא, שֶׁהַכָּתוּב אוֹמֵר (שמות לג יא) "כַּאֲשֶׁר יְדַבֵּר אִישׁ אֶל רֵעֵהוּ", כְּלוֹמַר כְּמוֹ שֶׁאֵין אָדָם נִבְהָל לִשְׁמֹעַ דִּבְרֵי חֲבֵרוֹ כָּךְ הָיָה כֹּחַ בְּדַעְתּוֹ שֶׁל משֶׁה רַבֵּנוּ לְהָבִין דִּבְרֵי הַנְּבוּאָה וְהוּא עוֹמֵד עַל עָמְדוֹ שָׁלֵם. כָּל הַנְּבִיאִים אֵין מִתְנַבְּאִים בְּכָל עֵת שֶׁיִּרְצוּ. משֶׁה רַבֵּנוּ אֵינוֹ כֵן אֶלָּא כָּל זְמַן שֶׁיַּחְפֹּץ רוּחַ הַקֹּדֶשׁ לוֹבַשְׁתּוֹ וּנְבוּאָה שׁוֹרָה עָלָיו וְאֵינוֹ צָרִיךְ לְכַוֵּן דַּעְתּוֹ וּלְהִזְדַּמֵּן לָהּ שֶׁהֲרֵי הוּא מְכֻוָּן וּמְזֻמָּן וְעוֹמֵד כְּמַלְאֲכֵי הַשָּׁרֵת. לְפִיכָךְ מִתְנַבֵּא בְּכָל עֵת שֶׁנֶּאֱמַר (במדבר ט ח) "עִמְדוּ וְאֶשְׁמְעָה מַה יְצַוֶּה ה' לָכֶם". וּבָזֶה הִבְטִיחוֹ הָאֵל שֶׁנֶּאֱמַר (גמרא יבמות סב א) "לֵךְ אֱמֹר לָהֶם שׁוּבוּ לָכֶם לְאָהֳלֵיכֶם וְאַתָּה פֹּה עֲמֹד עִמָּדִי". הָא לָמַדְתָּ שֶׁכָּל הַנְּבִיאִים כְּשֶׁהַנְּבוּאָה מִסְתַּלֶּקֶת מֵהֶם חוֹזְרִים לְאָהֳלָם שֶׁהוּא צָרְכֵי הַגּוּף כֻּלָּם כִּשְׁאָר הָעָם. לְפִיכָךְ אֵין פּוֹרְשִׁין מִנְּשׁוֹתֵיהֶם. וּמשֶׁה רַבֵּנוּ לֹא חָזַר לְאָהֳלוֹ הָרִאשׁוֹן לְפִיכָךְ פֵּרַשׁ מִן הָאִשָּׁה לְעוֹלָם וּמִן הַדּוֹמֶה לוֹ וְנִקְשְׁרָה דַּעְתּוֹ לְצוּר הָעוֹלָמִים וְלֹא נִסְתַּלֵּק מֵעָלָיו הַהוֹד לְעוֹלָם וְקָרַן עוֹר פָּנָיו וְנִתְקַדֵּשׁ כְּמַלְאָכִים:</div>
+    <div class="halacha-en long">All the statements made above describe the path of prophecy of all the early and later prophets, with the exception of Moses, our teacher, the master of all prophets.What is the difference between Moses' prophecy and that of all the other prophets? [Divine insight is bestowed upon] all the [other] prophets in a dream or vision. Moses, our teacher, would prophesy while standing awake, as [Numbers 7:89] states: "When Moses came into the Tent of Meeting to speak to Him, he heard the Voice speaking to him."[Divine insight is bestowed upon] all the [other] prophets through the medium of an angel. Therefore, they perceive only metaphoric imagery and allegories. Moses, our teacher, [would prophesy] without the medium of an angel, as [Numbers 12:8] states: "Mouth to mouth I speak to him," and [Numbers 12:8] states: "He gazes upon the image of God" - i.e., there was no metaphor. Rather, he would perceive the matter in its fullness, without metaphor or allegory. The Torah testifies concerning him [Numbers 12:8]: ["I speak to him...] manifestly, without allegory." His appreciation of prophecy would not be through metaphor, but through open revelation, appreciating the matter in its fullness. All the [other] prophets are overawed, terrified, and confounded [by the revelations they experience], but Moses, our teacher, would not [respond in this manner], as [Exodus 33:11] relates: "[God spoke to Moses...] as a man speaks to a friend" - i.e., just as a person will not be awe-struck from hearing his friend's words, so, too, Moses' mental power was sufficient to comprehend the words of prophecy while he was standing in a composed state.All the [other] prophets cannot prophesy whenever they desire. Moses, our teacher, was different. Whenever he desired, the holy spirit would envelop him, and prophecy would rest upon him. He did not have to concentrate his attention to prepare himself [for prophecy], because his [mind] was always concentrated, prepared, and ready [to appreciate spiritual truth] as the angels [are]. Therefore, he would prophesy at all times, as [Numbers 9:8] states: "Stand and hear what God will command you."He was promised this by God, as [implied by Deuteronomy 5:27-28]: "Go and tell them: `Return to your tents,' but you stand here together with Me." This should be interpreted to mean: When prophecy departs from all the [other] prophets, they return to their "tents" - i.e., the needs of the body like other people. Therefore, they do not separate themselves from their wives. Moses, our teacher, never returned to his original "tent." Therefore, he separated himself from women and everything of that nature forever. He bound his mind to the Eternal Rock. [Accordingly,] the glory never left him forever. The flesh of his countenance shone, [for] he became holy like the angels.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">👑 Four Differences</div>Moshe's prophecy was unique in 4 ways: (1) God spoke directly, not through metaphor; (2) while <strong>awake</strong>, not in a vision; (3) without fear or trembling; (4) <strong>whenever he wanted</strong>, not just when God initiated.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Personal vs. Public Prophecy</h2>
+  <div class="subtitle">הלכה ז׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he">הַנָּבִיא אֶפְשָׁר שֶׁתִּהְיֶה נְבוּאָתוֹ לְעַצְמוֹ בִּלְבַד לְהַרְחִיב לִבּוֹ וּלְהוֹסִיף דַּעְתּוֹ עַד שֶׁיֵּדַע מַה שֶּׁלֹּא הָיָה יוֹדֵעַ מֵאוֹתָן הַדְּבָרִים הַגְּדוֹלִים. וְאֶפְשָׁר שֶׁיְּשֻׁלַּח לְעַם מֵעַמֵּי הָאָרֶץ אוֹ לְאַנְשֵׁי עִיר אוֹ מַמְלָכָה לְכוֹנֵן אוֹתָם וּלְהוֹדִיעָם מַה יַּעֲשׂוּ אוֹ לְמָנְעָם מִמַּעֲשִׂים הָרָעִים שֶׁבִּידֵיהֶם. וּכְשֶׁמְּשַׁלְּחִים אוֹתוֹ נוֹתְנִין לוֹ אוֹת וּמוֹפֵת כְּדֵי שֶׁיֵּדְעוּ הָעָם שֶׁהָאֵל שְׁלָחוֹ בֶּאֱמֶת. וְלֹא כָּל הָעוֹשֶׂה אוֹת וּמוֹפֵת מַאֲמִינִים לוֹ שֶׁהוּא נָבִיא. אֶלָּא אָדָם שֶׁהָיִינוּ יוֹדְעִים בּוֹ מִתְּחִלָּתוֹ שֶׁהוּא רָאוּי לִנְבוּאָה בְּחָכְמָתוֹ וּבְמַעֲשָׂיו שֶׁנִּתְעַלָּה בָּהֶן עַל כָּל בְּנֵי גִּילוֹ וְהָיָה מְהַלֵּךְ בְּדַרְכֵי הַנְּבוּאָה בִּקְדֻשָּׁתָהּ וּבִפְרִישׁוּתָהּ וְאַחַר כָּךְ בָּא וְעָשָׂה אוֹת וּמוֹפֵת וְאָמַר שֶׁהָאֵל שְׁלָחוֹ מִצְוָה לִשְׁמֹעַ מִמֶּנּוּ שֶׁנֶּאֱמַר (דברים יח טו) "אֵלָיו תִּשְׁמָעוּן". וְאֶפְשָׁר שֶׁיַּעֲשֶׂה אוֹת וּמוֹפֵת וְאֵינוֹ נָבִיא. וְזֶה הָאוֹת יֵשׁ לוֹ דְּבָרִים בְּגוֹ. וְאַף עַל פִּי כֵן מִצְוָה לִשְׁמוֹעַ לוֹ הוֹאִיל וְאָדָם גָּדוֹל וְחָכָם וְרָאוּי לִנְבוּאָה [הוּא] מַעֲמִידִים אוֹתוֹ עַל חֶזְקָתוֹ. שֶׁבְּכָךְ נִצְטַוֵּינוּ כְּמוֹ שֶׁנִּצְטַוֵּינוּ לַחְתֹּךְ אֶת הַדִּין עַל פִּי שְׁנֵי עֵדִים כְּשֵׁרִים וְאַף עַל פִּי שֶׁאֶפְשָׁר שֶׁהֵעִידוּ בְּשֶׁקֶר הוֹאִיל וּכְשֵׁרִים הֵם אֶצְלֵנוּ מַעֲמִידִין אוֹתָן עַל כַּשְׁרוּתָן. וּבַדְּבָרִים הָאֵלּוּ וְכַיּוֹצֵא בָּהֶן נֶאֱמַר (דברים כט כח) "הַנִּסְתָּרֹת לַה' אֱלֹהֵינוּ וְהַנִּגְלֹת לָנוּ וּלְבָנֵינוּ". וְנֶאֱמַר (שמואל א טז ז) "כִּי הָאָדָם יִרְאֶה לַעֵינַיִם וַה' יִרְאֶה לַלֵּבָב":</div>
+    <div class="halacha-en long">There is the possibility that a prophet will experience prophecy for his own sake alone - i.e., to expand his mental capacities and to increase his knowledge - [allowing him] to know more about the lofty concepts than he knew before.It is also possible that he will be sent to one of the nations of the world, or to the inhabitants of a particular city or kingdom, to prepare them and to inform them what they should do or to prevent them [from continuing] the evil which they are doing.When he is sent [on such a mission], he is given a sign or a wonder [to perform], so that the people will know that God has truly sent him.Not everyone who performs signs or wonders should be accepted as a prophet: only a person who is known to be fit for prophecy beforehand; i.e., his wisdom and his [good] deeds surpass those of all his contemporaries. If he follows the paths of prophecy in holiness, separating himself from worldly matters, and afterwards performs a sign or wonder and states that he was sent by God, it is a mitzvah to listen to him, as [Deuteronomy 18:15] states: "Listen to him."It is possible that a person will perform a sign or wonder even though he is not a prophet - rather, the wonder will have [another cause] behind it. It is, nevertheless, a mitzvah to listen to him. Since he is a wise man of stature and fit for prophecy, we accept [his prophecy as true], for so have we been commanded.[To give an example of a parallel:] We are commanded to render a [legal] judgment based on the testimony of two witnesses. Even though they may testify falsely, since we know them to be acceptable [as witnesses], we presume that they [are telling the truth].Considering these matters and the like, [Deuteronomy 29:28] states: "The hidden matters are for God, our Lord, but what is revealed is for us and our children," and [I Samuel 16:7] states: "Man sees what is revealed to the eyes, but God sees into the heart."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📢 Two Purposes</div>Some prophets receive prophecy only for themselves — to expand their own understanding. Others are sent to a community: "Go tell them such-and-such." The message always involves either a mitzvah or world events.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 7</div>
+  <div class="flowchart" style="gap:0.8rem">
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🧠</div>
+      <strong>Prophecy Requires Preparation</strong><br><span style="font-size:0.9rem">You can't just receive prophecy — it demands the highest levels of wisdom, character, and self-mastery. It's earned, not random.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🌙</div>
+      <strong>Metaphoric Communication</strong><br><span style="font-size:0.9rem">All prophets (except Moshe) receive messages in metaphors and visions. The meaning is implanted in their mind simultaneously.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">👑</div>
+      <strong>Moshe is Unique</strong><br><span style="font-size:0.9rem">Moshe spoke with God "face to face" — while awake, without fear, without metaphor, and whenever he chose. No other prophet ever reached this level.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">⚡</div>
+      <strong>Prophecy Transforms the Body</strong><br><span style="font-size:0.9rem">The prophetic experience is physical — trembling, weakness, overwhelming awe. The body struggles to contain the spiritual revelation.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק ז׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>

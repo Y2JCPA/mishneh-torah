@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק ו׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק ו׳ · Chapter 6</span>
+</div>
+<div class="slide-wrap">
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק ו׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 6 · 9 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">✡️ Seven names that cannot be erased<br>📛 Prefixes and suffixes on names<br>🏛️ Destroying parts of the Temple<br>📜 Sacred texts and their treatment<br>🔍 Which "God" references are sacred</div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">Sacred Names & Holy Objects</h2>
+  <div class="subtitle">Chapter 6 · Overview</div>
+  <div class="flowchart">
+    <div class="flow-box highlight">Erasing God's Names<br><span style="font-size:0.8rem;color:#888">הלכות א׳–ב׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Letters and Prefixes<br><span style="font-size:0.8rem;color:#888">הלכות ג׳–ד׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Descriptive Titles<br><span style="font-size:0.8rem;color:#888">הלכות ה׳–ו׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">The Temple & Sacred Spaces<br><span style="font-size:0.8rem;color:#888">הלכות ז׳–ח׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Sacred References in Tanach<br><span style="font-size:0.8rem;color:#888">הלכה ט׳</span></div>
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Erasing God's Names</h2>
+  <div class="subtitle">הלכות א׳–ב׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">כָּל הַמְאַבֵּד שֵׁם מִן הַשֵּׁמוֹת הַקְּדוֹשִׁים הַטְּהוֹרִים שֶׁנִּקְרָא בָּהֶם הַקָּדוֹשׁ בָּרוּךְ הוּא לוֹקֶה מִן הַתּוֹרָה. שֶׁהֲרֵי הוּא אוֹמֵר בַּעֲבוֹדַת כּוֹכָבִים (גמרא שבת קכ ב) "וְאִבַּדְתֶּם אֶת שְׁמָם מִן הַמָּקוֹם הַהוּא לֹא תַעֲשׂוּן כֵּן לַה' אֱלֹהֵיכֶם":</div>
+    <div class="halacha-en long">Whoever destroys one of the holy and pure names with which the Holy One, blessed be He, is called is liable for lashes according to Scriptural [Law].[This punishment is given because such an act violates one of the Torah's prohibitions. The prohibition is derived as follows:] With regard to the worship of false gods, [Deuteronomy 12:3-4] states: "And you shall destroy their names from this place. Do not do this to God, your Lord."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">וְשִׁבְעָה שֵׁמוֹת הֵם. הַשֵּׁם הַנִּכְתָּב יוּ"ד הֵ"א וָא"ו הֵ"א וְהוּא הַשֵּׁם הַמְפֹרָשׁ. אוֹ הַנִּכְתָּב אֲדֹנָי. וְאֵל. אֱלוֹהַּ. וֵאלֹהִים. וֵאלֹהֵי. וְשַׁדַּי. וּצְבָאוֹת. כָּל הַמּוֹחֵק אֲפִלּוּ אוֹת אַחַת מִשִּׁבְעָה אֵלּוּ לוֹקֶה:</div>
+    <div class="halacha-en long">There are seven names [for God]:a) The name which is written Yud-Hey-Vav-Hey. This is [referred to as God's] explicit name and is [also] written Alef-Daled-Nun-Yud.b) [The name] El;c) [The name] Elo'ah;d) [The name] Elohim;e) [The name] Elohai;f) [The name] Shaddai;g) [The name] Tz'vaot;Whoever erases even one letter from [any of] these seven names is [liable for] lashes.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">✡️ The Seven Names</div>The 7 names: YHVH, Kel, Elokim, Kel-okim, Ekyeh, Shakkai, and Tzevakot. The Tetragrammaton is the "explicit name" — it alone describes God's <strong>essence</strong>, not His actions.</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Letters and Prefixes</h2>
+  <div class="subtitle">הלכות ג׳–ד׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">כָּל הַנִּטְפָּל לַשֵּׁם מִלְּפָנָיו מֻתָּר לְמָחֳקוֹ כְּגוֹן לָמֶ"ד מִלַּיהוָֹה וּבֵי"ת מִבֵּאלֹהִים וְכַיּוֹצֵא בָּהֶן אֵינָן כִּקְדֻשַּׁת הַשֵּׁם. וְכָל הַנִּטְפָּל לַשֵּׁם מֵאַחֲרָיו כְּגוֹן ךְ' שֶׁל אֱלֹהֶיךָ וְכֶ"ם שֶׁל אֱלֹהֵיכֶם וְכַיּוֹצֵא בָּהֶן אֵינָם נִמְחָקִים וַהֲרֵי הֵם כִּשְׁאָר אוֹתִיּוֹת שֶׁל שֵׁם מִפְּנֵי שֶׁהַשֵּׁם מְקַדְּשָׁם. וְאַף עַל פִּי שֶׁנִּתְקַדְּשׁוּ וְאָסוּר לְמָחֳקָם הַמּוֹחֵק אֵלּוּ הָאוֹתִיּוֹת הַנִּטְפָּלוֹת אֵינוֹ לוֹקֶה. אֲבָל מַכִּין אוֹתוֹ מַכַּת מַרְדּוּת:</div>
+    <div class="halacha-en long">All [the letters] which are connected to [God's] name, [but are placed] before [the name itself] may be erased - e.g., the lamed of Lamed-Alef-Daled-Nun-Yud or the bet of B’Elohim and the like. They do not possess the same degree of holiness as [God's] name [itself].All [the letters] which are connected to [God's] name, [but placed] after [the name itself] - e.g., the final chaf of Elohecha or the chaf and the final mem of Eloheichem, and the like may not be erased. They are considered like the other letters of [God's] name, because the name conveys holiness upon them.Although holiness is conveyed upon them and it is forbidden to erase them, nevertheless, a person who erases these letters which are connected to [God's] name is not [liable for] lashes. However, he does receives "stripes for rebelliousness."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">כָּתַב אָלֶ"ף לָמֶ"ד מֵאלֹהִים, יוּ"ד הֵ"א מֵיְהוָֹה, אֵינוֹ נִמְחָק. וְאֵין צָרִיךְ לוֹמַר יָהּ שֶׁהוּא שֵׁם בִּפְנֵי עַצְמוֹ. מִפְּנֵי שֶׁזֶּה הַשֵּׁם מִקְצָת שֵׁם הַמְפֹרָשׁ הוּא. אֲבָל הַכּוֹתֵב שִׁי"ן דָּלֶ"ת מִשַּׁדַּי, צַדִּ"י בֵּי"ת מִצְּבָאוֹת, הֲרֵי זֶה נִמְחָק:</div>
+    <div class="halacha-en long">If one writes the alef and the lamed of the name Elohim or the yud and the hey of the name Yud-Hey–Vav–Hey, [these letters] may not be erased. Needless to say, the name Yud-Hey [may not be erased]. It is [considered as] a name in its own right because it is part of [God's] explicit name.However, if one writes the shin and the dalet of the name Shaddai, or the tzadi and the bet of the name Tz'vaot, [these letters] may be erased.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📝 Partial Names</div>Prefixed letters (ל, ב, ה, etc.) before a name may be erased. But suffixed letters (like the ך in אלהיך) may NOT — they are part of the name itself. Partially written names have their own rules.</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Descriptive Titles</h2>
+  <div class="subtitle">הלכות ה׳–ו׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">שְׁאָר הַכִּנּוּיִין שֶׁמְּשַׁבְּחִין בָּהֶן אֶת הַקָּדוֹשׁ בָּרוּךְ הוּא כְּגוֹן חַנּוּן וְרַחוּם הַגָּדוֹל הַגִּבּוֹר וְהַנּוֹרָא הַנֶּאֱמָן קַנֹּא וְחָזָק וְכַיּוֹצֵא בָּהֶן הֲרֵי הֵן כִּשְׁאָר כִּתְבֵי הַקֹּדֶשׁ וּמֻתָּר לְמָחֳקָן:</div>
+    <div class="halacha-en long">Other descriptive terms which are used to praise the Holy One, blessed be He - e.g., the Gracious, the Merciful, the Great, the Mighty, the Awesome, the Faithful, the Jealous, the Powerful, and the like, are considered as other holy texts and may be erased.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ו׳</div>
+    <div class="halacha-he">כְּלִי שֶׁהָיָה שֵׁם כָּתוּב עָלָיו קוֹצֵץ אֶת מְקוֹם הַשֵּׁם וְגוֹנְזוֹ. וַאֲפִלּוּ הָיָה הַשֵּׁם חָקוּק בִּכְלֵי מַתָּכוֹת אוֹ בִּכְלֵי זְכוּכִית וְהִתִּיךְ הַכְּלִי הֲרֵי זֶה לוֹקֶה אֶלָּא חוֹתֵךְ אֶת מְקוֹמוֹ וְגוֹנְזוֹ. וְכֵן אִם הָיָה שֵׁם כָּתוּב עַל בְּשָׂרוֹ הֲרֵי זֶה לֹא יִרְחַץ וְלֹא יָסוּךְ וְלֹא יַעֲמֹד בִּמְקוֹם הַטִּנֹּפֶת. נִזְדַּמְּנָה לוֹ טְבִילָה שֶׁל מִצְוָה כּוֹרֵךְ עָלָיו גֶּמִי וְטוֹבֵל. וְאִם לֹא מָצָא גֶּמִי מְסַבֵּב בִּבְגָדָיו וְלֹא יְהַדֵּק כְּדֵי שֶׁלֹּא יָחֹץ. שֶׁלֹּא אָמְרוּ לִכְרֹךְ עָלָיו אֶלָּא מִפְּנֵי שֶׁאָסוּר לַעֲמֹד בִּפְנֵי הַשֵּׁם כְּשֶׁהוּא עָרֹם:</div>
+    <div class="halacha-en long">[When God's] name is written on a utensil, one should cut off [God's] name and bury it. Even [when God's] name is engraved on a metal or glass utensil and one melts the utensil, one should be [punished by] lashing. Instead, one should cut off [God's] name and bury it.Similarly, if [God's] name was written on one's flesh, one should not wash or anoint oneself. Nor may one stand in a place of filth. If it occurs that such a person must immerse because of a mitzvah, he should wind reeds around [the name] and immerse himself. If he cannot find reeds, he should wind his clothes around it, but should not [wind them] tightly so they will not intervene [between his flesh and the water]. [This is acceptable because] the reason he is required to wind reeds around it is only because it is forbidden to stand before [God's] name when he is naked.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">📖 Names vs. Titles</div>"The Gracious," "The Merciful," "The Great" — these are <strong>descriptions</strong>, not names. They may be erased. Only the 7 specific names have irreversible sanctity. A name on a vessel? Cut it off and bury it.</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">The Temple & Sacred Spaces</h2>
+  <div class="subtitle">הלכות ז׳–ח׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ז׳</div>
+    <div class="halacha-he">הַסּוֹתֵר אֲפִלּוּ אֶבֶן אַחַת דֶּרֶךְ הַשְׁחָתָה מִן הַמִּזְבֵּחַ אוֹ מִן הַהֵיכָל אוֹ מִשְּׁאָר הָעֲזָרָה לוֹקֶה שֶׁנֶּאֱמַר בַּעֲבוֹדַת כּוֹכָבִים (שמות לד יג) "כִּי אֶת מִזְבְּחֹתָם תִּתֹּצוּן" וְכָתוּב (דברים יב ד) "לֹא תַעֲשׂוּן כֵּן לַה' אֱלֹהֵיכֶם". וְכֵן הַשּׂוֹרֵף עֲצֵי הַקֹּדֶשׁ דֶּרֶךְ הַשְׁחָתָה לוֹקֶה שֶׁנֶּאֱמַר (דברים יב ג) "וַאֲשֵׁרֵיהֶם תִּשְׂרְפוּן בָּאֵשׁ" וּכְתִיב לֹא תַעֲשׂוּן כֵּן לַה' אֱלֹהֵיכֶם:</div>
+    <div class="halacha-en long">A person who removes even one stone from the altar, the Temple building, or the Temple courtyard with a destructive intent is [liable for] lashes. [The prohibition is derived as follows:] with regard to the worship of false gods, [Deuteronomy 12:3] states: "And you shall tear down their altars," and [the following verse] continues: "Do not do this to God, your Lord."Similarly, a person who, with a destructive intent, burns wood consecrated to the Temple is [liable for] lashes. [The prohibition is derived as follows:] with regard to the worship of false gods, [Deuteronomy 12:3] states: "And you shall burn their asherot with fire," and [the following verse] continues: "Do not do this to God, your Lord."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ח׳</div>
+    <div class="halacha-he">כִּתְבֵי הַקֹּדֶשׁ כֻּלָּן וּפֵרוּשֵׁיהֶן וּבֵאוּרֵיהֶן אָסוּר לְשָׂרְפָם אוֹ לְאַבְּדָם בַּיָּד וְהַמְאַבְּדָן בַּיָּד מַכִּין אוֹתוֹ מַכַּת מַרְדּוּת. בַּמֶּה דְּבָרִים אֲמוּרִים בְּכִתְבֵי הַקֹּדֶשׁ שֶׁכְּתָבָם יִשְׂרָאֵל בִּקְדֻשָּׁה אֲבָל אֶפִּיקוֹרוֹס יִשְׂרָאֵל שֶׁכָּתַב סֵפֶר תּוֹרָה שׂוֹרְפִין אוֹתוֹ עִם הָאַזְכָּרוֹת שֶׁבּוֹ. מִפְּנֵי שֶׁאֵינוֹ מַאֲמִין בִּקְדֻשַּׁת הַשֵּׁם וְלֹא כְּתָבוֹ לִשְׁמוֹ אֶלָּא שֶׁהוּא מַעֲלֶה בְּדַעְתּוֹ שֶׁזֶּה כִּשְׁאָר הַדְּבָרִים וְהוֹאִיל וְדַעְתּוֹ כֵּן לֹא נִתְקַדֵּשׁ הַשֵּׁם. וּמִצְוָה לְשָׂרְפוֹ כְּדֵי שֶׁלֹּא לְהַנִּיחַ שֵׁם לָאֶפִּיקוֹרוֹסִים וְלֹא לְמַעֲשֵׂיהֶם. אֲבָל עוֹבֵד כּוֹכָבִים שֶׁכָּתַב אֶת הַשֵּׁם גּוֹנְזִין אוֹתוֹ. וְכֵן כִּתְבֵי הַקֹּדֶשׁ שֶׁבָּלוּ אוֹ שֶׁכְּתָבָן עוֹבֵד כּוֹכָבִים יִגָּנְזוּ:</div>
+    <div class="halacha-en long">It is forbidden to burn or to destroy by direct action any sacred texts, their commentaries, and their explanations. A person who destroys them by his direct action is given "stripes for rebelliousness."To what does the above apply? To sacred texts written by a Jew with a sacred intent. However, should a Jewish heretic write a Torah scroll, it and the name of God it contains must be burnt, since he does not believe in the sanctity of [God's] name and did not compose it for this purpose. Rather, he considers this to be similar to any other text. Since this is his intent, the names [of God he writes] do not become holy.It is a mitzvah to burn it so that no remembrance will be left of the heretics or their deeds. In contrast, if a gentile writes [God's] name, it should be buried. Similarly, sacred texts that have become worn out or which were written by gentiles should be buried.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🏛️ Destroying Sacred Things</div>Removing even one stone from the altar or Temple with destructive intent → lashes. Burning Torah scrolls or commentaries → lashes. Sacred texts must be buried (genizah), never destroyed.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Sacred References in Tanach</h2>
+  <div class="subtitle">הלכה ט׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ט׳</div>
+    <div class="halacha-he">כָּל הַשֵּׁמוֹת הָאֲמוּרִים בְּאַבְרָהָם קֹדֶשׁ אַף זֶה שֶׁנֶּאֱמַר (בראשית יח ג) "אֲדֹנָי אִם נָא מָצָאתִי חֵן" הֲרֵי הוּא קֹדֶשׁ. כָּל הַשֵּׁמוֹת הָאֲמוּרִים בְּלוֹט חֹל חוּץ מִזֶּה (גמרא שבועות לה ב) "אַל נָא אֲדֹנָי הִנֵּה נָא מָצָא עַבְדְּךָ חֵן". כָּל הַשֵּׁמוֹת הָאֲמוּרִים בְּגִבְעַת בִּנְיָמִין קֹדֶשׁ. כָּל הַשֵּׁמוֹת הָאֲמוּרִים בְּמִיכָה חֹל. כָּל הַשֵּׁמוֹת הָאֲמוּרִים בְּנָבוֹת קֹדֶשׁ. כָּל שְׁלֹמֹה הָאָמוּר בְּשִׁיר הַשִּׁירִים קֹדֶשׁ וַהֲרֵי הוּא כִּשְׁאָר הַכִּנּוּיִין חוּץ מִזֶּה (שיר השירים ח יב) "הָאֶלֶף לְךָ שְׁלֹמֹה". כָּל מַלְכַיָּא הָאָמוּר בְּדָנִיֵּאל חֹל חוּץ מִזֶּה (דניאל ב לז) "אַנְתְּ מַלְכָּא מֶלֶךְ מַלְכַיָּא" וַהֲרֵי הוּא כִּשְׁאָר הַכִּנּוּיִין:</div>
+    <div class="halacha-en long">All the names [of God] written in [the passage concerning] Abraham [and the angels] are sacred. Even [the name of God in Genesis 18:3]: "My Lord, if I have found favor in Your eyes," is also sacred. All the names [of God] written in [the passage concerning] Lot are not sacred, except [Genesis 19:18-19]: "And Lot said to them: `Please, do not, O Lord! I have found favor in Your eyes... and You have saved my life.'"All the names [of God] written in [the passage concerning] the hill of Benjamin are sacred. All the names [of God] written in [the passage concerning] Michah are not sacred. All the names [of God] written in [the passage concerning] Navot are sacred.Every mention of the name "Shelomoh" in the Song of Songs is sacred, except [8:12]: "You, Shelomoh, may have the thousand." Every mention of the word "king" in the Book of Daniel is not sacred, except [2:37]: "You are the King, the King of kings." Its status is like other descriptive terms [for God].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔍 Context Matters</div>All names of God in the Avraham-angels passage are sacred. "God" in Lot's story — some sacred, some not. "God" in the Navot story or Michah's idol — <strong>not sacred</strong>. Context determines sanctity.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 6</div>
+  <div class="flowchart" style="gap:0.8rem">
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">✡️</div>
+      <strong>Seven Sacred Names</strong><br><span style="font-size:0.9rem">Exactly 7 names have full sanctity and can never be erased. The Tetragrammaton stands above them all as the "explicit name."</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">✂️</div>
+      <strong>Precision Matters</strong><br><span style="font-size:0.9rem">Suffixed letters are sacred, prefixed letters are not. Even partially written names follow specific rules. Halacha is precise down to the letter.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🏛️</div>
+      <strong>Physical Sanctity</strong><br><span style="font-size:0.9rem">Sanctity isn't just spiritual — it attaches to physical objects. Stones, scrolls, vessels bearing God's name all have protected status.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">📖</div>
+      <strong>Context Determines Sanctity</strong><br><span style="font-size:0.9rem">The word "God" in Tanach is sometimes sacred and sometimes not. It depends on whether it refers to the true God or to idols/humans.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק ו׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>

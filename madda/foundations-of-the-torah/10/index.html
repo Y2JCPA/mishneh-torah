@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>יסודי התורה פרק י׳ — משנה תורה</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="../">← יסודי התורה</a>
+  <span class="title">פרק י׳ · Chapter 10</span>
+</div>
+<div class="slide-wrap">
+<div class="slide active" data-slide="0">
+  <div class="slide-num">1 / 9</div>
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:0.9rem;color:#888;margin-bottom:1rem">📖 ספר מדע · Sefer Madda</div>
+    <div class="emoji">🏛️</div>
+    <h1 style="font-size:2.2rem;color:#c9a84c;margin:0.5rem 0">הלכות יסודי התורה</h1>
+    <h2 style="font-size:1.2rem;color:#a89060;margin-bottom:1.5rem">Foundations of the Torah</h2>
+    <div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div>
+    <div style="font-size:1.6rem;color:#c9a84c">פרק י׳</div>
+    <div style="color:#888;margin:0.5rem 0 1.5rem">Chapter 10 · 5 Halachot</div>
+    <div style="text-align:right;max-width:350px;margin:0 auto">
+      <div style="color:#e0d5c1;font-size:0.9rem;line-height:2">✅ How to verify a true prophet<br>🔄 Repeated testing<br>🔮 Prophets vs. diviners and sorcerers<br>⚡ Prophecies of doom vs. good<br>🤝 Prophet vouching for prophet</div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="1">
+  <div class="slide-num">2 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.5rem">Testing Prophets</h2>
+  <div class="subtitle">Chapter 10 · Overview</div>
+  <div class="flowchart">
+    <div class="flow-box highlight">Establishing a Prophet<br><span style="font-size:0.8rem;color:#888">הלכה א׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Repeated Testing<br><span style="font-size:0.8rem;color:#888">הלכה ב׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Prophets vs. Sorcerers<br><span style="font-size:0.8rem;color:#888">הלכה ג׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Doom Prophecies Can Be Reversed<br><span style="font-size:0.8rem;color:#888">הלכה ד׳</span></div>
+    <div class="flow-arrow">⬇️</div>
+    <div class="flow-box">Chain of Prophetic Authority<br><span style="font-size:0.8rem;color:#888">הלכה ה׳</span></div>
+  </div>
+</div>
+<div class="slide" data-slide="2">
+  <div class="slide-num">3 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Establishing a Prophet</h2>
+  <div class="subtitle">הלכה א׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה א׳</div>
+    <div class="halacha-he">כָּל נָבִיא שֶׁיַּעֲמֹד לָנוּ וְיֹאמַר שֶׁה' שְׁלָחוֹ אֵינוֹ צָרִיךְ לַעֲשׂוֹת אוֹת כְּאֶחָד מֵאוֹתוֹת משֶׁה רַבֵּנוּ אוֹ כְּאוֹתוֹת אֵלִיָּהוּ וֶאֱלִישָׁע שֶׁיֵּשׁ בָּהֶם שִׁנּוּי מִנְהָגוֹ שֶׁל עוֹלָם. אֶלָּא הָאוֹת שֶׁלּוֹ שֶׁיֹּאמַר דְּבָרִים הָעֲתִידִים לִהְיוֹת בָּעוֹלָם וְיֵאָמְנוּ דְּבָרָיו שֶׁנֶּאֱמַר (דברים יח כא) "וְכִי תֹאמַר בִּלְבָבֶךָ אֵיכָה נֵדַע אֶת הַדָּבָר" וְגוֹ'. לְפִיכָךְ כְּשֶׁיָּבוֹא אָדָם הָרָאוּי לִנְבוּאָה בְּמַלְאֲכוֹת הַשֵּׁם וְלֹא יָבוֹא לְהוֹסִיף וְלֹא לִגְרֹעַ אֶלָּא לַעֲבֹד אֶת ה' בְּמִצְוֹת הַתּוֹרָה אֵין אוֹמְרִין לוֹ קְרַע לָנוּ הַיָּם אוֹ הַחֲיֵה מֵת וְכַיּוֹצֵא בְּאֵלּוּ וְאַחַר כָּךְ נַאֲמִין בְּךָ. אֶלָּא אוֹמְרִים לוֹ אִם נָבִיא אַתָּה אֱמֹר דְּבָרִים הָעֲתִידִים לִהְיוֹת וְהוּא אוֹמֵר וְאָנוּ מְחַכִּים לִרְאוֹת הֲיָבוֹאוּ דְּבָרָיו אִם לֹא יָבוֹאוּ. וַאֲפִלּוּ נָפַל דָּבָר קָטָן בְּיָדוּעַ שֶׁהוּא נְבִיא שֶׁקֶר. וְאִם בָּאוּ דְּבָרָיו כֻּלָּן יִהְיֶה בְּעֵינֵינוּ נֶאֱמָן:</div>
+    <div class="halacha-en long">Any prophet who arises and tells us that God has sent him does not have to [prove himself by] performing wonders like those performed by Moses, our teacher, or like the wonders of Elijah or Elisha, which altered the natural order.Rather, the sign of [the truth of his prophecy] will be the fulfillment of his prediction of future events, as [implied by Deuteronomy 18:21]: "How shall we recognize that a prophecy was not spoken by God?..."Therefore, if a person whose [progress] in the service of God makes him worthy of prophecy arises [and claims to be a prophet] - if he does not intend to add [to] or diminish [the Torah], but rather to serve God through the mitzvot of the Torah - we do not tell him: "Split the sea for us, revive the dead, or the like, and then we will believe in you." Instead, we tell him, "If you are a prophet, tell us what will happen in the future." He makes his statements, and we wait to see whether [his "prophecy"] comes to fruition or not.Should even a minute particular of his "prophecy" not materialize, he is surely a false prophet. If his entire prophecy materializes, we should consider him a true [prophet].</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">✅ The Process</div>A prophet doesn't need to perform Moshe-level miracles. He declares his prophecy, predicts future events, and if his <strong>predictions come true</strong> — we accept him. But if even <strong>one detail fails</strong>, he is false.</div>
+</div>
+<div class="slide" data-slide="3">
+  <div class="slide-num">4 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Repeated Testing</h2>
+  <div class="subtitle">הלכה ב׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ב׳</div>
+    <div class="halacha-he">וּבוֹדְקִין אוֹתוֹ פְּעָמִים הַרְבֵּה. אִם נִמְצְאוּ דְּבָרָיו נֶאֱמָנִים כֻּלָּן הֲרֵי זֶה נְבִיא אֱמֶת. כְּמוֹ שֶׁנֶּאֱמַר בִּשְׁמוּאֵל (שמואל א ג כ) "וַיֵּדַע כָּל יִשְׂרָאֵל מִדָּן וְעַד בְּאֵר שָׁבַע כִּי נֶאֱמָן שְׁמוּאֵל לְנָבִיא לַה'":</div>
+    <div class="halacha-en long">We should test him many times. If all of his statements prove true, he should be considered to be a true prophet, as [I Samuel 3:20] states concerning Samuel, "And all of Israel, from Dan to Beersheba, knew that Samuel had been proven to be a prophet unto God."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔄 Many Times</div>We test the prophet's predictions <strong>many times</strong>. If all his statements prove true, he is accepted as genuine, as Samuel 3:20 states: "All of Israel knew that Samuel was a trustworthy prophet."</div>
+</div>
+<div class="slide" data-slide="4">
+  <div class="slide-num">5 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Prophets vs. Sorcerers</h2>
+  <div class="subtitle">הלכה ג׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ג׳</div>
+    <div class="halacha-he">וַהֲלֹא הַמְעוֹנְנִים וְהַקּוֹסְמִים אוֹמְרִים מַה שֶּׁעָתִיד לִהְיוֹת. וּמַה הֶפְרֵשׁ יֵשׁ בֵּין הַנָּבִיא וּבֵינָם. אֶלָּא שֶׁהַמְעוֹנְנִים וְהַקּוֹסְמִים וְכַיּוֹצֵא בָּהֶן מִקְצָת דִּבְרֵיהֶם מִתְקַיְּמִין וּמִקְצָתָן אֵין מִתְקַיְּמִין. כָּעִנְיָן שֶׁנֶּאֱמַר (ישעיה מז יג) "יַעַמְדוּ נָא וְיוֹשִׁיעֻךְ הֹבְרֵי שָׁמַיִם הַחֹזִים בַּכּוֹכָבִים מוֹדִעִים לֶחֳדָשִׁים מֵאֲשֶׁר יָבֹאוּ עָלָיִךְ". מֵאֲשֶׁר וְלֹא כָּל אֲשֶׁר. וְאֶפְשָׁר שֶׁלֹּא יִתְקַיֵּם מִדִּבְרֵיהֶם כְּלוּם אֶלָּא יִטְעוּ בַּכּל כָּעִנְיָן שֶׁנֶּאֱמַר (ישעיה מד כה) "מֵפֵר אֹתוֹת בַּדִּים וְקֹסְמִים יְהוֹלֵל". אֲבָל הַנָּבִיא כָּל דְּבָרָיו קַיָּמִין שֶׁנֶּאֱמַר (מלכים ב י י) "כִּי לֹא יִפּל מִדְּבַר ה' אַרְצָה". וְכֵן הוּא אוֹמֵר (ירמיה כג כח) "הַנָּבִיא אֲשֶׁר אִתּוֹ חֲלוֹם יְסַפֵּר חֲלוֹם וַאֲשֶׁר דְּבָרִי אִתּוֹ יְדַבֵּר דִּבְרֵי אֱמֶת מַה לַּתֶּבֶן אֶת הַבָּר נְאֻם ה'". כְּלוֹמַר שֶׁדִּבְרֵי הַקּוֹסְמִים וְהַחֲלוֹמוֹת כְּתֶבֶן שֶׁנִּתְעָרֵב בּוֹ מְעַט בַּר וּדְבַר ה' כְּבַר שֶׁאֵין בּוֹ תֶּבֶן כְּלָל. וּבַדָּבָר הַזֶּה הַכָּתוּב הִבְטִיחַ וְאָמַר שֶׁאוֹתָן הַדְּבָרִים שֶׁמּוֹדִיעִין הַמְעוֹנְנִים וְהַקּוֹסְמִים לָאֻמּוֹת וּמְכַזְּבִין הַנָּבִיא יוֹדִיעַ לָכֶם דִּבְרֵי אֱמֶת וְאֵין אַתֶּם צְרִיכִין לִמְעוֹנֵן וְקוֹסֵם וְכַיּוֹצֵא בּוֹ שֶׁנֶּאֱמַר (דברים יח י) "לֹא יִמָּצֵא בְךָ מַעֲבִיר בְּנוֹ וּבִתּוֹ בָּאֵשׁ" וְגוֹ' (דברים יח יד) "כִּי הַגּוֹיִם הָאֵלֶּה" וְגוֹ'. וְאָמַר (דברים יח טו) "נָבִיא מִקִּרְבְּךָ מֵאַחֶיךָ" וְגוֹ'. הָא לָמַדְתָּ שֶׁאֵין הַנָּבִיא עוֹמֵד לָנוּ אֶלָּא לְהוֹדִיעֵנוּ דְּבָרִים הָעֲתִידִים לִהְיוֹת בָּעוֹלָם מִשֹּׂבַע וְרָעָב מִלְחָמָה וְשָׁלוֹם וְכַיּוֹצֵא בָּהֶן. וַאֲפִלּוּ צָרְכֵי יָחִיד מוֹדִיעַ לוֹ. כְּשָׁאוּל שֶׁאָבְדָה לוֹ אֲבֵדָה וְהָלַךְ לַנָּבִיא לְהוֹדִיעוֹ מְקוֹמָהּ. וְכַיּוֹצֵא בְּאֵלּוּ הַדְּבָרִים הוּא שֶׁיֹּאמַר הַנָּבִיא לֹא שֶׁיַּעֲשֶׂה דָּת אַחֶרֶת אוֹ יוֹסִיף מִצְוָה אוֹ יִגְרַע:</div>
+    <div class="halacha-en long">Behold, the diviners and sorcerers also predict the future. What differentiates between them and a prophet?[Though] some of the prophecies made by diviners, sorcerers, and the like materialize, some do not [as implied by Isaiah 47:13]: "Let the stargazers, the astrologers, and the diviners of what will happen in the months, come and save you from what will come upon you." [Our Sages note that the verse states] "from what" rather than "from all that."Also, it is possible that none of their predictions will come true and they will err completely, as [Isaiah 44:25] states: "He frustrates the omens of imposters and drives diviners mad."In contrast, all the words of a prophet come true, as [II Kings 10:10] states: "God's word will not fall to the ground." Similarly, [Jeremiah 23:28] states: "'The prophet who has a dream may relate his dream, but he who [receives] My word shall speak words of truth. What is the chaff to the grain?' declares God." This implies that the words of sorcerers and dreamers are like chaff that has been mixed with some grain, while the word of God is like grain without any chaff at all.Concerning this, the Torah promises that a prophet will relate the truth about those matters for which the soothsayers and diviners give false predictions to the gentiles, so that [the Jews] will not need a sorcerer, a diviner, or the like, as [Deuteronomy 18:10, 14-15] states: "Among you, there shall not be found anyone who passes his son through fire, [a sorcerer, a diviner...] For these nations... [listen to diviners and sorcerers, God has not given you this lot. God will] set up a prophet from your midst."We see from this that a prophet will arise for the sole purpose of telling us the future events which will transpire in the world, whether there will be plenty or famine, war or peace, and the like. He even will inform a particular individual regarding his needs. Hence, when Saul lost an object, he went to the prophet to discover where it was. These are the types of things that a prophet will say. He will not come to found a new faith or add or withdraw a mitzvah.</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🔮 The Difference</div>Diviners and sorcerers also predict the future. The difference: some of their predictions come true and some don't. A true prophet's words <strong>always</strong> come true — not one thing fails (Kings I 8:56).</div>
+</div>
+<div class="slide" data-slide="5">
+  <div class="slide-num">6 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Doom Prophecies Can Be Reversed</h2>
+  <div class="subtitle">הלכה ד׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ד׳</div>
+    <div class="halacha-he">דִּבְרֵי הַפֻּרְעָנוּת שֶׁהַנָּבִיא אוֹמֵר כְּגוֹן שֶׁיֹּאמַר פְּלוֹנִי יָמוּת אוֹ שָׁנָה פְּלוֹנִית רָעָב אוֹ מִלְחָמָה וְכַיּוֹצֵא בִּדְבָרִים אֵלּוּ אִם לֹא עָמְדוּ דְּבָרָיו אֵין בָּזֶה הַכְחָשָׁה לִנְבוּאָתוֹ. וְאֵין אוֹמְרִים הִנֵּה דִּבֵּר וְלֹא בָּא. שֶׁהַקָּדוֹשׁ בָּרוּךְ הוּא אֶרֶךְ אַפַּיִם וְרַב חֶסֶד וְנִחָם עַל הָרָעָה וְאֶפְשָׁר שֶׁעָשׂוּ תְּשׁוּבָה וְנִסְלַח לָהֶם כְּאַנְשֵׁי נִינְוֵה. אוֹ שֶׁתָּלָה לָהֶם כְּחִזְקִיָּה. אֲבָל אִם הִבְטִיחַ עַל טוֹבָה וְאָמַר שֶׁיִּהְיֶה כָּךְ וְכָךְ וְלֹא בָּאָה הַטּוֹבָה שֶׁאָמַר בְּיָדוּעַ שֶׁהוּא נְבִיא שֶׁקֶר. שֶׁכָּל דְּבַר טוֹבָה שֶׁיִּגְזֹר הָאֵל אֲפִלּוּ עַל תְּנַאי אֵינוֹ חוֹזֵר. וְלֹא מָצִינוּ שֶׁחָזַר בִּדְבַר טוֹבָה אֶלָּא בְּחֻרְבָּן רִאשׁוֹן כְּשֶׁהִבְטִיחַ לַצַּדִּיקִים שֶׁלֹּא יָמוּתוּ עִם הָרְשָׁעִים וְחָזַר בִּדְבָרָיו. וְזֶה מְפֹרָשׁ בְּמַסֶּכֶת שַׁבָּת. הָא לָמַדְתָּ שֶׁבְּדִבְרֵי הַטּוֹבָה בִּלְבַד יִבָּחֵן הַנָּבִיא. הוּא שֶׁיִּרְמְיָהוּ אָמַר בִּתְשׁוּבָתוֹ לַחֲנַנְיָה בֶּן עַזּוּר כְּשֶׁהָיָה יִרְמְיָה מִתְנַבֵּא לְרָעָה וַחֲנַנְיָה לְטוֹבָה. אָמַר לוֹ לַחֲנַנְיָה אִם לֹא יַעַמְדוּ דְּבָרַי אֵין בָּזֶה רְאָיָה שֶׁאֲנִי נְבִיא שֶׁקֶר אֲבָל אִם לֹא יַעַמְדוּ דְּבָרֶיךָ יִוָּדַע שֶׁאַתָּה נְבִיא שֶׁקֶר. שֶׁנֶּאֱמַר (ירמיה כח ז) "אַךְ שְׁמַע נָא אֶת הַדָּבָר הַזֶּה" וְגוֹ' הַנָּבִיא אֲשֶׁר יְדַבֵּר שָׁלוֹם בְּבֹא דְּבַר הַנָּבִיא יִוָּדַע הַנָּבִיא אֲשֶׁר שְׁלָחוֹ ה' בֶּאֱמֶת:</div>
+    <div class="halacha-en long">[The above principles do not apply to] prophecies of retribution which a prophet will utter - e.g., "So and so will die," "This or that year will be a year of famine or a year of war," and the like. If his words do not come true, this does not nullify the validity of his prophecy, nor do we say [in condemnation of him]: "Behold, he spoke and his words were not fulfilled."[This is because] the Holy One, Blessed be He, is slow to anger, abundant in kindness, and forgiving of evil. Thus, it is possible that they will repent and [their sin] will be forgiven, as in the case of the people of Nineveh, or that [retribution] will be held in abeyance, as in the case of Hezekiah.[This does not apply regarding prophecies for the good.] If [a prophet] promised that good would come and such and such will occur, and the good about which he prophesied did not materialize, he is surely a false prophet. Any good which God decrees - even if [the decree] is provisional - will never be nullified. {We find [God] nullifying a positive prophecy only during the destruction of the first Temple. He had promised the righteous that they would not die together with the wicked; however, He nullified this prophecy, as explained in the tractate of Shabbat.}We can conclude from this that a prophet should be tested on the basis of his positive prophecies. This was what Jeremiah meant by his reply to Chananiah ben Azur, when he was prophesying doom and Chananiah was promising a [glorious future]. He told Chananiah: "If my words are not fulfilled, this will not lead to the conclusion that I am a false prophet. If your promises are not fulfilled, however, it will be proven that you are a false prophet," as implied by [Jeremiah 28:7,9]: "Hear, now, this word... As for the prophet who prophesies for peace, when the word of the prophet shall come to pass, it will be known that God has truly sent this prophet."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">⚡ Good vs. Bad Predictions</div>If a prophet predicts <strong>punishment</strong> and it doesn't happen — that doesn't make him false. God may have shown mercy (like Yonah and Nineveh). But if he predicts something <strong>good</strong> and it doesn't happen — he is definitely false.</div>
+</div>
+<div class="slide" data-slide="6">
+  <div class="slide-num">7 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">Chain of Prophetic Authority</h2>
+  <div class="subtitle">הלכה ה׳</div>
+  <div class="halacha-card">
+    <div class="halacha-num">הלכה ה׳</div>
+    <div class="halacha-he">נָבִיא שֶׁהֵעִיד לוֹ נָבִיא אַחֵר שֶׁהוּא נָבִיא הֲרֵי הוּא בְּחֶזְקַת נָבִיא וְאֵין זֶה הַשֵּׁנִי צָרִיךְ חֲקִירָה. שֶׁהֲרֵי משֶׁה רַבֵּנוּ הֵעִיד לִיהוֹשֻׁעַ וְהֶאֱמִינוּ בּוֹ כָּל יִשְׂרָאֵל קֹדֶם שֶׁיַּעֲשֶׂה אוֹת. וְכֵן לְדוֹרוֹת. נָבִיא שֶׁנּוֹדְעָה נְבוּאָתוֹ וְהֶאֱמִינוּ בִּדְבָרָיו פַּעַם אַחַר פַּעַם אוֹ שֶׁהֵעִיד לוֹ נָבִיא וְהָיָה הוֹלֵךְ בְּדַרְכֵי הַנְּבוּאָה אָסוּר לַחְשֹׁב אַחֲרָיו וּלְהַרְהֵר בִּנְבוּאָתוֹ שֶׁמָּא אֵינָהּ אֱמֶת. וְאָסוּר לְנַסּוֹתוֹ יוֹתֵר מִדַּאי וְלֹא נִהְיֶה הוֹלְכִים וּמְנַסִּים לְעוֹלָם שֶׁנֶּאֱמַר (דברים ו טז) "לֹא תְנַסּוּ אֶת ה' אֱלֹהֵיכֶם כַּאֲשֶׁר נִסִּיתֶם בַּמַּסָּה" שֶׁאָמְרוּ (שמות יז ז) "הֲיֵשׁ ה' בְּקִרְבֵּנוּ אִם אָיִן". אֶלָּא מֵאַחַר שֶׁנּוֹדַע שֶׁזֶּה נָבִיא יַאֲמִינוּ וְיֵדְעוּ כִּי ה' בְּקִרְבָּם וְלֹא יְהַרְהֲרוּ וְלֹא יַחְשְׁבוּ אַחֲרָיו. כָּעִנְיָן שֶׁנֶּאֱמַר (יחזקאל ב ה) "וְיָדְעוּ כִּי נָבִיא הָיָה בְתוֹכָם":</div>
+    <div class="halacha-en long">When a prophet proclaims that another individual is [also] a prophet, we accept the latter as a prophet without requiring [any further] investigation. Thus, after Moses, our teacher, proclaimed that Joshua [was a prophet], all the Jews believed in him before he performed any wonders. The same holds true for subsequent generations.Once a prophet has made known his prophecy, and his words have proven true time after time, or another prophet has proclaimed him a prophet, if he continues in the path of prophecy, it is forbidden to doubt him or to question the truth of his prophecy.[When establishing the authenticity of a prophet,] it is forbidden to test him more than necessary. We may not continue to test him forever, as [Deuteronomy 6:16] states: "Do not test God, your Lord, as you tested him in Massah," when [the Jews] said [Exodus 17:7]: "Is God in our midst or not?" Rather, once an individual is established as a prophet, we should believe in him and know that God is in our midst. We should not doubt or question him, as implied by [Ezekiel 2:5]: "They shall know that a prophet was in their midst."</div>
+    <button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button>
+  </div>
+  <div class="callout"><div class="label">🤝 Vouching</div>When a recognized prophet declares that another person is a prophet, that person is accepted <strong>without further testing</strong>. Moshe vouched for Yehoshua, and all Israel accepted him immediately.</div>
+</div>
+<div class="slide" data-slide="7">
+  <div class="slide-num">8 / 9</div>
+  <h2 style="text-align:center;color:#c9a84c;margin-bottom:0.3rem">🎓 Key Principles</h2>
+  <div class="subtitle">The pillars of Chapter 10</div>
+  <div class="flowchart" style="gap:0.8rem">
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">✅</div>
+      <strong>Prediction = Proof</strong><br><span style="font-size:0.9rem">A prophet proves himself through accurate predictions. One failed detail = false prophet. No exceptions (except for reversed punishments).</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🔮</div>
+      <strong>Perfect Record Required</strong><br><span style="font-size:0.9rem">The difference between a prophet and a sorcerer: sorcerers are sometimes right, sometimes wrong. A true prophet is ALWAYS right.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">⚡</div>
+      <strong>Asymmetric Verification</strong><br><span style="font-size:0.9rem">Good prophecies must come true (or the prophet is false). Bad prophecies can be averted through repentance — that's God's mercy, not the prophet's failure.</span>
+    </div>
+    <div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:0.3rem;text-align:center">🤝</div>
+      <strong>Prophetic Chain</strong><br><span style="font-size:0.9rem">A recognized prophet can vouch for another — creating a chain of authority. This is how prophetic succession worked in Israel.</span>
+    </div>
+  </div>
+</div>
+<div class="slide" data-slide="8">
+  <div class="slide-num">9 / 9</div>
+  <div style="text-align:center;padding:3rem 1rem">
+    <div style="font-size:4rem;margin-bottom:1rem">📝</div>
+    <h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:0.5rem">Ready to Test Yourself?</h2>
+    <p style="color:#888;margin-bottom:0.5rem">יסודי התורה פרק י׳</p>
+    <p style="color:#666;margin-bottom:2rem;font-size:0.9rem">3 questions · Multiple choice</p>
+    <a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a>
+  </div>
+</div>
+</div>
+<div class="controls">
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
+  <button class="arrow" id="next" onclick="go(1)">←</button>
+</div>
+<script>
+function toggleExpand(btn){const c=btn.closest('.halacha-card');const t=c.querySelector('.halacha-en');if(t.classList.contains('expanded')){t.classList.remove('expanded');btn.textContent='Read full text ▼'}else{t.classList.add('expanded');btn.textContent='Show less ▲'}}
+let cur=0;const total=9;
+function go(d){goTo(cur+d)}
+function goTo(n){if(n<0||n>=total)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;document.querySelector('.slide-wrap').scrollTop=0}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
+</script>
+</body>
+</html>
