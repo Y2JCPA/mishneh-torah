@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות קידוש החודש פרק ט״ו</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות קידוש החודש</a><span class="title">פרק ט״ו</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">🌙</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות קידוש החודש</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ט״ו</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 15 · 9 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">מיקום הירח האמיתי — ריחוק כפול ואנומליה מתוקנת</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">מיקום הירח האמיתי — ריחוק כפול ואנומליה מתוקנת</h2><div class="subtitle">פרק 15</div><div class="flowchart"><div class="flow-box highlight">ריחוק כפול וגבולותיו<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">תיקון האנומליה הממוצעת<br><span style="font-size:.8rem;color:#888">הלכה ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">ערך תיקון האנומליה והמיקום האמיתי<br><span style="font-size:.8rem;color:#888">הלכות ד׳–ז׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">דוגמה מחושבת — ב׳ באייר<br><span style="font-size:.8rem;color:#888">הלכות ח׳–ט׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">ריחוק כפול וגבולותיו</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">אִם תִּרְצֶה לֵידַע מְקוֹם הַיָּרֵח הָאֲמִתִּי בְּכָל יוֹם שֶׁתִּרְצֶה. תּוֹצִיא תְּחִלָּה אֶמְצַע הַיָּרֵחַ לִשְׁעַת הָרְאִיָּה לְאוֹתוֹ הַלַּיְלָה שֶׁתִּרְצֶה. וְכֵן תּוֹצִיא אֶמְצַע הַמַּסְלוּל וְאֶמְצַע הַשֶּׁמֶשׁ לְאוֹתוֹ הָעֵת. וְתִגְרַע אֶמְצַע הַשֶּׁמֶשׁ מֵאֶמְצַע הַיָּרֵחַ. וְהַנִּשְׁאָר תִּכְפּל אוֹתוֹ. וְזֶה הוּא הַנִּקְרָא מֶרְחָק הַכָּפוּל:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">וּכְבָר הוֹדַעְנוּ שֶׁלֹּא בָּאנוּ בְּכָל אֵלּוּ הַחֶשְׁבּוֹנוֹת שֶׁעָשִׂינוּ בִּפְרָקִים אֵלּוּ אֶלָּא לָדַעַת רְאִיַּת הַיָּרֵחַ. וּלְעוֹלָם אִי אֶפְשָׁר שֶׁיִּהְיֶה מֶרְחָק זֶה הַכָּפוּל בְּלֵיל הָרְאִיָּה שֶׁיִּרְאֶה בָּהּ הַיָּרֵחַ אֶלָּא מֵחָמֵשׁ מַעֲלוֹת עַד ס"ב מַעֲלוֹת. וְאִי אֶפְשָׁר שֶׁיּוֹסִיף עַל זֶה וְלֹא יִגְרַע מִמֶּנּוּ:</div></div><div class="callout"><div class="label">🌙 חישוב הריחוק הכפול</div>למציאת <strong>מיקום הירח האמיתי</strong>, תחילה מחשבים את מיקום הירח הממוצע, האנומליה הממוצעת, ומיקום השמש הממוצע בזמן הראייה. מפחיתים את השמש הממוצעת מהירח הממוצע, ואז <strong>מכפילים את התוצאה</strong> — זהו <strong>הריחוק הכפול</strong>. בליל הראייה הפוטנציאלית, ערך זה <strong>לעולם אינו פחות מ-5° ולעולם אינו יותר מ-62°</strong>.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">תיקון האנומליה הממוצעת</h2><div class="subtitle">הלכה ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">וְהוֹאִיל וְהַדָּבָר כֵּן. הִתְבּוֹנֵן בְּמֶרְחָק זֶה הַכָּפוּל. אִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל חָמֵשׁ מַעֲלוֹת אוֹ קָרוֹב לְחָמֵשׁ אֵין חוֹשְׁשִׁין לְתוֹסֶפֶת וְלֹא תּוֹסִיף כְּלוּם. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִשֵּׁשׁ מַעֲלוֹת עַד אַחַת עֶשְׂרֵה מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל מַעֲלָה אַחַת. וְאִם יִהְיֶה מֶרְחָק הַכָּפוּל מִשְּׁתֵּים עֶשְׂרֵה מַעֲלוֹת עַד י"ח מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל שְׁתֵּי מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִי"ט מַעֲלוֹת עַד כ"ד מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל שָׁלֹשׁ מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִכ"ה מַעֲלוֹת עַד ל"א מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל ד' מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִל"ב מַעֲלוֹת עַד ל"ח מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל ה' מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִל"ט מַעֲלוֹת עַד מ"ה מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל שֵׁשׁ מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִמ"ו מַעֲלוֹת עַד נ"א מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל שֶׁבַע מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִנ"ב מַעֲלוֹת עַד נ"ט מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל ח' מַעֲלוֹת. וְאִם יִהְיֶה הַמֶּרְחָק הַכָּפוּל מִס' מַעֲלוֹת עַד ס"ג מַעֲלוֹת תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל ט' מַעֲלוֹת. וּמַה שֶּׁיִּהְיֶה אֶמְצַע הַמַּסְלוּל אַחַר שֶׁתּוֹסִיף עָלָיו מַעֲלוֹת אֵלּוּ הוּא הַנִּקְרָא מַסְלוּל הַנָּכוֹן:</div></div><div class="callout"><div class="label">📐 טבלת תיקון האנומליה</div>על פי הריחוק הכפול, מוסיפים מעלות לאנומליה הממוצעת: ב<strong>5° או סמוך</strong> — אין תוספת; 6°-11° → מוסיפים 1°; 12°-18° → 2°; 19°-24° → 3°; 25°-31° → 4°; 32°-38° → 5°; 39°-45° → 6°; 46°-51° → 7°; 52°-59° → 8°; 60°-63° → <strong>9°</strong>. התוצאה לאחר תוספת זו נקראת <strong>האנומליה המתוקנת</strong>.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">ערך תיקון האנומליה והמיקום האמיתי</h2><div class="subtitle">הלכות ד׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">וְאַחַר כָּךְ תִּרְאֶה כַּמָּה מַעֲלוֹת הוּא הַמַּסְלוּל הַנָּכוֹן. אִם הָיָה פָּחוֹת מִק"פ מַעֲלוֹת תִּגְרַע מְנַת הַמַּסְלוּל הַזֶּה הַנָּכוֹן מֵאֶמְצַע הַיָּרֵחַ לִשְׁעַת הָרְאִיָּה. וְאִם הָיָה הַמַּסְלוּל הַנָּכוֹן יוֹתֵר עַל ק"פ מַעֲלוֹת עַד ש"ס תּוֹסִיף מְנַת זֶה הַמַּסְלוּל הַנָּכוֹן עַל אֶמְצַע הַיָּרֵחַ לִשְׁעַת הָרְאִיָּה. וּמַה שֶּׁיִּהְיֶה הָאֶמְצַע אַחַר שֶׁתּוֹסִיף עָלָיו אוֹ תִּגְרַע מִמֶּנּוּ הוּא מְקוֹם הַיָּרֵחַ הָאֲמִתִּי לִשְׁעַת הָרְאִיָּה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">וְדַע שֶׁאִם יִהְיֶה הַמַּסְלוּל הַנָּכוֹן ק"פ בְּשָׁוֶה אוֹ ש"ס בְּשָׁוֶה אֵין לוֹ מָנָה. אֶלָּא יִהְיֶה מְקוֹם הַיָּרֵחַ הָאֶמְצָעִי לִשְׁעַת הָרְאִיָּה הוּא מָקוֹם הָאֲמִתִּי:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">וְכַמָּה הִיא מְנַת הַמַּסְלוּל. אִם יִהְיֶה הַמַּסְלוּל הַנָּכוֹן עֶשֶׂר מַעֲלוֹת תִּהְיֶה מְנָתוֹ נ' חֲלָקִים. וְאִם יִהְיֶה הַמַּסְלוּל הַנָּכוֹן כ' מַעֲלוֹת תִּהְיֶה מְנָתוֹ מַעֲלָה אַחַת וְל"ח חֲלָקִים. וְאִם יִהְיֶה שְׁלֹשִׁים תִּהְיֶה מְנָתוֹ שְׁתֵּי מַעֲלוֹת וְכ"ד חֲלָקִים. וְאִם יִהְיֶה מ' תִּהְיֶה מְנָתוֹ שָׁלֹשׁ מַעֲלוֹת וְשִׁשָּׁה חֲלָקִים. וְאִם יִהְיֶה נ' תִּהְיֶה מְנָתוֹ שָׁלֹשׁ מַעֲלוֹת וּמ"ד חֲלָקִים. וְאִם יִהְיֶה ס' תִּהְיֶה מְנָתוֹ אַרְבַּע מַעֲלוֹת וְט"ז חֲלָקִים. וְאִם יִהְיֶה ע' תִּהְיֶה מְנָתוֹ אַרְבַּע מַעֲלוֹת וּמ"א חֲלָקִים. וְאִם יִהְיֶה פ' תִּהְיֶה מְנָתוֹ חָמֵשׁ מַעֲלוֹת. וְאִם יִהְיֶה צ' תִּהְיֶה מְנָתוֹ חָמֵשׁ מַעֲלוֹת וְה' חֲלָקִים. וְאִם יִהְיֶה ק' תִּהְיֶה מְנָתוֹ ה' מַעֲלוֹת וְח' חֲלָקִים. וְאִם יִהְיֶה ק"י תִּהְיֶה מְנָתוֹ ד' מַעֲלוֹת וְנ"ט חֲלָקִים. וְאִם יִהְיֶה ק"כ תִּהְיֶה מְנָתוֹ ד' מַעֲלוֹת וְכ' חֲלָקִים. וְאִם יִהְיֶה ק"ל תִּהְיֶה מְנָתוֹ ד' מַעֲלוֹת וְי"א חֲלָקִים. וְאִם יִהְיֶה ק"מ תִּהְיֶה מְנָתוֹ ג' מַעֲלוֹת וְל"ג חֲלָקִים. וְאִם יִהְיֶה ק"נ תִּהְיֶה מְנָתוֹ שָׁלֹשׁ מַעֲלוֹת וּמ"ח חֲלָקִים. וְאִם יִהְיֶה ק"ס תִּהְיֶה מְנָתוֹ מַעֲלָה אַחַת וְנ"ו חֲלָקִים. וְאִם יִהְיֶה ק"ע תִּהְיֶה מְנָתוֹ מַעֲלָה אַחַת וְנ"ט חֲלָקִים. וְאִם יִהְיֶה ק"פ בְּשָׁוֶה אֵין לוֹ מָנָה כְּמוֹ שֶׁאָמַרְנוּ אֶלָּא מְקוֹם הַיָּרֵחַ הָאֶמְצָעִי הוּא הַמָּקוֹם הָאֲמִתִּי:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">וְאִם יִהְיֶה הַמַּסְלוּל הַנָּכוֹן יוֹתֵר עַל ק"פ מַעֲלוֹת. תִּגְרַע אוֹתוֹ מִש"ס וְתֵדַע מְנָתוֹ כְּדֶרֶךְ שֶׁעָשִׂיתָ בְּמַסְלוּל הַשֶּׁמֶשׁ. וְכֵן אִם יִהְיוּ בְּמִנְיַן הַמַּסְלוּל אֲחָדִים עִם הָעֲשָׂרוֹת תִּקַּח מִן הַיּוֹתֵר שֶׁבֵּין שְׁתֵּי הַמָּנוֹת הָאֲחָדִים. כְּדֶרֶךְ שֶׁבֵּאַרְנוּ בְּמַסְלוּל הַשֶּׁמֶשׁ בַּמָּנוֹת שֶׁלּוֹ כָּךְ תַּעֲשֶׂה בַּמַּסְלוּל הַנָּכוֹן בַּמָּנוֹת שֶׁלּוֹ:</div></div><div class="callout"><div class="label">➕ להפחית או להוסיף את התיקון</div>אם האנומליה המתוקנת <strong>פחות מ-180°</strong> — מפחיתים את התיקון מהירח הממוצע; אם <strong>יותר מ-180°</strong> — מוסיפים. אם בדיוק <strong>180° או 360°</strong> — אין תיקון; המיקום הממוצע הוא המיקום האמיתי. טבלת תיקונים: 10°→נ׳, 20°→1°38', 30°→2°24', 40°→3°6', 50°→3°44', 60°→4°16', 70°→4°41', 80°→5°0', 90°→5°5', 100°→<strong>5°8'</strong> (מקסימום), 110°→4°59', 120°→4°20', 130°→4°11', 140°→3°33', 150°→2°48', 160°→1°56', 170°→נ״ט. לאנומליה מתוקנת מעל 180° — מפחיתים מ-360° ומשתמשים בשארית.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">דוגמה מחושבת — ב׳ באייר</h2><div class="subtitle">הלכות ח׳–ט׳</div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">כֵּיצַד. הֲרֵי שֶׁרָצִינוּ לֵידַע מְקוֹם הַיָּרֵחַ הָאֲמִתִּי בִּתְחִלַּת לֵיל עֶרֶב שַׁבָּת שֶׁיּוֹמוֹ שֵׁנִי לְחֹדֶשׁ אִיָּר מִשָּׁנָה זוֹ שֶׁהִיא שְׁנַת הָעִקָּר. וּמִנְיַן הַיָּמִים הַגְּמוּרִים מִתְּחִלַּת לֵיל הָעִקָּר עַד תְּחִלַּת לַיִל זֶה שֶׁאָנוּ רוֹצִים לֵידַע מְקוֹם הַיָּרֵחַ הָאֲמִתִּי בּוֹ כ"ט יוֹם. תּוֹצִיא אֶמְצַע הַשֶּׁמֶשׁ תְּחִלַּת לַיִל זֶה. יֵצֵא לְךָ אֶמְצָעוֹ ל"ה מַעֲלוֹת וְל"ח חֲלָקִים וְל"ג שְׁנִיּוֹת. סִימָנָם ל"ה ל"ח ל"ג. וְתוֹצִיא אֶמְצַע הַיָּרֵחַ לִשְׁעַת הָרְאִיָּה לְעֵת זוֹ. יֵצֵא לְךָ אֶמְצָעוֹ נ"ג מַעֲלוֹת וְל"ו חֲלָקִים וְל"ט שְׁנִיּוֹת. סִימָנָם נ"ג ל"ו ל"ט. וְתוֹצִיא אֶמְצַע הַמַּסְלוּל לְעֵת זוֹ יֵצֵא לְךָ אֶמְצָעוֹ ק"ג מַעֲלוֹת וְכ"א חֲלָקִים וּמ"ו שְׁנִיּוֹת. סִימָנָם ק"ג כ"א מ"ו. תִּגְרַע אֶמְצַע הַשֶּׁמֶשׁ מֵאֶמְצַע הַיָּרֵחַ יִשָּׁאֵר י"ז מַעֲלוֹת וְנ"ח חֲלָקִים וְשֵׁשׁ שְׁנִיּוֹת. וְזֶה הוּא הַמֶּרְחָק. תִּכְפּל אוֹתוֹ יֵצֵא לְךָ הַמֶּרְחָק הַכָּפוּל ל"ה מַעֲלוֹת וְנ"ו חֲלָקִים וְי"ב שְׁנִיּוֹת. סִימָנָם ל"ה נ"ו י"ב. לְפִיכָךְ תּוֹסִיף עַל אֶמְצַע הַמַּסְלוּל חָמֵשׁ מַעֲלוֹת כְּמוֹ שֶׁהוֹדַעְנוּ וְיֵצֵא לְךָ הַמַּסְלוּל הַנָּכוֹן ק"פ מַעֲלוֹת וְכ"א חֲלָקִים. וְאֵין מַקְפִּידִין עַל הַחֲלָקִים בְּמַסְלוּל כְּדֶרֶךְ שֶׁבֵּאַרְנוּ בַּשֶּׁמֶשׁ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">וּבָאנוּ לַחְקֹר עַל מְנַת זֶה הַמַּסְלוּל הַנָּכוֹן שֶׁהוּא ק"ח נִמְצֵאת מָנָה שֶׁלּוֹ חָמֵשׁ מַעֲלוֹת וְחֵלֶק אֶחָד. וּלְפִי שֶׁהַמַּסְלוּל הַנָּכוֹן הָיָה פָּחוֹת מִק"פ תִּגְרַע הַמָּנָה שֶׁהוּא חָמֵשׁ מַעֲלוֹת וְחֵלֶק אֶחָד מִן אֶמְצַע הַיָּרֵחַ. יִשָּׁאֵר מ"ח מַעֲלוֹת וְל"ג חֲלָקִים וְל"ט שְׁנִיּוֹת. תַּעֲשֶׂה הַשְּׁנִיּוֹת חֵלֶק וְתוֹסִיף עַל הַחֲלָקִים. וְנִמְצָא מְקוֹם הַיָּרֵחַ הָאֲמִתִּי בְּשָׁעָה זוֹ בְּמַזַּל שׁוֹר בְּי"ח מַעֲלוֹת וְל"ו חֲלָקִים מִמַּעֲלַת י"ט. סִימָנָם י"ח ל"ו. וְעַל הַדֶּרֶךְ הַזֶּה תֵּדַע מְקוֹם הַיָּרֵחַ הָאֲמִתִּי בְּכָל עֵת רְאִיָּה שֶׁתִּרְצֶה מִתְּחִלַּת שָׁנָה זוֹ שֶׁהִיא הָעִקָּר עַד סוֹף הָעוֹלָם:</div></div><div class="callout"><div class="label">🔭 חישוב מלא</div>מציאת מיקום הירח האמיתי לליל שבת, <strong>ב׳ באייר של שנת העידן</strong> (29 יום מהעידן). שמש ממוצעת: 35°38'33''; ירח ממוצע: 53°36'39''; אנומליה ממוצעת: 103°21'46''. ריחוק: 17°58'6''; ריחוק כפול: <strong>35°56'12''</strong>. מוסיפים 5° → אנומליה מתוקנת 108°21'. תיקון ל-108° = 5°1'. מפחיתים מהירח הממוצע → <strong>מיקום הירח האמיתי: 18°36' בשור</strong> (המעלה ה-19).</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 15</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌙</div><strong>הריחוק הכפול הוא השער</strong><br><span style="font-size:.9rem">'הריחוק הכפול' — פעמיים ההפרש בין הירח הממוצע לשמש הממוצעת — הוא הכלי המרכזי: ערכו בליל הראייה תמיד חסום בין 5° ל-62°.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📊</div><strong>שתי טבלאות שיטתיות</strong><br><span style="font-size:.9rem">הרמב"ם מספק טבלאות מדויקות הן לתיקון האנומליה (עד 9° תוספת) והן לערך תיקון האנומליה המתוקנת (עד 5°8'). ערכי ביניים משתמשים באינטרפולציה יחסית.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>מתחת ל-180° מפחיתים, מעל 180° מוסיפים</strong><br><span style="font-size:.9rem">כשהאנומליה המתוקנת בחצי הראשון (מתחת ל-180°), הירח קרוב לאפוגיי והתיקון מפחית; בחצי השני (מעל 180°), הוא מתקרב לפריגיי ומוסיף. בדיוק 180° או 360° — אין תיקון כלל.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔭</div><strong>מחישוב לשמיים</strong><br><span style="font-size:.9rem">הרמב"ם מסיים בדוגמה מחושבת מלאה שמראה כיצד כל שלבי החישוב מתחברים לתוצאה אחת: מיקום הירח האמיתי בזמן הראייה — שיטה תקפה 'מתחילת שנה זו ועד סוף העולם.'</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות קידוש החודש פרק ט״ו</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

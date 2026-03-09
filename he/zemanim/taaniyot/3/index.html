@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות תעניות פרק ג</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות תעניות</a><span class="title">פרק ג</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">🕯️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות תעניות</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ג</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 3 · 11 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">שלושה גלים של תעניות בצורת — מצום חכמים ועד משבר ציבורי</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">שלושה גלים של תעניות בצורת — מצום חכמים ועד משבר ציבורי</h2><div class="subtitle">פרק 3</div><div class="flowchart"><div class="flow-box highlight">החכמים פותחים: התעניות הפרטיות הראשונות<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">מחמירים בצום: הגבלות כמו ביום כיפור נכנסות לתוקף<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">לחץ ציבורי מרבי: שבעת הצומות האחרונים<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ז׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">אחרי שלושה עשר צומות: אבלות ציבורית וגבול ניסן<br><span style="font-size:.8rem;color:#888">הלכות ח׳–י״א</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">החכמים פותחים: התעניות הפרטיות הראשונות</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">הֲרֵי שֶׁלֹּא יָרְדוּ לָהֶם גְּשָׁמִים כָּל עִקָּר מִתְּחִלַּת יְמוֹת הַגְּשָׁמִים. אִם הִגִּיעַ שִׁבְעָה עָשָׂר בְּמַרְחֶשְׁוָן וְלֹא יָרְדוּ גְּשָׁמִים מַתְחִילִין תַּלְמִידֵי חֲכָמִים בִּלְבַד לְהִתְעַנּוֹת שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי. וְכָל הַתַּלְמִידִים רְאוּיִין לְכָךְ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">הִגִּיעַ רֹאשׁ חֹדֶשׁ כִּסְלֵו וְלֹא יָרְדוּ גְּשָׁמִים בֵּית דִּין גּוֹזְרִין שָׁלֹשׁ תַּעֲנִיּוֹת עַל הַצִּבּוּר שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי. וּמֻתָּרִין בָּהֶן לֶאֱכל וְלִשְׁתּוֹת בַּלַּיְלָה. וְאַנְשֵׁי מִשְׁמָר אֵין מִתְעַנִּין עִמָּהֶן מִפְּנֵי שֶׁהֵן עֲסוּקִין בַּעֲבוֹדָה. וְכָל הָעָם נִכְנָסִים לְבָתֵּי כְּנֵסִיּוֹת וּמִתְפַּלְּלִין וְזוֹעֲקִין וּמִתְחַנְּנִין כְּדֶרֶךְ שֶׁעוֹשִׂין בְּכָל הַתַּעֲנִיּוֹת:</div></div><div class="callout"><div class="label">📜 ההסלמה מתחילה</div>כשאין גשם עד <strong>יז׳ במרחשון</strong>, <strong>תלמידי חכמים בלבד</strong> מתחילים לצום ב–ה–ב (הלכה א׳). אם הבצורת נמשכת עד <strong>ראש חודש כסלו</strong>, בית הדין גוזר את <strong>סדרת הצומות הציבוריים הראשונה</strong> (ב–ה–ב), שבה מותר לאכול בלילה ו<strong>משמר הכהונה פטור</strong> מהצום בגלל עבודת המקדש (הלכה ב׳).</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">מחמירים בצום: הגבלות כמו ביום כיפור נכנסות לתוקף</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">עָבְרוּ אֵלּוּ וְלֹא נַעֲנוּ בֵּית דִּין גּוֹזְרִין שָׁלֹשׁ תַּעֲנִיּוֹת אֲחֵרוֹת עַל הַצִּבּוּר שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי. וּבְשָׁלֹשׁ אֵלּוּ אוֹכְלִין וְשׁוֹתִין מִבְּעוֹד יוֹם כְּמוֹ שֶׁעוֹשִׂין בְּצוֹם כִּפּוּר. וְאַנְשֵׁי מִשְׁמָר מִתְעַנִּין מִקְצָת הַיּוֹם וְלֹא מַשְׁלִימִין. וְאַנְשֵׁי בֵּית אָב וְהֵם הָעוֹסְקִין בַּעֲבוֹדָה בְּאוֹתוֹ הַיּוֹם לֹא יִהְיוּ מִתְעַנִּים כָּל עִקָּר. וְכָל תַּעֲנִית שֶׁאוֹכְלִין בָּהּ מִבְּעוֹד יוֹם אִם אָכַל וּפָסַק וְגָמַר שֶׁלֹּא לֶאֱכל אֵינוֹ חוֹזֵר וְאוֹכֵל אַף עַל פִּי שֶׁיֵּשׁ שְׁהוּת בַּיּוֹם:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">בְּשָׁלֹשׁ תַּעֲנִיּוֹת אֵלּוּ כָּל הָעָם אֲסוּרִין בַּעֲשִׂיַּת מְלָאכָה בַּיּוֹם וּמֻתָּרִין בַּלַּיְלָה. וַאֲסוּרִין בִּרְחִיצַת כָּל הַגּוּף בְּחַמִּין אֲבָל פָּנָיו יָדָיו וְרַגְלָיו מֻתָּר. לְפִיכָךְ נוֹעֲלִין אֶת הַמֶּרְחֲצָאוֹת. וַאֲסוּרִין בְּסִיכָה. וְאִם לְהַעֲבִיר אֶת הַזֻּהֲמָה מֻתָּר. וַאֲסוּרִין בְּתַשְׁמִישׁ הַמִּטָּה. וּבִנְעִילַת הַסַּנְדָּל בָּעִיר אֲבָל בַּדֶּרֶךְ מֻתָּר לִנְעל. וּמִתְפַּלְּלִין בְּבָתֵּי כְּנֵסִיּוֹת וְזוֹעֲקִין וּמִתְחַנְּנִין כִּשְׁאָר תַּעֲנִיּוֹת:</div></div><div class="callout"><div class="label">⚖️ חומרה ברמה השנייה</div><strong>סדרת שלושת הצומות הציבוריים השנייה</strong> מכניסה <strong>הפסקת אכילה לפני הצום</strong> (כמו בערב יום כיפור), בעוד שמשמר הכהונה צם רק חלקית ו<strong>בית האב</strong> (המשרתים בפועל) כלל לא צמים (הלכה ג׳). בצומות אלה מתווספים איסורים רחבים: <strong>אין עבודה ביום, אין רחצה במים חמים, אין סיכה, אין יחסי אישות, אין נעליים בעיר</strong> — בתי המרחץ סגורים (הלכה ד׳).</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">לחץ ציבורי מרבי: שבעת הצומות האחרונים</h2><div class="subtitle">הלכות ה׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">עָבְרוּ אֵלּוּ וְלֹא נַעֲנוּ בֵּית דִּין גּוֹזְרִין שֶׁבַע תַּעֲנִיּוֹת אֲחֵרוֹת עַל הַצִּבּוּר שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי וַחֲמִישִׁי וְשֵׁנִי וַחֲמִישִׁי וְשֵׁנִי. וּבְאֵלּוּ הַשֶּׁבַע בִּלְבַד עֵבָּרוֹת וּמֵינִיקוֹת מִתְעַנּוֹת אֲבָל בִּשְׁאָר הַתַּעֲנִיּוֹת אֵין עֵבָּרוֹת וּמֵינִיקוֹת מִתְעַנּוֹת. וְאַף עַל פִּי שֶׁאֵינָן מִתְעַנּוֹת אֵין מְעַנְּגוֹת עַצְמָן בְּתַפְנוּקִים אֶלָּא אוֹכְלוֹת וְשׁוֹתוֹת כְּדֵי קִיּוּם הַוָּלָד:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">וּבְשֶׁבַע תַּעֲנִיּוֹת אֵלּוּ אַנְשֵׁי מִשְׁמָר מִתְעַנִּין וּמַשְׁלִימִין. וְאַנְשֵׁי בֵּית אָב מִתְעַנִּין מִקְצָת הַיּוֹם וְלֹא מַשְׁלִימִין. וְכָל דָּבָר שֶׁהוּא אָסוּר בְּשָׁלֹשׁ אֶמְצָעִיּוֹת אָסוּר בְּאֵלּוּ הַשֶּׁבַע הָאַחֲרוֹנוֹת:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">וִיתֵרוֹת אֵלּוּ. שֶׁבָּהֶן בִּלְבַד מַתְרִיעִין וּמִתְפַּלְּלִין בִּרְחוֹב הָעִיר. וּמוֹרִידִין זָקֵן לְהוֹכִיחַ לָעָם כְּדֵי שֶׁיָּשׁוּבוּ מִדַּרְכָּם. וּמוֹסִיפִין שֵׁשׁ בְּרָכוֹת בִּתְפִלַּת שַׁחֲרִית וּבִתְפִלַּת מִנְחָה וְנִמְצְאוּ מִתְפַּלְּלִין כ"ד בְּרָכוֹת. וְנוֹעֲלִין אֶת הַחֲנֻיּוֹת. וּבַשֵּׁנִי מַטִּין לְעֵת עֶרֶב וּפוֹתְחִין אֶת הַחֲנֻיּוֹת. אֲבָל בַּחֲמִישִׁי פּוֹתְחִין כָּל הַיּוֹם מִפְּנֵי כְּבוֹד הַשַּׁבָּת. וְאִם יֵשׁ לַחֲנוּת שְׁנֵי פְּתָחִים פּוֹתֵחַ אֶחָד וְנוֹעֵל אֶחָד וְאִם יֵשׁ לַחֲנוּת אִצְטַבָּה פּוֹתֵחַ כְּדַרְכּוֹ בַּחֲמִישִׁי וְאֵינוֹ חוֹשֵׁשׁ:</div></div><div class="callout"><div class="label">🚨 כל הציבור גויס</div>גוזרים שבעה צומות נוספים, שמחייבים באופן ייחודי גם <strong>נשים מעוברות ומניקות</strong> לצום (אם כי לא להתפנק בין הצומות, הלכה ה׳). <strong>משמר הכהונה כעת צם לגמרי</strong>; רק בית האב צם בחלקו (הלכה ו׳). לשבעה אלה יש תוספות בלעדיות: <strong>תקיעת חצוצרות, תפילה ברחובות, נזיפת הזקן, 24 ברכות בתפילה, וסגירת חנויות</strong> עם פתיחה חלקית מפוקחת בימי שני וחמישי (הלכה ז׳).</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">אחרי שלושה עשר צומות: אבלות ציבורית וגבול ניסן</h2><div class="subtitle">הלכות ח׳–י״א</div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">עָבְרוּ אֵלּוּ וְלֹא נַעֲנוּ. מְמַעֲטִין בְּמַשָּׂא וּמַתָּן וּבְבִנְיָן שֶׁל שִׂמְחָה כְּגוֹן צִיּוּר וְכִיּוּר. וּבִנְטִיעָה שֶׁל שִׂמְחָה כְּגוֹן מִינֵי הֲדַס וּמִינֵי אֲהָלִים. וּמְמַעֲטִין בְּאֵרוּסִין וְנִשּׂוּאִין אֶלָּא אִם כֵּן לֹא קִיֵּם מִצְוַת פְּרִיָּה וּרְבִיָּה. וְכָל מִי שֶׁקִּיֵּם מִצְוַת פְּרִיָּה וּרְבִיָּה אָסוּר לוֹ לְשַׁמֵּשׁ מִטָּתוֹ בִּשְׁנֵי רְעָבוֹן. וּמְמַעֲטִין בִּשְׁאֵלַת שָׁלוֹם בֵּין אָדָם לַחֲבֵרוֹ. וְתַּלְמִידֵי חֲכָמִים לֹא יִשְׁאֲלוּ שָׁלוֹם אֶלָּא כִּנְזוּפִין וּכִמְנֻדִּין לַמָּקוֹם. וְעַם הָאָרֶץ שֶׁנָּתַן לָהֶם שָׁלוֹם מַחְזִירִין לוֹ בְּשָׂפָה רָפָה וְכֹבֶד רֹאשׁ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">תַּלְמִידֵי חֲכָמִים חוֹזְרִין לְבַדָּם וּמִתְעַנִּים שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי עַד שֶׁיֵּצֵא נִיסָן שֶׁל תְּקוּפָה אֲבָל לֹא הַצִּבּוּר. שֶׁאֵין גּוֹזְרִין עַל הַצִּבּוּר בִּשְׁבִיל גְּשָׁמִים שֶׁלֹּא יָרְדוּ יֶתֶר מִשְּׁלֹשׁ עֶשְׂרֵה תַּעֲנִיּוֹת אֵלּוּ. וּכְשֶׁמִּתְעַנִּין הַיְחִידִים עַד שֶׁיָּצָא נִיסָן מֻתָּרִין לֶאֱכל בַּלַּיְלָה וּמֻתָּרִין בַּעֲשִׂיַּת מְלָאכָה וּבִרְחִיצָה וּבְסִיכָה וְתַשְׁמִישׁ הַמִּטָּה וּנְעִילַת הַסַּנְדָּל כִּשְׁאָר כָּל הַתַּעֲנִיּוֹת. וּמַפְסִיקִין לְרָאשֵׁי חֳדָשִׁים וּפוּרִים. יָצָא נִיסָן שֶׁל תְּקוּפָה וְהוּא כְּשֶׁהִגִּיעַ הַשֶּׁמֶשׁ לִתְחִלַּת מַזַּל שׁוֹר אֵין מִתְעַנִּים. שֶׁאֵין הַגְּשָׁמִים בַּזְּמַן הַזֶּה אֶלָּא סִימַן קְלָלָה הוֹאִיל וְלֹא יָרְדוּ כָּל עִקָּר מִתְּחִלַּת הַשָּׁנָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י׳</div><div class="halacha-he">בַּמֶּה דְּבָרִים אֲמוּרִים בְּאֶרֶץ יִשְׂרָאֵל וְכָל הַדּוֹמֶה לָהּ. אֲבָל מְקוֹמוֹת שֶׁעוֹנַת הַגְּשָׁמִים שֶׁלָּהֶן קֹדֶם י"ז בְּמַרְחֶשְׁוָן אוֹ אַחַר זְמַן זֶה כְּשֶׁיַּגִּיעַ זְמַנָּם וְלֹא יָרְדוּ גְּשָׁמִים יְחִידִים מִתְעַנִּים שֵׁנִי וַחֲמִישִׁי וְשֵׁנִי. וּמַפְסִיקִין בְּרָאשֵׁי חֳדָשִׁים וּבַחֲנֻכָּה וּבְפוּרִים. וְשׁוֹהִין אַחֲרֵי כֵן כְּמוֹ שִׁבְעָה יָמִים. אִם לֹא יָרְדוּ גְּשָׁמִים בֵּית דִּין גּוֹזְרִין עַל הַצִּבּוּר שְׁלֹשׁ עֶשְׂרֵה תַּעֲנִיּוֹת עַל הַסֵּדֶר שֶׁאָמַרְנוּ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״א׳</div><div class="halacha-he">כָּל תַּעֲנִיּוֹת שֶׁגּוֹזְרִין הַצִּבּוּר בְּחוּצָה לָאָרֶץ אוֹכְלִים בָּהֶם בַּלַּיְלָה וְדִינֵיהֶם כְּדִין שְׁאָר הַתַּעֲנִיּוֹת. שֶׁאֵין גּוֹזְרִין עַל הַצִּבּוּר תַּעֲנִית כְּגוֹן צוֹם כִּפּוּר אֶלָּא בְּאֶרֶץ יִשְׂרָאֵל בִּלְבַד וּבִגְלַל הַמָּטָר. וּבְאוֹתָן עֶשֶׂר תַּעֲנִיּוֹת שֶׁהֵן שָׁלֹשׁ אֶמְצָעִיּוֹת וְשֶׁבַע אַחֲרוֹנוֹת:</div></div><div class="callout"><div class="label">🌧️ הציבור מותש, החכמים ממשיכים</div>לאחר שכל שלושה עשר הצומות הציבוריים עברו ללא תגובה, <strong>הציבור מפסיק לצום</strong> אך נוהג בצניעות: מסחר מצומצם, אין בנייה שמחה או נטיעה, הגבלות על קידושין ועל ברכות שלום — <strong>תלמידי חכמים עונים בלבד בחולשה</strong> כ'נדחים על ידי ה׳' (הלכה ח׳). החכמים בלבד ממשיכים ב–ה–ב עד <strong>שניסן האביבי יעבור</strong>; גשם לאחר מכן הוא <strong>סימן קללה</strong>, לא ברכה (הלכה ט׳). מחוץ ל<em>ארץ ישראל</em>, הצומות נקבעים לפי עונות הגשמים המקומיות, ו<strong>צומות ציבוריים ברמת יום הכיפורים</strong> ניתן לגזור רק ב<em>ארץ ישראל</em> ורק על חוסר גשמים (הלכות י׳–י״א).</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 3</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📅</div><strong>תאריכים מדויקים מניעים את לוח הזמנים</strong><br><span style="font-size:.9rem">כל הסלמה לרמת צום חדשה מופעלת על ידי תאריך מסוים — יז׳ מרחשון, ואז ראש חודש כסלו — שמסמן את הבצורת כחמורה יותר ויותר.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🏛️</div><strong>עבודת המקדש גוברת על הצום הציבורי</strong><br><span style="font-size:.9rem">כוהנים שמשרתים בפועל במקדש פטורים, פטורים חלקית, או חייבים לצום בדיוק ביחס לחומרה של כל סדרת צומות.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌍</div><strong>לארץ ישראל סמכות הלכתית ייחודית</strong><br><span style="font-size:.9rem">רק בתי דין בארץ ישראל יכולים לגזור צומות ציבוריים בעוצמת יום כיפור, ורק בגלל חוסר גשמים — קהילות הגולה מוגבלות לצומות קלים יותר ברמה האישית.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⏹️</div><strong>שלושה עשר צומות הם המגבלה המוחלטת של הציבור</strong><br><span style="font-size:.9rem">הרמב״ם פוסק שלא ניתן לגזור יותר משלושה עשר צומות ציבוריים על בצורת, ולאחר מכן החכמים ממשיכים לבד והציבור נוהג אבלות התנהגותית במקום.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות תעניות פרק ג</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
