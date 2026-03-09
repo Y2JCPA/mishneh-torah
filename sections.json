@@ -1,0 +1,56 @@
+{
+  "shofar-sukkah-lulav": {
+    "prefix": "shofar-sukkah-lulav",
+    "dir": "zemanim/shofar-sukkah-and-lulav",
+    "secHe": "הלכות שופר וסוכה ולולב",
+    "secEn": "Shofar, Sukkah, and Lulav",
+    "emoji": "🎺",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 8
+  },
+  "shekalim": {
+    "prefix": "shekalim",
+    "dir": "zemanim/sheqel-dues",
+    "secHe": "הלכות שקלים",
+    "secEn": "Sheqel Dues",
+    "emoji": "🪙",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 4
+  },
+  "kiddush-hachodesh": {
+    "prefix": "kiddush-hachodesh",
+    "dir": "zemanim/sanctification-of-the-new-month",
+    "secHe": "הלכות קידוש החודש",
+    "secEn": "Sanctification of the New Month",
+    "emoji": "🌙",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 19
+  },
+  "taaniyot": {
+    "prefix": "taaniyot",
+    "dir": "zemanim/fasts",
+    "secHe": "הלכות תעניות",
+    "secEn": "Fasts",
+    "emoji": "🕯️",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 5
+  },
+  "megillah-chanukah": {
+    "prefix": "megillah-chanukah",
+    "dir": "zemanim/scroll-of-esther-and-hanukkah",
+    "secHe": "הלכות מגילה וחנוכה",
+    "secEn": "Scroll of Esther and Hanukkah",
+    "emoji": "🕎",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 4
+  },
+  "chametz-matzah": {
+    "prefix": "chametz-matzah",
+    "dir": "zemanim/leavened-and-unleavened-bread",
+    "secHe": "הלכות חמץ ומצה",
+    "secEn": "Leavened and Unleavened Bread",
+    "emoji": "🫓",
+    "book": "ספר זמנים · Sefer Zemanim",
+    "chapters": 8
+  }
+}
