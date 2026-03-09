@@ -170,7 +170,55 @@ const heCNmap = {1:'א',2:'ב',3:'ג',4:'ד',5:'ה',6:'ו',7:'ז',8:'ח',9:'ט',
 - Branch: main
 - Git user: yaacovtimes2@gmail.com
 
-## Model Usage
-- Content generation: GPT-4o-mini via OpenAI API (cheap, good for structured output)
-- Key in env: OPENAI_API_KEY
-- Falls back to spawning a Sonnet sub-agent if needed
+## Model Usage & Build Workflow
+
+### Recommended: Sonnet Sub-Agent Pipeline (quality + speed)
+
+This is the proven workflow. Do NOT try to have one sub-agent build all chapters — it stalls.
+
+**Step 1: Spawn parallel Sonnet sub-agents (one per chapter)**
+Each sub-agent gets a focused task: read ONE chapter's Sefaria JSON, output ONLY a JSON content object.
+
+```
+sessions_spawn:
+  model: sonnet
+  mode: run
+  label: <section>-ch<N>-json
+  runTimeoutSeconds: 120
+  task: |
+    Read /tmp/mt_<prefix>_<N>.json. Output ONLY valid JSON matching this schema:
+    {
+      "title": "Distinctive chapter title",
+      "groups": [{ "title", "sub" (Hebrew range), "idx" (0-based), "c": { "l" (emoji+label), "t" (HTML synthesis) } }],
+      "p": [{ "i" (emoji), "t" (title), "d" (description) }],   // exactly 4
+      "quiz": [{ "q", "o" (4 options), "c" (0-based correct), "e" }]  // exactly 5
+    }
+    QUALITY RULES: distinctive group titles, dense callouts with <strong>, varied emojis, source-specific quiz questions.
+```
+
+**Step 2: Save each sub-agent's JSON output**
+When results come back, save to `/tmp/<section>_ch<N>_data.json`
+
+**Step 3: Run the HTML builder**
+Write a Node.js script (see build_taaniyot_all.js as template) that:
+- Reads each chapter's JSON + Sefaria data
+- Builds index.html + quiz.html using the proven HTML template
+- Builds the section index
+- Git add, commit, push
+
+### Performance (measured on Taaniyot, 5 chapters)
+- 5 parallel Sonnet agents: ~2 minutes total
+- Quality: ~90% of hand-built Opus (distinctive titles, dense callouts, source-specific quizzes)
+- Cost: ~40% cheaper than Opus doing it manually
+- Speed: 10x faster (parallel vs sequential)
+- Opus stays free for other work during build
+
+### Fallback: GPT-4o-mini Script (fast but lower quality)
+- `node build-chapters.js --section <key>` uses OpenAI API
+- ~70% quality — generic titles, thin callouts
+- Near-zero Anthropic usage (uses OpenAI key)
+- Good for first-pass drafts if quality doesn't matter
+
+### Key in env
+- OPENAI_API_KEY (for GPT-4o-mini fallback only)
+- Sonnet sub-agents use Anthropic subscription (no API key needed)
