@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות חמץ ומצה פרק ד</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות חמץ ומצה</a><span class="title">פרק ד</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">🫓</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות חמץ ומצה</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ד</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 4 · 12 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">בעלות, אחריות, ותערובות חמץ</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">בעלות, אחריות, ותערובות חמץ</h2><div class="subtitle">פרק 4</div><div class="flowchart"><div class="flow-box highlight">היקף האיסור: בעלות משפטית, לא מיקום פיזי<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">חמץ של גוי בפיקדון — אחריות שווה בעלות<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ה׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">מכירה ומתנה לגוי — העברה מוחלטת בלבד<br><span style="font-size:.8rem;color:#888">הלכות ו׳–ז׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">תערובות חמץ וחמץ מקולקל<br><span style="font-size:.8rem;color:#888">הלכות ח׳–י״ב</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">היקף האיסור: בעלות משפטית, לא מיקום פיזי</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כָּתוּב בַּתּוֹרָה (שמות יג ז) "לֹא יֵרָאֶה לְךָ חָמֵץ". יָכוֹל אִם טָמַן אוֹתוֹ אוֹ הִפְקִיד אוֹתוֹ בְּיַד עַכּוּ"ם לֹא יִהְיֶה עוֹבֵר תַּלְמוּד לוֹמַר (שמות יב יט) "שְׂאֹר לֹא יִמָּצֵא בְּבָתֵּיכֶם" אֲפִלּוּ הִפְקִידוֹ אוֹ הִטְמִינוֹ. יָכוֹל לֹא יִהְיֶה עוֹבֵר אֶלָּא אִם כֵּן הָיָה הֶחָמֵץ בְּבֵיתוֹ אֲבָל אִם הָיָה רָחוֹק מִבֵּיתוֹ בַּשָּׂדֶה אוֹ בְּעִיר אַחֶרֶת לֹא יִהְיֶה עוֹבֵר תַּלְמוּד לוֹמַר (שמות יג ז) (דברים טז ד) "בְּכָל גְּבֻלֶךָ" בְּכָל רְשׁוּתְךָ. יָכוֹל יְהֵא חַיָּב לְבַעֵר מֵרְשׁוּתוֹ חָמֵץ שֶׁל עַכּוּ"ם אוֹ שֶׁל הֶקְדֵּשׁ תַּלְמוּד לוֹמַר (שמות יג ז) (דברים טז ד) "לֹא יֵרָאֶה לְךָ" שֶׁלְּךָ אִי אַתָּה רוֹאֶה אֲבָל אַתָּה רוֹאֶה שֶׁל אֲחֵרִים וְשֶׁל גָּבוֹהַּ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">הָא לָמַדְתָּ שֶׁהֶחָמֵץ שֶׁל יִשְׂרָאֵל אִם הֱנִיחוֹ בִּרְשׁוּתוֹ אֲפִלּוּ טָמוּן וַאֲפִלּוּ בְּעִיר אַחֶרֶת וַאֲפִלּוּ מֻפְקָד בְּיַד עַכּוּ"ם הֲרֵי זֶה עוֹבֵר מִשּׁוּם (שמות יג ז) (דברים טז ד) "לֹא יֵרָאֶה" וְ(שמות יב יט) "לֹא יִמָּצֵא". חָמֵץ שֶׁל הֶקְדֵּשׁ אוֹ שֶׁל עַכּוּ"ם שֶׁהָיָה אֵצֶל יִשְׂרָאֵל אֲפִלּוּ הָיָה עִמּוֹ בַּבַּיִת הֲרֵי זֶה מֻתָּר מִפְּנֵי שֶׁאֵינוֹ שֶׁלּוֹ. וַאֲפִלּוּ הָיָה שֶׁל גֵּר תּוֹשָׁב שֶׁיַּד יִשְׂרָאֵל שׁוֹלֶטֶת עָלָיו אֵין כּוֹפִין אוֹתוֹ לְהוֹצִיא הֶחָמֵץ מֵרְשׁוּתוֹ בְּפֶסַח. אֲבָל צָרִיךְ לַעֲשׂוֹת מְחִצָּה גְּבוֹהָה עֲשָׂרָה טְפָחִים בִּפְנֵי חֲמֵצוֹ שֶׁל עַכּוּ"ם שֶׁמָּא יָבוֹא לְהִסְתַּפֵּק מִמֶּנּוּ. אֲבָל שֶׁל הֶקְדֵּשׁ אֵינוֹ צָרִיךְ מִפְּנֵי שֶׁהַכּל פּוֹרְשִׁין מִן הַהֶקְדֵּשׁ כְּדֵי שֶׁלֹּא יָבוֹאוּ לִידֵי מְעִילָה:</div></div><div class="callout"><div class="label">📜 מקורות והיקף</div>הרמב״ם לומד משלושה פסוקים את היקף האיסור: <strong>׳לא יראה׳</strong> (שמות יג:ז), <strong>׳לא ימצא׳</strong> (שמות יב:יט), ו<strong>׳בכל גבולך׳</strong>. חמצו של יהודי אסור <strong>בכל מקום שהוא</strong> — מוסתר, בעיר אחרת, או מופקד אצל גוי. לעומת זאת, חמץ <strong>השייך לגוי או להקדש</strong> שנמצא ברשות יהודי מותר, כיוון שאינו שלו. חמץ של גוי צריך <strong>מחיצה גבוהה עשרה טפחים</strong> כדי למנוע שימוש בטעות, אבל חמץ של הקדש אינו צריך מחיצה — הכל נזהרים ממנו מפחד מעילה.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">חמץ של גוי בפיקדון — אחריות שווה בעלות</h2><div class="subtitle">הלכות ג׳–ה׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">עַכּוּ"ם שֶׁהִפְקִיד חֲמֵצוֹ אֵצֶל יִשְׂרָאֵל אִם קִבֵּל עָלָיו יִשְׂרָאֵל אַחֲרָיוּת שֶׁאִם אָבַד אוֹ נִגְנַב יְשַׁלֵּם לוֹ דָּמָיו הֲרֵי זֶה חַיָּב לְבָעֲרוֹ הוֹאִיל וְקִבֵּל עָלָיו אַחֲרָיוּת נַעֲשָׂה כְּשֶׁלּוֹ. וְאִם לֹא קִבֵּל עָלָיו אַחֲרָיוּת מֻתָּר לְקַיְּמוֹ אֶצְלוֹ וּמֻתָּר לֶאֱכל מִמֶּנּוּ אַחַר הַפֶּסַח שֶׁבִּרְשׁוּת הָעַכּוּ"ם הוּא:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">עַכּוּ"ם אַנָּס שֶׁהִפְקִיד חֲמֵצוֹ אֵצֶל יִשְׂרָאֵל אִם יוֹדֵעַ הַיִּשְׂרָאֵל שֶׁאִם אָבַד אוֹ נִגְנַב מְחַיְּבוֹ לְשַׁלְּמוֹ וְכוֹפֵהוּ וְאוֹנְסוֹ לְשַׁלֵּם אַף עַל פִּי שֶׁלֹּא קִבֵּל אַחֲרָיוּת הֲרֵי זֶה חַיָּב לְבַעֲרוֹ. שֶׁהֲרֵי נֶחְשָׁב כְּאִלּוּ הוּא שֶׁלּוֹ מִפְּנֵי שֶׁמְּחַיְּבוֹ הָאַנָּס בְּאַחְרָיוּתוֹ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">יִשְׂרָאֵל שֶׁהִרְהִין חֲמֵצוֹ אֵצֶל הָעַכּוּ"ם אִם אָמַר לוֹ אִם לֹא הֵבֵאתִי לְךָ מָעוֹת מִכָּאן וְעַד יוֹם פְּלוֹנִי קְנֵה חָמֵץ זֶה מֵעַכְשָׁו הֲרֵי זֶה בִּרְשׁוּת הָעַכּוּ"ם וְאוֹתוֹ הֶחָמֵץ מֻתָּר לְאַחַר הַפֶּסַח. וְהוּא שֶׁיִּהְיֶה אוֹתוֹ זְמַן שֶׁקָּבַע לוֹ קֹדֶם הַפֶּסַח. וְאִם לֹא אָמַר לוֹ קְנֵה מֵעַכְשָׁו נִמְצָא אוֹתוֹ הֶחָמֵץ כְּאִלּוּ הוּא פִּקָּדוֹן אֵצֶל הָעַכּוּ"ם וְאָסוּר בַּהֲנָיָה לְאַחַר הַפֶּסַח:</div></div><div class="callout"><div class="label">⚖️ אחריות = בעלות</div>גוי שהפקיד חמץ אצל יהודי: אם <strong>קיבל היהודי אחריות</strong> לשלם אם יאבד או יגנב — חייב לבערו, שכן הוא נחשב שלו. ללא אחריות — רשאי להשאירו ולאכלו אחרי פסח. אפילו <strong>גוי קשה</strong> שכופה את היהודי לשלם — אף שלא קיבל אחריות מפורשת — חייב היהודי לבערו. יהודי שמישכן חמצו לגוי: אם אמר <strong>׳קנה מעכשיו׳</strong> עם תאריך לפני פסח — החמץ שייך לגוי ומותר אחרי פסח; ללא ׳קנה מעכשיו׳ — נחשב כפיקדון ואסור בהנאה אחרי פסח.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">מכירה ומתנה לגוי — העברה מוחלטת בלבד</h2><div class="subtitle">הלכות ו׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">יִשְׂרָאֵל וְעַכּוּ"ם שֶׁהָיוּ בָּאִין בִּסְפִינָה וְהָיָה חָמֵץ בְּיַד יִשְׂרָאֵל וְהִגִּיעָה שָׁעָה חֲמִישִׁית הֲרֵי זֶה מוֹכְרוֹ לְעַכּוּ"ם אוֹ נוֹתְנוֹ לוֹ בְּמַתָּנָה וְחוֹזֵר וְלוֹקְחוֹ מִמֶּנּוּ אַחַר הַפֶּסַח. וּבִלְבַד שֶׁיִּתְּנֶנּוּ לוֹ מַתָּנָה גְּמוּרָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">אוֹמֵר יִשְׂרָאֵל לְעַכּוּ"ם עַד שֶׁאַתָּה לוֹקֵחַ בְּמָנֶה בּוֹא וְקַח בְּמָאתַיִם. עַד שֶׁאַתָּה לוֹקֵחַ מֵעַכּוּ"ם בּוֹא וְקַח מִיִּשְׂרָאֵל שֶׁמָּא אֶצְטָרֵךְ וְאֶקַּח מִמְּךָ אַחַר הַפֶּסַח. אֲבָל לֹא יִמְכֹּר וְלֹא יִתֵּן לוֹ עַל תְּנַאי. וְאִם עָשָׂה כֵּן הֲרֵי זֶה עוֹבֵר עַל בַּל יֵרָאֶה וּבַל יִמָּצֵא:</div></div><div class="callout"><div class="label">🤝 העברה מלאה בלבד</div>יהודי וגוי הנוסעים בספינה: כשמגיעה השעה החמישית — <strong>מכור לגוי או תן לו במתנה גמורה</strong>, ומותר לקנות חזרה אחרי פסח. מותר לרמוז לגוי שאולי ירצה להחזיר לאחר פסח, ואפילו להבטיח לו רווח. אבל <strong>מכירה או מתנה על תנאי אסורה</strong> — אם עשה כן, עובר היהודי על בל יראה ובל ימצא, שכן עד שהתנאי יתקיים הוא נשאר הבעלים החוקיים.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">תערובות חמץ וחמץ מקולקל</h2><div class="subtitle">הלכות ח׳–י״ב</div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">תַּעֲרֹבֶת חָמֵץ עוֹבְרִין עָלֶיהָ מִשּׁוּם בַּל יֵרָאֶה וּבַל יִמָּצֵא. כְּגוֹן הַמּוּרְיָס וְכוּתָח הַבַּבְלִי וְשֵׁכָר הַמָּדִי שֶׁעוֹשִׂין אוֹתוֹ מִן הַקֶּמַח. וְכָל כַּיּוֹצֵא בָּאֵלּוּ מִדְּבָרִים הַנֶּאֱכָלִים. אֲבָל דָּבָר שֶׁיֵּשׁ בּוֹ תַּעֲרֹבֶת חָמֵץ וְאֵינוֹ רָאוּי לַאֲכִילָה הֲרֵי זֶה מֻתָּר לְקַיְּמוֹ בְּפֶסַח:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">כֵּיצַד. עֲרֵבַת הָעַבְּדָנִין שֶׁנָּתַן לְתוֹכָהּ קֶמַח וְעוֹרוֹת אֲפִלּוּ נְתָנוֹ שָׁעָה אַחַת קֹדֶם הַבִּעוּר הֲרֵי זֶה מֻתָּר לְקַיְּמוֹ. וְאִם לֹא נָתַן הָעוֹרוֹת וְנָתַן הַקֶּמַח קֹדֶם שְׁלֹשָׁה יָמִים לִשְׁעַת הַבִּעוּר מֻתָּר לְקַיְּמוֹ שֶׁהֲרֵי נִפְסַד וְהִבְאִישׁ. תּוֹךְ שְׁלֹשָׁה יָמִים חַיָּב לְבָעֵר:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י׳</div><div class="halacha-he">וְכֵן הַקִּילוֹר וְהָרְטִיָּה וְהָאִסְפְּלָנִית וְהַתְּרִיאַ"ק שֶׁנָּתַן לְתוֹכָן חָמֵץ מֻתָּר לְקַיְּמָן בְּפֶסַח שֶׁהֲרֵי נִפְסְדָה צוּרַת הֶחָמֵץ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״א׳</div><div class="halacha-he">הַפַּת עַצְמָהּ שֶׁעִפְּשָׁה וְנִפְסְלָה מִלֶּאֱכל הַכֶּלֶב ומְלוּגְמָא שֶׁנִּסְרְחָה אֵינוֹ צָרִיךְ לְבָעֵר. בְּגָדִים שֶׁכִּבְּסוּ אוֹתָן בְּחֵלֶב חִטָּה וְכֵן נְיָרוֹת שֶׁדִּבְּקוּ אוֹתָן בְּחָמֵץ וְכָל כַּיּוֹצֵא בָּזֶה מֻתָּר לְקַיְּמָן בְּפֶסַח וְאֵין בָּהֶן מִשּׁוּם (שמות יג ז) (דברים טז ד) "לֹא יֵרָאֶה" וְ(שמות יב יט) "לֹא יִמָּצֵא" שֶׁאֵין צוּרַת הֶחָמֵץ עוֹמֶדֶת:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״ב׳</div><div class="halacha-he">דָּבָר שֶׁנִּתְעָרֵב בּוֹ חָמֵץ וְאֵינוֹ מַאֲכָל לְאָדָם כְּלָל. אוֹ שֶׁאֵינוֹ מַאֲכַל כָּל אָדָם כְּגוֹן הַתְּרִיאַ"ק וְכַיּוֹצֵא בּוֹ אַף עַל פִּי שֶׁמֻּתָּר לְקַיְּמוֹ אָסוּר לְאָכְלוֹ עַד אַחַר הַפֶּסַח. וְאַף עַל פִּי שֶׁאֵין בּוֹ מִן הֶחָמֵץ אֶלָּא כָּל שֶׁהוּא הֲרֵי זֶה אָסוּר לְאָכְלוֹ:</div></div><div class="callout"><div class="label">🧪 הצורה קובעת את המעמד</div><strong>תערובת חמץ הראויה לאכילה</strong> — עובר על בל יראה ובל ימצא (ציר דגים, כותח הבבלי, שכר המדי). <strong>תערובת שאינה ראויה לאכילה</strong> — מותר להשאיר. אבוס של בורסקי עם קמח ועורות: מותר אפילו שעה אחת לפני זמן הביעור; קמח ללא עורות — בתוך שלושה ימים חייב לבערו, לפני שלושה ימים מותר כי כבר הסריח. משחות, תחבושות, רטיות ותרופות — מותר להשאיר. לחם שעלה בו עובש <strong>מעבר לרמה הראויה לכלב</strong>, בגדים שכובסו בחלב חיטה, ניירות שהודבקו בחמץ — מותר להשאיר. כל <strong>דבר שאינו מאכל</strong> המכיל חמץ — מותר להשאיר אבל <strong>אסור לאכול</strong> עד אחרי פסח, אפילו בכמות הקטנה ביותר.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 4</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📜</div><strong>בעלות משפטית, לא מיקום פיזי</strong><br><span style="font-size:.9rem">איסורי בל יראה ובל ימצא תלויים בבעלות המשפטית על החמץ, ולא במיקומו הפיזי — אפילו חמץ מוסתר, בעיר אחרת, או מופקד אצל גוי אסור.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>אחריות כספית יוצרת בעלות</strong><br><span style="font-size:.9rem">קבלת אחריות לשלם על חמץ (בין מרצון ובין מכפייה של גוי) הופכת את החמץ לרכושו של היהודי לצורכי הלכה, ומחייבת ביעור.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🤝</div><strong>העברת הבעלות חייבת להיות מוחלטת</strong><br><span style="font-size:.9rem">מכירה או מתנה של חמץ לגוי תקפה רק אם היא מלאה וללא תנאים. מכירה על תנאי אינה מועילה — היהודי נשאר הבעלים ועובר על האיסור.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🧪</div><strong>צורת החמץ קובעת את מעמדו</strong><br><span style="font-size:.9rem">חמץ שאיבד את צורתו כמאכל (הסריח, שימש לעיבוד עורות, נתערב בתרופות) אינו נחשב עוד כחמץ לעניין האיסור. אבל אם התערובת עדיין ראויה לאכילה, אפילו כמות קטנה ביותר מפעילה את האיסור.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות חמץ ומצה פרק ד</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
