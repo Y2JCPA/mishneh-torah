@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות חמץ ומצה פרק ז</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות חמץ ומצה</a><span class="title">פרק ז</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">🫓</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות חמץ ומצה</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ז</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 7 · 13 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">ליל הסדר — סיפור היציאה, חירות וארבע הכוסות</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">ליל הסדר — סיפור היציאה, חירות וארבע הכוסות</h2><div class="subtitle">פרק 7</div><div class="flowchart"><div class="flow-box highlight">חובת סיפור יציאת מצרים<br><span style="font-size:.8rem;color:#888">הלכות א׳–ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">מבנה ההגדה ושלושת הדברים ההכרחיים<br><span style="font-size:.8rem;color:#888">הלכות ד׳–ו׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">הסיבה, סעודה וארבע הכוסות<br><span style="font-size:.8rem;color:#888">הלכות ז׳–ט׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">ברכות, חרוסת ומרור<br><span style="font-size:.8rem;color:#888">הלכות י׳–י״ג</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">חובת סיפור יציאת מצרים</h2><div class="subtitle">הלכות א׳–ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מִצְוַת עֲשֵׂה שֶׁל תּוֹרָה לְסַפֵּר בְּנִסִּים וְנִפְלָאוֹת שֶׁנַּעֲשׂוּ לַאֲבוֹתֵינוּ בְּמִצְרַיִם בְּלֵיל חֲמִשָּׁה עָשָׂר בְּנִיסָן שֶׁנֶּאֱמַר (שמות יג ג) "זָכוֹר אֶת הַיּוֹם הַזֶּה אֲשֶׁר יְצָאתֶם מִמִּצְרַיִם" כְּמוֹ שֶׁנֶּאֱמַר (שמות כ ח) "זָכוֹר אֶת יוֹם הַשַּׁבָּת". וּמִנַּיִן שֶׁבְּלֵיל חֲמִשָּׁה עָשָׂר תַּלְמוּד לוֹמַר (שמות יג ח) "וְהִגַּדְתָּ לְבִנְךָ בַּיּוֹם הַהוּא לֵאמֹר בַּעֲבוּר זֶה" בְּשָׁעָה שֶׁיֵּשׁ מַצָּה וּמָרוֹר מֻנָּחִים לְפָנֶיךָ. וְאַף עַל פִּי שֶׁאֵין לוֹ בֵּן. אֲפִלּוּ חֲכָמִים גְּדוֹלִים חַיָּבִים לְסַפֵּר בִּיצִיאַת מִצְרִים וְכָל הַמַּאֲרִיךְ בִּדְבָרִים שֶׁאֵרְעוּ וְשֶׁהָיוּ הֲרֵי זֶה מְשֻׁבָּח:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">מִצְוָה לְהוֹדִיעַ לַבָּנִים וַאֲפִלּוּ לֹא שָׁאֲלוּ שֶׁנֶּאֱמַר (שמות יג ח) "וְהִגַּדְתָּ לְבִנְךָ". לְפִי דַּעְתּוֹ שֶׁל בֵּן אָבִיו מְלַמְּדוֹ. כֵּיצַד. אִם הָיָה קָטָן אוֹ טִפֵּשׁ אוֹמֵר לוֹ בְּנִי כֻּלָּנוּ הָיִינוּ עֲבָדִים כְּמוֹ שִׁפְחָה זוֹ אוֹ כְּמוֹ עֶבֶד זֶה בְּמִצְרַיִם וּבַלַּיְלָה הַזֶּה פָּדָה אוֹתָנוּ הַקָּדוֹשׁ בָּרוּךְ הוּא וַיּוֹצִיאֵנוּ לְחֵרוּת. וְאִם הָיָה הַבֵּן גָּדוֹל וְחָכָם מוֹדִיעוֹ מַה שֶּׁאֵרַע לָנוּ בְּמִצְרַיִם וְנִסִּים שֶׁנַּעֲשׂוּ לָנוּ עַל יְדֵי משֶׁה רַבֵּנוּ הַכֹּל לְפִי דַּעְתּוֹ שֶׁל בֵּן:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">וְצָרִיךְ לַעֲשׂוֹת שִׁנּוּי בַּלַּיְלָה הַזֶּה כְּדֵי שֶׁיִּרְאוּ הַבָּנִים וְיִשְׁאֲלוּ וְיֹאמְרוּ מַה נִּשְׁתַּנָּה הַלַּיְלָה הַזֶּה מִכָּל הַלֵּילוֹת עַד שֶׁיָּשִׁיב לָהֶם וְיֹאמַר לָהֶם כָּךְ וְכָךְ אֵרַע וְכָךְ וְכָךְ הָיָה. וְכֵיצַד מְשַׁנֶּה. מְחַלֵּק לָהֶם קְלָיוֹת וֶאֱגוֹזִים וְעוֹקְרִים הַשֻּׁלְחָן מִלִּפְנֵיהֶם קֹדֶם שֶׁיֹּאכְלוּ וְחוֹטְפִין מַצָּה זֶה מִיַּד זֶה וְכַיּוֹצֵא בִּדְבָרִים הָאֵלּוּ. אֵין לוֹ בֵּן אִשְׁתּוֹ שׁוֹאַלְתּוֹ. אֵין לוֹ אִשָּׁה שׁוֹאֲלִין זֶה אֶת זֶה מַה נִּשְׁתַּנָּה הַלַּיְלָה הַזֶּה. וַאֲפִלּוּ הָיוּ כֻּלָּן חֲכָמִים. הָיָה לְבַדּוֹ שׁוֹאֵל לְעַצְמוֹ מַה נִּשְׁתַּנָּה הַלַּיְלָה הַזֶּה:</div></div><div class="callout"><div class="label">📖 ספר לבנך</div>מצוות עשה מן התורה לספר בנסים ובנפלאות של יציאת מצרים בליל ט"ו בניסן. <strong>החובה חלה על כולם</strong> — אפילו כשהילד אינו שואל. האב חייב ללמד <strong>לפי הבנת הילד</strong>: בפשטות לילד קטן, ובהלכה ומדרש לגדול יותר. יש לשנות בלילה הזה כדי שהילדים <strong>יראו וישאלו</strong> את שאלת מה נשתנה.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">מבנה ההגדה ושלושת הדברים ההכרחיים</h2><div class="subtitle">הלכות ד׳–ו׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">וְצָרִיךְ לְהַתְחִיל בִּגְנוּת וּלְסַיֵּם בְּשֶׁבַח. כֵּיצַד. מַתְחִיל וּמְסַפֵּר שֶׁבַּתְּחִלָּה הָיוּ אֲבוֹתֵינוּ בִּימֵי תֶּרַח וּמִלְּפָנָיו כּוֹפְרִים וְטוֹעִין אַחַר הַהֶבֶל וְרוֹדְפִין אַחַר עֲבוֹדַת אֱלִילִים. וּמְסַיֵּם בְּדַת הָאֱמֶת שֶׁקֵּרְבָנוּ הַמָּקוֹם לוֹ וְהִבְדִּילָנוּ מֵהָאֻמּוֹת וְקֵרְבָנוּ לְיִחוּדוֹ. וְכֵן מַתְחִיל וּמוֹדִיעַ שֶׁעֲבָדִים הָיִינוּ לְפַרְעֹה בְּמִצְרַיִם וְכָל הָרָעָה שֶׁגְּמָלָנוּ וּמְסַיֵּם בַּנִּסִּים וּבַנִּפְלָאוֹת שֶׁנַּעֲשׂוּ לָנוּ וּבְחֵרוּתֵנוּ. וְהוּא שֶׁיִּדְרשׁ מֵ"אֲרַמִּי אֹבֵד אָבִי" (דברים כו ה) עַד שֶׁיִּגְמֹר כָּל הַפָּרָשָׁה. וְכָל הַמּוֹסִיף וּמַאֲרִיךְ בִּדְרַשׁ פָּרָשָׁה זוֹ הֲרֵי זֶה מְשֻׁבָּח:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">כָּל מִי שֶׁלֹּא אָמַר שְׁלֹשָׁה דְּבָרִים אֵלּוּ בְּלֵיל חֲמִשָּׁה עָשָׂר לֹא יָצָא יְדֵי חוֹבָתוֹ וְאֵלּוּ הֵן. פֶּסַח מַצָּה וּמָרוֹר. פֶּסַח עַל שׁוּם שֶׁפָּסַח הַמָּקוֹם עַל בָּתֵּי אֲבוֹתֵינוּ בְּמִצְרַיִם שֶׁנֶּאֱמַר (שמות יב כז) "וַאֲמַרְתֶּם זֶבַח פֶּסַח הוּא לַה'" וְגוֹ'. מָרוֹר עַל שׁוּם שֶׁמֵּרְרוּ הַמִּצְרִיִּים אֶת חַיֵּי אֲבוֹתֵינוּ בְּמִצְרַיִם. מַצָּה עַל שֵׁם שֶׁנִּגְאֲלוּ. וּדְבָרִים הָאֵלּוּ כֻּלָּן נִקְרָאִין הַגָּדָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">בְּכָל דּוֹר וָדוֹר חַיָּב אָדָם לְהַרְאוֹת אֶת עַצְמוֹ כְּאִלּוּ הוּא בְּעַצְמוֹ יָצָא עַתָּה מִשִּׁעְבּוּד מִצְרַיִם שֶׁנֶּאֱמַר (דברים ו כג) "וְאוֹתָנוּ הוֹצִיא מִשָּׁם" וְגוֹ'. וְעַל דָּבָר זֶה צִוָּה הַקָּדוֹשׁ בָּרוּךְ הוּא בַּתּוֹרָה וְזָכַרְתָּ כִּי עֶבֶד הָיִיתָ כְּלוֹמַר כְּאִלּוּ אַתָּה בְּעַצְמְךָ הָיִיתָ עֶבֶד וְיָצָאתָ לְחֵרוּת וְנִפְדֵּיתָ:</div></div><div class="callout"><div class="label">🕍 מגנות לשבח</div>ההגדה פותחת <strong>בגנות</strong> — עבודה זרה של אבותינו או השעבוד — ומסיימת <strong>בשבח</strong> ובגאולה. מי שלא הזכיר <strong>שלושה דברים</strong> — קרבן פסח, מצה ומרור — <em>לא יצא ידי חובה</em>. בכל דור ודור, <strong>חייב אדם לראות את עצמו כאילו הוא עצמו יצא ממצרים</strong> — לא רק הכרה שכלית, אלא זיהוי אישי מלא עם הגאולה.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">הסיבה, סעודה וארבע הכוסות</h2><div class="subtitle">הלכות ז׳–ט׳</div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">לְפִיכָךְ כְּשֶׁסּוֹעֵד אָדָם בַּלַּיְלָה הַזֶּה צָרִיךְ לֶאֱכל וְלִשְׁתּוֹת וְהוּא מֵסֵב דֶּרֶךְ חֵרוּת. וְכָל אֶחָד וְאֶחָד בֵּין אֲנָשִׁים בֵּין נָשִׁים חַיָּב לִשְׁתּוֹת בַּלַּיְלָה הַזֶּה אַרְבָּעָה כּוֹסוֹת שֶׁל יַיִן. אֵין פּוֹחֲתִין לוֹ מֵהֶם. וַאֲפִלּוּ עָנִי הַמִּתְפַּרְנֵס מִן הַצְּדָקָה לֹא יִפְחֲתוּ לוֹ מֵאַרְבָּעָה כּוֹסוֹת. שִׁעוּר כָּל כּוֹס מֵהֶן רְבִיעִית:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">אֲפִלּוּ עָנִי שֶׁבְּיִשְׂרָאֵל לֹא יֹאכַל עַד שֶׁיָּסֵב. אִשָּׁה אֵינָהּ צְרִיכָה הֲסִיבָה. וְאִם אִשָּׁה חֲשׁוּבָה הִיא צְרִיכָה הֲסִיבָה. וּבֵן אֵצֶל אָבִיו וְהַשַּׁמָּשׁ בִּפְנֵי רַבּוֹ צְרִיכִין הֲסִיבָה. אֲבָל תַּלְמִיד בִּפְנֵי רַבּוֹ אֵינוֹ מֵסֵב אֶלָּא אִם כֵּן נָתַן לוֹ רַבּוֹ רְשׁוּת. וַהֲסִיבַת יָמִין אֵינָהּ הֲסִיבָה. וְכֵן הַמֵּסֵב עַל עָרְפּוֹ אוֹ עַל פָּנָיו אֵין זוֹ הֲסִיבָה. וְאֵימָתַי צְרִיכִין הֲסִיבָה בִּשְׁעַת אֲכִילַת כְּזַיִת מַצָּה וּבִשְׁתִיַּת אַרְבָּעָה כּוֹסוֹת הָאֵלּוּ. וּשְׁאָר אֲכִילָתוֹ וּשְׁתִיָּתוֹ אִם הֵסֵב הֲרֵי זֶה מְשֻׁבָּח וְאִם לָאו אֵינוֹ צָרִיךְ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">אַרְבָּעָה כּוֹסוֹת הָאֵלּוּ צָרִיךְ לִמְזֹג אוֹתָן כְּדֵי שֶׁתִּהְיֶה שְׁתִיָּה עֲרֵבָה הַכֹּל לְפִי הַיַּיִן וּלְפִי דַּעַת הַשּׁוֹתֶה. וְלֹא יִפְחֹת בְּאַרְבַּעְתָּן מֵרְבִיעִית יַיִן חַי. שָׁתָה אַרְבָּעָה כּוֹסוֹת אֵלּוּ מִיַּיִן שֶׁאֵינוֹ מָזוּג יָצָא יְדֵי אַרְבָּעָה כּוֹסוֹת וְלֹא יָצָא יְדֵי חֵרוּת. שָׁתָה אַרְבָּעָה כּוֹסוֹת מְזוּגִין בְּבַת אַחַת יְדֵי חֵרוּת יָצָא יְדֵי אַרְבָּעָה כּוֹסוֹת לֹא יָצָא. וְאִם שָׁתָה מִכָּל כּוֹס מֵהֶן רֻבּוֹ יָצָא:</div></div><div class="callout"><div class="label">🛋️ דרך החירות</div>בלילה הזה חייבים לאכול ולשתות <strong>בדרך של חירות</strong>. <strong>אפילו העני שבישראל</strong> — שאין לו מיטה או כרית — חייב להסב, ועליו למכור את בגדו אם צריך כדי לקנות יין לארבע כוסות. ארבע הכוסות <strong>מדוללות במים</strong> כדי שהטעם יהיה נעים לשתייה. כל כוס מייצגת שלב בגאולה.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">ברכות, חרוסת ומרור</h2><div class="subtitle">הלכות י׳–י״ג</div><div class="halacha-card"><div class="halacha-num">הלכה י׳</div><div class="halacha-he">כָּל כּוֹס וְכוֹס מֵאַרְבָּעָה כּוֹסוֹת הַלָּלוּ מְבָרֵךְ עָלָיו בְּרָכָה בִּפְנֵי עַצְמָהּ. וְכוֹס רִאשׁוֹן אוֹמֵר עָלָיו קִדּוּשׁ הַיּוֹם. כּוֹס שֵׁנִי קוֹרֵא עָלָיו אֶת הַהַגָּדָה. כּוֹס שְׁלִישִׁי מְבָרֵךְ עָלָיו בִּרְכַּת הַמָּזוֹן. כּוֹס רְבִיעִי גּוֹמֵר עָלָיו אֶת הַהַלֵּל וּמְבָרֵךְ עָלָיו בִּרְכַּת הַשִּׁיר. וּבֵין הַכּוֹסוֹת הָאֵלּוּ אִם רָצָה לִשְׁתּוֹת שׁוֹתֶה. בֵּין שְׁלִישִׁי לִרְבִיעִי אֵינוֹ שׁוֹתֶה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״א׳</div><div class="halacha-he">הַחֲרֹסֶת מִצְוָה מִדִּבְרֵי סוֹפְרִים זֵכֶר לַטִּיט שֶׁהָיוּ עוֹבְדִין בּוֹ בְּמִצְרַיִם. וְכֵיצַד עוֹשִׂין אוֹתָהּ. לוֹקְחִין תְּמָרִים אוֹ גְּרוֹגָרוֹת אוֹ צִמּוּקִין וְכַיּוֹצֵא בָּהֶן וְדוֹרְסִין אוֹתָן וְנוֹתְנִין לְתוֹכָן חֹמֶץ וּמְתַבְּלִין אוֹתָן בְּתַבְלִין כְּמוֹ טִיט בְּתֶבֶן וּמְבִיאִין אוֹתָהּ עַל הַשֻּׁלְחָן בְּלֵילֵי הַפֶּסַח:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״ב׳</div><div class="halacha-he">אֲכִילַת מָרוֹר אֵינָהּ מִצְוָה מִן הַתּוֹרָה בִּפְנֵי עַצְמָהּ אֶלָּא תְּלוּיָה הִיא בַּאֲכִילַת הַפֶּסַח. שֶׁמִּצְוַת עֲשֵׂה אַחַת לֶאֱכל בְּשַׂר הַפֶּסַח עַל מַצָּה וּמְרוֹרִים. וּמִדִּבְרֵי סוֹפְרִים לֶאֱכל הַמָּרוֹר לְבַדּוֹ בְּלַיִל זֶה אֲפִלּוּ אֵין שָׁם קָרְבַּן פֶּסַח:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י״ג׳</div><div class="halacha-he">מְרוֹרִים הָאֲמוּרִים בַּתּוֹרָה הֵן הַחֲזֶרֶת וְהָעֳלָשִׁין וְהַתַּמְכָא וְהָחַרְחְבִינָא וְהַמָּרוֹר. כָּל אֶחָד מֵחֲמֵשֶׁת מִינֵי יָרָק אֵלּוּ נִקְרָא מָרוֹר. וְאִם אָכַל מֵאֶחָד מֵהֶן אוֹ מֵחֲמִשְּׁתָּן כְּזַיִת יָצָא וְהוּא שֶׁיְּהוּ לַחִין. וְיוֹצְאִין בְּקֶלַח שֶׁלָּהֶן אֲפִלּוּ יָבֵשׁ. וְאִם שְׁלָקָן אוֹ כְּבָשָׁן אוֹ בִּשְּׁלָן אֵין יוֹצְאִין בָּהֶן:</div></div><div class="callout"><div class="label">🌿 מצוות ליל הסדר</div>כל אחת מארבע הכוסות טעונה <strong>ברכה נפרדת משלה</strong> — בורא פרי הגפן — שכן כל אחת היא מצווה עצמאית. <strong>חרוסת היא מצווה מדברי חכמים</strong>, זכר לטיט ולתבן. אכילת מרור בזמן הזה היא <strong>מדרבנן בלבד</strong>, שכן מן התורה היא חלה רק כשאוכלים את קרבן הפסח. המין המועדף למרור הוא <strong>חזרת (חסה)</strong> — מתוקה בתחילה ומרה בסוף, ממש כמו הגלות.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 7</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📖</div><strong>סיפור יציאת מצרים הוא חובה מן התורה</strong><br><span style="font-size:.9rem">מצוות סיפור יציאת מצרים היא חובה מן התורה — צריך לאומרה בפה, לא רק לחשוב עליה. וכל המרבה לספר, הרי זה משובח.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🕍</div><strong>שלושה דברים שאי אפשר להשמיט</strong><br><span style="font-size:.9rem">פסח, מצה ומרור — מי שלא הזכיר את שלושתם ולא ביאר את טעמם, לא יצא ידי חובת ההגדה, גם אם סיפר דברים רבים אחרים.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🛋️</div><strong>חירות לכולם, ללא יוצא מהכלל</strong><br><span style="font-size:.9rem">ההסיבה, הכוסות והסעודה אינן רק לעשירים. אפילו העני ביותר חייב להסב בסעודת חירות, ולמכור את בגדו אם צריך כדי לקנות יין.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌿</div><strong>מרור: מדאורייתא למדרבנן</strong><br><span style="font-size:.9rem">אכילת מרור הייתה חובה מן התורה כשבית המקדש היה קיים. היום, ללא קרבן הפסח, החובה היא מדרבנן — זכר למרירות השעבוד.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות חמץ ומצה פרק ז</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות שופר וסוכה ולולב פרק א</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות שופר וסוכה ולולב</a><span class="title">פרק א</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">📣</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות שופר וסוכה ולולב</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק א</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 1 · 8 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">מצוות השופר — כלים כשרים, עבודת המקדש, ושמיעה</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">מצוות השופר — כלים כשרים, עבודת המקדש, ושמיעה</h2><div class="subtitle">פרק 1</div><div class="flowchart"><div class="flow-box highlight">המצווה ועבודת המקדש<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">שופרות כשרים ופסולים — מקורות אסורים<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">דרישות פיזיות — גודל ושינויים<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ז׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">קיום החיוב — שמיעה לעומת הד<br><span style="font-size:.8rem;color:#888">הלכה ח׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">המצווה ועבודת המקדש</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מִצְוַת עֲשֵׂה שֶׁל תּוֹרָה לִשְׁמֹעַ תְּרוּעַת הַשּׁוֹפָר בְּרֹאשׁ הַשָּׁנָה שֶׁנֶּאֱמַר (במדבר כט א) "יוֹם תְּרוּעָה יִהְיֶה לָכֶם". וְשׁוֹפָר שֶׁתּוֹקְעִין בּוֹ בֵּין בְּרֹאשׁ הַשָּׁנָה בֵּין בְּיוֹבֵל הוּא קֶרֶן הַכְּבָשִׂים הַכָּפוּף. וְכָל הַשּׁוֹפָרוֹת פְּסוּלִין חוּץ מִקֶּרֶן הַכֶּבֶשׂ. וְאַף עַל פִּי שֶׁלֹּא נִתְפָּרֵשׁ בַּתּוֹרָה תְּרוּעָה בְּשׁוֹפָר בְּרֹאשׁ הַשָּׁנָה הֲרֵי הוּא אוֹמֵר בְּיוֹבֵל (ויקרא כה ט) "וְהַעֲבַרְתָּ שׁוֹפַר" וְכוּ' (ויקרא כה ט) "תַּעֲבִירוּ שׁוֹפָר". וּמִפִּי הַשְּׁמוּעָה לָמְדוּ מַה תְּרוּעַת יוֹבֵל בְּשׁוֹפָר אַף תְּרוּעַת רֹאשׁ הַשָּׁנָה בְּשׁוֹפָר:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">בַּמִּקְדָּשׁ הָיוּ תּוֹקְעִין בְּרֹאשׁ הַשָּׁנָה בְּשׁוֹפָר אֶחָד וּשְׁתֵּי חֲצוֹצְרוֹת מִן הַצְּדָדִין. הַשּׁוֹפָר מַאֲרִיךְ וְהַחֲצוֹצְרוֹת מְקַצְּרוֹת שֶׁמִּצְוַת הַיּוֹם בְּשׁוֹפָר. וְלָמָּה תּוֹקְעִין עִמּוֹ בַּחֲצוֹצְרוֹת מִשּׁוּם שֶׁנֶּאֱמַר (תהילים צח ו) "בַּחֲצֹצְרוֹת וְקוֹל שׁוֹפָר הָרִיעוּ לִפְנֵי הַמֶּלֶךְ ה'". אֲבָל בִּשְׁאָר מְקוֹמוֹת אֵין תּוֹקְעִין בְּרֹאשׁ הַשָּׁנָה אֶלָּא בְּשׁוֹפָר בִּלְבַד:</div></div><div class="callout"><div class="label">📜 מצוות עשה מן התורה</div>זוהי <strong>מצוות עשה מן התורה</strong> לשמוע את תקיעת השופר בראש השנה (במדבר כ״ט:א׳). תוקעים בשופר הן בראש השנה והן ביום הכיפורים של שנת היובל. ב<strong>מקדש</strong>, שופר אחד היה מלווה בשתי חצוצרות משני צדיו — השופר תוקע ארוך והחצוצרות קצר, מפני ש<strong>מצוות היום בשופר</strong>.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">שופרות כשרים ופסולים — מקורות אסורים</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">שׁוֹפָר שֶׁל עַכּוּ"ם אֵין תּוֹקְעִין בּוֹ לְכַתְּחִלָּה וְאִם תָּקַע יָצָא. וְשֶׁל עִיר הַנִּדַּחַת אִם תָּקַע בּוֹ לֹא יָצָא. שׁוֹפָר הַגָּזוּל שֶׁתָּקַע בּוֹ יָצָא שֶׁאֵין הַמִּצְוָה אֶלָּא בִּשְׁמִיעַת הַקּוֹל אַף עַל פִּי שֶׁלֹּא נָגַע בּוֹ וְלֹא הִגְבִּיהוֹ הַשּׁוֹמֵעַ יָצָא וְאֵין בַּקּוֹל דִּין גֵּזֶל. וְכֵן שׁוֹפָר שֶׁל עוֹלָה לֹא יִתְקַע בּוֹ וְאִם תָּקַע יָצָא שֶׁאֵין בַּקּוֹל דִּין מְעִילָה. וְאִם תֹּאמַר וַהֲלֹא נֶהֱנָה בִּשְׁמִיעַת הַקּוֹל. מִצְוֹת לֹא לֵהָנוֹת נִתְּנוּ. לְפִיכָךְ הַמֻּדָּר הֲנָיָה מִשּׁוֹפָר מֻתָּר לִתְקֹעַ בּוֹ תְּקִיעָה שֶׁל מִצְוָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">שׁוֹפָר שֶׁל רֹאשׁ הַשָּׁנָה אֵין מְחַלְּלִין עָלָיו אֶת יוֹם טוֹב וַאֲפִלּוּ בְּדָבָר שֶׁהוּא מִשּׁוּם שְׁבוּת. כֵּיצַד. הָיָה הַשּׁוֹפָר בְּרֹאשׁ הָאִילָן אוֹ מֵעֵבֶר הַנָּהָר וְאֵין לוֹ שׁוֹפָר אֶלָּא הוּא אֵינוֹ עוֹלֶה בָּאִילָן וְאֵינוֹ שָׁט עַל פְּנֵי הַמַּיִם כְּדֵי לַהֲבִיאוֹ. וְאֵין צָרִיךְ לוֹמַר שֶׁאֵין חוֹתְכִין אוֹתוֹ אוֹ עוֹשִׂין בּוֹ מְלָאכָה. מִפְּנֵי שֶׁתְּקִיעַת שׁוֹפָר מִצְוַת עֲשֵׂה וְיוֹם טוֹב עֲשֵׂה וְלֹא תַּעֲשֶׂה וְאֵין עֲשֵׂה דּוֹחֶה לֹא תַּעֲשֶׂה וַעֲשֵׂה. מֻתָּר לִתֵּן בְּתוֹכוֹ מַיִם אוֹ יַיִן אוֹ חֹמֶץ בְּיוֹם טוֹב כְּדֵי לְצַחְצְחוֹ. וְלֹא יִתֵּן לְתוֹכוֹ מֵי רַגְלַיִם לְעוֹלָם מִפְּנֵי הַכָּבוֹד שֶׁלֹּא יִהְיוּ מִצְוֹת בְּזוּיוֹת עָלָיו:</div></div><div class="callout"><div class="label">🚫 גורמים הפוסלים</div>שופר של <strong>עבודה זרה</strong> אין להשתמש בו לכתחילה, אך אם תקע בו — יצא ידי חובה. שופר מ<strong>עיר הנידחת</strong> פוסל אפילו בדיעבד. <strong>שופר גנוב</strong> כשר, שהמצווה היא רק בשמיעה. אסור <strong>לחלל את הלכות יום טוב</strong> — אפילו איסור שבות מדרבנן — כדי להשיג שופר; שופר כזה אסור בשימוש לגמרי.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">דרישות פיזיות — גודל ושינויים</h2><div class="subtitle">הלכות ה׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">שִׁעוּר הַשּׁוֹפָר כְּדֵי שֶׁיֹּאחֲזֶנּוּ בְּיָדוֹ וְיֵרָאֶה לְכָאן וּלְכָאן. נִסְדַּק לְאָרְכּוֹ פָּסוּל. לְרָחְבּוֹ אִם נִשְׁתַּיֵּר בּוֹ כַּשִּׁעוּר כָּשֵׁר וּכְאִלּוּ נִכְרַת מִמְּקוֹם הַסֶּדֶק. נִקַּב אִם סְתָמוֹ שֶׁלֹּא בְּמִינוֹ פָּסוּל. סְתָמוֹ בְּמִינוֹ אִם נִשְׁתַּיֵּר רֻבּוֹ שָׁלֵם וְלֹא עִכְּבוּ הַנְּקָבִים שֶׁנִּסְתְּמוּ אֶת הַתְּקִיעָה הֲרֵי זֶה כָּשֵׁר. קְדָחוֹ בְּזִכְרוּתוֹ כָּשֵׁר שֶׁמִּין בְּמִינוֹ אֵינוֹ חוֹצֵץ. דִּבֵּק שִׁבְרֵי שׁוֹפָרוֹת עַד שֶׁהִשְׁלִימוֹ לְאֶחָד פָּסוּל:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">הוֹסִיף עָלָיו כָּל שֶׁהוּא בֵּין בְּמִינוֹ בֵּין שֶׁלֹּא בְּמִינוֹ פָּסוּל. צִפָּהוּ זָהָב מִבִּפְנִים אוֹ בִּמְקוֹם הַנָּחַת פֶּה פָּסוּל. צִפָּהוּ מִבַּחוּץ אִם נִשְׁתַּנָּה קוֹלוֹ מִכְּמוֹת שֶׁהָיָה פָּסוּל וְאִם לֹא נִשְׁתַּנָּה כָּשֵׁר. נָתַן שׁוֹפָר בְּתוֹךְ שׁוֹפָר אִם קוֹל פְּנִימִי שָׁמַע יָצָא וְאִם קוֹל חִיצוֹן שָׁמַע לֹא יָצָא. הִרְחִיב אֶת הַקָּצָר וְקִצֵּר אֶת הָרָחָב פָּסוּל:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">הָיָה אָרֹךְ וְקִצְּרוֹ כָּשֵׁר. גֵּרְדוֹ בֵּין מִבִּפְנִים בֵּין מִבַּחוּץ אֲפִלּוּ הֶעֱמִידוֹ עַל גִּלְדּוֹ כָּשֵׁר. הָיָה קוֹלוֹ עָב אוֹ דַּק אוֹ צָרוּר כָּשֵׁר שֶׁכָּל הַקּוֹלוֹת כְּשֵׁרִין בְּשׁוֹפָר:</div></div><div class="callout"><div class="label">📏 מפרטי כשרות</div>גודל השופר המינימלי מחייב ששני הקצוות <strong>יבלטו בבירור</strong> מאגרוף האוחז (כטפח מרווח). <strong>כל תוספת</strong> — בין מאותו חומר ובין מחומר אחר — פוסלת את השופר. ציפוי זהב ב<strong>פנים השופר או בפיו</strong> פוסל; ציפוי מבחוץ פוסל רק אם הוא <strong>משנה את הקול</strong>. שופר ש<strong>נקצר</strong> נשאר כשר, אפילו אם נקצר כדי להסיר פגם מפסיל.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">קיום החיוב — שמיעה לעומת הד</h2><div class="subtitle">הלכה ח׳</div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">הַתּוֹקֵעַ בְּתוֹךְ הַבּוֹר אוֹ בְּתוֹךְ הַמְּעָרָה. אוֹתָן הָעוֹמְדִים בְּתוֹךְ הַבּוֹר וְהַמְּעָרָה יָצְאוּ. וְהָעוֹמְדִים בַּחוּץ אִם קוֹל שׁוֹפָר שָׁמְעוּ יָצְאוּ. וְאִם קוֹל הֲבָרָה שָׁמְעוּ לֹא יָצְאוּ. וְכֵן הַתּוֹקֵעַ לְתוֹךְ חָבִית גְּדוֹלָה וְכַיּוֹצֵא בָּהּ. אִם קוֹל שׁוֹפָר שָׁמַע יָצָא וְאִם קוֹל הֲבָרָה שָׁמַע לֹא יָצָא:</div></div><div class="callout"><div class="label">👂 מעשה השמיעה</div>מי שתוקע בשופר בתוך <strong>בור או מערה</strong>: העומדים בפנים יוצאים ידי חובה. העומדים בחוץ יוצאים ידי חובה רק אם שמעו את <strong>קול השופר עצמו</strong>. אם שמעו רק <strong>הד</strong>, לא יצאו ידי חובה. אותו עיקרון חל על התוקע לתוך חבית גדולה — <strong>איכות מה שנשמע</strong> קובעת את הכשרות.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 1</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📜</div><strong>השמיעה היא המצווה</strong><br><span style="font-size:.9rem">מצוות התורה היא לשמוע את השופר — לא לתקוע בו. החיוב חל בשווה על כל הגברים הנוכחים, והתוקע פועל כשליח עבור כל השומעים.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🐏</div><strong>שלמות השופר</strong><br><span style="font-size:.9rem">השופר חייב להיות בצורתו הטבעית. תוספות המשנות אותו או מכסות את פיו פוסלות אותו — מצוות חייבות להיעשות בצורתן המיועדת, ללא שינוי.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>קולא בדיעבד לעומת איסור מוחלט</strong><br><span style="font-size:.9rem">הרמב"ם מבחין בין שופרות הפסולים רק לכתחילה (עבודה זרה) לבין אלו הפסולים אפילו בדיעבד (עיר הנידחת). המקור קובע את רמת הפסול.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔊</div><strong>קול אמיתי, לא הד</strong><br><span style="font-size:.9rem">החיוב מחייב שמיעת קול השופר האמיתי. הד — אפילו אם נשמע דומה — אינו מקיים את המצווה.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות שופר וסוכה ולולב פרק א</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
