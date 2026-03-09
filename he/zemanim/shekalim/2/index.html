@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות שקלים פרק ב</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות שקלים</a><span class="title">פרק ב</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/9</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">💰</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות שקלים</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ב</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 2 · 10 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">גביית השקלים, אוצר המקדש, והתרומה</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">גביית השקלים, אוצר המקדש, והתרומה</h2><div class="subtitle">פרק 2</div><div class="flowchart"><div class="flow-box highlight">קופות גביית השקלים בערים ובמקדש<br><span style="font-size:.8rem;color:#888">הלכות א׳–ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">הובלת השקלים ואחסונם בלשכה<br><span style="font-size:.8rem;color:#888">הלכה ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">שלוש עונות התרומה וסדרן<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ז׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">כוונת התרומה — בשם כל ישראל<br><span style="font-size:.8rem;color:#888">הלכות ח׳–ט׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">כללים לממרים את התרומה — מניעת חשד<br><span style="font-size:.8rem;color:#888">הלכה י׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">קופות גביית השקלים בערים ובמקדש</h2><div class="subtitle">הלכות א׳–ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כֵּיצַד כּוֹנְסִין הַשֻּׁלְחָנִים אֶת הַשְּׁקָלִים בְּכָל מְדִינָה וּמְדִינָה. מַנִּיחִין לִפְנֵיהֶם שְׁתֵּי תֵּבוֹת שׁוּלֵי הַתֵּבָה רְחָבִין מִלְּמַטָּה וּפִיהָ צַר מִלְּמַעְלָה כְּמִין שׁוֹפָר כְּדֵי שֶׁיַּשְׁלִיכוּ לְתוֹכָן וְלֹא יִהְיֶה אֶפְשָׁר לִקַּח מֵהֶן בְּנַחַת. וְלָמָּה עוֹשִׂין שְׁתֵּי תֵּבוֹת. אַחַת שֶׁמַּשְׁלִיכִין בָּהּ שְׁקָלִים שֶׁל שָׁנָה זוֹ. וְהַשְּׁנִיָּה מַנִּיחִין בָּהּ שִׁקְלֵי שָׁנָה שֶׁעָבְרָה. שֶׁגּוֹבִין מִמִּי שֶׁלֹּא שָׁקַל בְּשָׁנָה שֶׁעָבְרָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">וּבַמִּקְדָּשׁ הָיָה לִפְנֵיהֶם תָּמִיד שְׁלֹשׁ עֶשְׂרֵה תֵּבוֹת. כָּל תֵּבָה כְּמִין שׁוֹפָר. רִאשׁוֹנָה לְשִׁקְלֵי שָׁנָה זוֹ. שְׁנִיָּה לְשִׁקְלֵי שָׁנָה שֶׁעָבְרָה. שְׁלִישִׁית לְכָל מִי שֶׁיֵּשׁ עָלָיו קָרְבַּן שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה אֶחָד עוֹלָה וְאֶחָד חַטָּאת מַשְׁלִיךְ דְּמֵיהֶן לְתֵבָה זוֹ. רְבִיעִית לְכָל מִי שֶׁיֵּשׁ עָלָיו עוֹלַת הָעוֹף בִּלְבַד מַשְׁלִיךְ דָּמֶיהָ לְתֵבָה זוֹ. חֲמִישִׁית לְמִי שֶׁהִתְנַדֵּב מָעוֹת לִקְנוֹת עֵצִים לַמַּעֲרָכָה בָּהֶן. שִׁשִּׁית לְמִי שֶׁהִתְנַדֵּב מָעוֹת לִלְבוֹנָה. שְׁבִיעִית לְמִי שֶׁהִתְנַדֵּב זָהָב לַכַּפֹּרֶת. שְׁמִינִית לְמוֹתַר חַטָּאת כְּגוֹן שֶׁהִפְרִישׁ מָעוֹת לְחַטָּאתוֹ וְלָקַח חַטָּאת וְהוֹתִיר מִן הַמָּעוֹת יַשְׁלִיךְ הַשְּׁאָר לְתוֹכָהּ. תְּשִׁיעִית לְמוֹתַר אָשָׁם. עֲשִׂירִית לְמוֹתַר קִנֵּי זָבִים וְזָבוֹת וְיוֹלְדוֹת. אַחַת עֶשְׂרֵה לְמוֹתַר קָרְבְּנוֹת נָזִיר. שְׁתֵּים עֶשְׂרֵה לְמוֹתַר אֲשַׁם מְצֹרָע. שְׁלֹשׁ עֶשְׂרֵה לְמִי שֶׁהִתְנַדֵּב מָעוֹת לְעוֹלַת בְּהֵמָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">וְשֵׁם כָּל דָּבָר שֶׁיִּהְיוּ מָעוֹתָיו בְּתוֹךְ הַתֵּבָה כָּתוּב עַל הַתֵּבָה מִבַּחוּץ. וּתְנַאי בֵּית דִּין הוּא עַל כָּל הַמּוֹתָרוֹת שֶׁיִּקָּרְבוּ עוֹלַת בְּהֵמָה. נִמְצֵאתָ לָמֵד שֶׁכָּל הַמָּעוֹת הַנִּמְצָאוֹת בְּשֵׁשׁ הַתֵּבוֹת הָאַחֲרוֹנוֹת לְעוֹלַת בְּהֵמָה וְעוֹרוֹתֶיהָ לַכֹּהֲנִים כִּשְׁאָר כָּל הָעוֹרוֹת. וְכָל הַמָּעוֹת שֶׁבְּתֵבָה שְׁלִישִׁית לִקַּח בָּהֶן עוֹפוֹת חֶצְיָן עוֹלוֹת וְחֶצְיָן חַטָּאוֹת. וְשֶׁבָּרְבִיעִית כֻּלָּן עוֹלַת הָעוֹף:</div></div><div class="callout"><div class="label">🏛️ מבנה האוצר</div>בכל עיר הוניחו <strong>שתי קופות בצורת שופר</strong> — אחת לשנה הנוכחית ואחת לשנה שעברה. במקדש היו <strong>שלוש עשרה קופות</strong>: שתיים לשקלים, ואחת עשרה לנדבות שונות — עולות, חטאות, מותר אשם ונזיר, נדבת עצים ולבונה, וזהב לכפורת. <strong>תנאי בית דין</strong> קבע שכל מותר כספי הקרבנות ישמש לעולות ציבוריות, וגינותיהן ילכו לכוהנים.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">הובלת השקלים ואחסונם בלשכה</h2><div class="subtitle">הלכה ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">בְּכָל מְדִינָה וּמְדִינָה כְּשֶׁגּוֹבִין הַשְּׁקָלִים מְשַׁלְּחִין אוֹתָן בְּיַד שְׁלוּחִים לַמִּקְדָּשׁ. וְיֵשׁ לָהֶם לְצָרֵף אוֹתָן בְּדִינְרֵי זָהָב מִפְּנֵי מַשּׂאוֹי הַדֶּרֶךְ. וְהַכּל מִתְקַבְּצִין לַמִּקְדָּשׁ וּמַנִּיחִין אוֹתָן בְּלִשְׁכָּה אַחַת מִן הַלְּשָׁכוֹת בַּמִּקְדָּשׁ וְסוֹגְרִין כָּל דַּלְתוֹתֶיהָ בְּמַפְתְּחוֹת וְחוֹתְמִין עָלֶיהָ חוֹתָמוֹת וּמְמַלְּאִין מִכָּל הַשְּׁקָלִים שֶׁיִּתְקַבְּצוּ שָׁם שָׁלֹשׁ קֻפּוֹת גְּדוֹלוֹת שִׁעוּר כָּל קֻפָּה כְּדֵי שֶׁתָּכִיל תֵּשַׁע סְאִין וְהַשְּׁאָר מַנִּיחִין אוֹתוֹ בַּלִּשְׁכָּה. וְזֶה שֶׁבְּתוֹךְ הַקֻּפּוֹת הוּא הַנִּקְרָא תְּרוּמַת הַלִּשְׁכָּה וְזֶה שֶׁיִּשָּׁאֵר שָׁם יֶתֶר עַל מַה שֶּׁיֵּשׁ בַּקֻּפּוֹת הוּא הַנִּקְרָא שְׁיָרֵי הַלִּשְׁכָּה:</div></div><div class="callout"><div class="label">🚚 מסע הכסף</div>שקלים שנגבו בכל מחוז נשלחו למקדש <strong>באמצעות שלוחים ממונים</strong>, וניתן היה להמירם ב<strong>דינרי זהב</strong> להקלת הדרך. הכסף נאסף בלשכה תחת <strong>מנעול וחותם</strong>. הוא מולא לתוך שלושה כלים גדולים של תשעה סאים כל אחד — זוהי <strong>תרומת הלשכה</strong>. הנותר נקרא <strong>מותר הלשכה</strong>.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">שלוש עונות התרומה וסדרן</h2><div class="subtitle">הלכות ה׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">בִּשְׁלֹשָׁה פְּרָקִים בַּשָּׁנָה תּוֹרְמִין אֶת הַלִּשְׁכָּה. בְּרֹאשׁ חֹדֶשׁ נִיסָן. וּבְרֹאשׁ חֹדֶשׁ תִּשְׁרֵי קֹדֶם יוֹם טוֹב אוֹ אַחֲרָיו. וְקֹדֶם עֲצֶרֶת בַּחֲמִשָּׁה עָשָׂר יוֹם. וְכֵיצַד תּוֹרְמִין אוֹתָהּ. אֶחָד נִכְנַס לִפְנִים מִן הַלִּשְׁכָּה וְהַשּׁוֹמְרִין עוֹמְדִים בַּחוּץ וְהוּא אוֹמֵר לָהֶם אֶתְרֹם וְהֵן אוֹמְרִים לוֹ תְּרֹם תְּרֹם תְּרֹם שְׁלֹשָׁה פְּעָמִים. וְאַחַר כָּךְ מְמַלֵּא שָׁלֹשׁ קֻפּוֹת קְטַנּוֹת כָּל קֻפָּה מֵהֶן מְכִילָה שָׁלֹשׁ סְאִין מֵאוֹתָן שָׁלֹשׁ קֻפּוֹת הַגְּדוֹלוֹת וּמוֹצִיאָן לַחוּץ כְּדֵי לְהִסְתַּפֵּק מֵהֶן עַד שֶׁיִּכְלוּ. וְחוֹזֵר וּמְמַלֵּא אוֹתָן הַשָּׁלֹשׁ קֻפּוֹת הַקְּטַנּוֹת מִן שָׁלֹשׁ גְּדוֹלוֹת פַּעַם שְׁנִיָּה קֹדֶם עֲצֶרֶת וּמִסְתַּפְּקִין מֵהֶן עַד שֶׁיִּכְלוּ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">וְחוֹזֵר וּמְמַלֵּא אוֹתָן פַּעַם שְׁלִישִׁית מִן הַשָּׁלֹשׁ קֻפּוֹת הַגְּדוֹלוֹת בְּתִשְׁרֵי וּמִסְתַּפְּקִין מֵהֶן עַד שֶׁיִּכְלוּ עַד רֹאשׁ חֹדֶשׁ נִיסָן. וּבְרֹאשׁ חֹדֶשׁ נִיסָן תּוֹרְמִין מִתְּרוּמָה חֲדָשָׁה. לֹא הִסְפִּיקוּ לָהֶן הַשְּׁקָלִים שֶׁבְּשָׁלֹשׁ קֻפּוֹת הַגְּדוֹלוֹת וְכָלוּ עַד שֶׁלֹּא הִגִּיעַ נִיסָן חוֹזְרִין וְתוֹרְמִין מִשְּׁיָרֵי הַלִּשְׁכָּה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">שָׁלֹשׁ קֻפּוֹת הַקְּטַנּוֹת שֶׁהוּא תּוֹרֵם בָּהֶם וּמוֹצִיאָן לַחוּץ כָּתוּב עֲלֵיהֶן אָלֶ"ף בֵּי"ת גִּימֶ"ל כְּדֵי שֶׁיִּסְתַּפְּקוּ מִן הָרִאשׁוֹנָה עַד שֶׁתִּכְלֶה. וְאַחַר כָּךְ מִסְתַּפְּקִין מִן הַשְּׁנִיָּה. וְאַחַר כָּךְ מִסְתַּפְּקִין מִן הַשְּׁלִישִׁית. וְתוֹרֵם רִאשׁוֹנָה מִן הַקֻּפָּה הָאַחַת הַגְּדוֹלָה וּמְחַפֶּה אוֹתָהּ הַגְּדוֹלָה בְּמִטְפַּחַת. וְתוֹרֵם הַשְּׁנִיָּה מֵהַקֻּפָּה הַגְּדוֹלָה הַשְּׁנִיָּה וּמְחַפֶּה אוֹתָהּ הַגְּדוֹלָה בְּמִטְפַּחַת. וְתוֹרֵם הַשְּׁלִישִׁית מִן הַקֻּפָּה הַגְּדוֹלָה הַשְּׁלִישִׁית וְאֵינוֹ מְחַפֶּה אוֹתָהּ בְּמִטְפַּחַת כְּדֵי שֶׁתִּהְיֶה נִכֶּרֶת שֶׁבָּהּ סִיֵּם. וְיַתְחִיל מִמֶּנָּה בַּתְּחִלָּה בְּפַעַם שְׁנִיָּה כְּשֶׁיִּכָּנֵס קֹדֶם עֲצֶרֶת. וְתוֹרֵם הָרִאשׁוֹנָה מִן הַגְּדוֹלָה שֶׁהָיְתָה מְגֻלָּה וּמְחַפֶּה אוֹתָהּ. וְתוֹרֵם הַשְּׁנִיָּה מִן הַגְּדוֹלָה שֶׁתָּרַם מִמֶּנָּה בָּרִאשׁוֹנָה תְּחִלָּה וּמְחַפֶּה אוֹתָהּ. וְתוֹרֵם הַשְּׁלִישִׁית מִן הַגְּדוֹלָה הַסְּמוּכָה לָהּ וְאֵינוֹ מְחַפֶּה אוֹתָהּ כְּדֵי שֶׁיַּתְחִיל מִמֶּנָּה בַּתְּחִלָּה בְּפַעַם שְׁלִישִׁית כְּשֶׁיִּכָּנֵס בְּתִשְׁרֵי. עַד שֶׁנִּמְצָא תּוֹרֵם רִאשׁוֹנָה וּשְׁנִיָּה וּשְׁלִישִׁית הַקְּטַנּוֹת מִכָּל אַחַת וְאַחַת מִן הַגְּדוֹלוֹת:</div></div><div class="callout"><div class="label">📅 מחזור שנתי</div>שלוש פעמים בשנה נלקחה התרומה מהלשכה: <strong>ראש חודש ניסן, לפני/אחרי ראש השנה, וחמישה עשר יום לפני שבועות</strong>. בכל פעם מולאו שלושה כלים קטנים (שלושה סאים כל אחד) מתוך הגדולים ונעשה בהם שימוש עד שנגמרו. הכלים הקטנים סומנו <strong>אלף, בית, גימל</strong>, והכלי הגדול האחרון שממנו נלקח הכסף הושאר <strong>בלא כיסוי</strong> כסימן להתחיל ממנו בפעם הבאה.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">כוונת התרומה — בשם כל ישראל</h2><div class="subtitle">הלכות ח׳–ט׳</div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">כְּשֶׁהוּא תּוֹרֵם שָׁלֹשׁ קֻפּוֹת אֵלּוּ תּוֹרֵם אֶת הָרִאשׁוֹנָה לְשֵׁם אֶרֶץ יִשְׂרָאֵל. וְהַשְּׁנִיָּה לְשֵׁם הַכְּרַכִּין הַמֻּקָּפִין לָהּ וּלְשֵׁם כָּל (אֶרֶץ) יִשְׂרָאֵל. וְהַשְּׁלִישִׁית לְשֵׁם בָּבֶל וּלְשֵׁם מָדַי וּלְשֵׁם הַמְּדִינוֹת הָרְחוֹקוֹת וּלְשֵׁם שְׁאָר כָּל יִשְׂרָאֵל:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">כְּשֶׁהוּא תּוֹרֵם מִתְכַּוֵּן לִתְרֹם עַל הַגָּבוּי שֶׁיֵּשׁ בַּלִּשְׁכָּה. וְעַל הַגָּבוּי שֶׁעֲדַיִן לֹא הִגִּיעַ לַלִּשְׁכָּה. וְעַל הֶעָתִיד לִגָּבוֹת כְּדֵי שֶׁיִּהְיוּ אֵלּוּ הַשְּׁקָלִים שֶׁהוֹצִיאָן לְהִסְתַּפֵּק מֵהֶן כַּפָּרָה עַל כָּל יִשְׂרָאֵל וּכְאִלּוּ הִגִּיעוּ כָּל שִׁקְלֵיהֶן לַלִּשְׁכָּה וְנִתְרְמָה מֵהֶן תְּרוּמָה זוֹ:</div></div><div class="callout"><div class="label">🌍 שותפות כל ישראל</div>הכלי הראשון נלקח <strong>בשם ארץ ישראל</strong>, השני עבור הסביבה וכל ישראל, והשלישי <strong>עבור בבל, מדי והמחוזות הרחוקים</strong>. כוונת התרומה כוללת את מה שכבר נמצא בלשכה, את מה שנגבה אך טרם הגיע, <strong>ואת מה שייגבה בעתיד</strong> — כדי שהשקלים יכפרו על כל ישראל.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">כללים לממרים את התרומה — מניעת חשד</h2><div class="subtitle">הלכה י׳</div><div class="halacha-card"><div class="halacha-num">הלכה י׳</div><div class="halacha-he">כְּשֶׁיִּכָּנֵס הַתּוֹרֵם לִתְרֹם לֹא יִכָּנֵס בְּבֶגֶד שֶׁאֶפְשָׁר לְהַחְבּוֹת בּוֹ כֶּסֶף וְלֹא בְּמִנְעָל וְלֹא בְּסַנְדָּל וְלֹא בִּתְפִלָּה וְלֹא בְּקָמֵעַ שֶׁמָּא יַחְשְׁדוּ אוֹתוֹ הָעָם וְיֹאמְרוּ הֶחְבִּיא מִמְּעוֹת הַלִּשְׁכָּה תַּחְתָּיו כְּשֶׁתְּרָמָהּ. וּמְדַבְּרִים הָיוּ עִמּוֹ מִשָּׁעָה שֶׁיִּכָּנֵס עַד שָׁעָה שֶׁיֵּצֵא כְּדֵי שֶׁלֹּא יִתֵּן לְתוֹךְ פִּיו. וְאַף עַל פִּי שֶׁנִּזְהָרִים כָּל כָּךְ עָנִי אוֹ מִי שֶׁהוּא נִבְהַל לַהוֹן לֹא יִתְרֹם מִפְּנֵי הַחֲשָׁד שֶׁנֶּאֱמַר (במדבר לב כב) "וִהְיִיתֶם נְקִיִּים מֵה' וּמִיִּשְׂרָאֵל":</div></div><div class="callout"><div class="label">🔒 מניעת חשד</div>מי שנכנס לתרום את התרומה אינו רשאי ללבוש בגדים שניתן להסתיר בהם מטבעות, ואינו יכול לנעול נעליים, סנדלים, להניח תפילין או לשאת קמיע — <strong>כדי למנוע חשד</strong>. אחרים מדברים איתו ללא הפסקה מכניסתו עד יציאתו כדי שלא יוכל לשים מטבע בפיו. גם עם כל האמצעים — <strong>עני או מי שנפשו חשקה בממון אינו רשאי לתרום את התרומה</strong>, כמו שנאמר: 'והייתם נקיים מה׳ ומישראל.'</div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 2</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🏦</div><strong>שתי קופות, שתי שנים</strong><br><span style="font-size:.9rem">לכל עיר הייתה קופה לשנה הנוכחית ואחת לשנה שעברה, לגביית שקלים ממי שעוד לא נתן בשנה שעברה.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>תנאי בית דין</strong><br><span style="font-size:.9rem">בית הדין קבע מראש שכל מותר כספי הקרבנות ישמש לעולות ציבוריות — ללא צורך בהסכמה מחודשת מהתורם.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🕯️</div><strong>הכוונה כוללת את כל ישראל</strong><br><span style="font-size:.9rem">מי שתורם מהלשכה מתכוון לכלול אפילו שקלים עתידיים שעוד לא נגבו, כדי שכל ישראל ישתתף בכפרת הקרבנות הציבוריים.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🧾</div><strong>נקיים מה׳ ומישראל</strong><br><span style="font-size:.9rem">האמצעים בכניסה — בגדים, נעליים, שיחה מתמשכת — מגנים על שם הממרים ושומרים על אמון הציבור בכספי הקודש.</span></div></div></div>
+<div class="slide" data-slide="8"><div class="slide-num">9/9</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות שקלים פרק ב</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=9;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

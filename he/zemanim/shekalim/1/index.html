@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות שקלים פרק א</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות שקלים</a><span class="title">פרק א</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/9</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר זמנים</div><div class="emoji">💰</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות שקלים</h1><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק א</div><div style="color:#888;margin:.5rem 0 1.5rem">פרק 1 · 10 הלכות</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">חובת מחצית השקל — מטבעות, פטורים וגבייה</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">חובת מחצית השקל — מטבעות, פטורים וגבייה</h2><div class="subtitle">פרק 1</div><div class="flowchart"><div class="flow-box highlight">חובת מחצית השקל<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">מערכת המטבעות<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">עקרון המינימום והתאמה למטבע הנהוג<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ו׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">מי חייב ומי פטור<br><span style="font-size:.8rem;color:#888">הלכות ז׳–ח׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">לוח הגבייה ואכיפתה<br><span style="font-size:.8rem;color:#888">הלכות ט׳–י׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">חובת מחצית השקל</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מִצְוַת עֲשֵׂה מִן הַתּוֹרָה לִתֵּן כָּל אִישׁ מִיִּשְׂרָאֵל מַחֲצִית הַשֶּׁקֶל בְּכָל שָׁנָה וְשָׁנָה. אֲפִלּוּ עָנִי הַמִּתְפַּרְנֵס מִן הַצְּדָקָה חַיָּב. וְשׁוֹאֵל מֵאֲחֵרִים אוֹ מוֹכֵר כְּסוּת שֶׁעַל כְּתֵפוֹ וְנוֹתֵן מַחֲצִית הַשֶּׁקֶל כֶּסֶף שֶׁנֶּאֱמַר (שמות ל טו) "הֶעָשִׁיר לֹא יַרְבֶּה וְהַדַּל לֹא יַמְעִיט" וְגוֹ'. וְאֵינוֹ נוֹתְנוֹ בִּפְעָמִים רַבּוֹת הַיּוֹם מְעַט וּלְמָחָר מְעַט אֶלָּא נוֹתְנוֹ כֻּלּוֹ כְּאַחַת בְּפַעַם אַחַת:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">מִנְיַן כֶּסֶף הָאָמוּר בַּתּוֹרָה בְּאוֹנֵס וּבִמְפַתֶּה וּבְמוֹצִיא שֵׁם רַע וְהוֹרֵג עֶבֶד הוּא כֶּסֶף הוּא שֶׁקֶל הַנֶּאֱמָר בְּכָל מָקוֹם בַּתּוֹרָה. וּמִשְׁקָלוֹ שְׁלֹשׁ מֵאוֹת וְעֶשְׂרִים שְׂעוֹרָה. וּכְבָר הוֹסִיפוּ חֲכָמִים עָלָיו וְעָשׂוּ מִשְׁקָלוֹ כְּמִשְׁקַל הַמַּטְבֵּעַ הַנִּקְרָא סֶלַע בִּזְמַן בַּיִת שֵׁנִי. וְכַמָּה הוּא מִשְׁקַל הַסֶּלַע שְׁלֹשׁ מֵאוֹת וְאַרְבַּע וּשְׁמוֹנִים שְׂעוֹרָה בֵּינוֹנִית:</div></div><div class="callout"><div class="label">💰 מהות המצווה</div>מצוות <strong>עשה מן התורה</strong> לכל יהודי לתת <strong>מחצית השקל</strong> בכל שנה — <strong>אפילו עני</strong> המתפרנס מן הצדקה חייב, עד כדי שילווה מאחרים או ימכור את בגדו. נותנים בבת אחת, לא בתשלומים. שיעור השקל: <strong>320 שעורות</strong> מן התורה; חכמים הגדילו ל-<strong>384 שעורות</strong> (שווה לסלע של בית שני).</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">מערכת המטבעות</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">הַסֶּלַע אַרְבָּעָה דִּינָרִין וְהַדִּינָר שֵׁשׁ מָעִין. וּמָעָה הִיא הַנִּקְרֵאת בִּימֵי משֶׁה רַבֵּנוּ גֵּרָה. וּמָעָה הִיא שְׁנֵי פּוּנְדְיוֹנִין וּפוּנְדְיוֹן שְׁנֵי אִיסָרִין. וּפְרוּטָה אַחַת מִשְּׁמוֹנָה בְּאִיסָר. נִמְצָא מִשְׁקַל הַמָּעָה וְהִיא הַגֵּרָה שֵׁשׁ עֶשְׂרֵה שְׂעוֹרוֹת. וּמִשְׁקַל הָאִיסָר אַרְבַּע שְׂעוֹרוֹת. וּמִשְׁקַל הַפְּרוּטָה חֲצִי שְׂעוֹרָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">וְעוֹד מַטְבֵּעַ אַחֵר הָיָה שָׁם שֶׁהָיָה מִשְׁקָלוֹ שְׁתֵּי סְלָעִים וְהוּא הָיָה נִקְרָא דַּרְכּוֹן. וְאֵלּוּ הַמַּטְבְּעוֹת כֻּלָּן שֶׁאָמַרְנוּ וּבֵאַרְנוּ מִשְׁקַל כָּל אֶחָד מֵהֶן הֵן שֶׁמְּשַׁעֲרִין בָּהֶן בְּכָל מָקוֹם. וּכְבָר בֵּאַרְנוּם כְּדֵי שֶׁלֹּא אֶהְיֶה צָרִיךְ לְפָרֵשׁ מִשְׁקָלָם בְּכָל מָקוֹם:</div></div><div class="callout"><div class="label">🪙 שיעורי המטבע</div>סלע = <strong>4 דינרים</strong>; דינר = <strong>6 מעות</strong> (= גרה בלשון התורה); מעה = 2 פונדיון = 4 איסר; פרוטה = <strong>1/8 איסר</strong>. משקל מעה = <strong>16 שעורות</strong>; איסר = 4 שעורות; פרוטה = 1/2 שעורה. דרקון = <strong>2 סלעים</strong> — מטבע כפול המשמש כמידה כללית.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">עקרון המינימום והתאמה למטבע הנהוג</h2><div class="subtitle">הלכות ה׳–ו׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">מַחֲצִית הַשֶּׁקֶל זוֹ מִצְוָתָהּ שֶׁיִּתֵּן מַחֲצִית מַטְבֵּעַ שֶׁל אוֹתוֹ הַזְּמַן אֲפִלּוּ הָיָה אוֹתוֹ מַטְבֵּעַ גָּדוֹל מִשֶּׁקֶל הַקֹּדֶשׁ. וּלְעוֹלָם אֵינוֹ שׁוֹקֵל פָּחוֹת מֵחֲצִי הַשֶּׁקֶל שֶׁהָיָה בִּימֵי משֶׁה רַבֵּנוּ שֶׁהוּא מִשְׁקָלוֹ מֵאָה וְשִׁשִּׁים שְׂעוֹרָה:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">בִּזְמַן שֶׁהָיָה מַטְבֵּעַ שֶׁל אוֹתוֹ זְמַן דַּרְכּוֹנוֹת הָיָה כָּל אֶחָד וְאֶחָד נוֹתֵן בְּמַחֲצִית הַשֶּׁקֶל שֶׁלּוֹ סֶלַע. וּבִזְמַן שֶׁהָיָה הַמַּטְבֵּעַ סְלָעִים הָיָה נוֹתֵן כָּל אֶחָד בְּמַחֲצִית הַשֶּׁקֶל שֶׁלּוֹ חֲצִי סֶלַע שֶׁהוּא שְׁנֵי דִּינָרִין. וּבִזְמַן שֶׁהָיָה הַמַּטְבֵּעַ חֲצִי סֶלַע הָיָה כָּל אֶחָד וְאֶחָד נוֹתֵן בְּמַחֲצִית הַשֶּׁקֶל אוֹתוֹ חֲצִי הַסֶּלַע. וּמֵעוֹלָם לֹא שָׁקְלוּ יִשְׂרָאֵל בְּמַחֲצִית הַשֶּׁקֶל פָּחוֹת מֵחֲצִי שֶׁקֶל שֶׁל תּוֹרָה:</div></div><div class="callout"><div class="label">⚖️ מינימום ומקסימום</div>נותנים <strong>מחצית המטבע הנהוג</strong>, אפילו אם גדול מהשקל המקורי. אך <strong>לעולם לא פחות</strong> ממחצית השקל של התורה (160 שעורות). לכן: כשהדרקון היה נהוג — נתנו <strong>סלע שלם</strong>; כשסלעים היו נהוגים — <strong>חצי סלע</strong>; כשחצי סלעים היו קיימים — <strong>אותו חצי סלע</strong>.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">מי חייב ומי פטור</h2><div class="subtitle">הלכות ז׳–ח׳</div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">הַכּל חַיָּבִין לִתֵּן מַחֲצִית הַשֶּׁקֶל כֹּהֲנִים לְוִיִּים וְיִשְׂרְאֵלִים וְגֵרִים וַעֲבָדִים מְשֻׁחְרָרִים. אֲבָל לֹא נָשִׁים וְלֹא עֲבָדִים וְלֹא קְטַנִּים. וְאִם נָתְנוּ מְקַבְּלִין מֵהֶם. אֲבָל הַכּוּתִים שֶׁנָּתְנוּ מַחֲצִית הַשֶּׁקֶל אֵין מְקַבְּלִין מֵהֶם. קָטָן שֶׁהִתְחִיל אָבִיו לִתֵּן עָלָיו מַחֲצִית הַשֶּׁקֶל שׁוּב אֵינוֹ פּוֹסֵק אֶלָּא נוֹתֵן עָלָיו בְּכָל שָׁנָה וְשָׁנָה עַד שֶׁיַּגְדִּיל וְיִתֵּן עַל עַצְמוֹ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">הַשְּׁקָלִים אֵינָן נוֹהֲגִין אֶלָּא בִּפְנֵי הַבַּיִת. וּבִזְמַן שֶׁבֵּית הַמִּקְדָּשׁ קַיָּם נוֹתְנִין אֶת הַשְּׁקָלִים בֵּין בְּאֶרֶץ יִשְׂרָאֵל בֵּין בְּחוּצָה לָאָרֶץ. וּבִזְמַן שֶׁהוּא חָרֵב אֲפִלּוּ בְּאֶרֶץ יִשְׂרָאֵל אֵין נוֹהֲגִין:</div></div><div class="callout"><div class="label">👥 חייבים ופטורים</div>חייבים: <strong>כוהנים, לויים, ישראלים, גרים ועבדים משוחררים</strong>. פטורים: נשים, עבדים, קטנים — אך <strong>אם נתנו, מקבלים מהם</strong>. מ<strong>כותים — לא מקבלים לעולם</strong>. אב שהתחיל לתת עבור בנו <strong>אינו רשאי לפסוק</strong> עד שיגדל. המצווה חלה רק <strong>בזמן שבית המקדש קיים</strong> — בארץ ישראל ובחוץ לארץ.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">לוח הגבייה ואכיפתה</h2><div class="subtitle">הלכות ט׳–י׳</div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">בְּאֶחָד בַּאֲדָר מַשְׁמִיעִין עַל הַשְּׁקָלִים כְּדֵי שֶׁיָּכִין כָּל אֶחָד וְאֶחָד מַחֲצִית הַשֶּׁקֶל שֶׁלּוֹ. וְיִהְיֶה עָתִיד לִתֵּן. בַּחֲמִשָּׁה עָשָׂר בּוֹ יָשְׁבוּ הַשֻּׁלְחָנִים בְּכָל מְדִינָה וּמְדִינָה וְתוֹבְעִין בְּנַחַת כָּל מִי שֶׁיִּתֵּן לָהֶם יְקַבְּלוּ מִמֶּנּוּ וּמִי שֶׁלֹּא נָתַן אֵין כּוֹפִין אוֹתוֹ לִתֵּן. בַּחֲמִשָּׁה וְעֶשְׂרִים בּוֹ יָשְׁבוּ בַּמִּקְדָּשׁ לִגְבּוֹת. וּמִכָּאן וְאֵילָךְ כּוֹפִין אֶת מִי שֶׁלֹּא נָתַן עַד שֶׁיִּתֵּן. וְכָל מִי שֶׁלֹּא יִתֵּן מְמַשְׁכְּנִין אוֹתוֹ וְלוֹקְחִין עֲבוֹטוֹ בַּעַל כָּרְחוֹ וַאֲפִלּוּ כְּסוּתוֹ:</div></div><div class="halacha-card"><div class="halacha-num">הלכה י׳</div><div class="halacha-he">כָּל מִי שֶׁאֵינוֹ חַיָּב בִּשְׁקָלִים אַף עַל פִּי שֶׁדַּרְכּוֹ לִתֵּן אוֹ הוּא עָתִיד לִתֵּן אֵין מְמַשְׁכְּנִין אוֹתוֹ. וְאֵין מְמַשְׁכְּנִין אֶת הַכֹּהֲנִים לְעוֹלָם מִפְּנֵי דַּרְכֵי שָׁלוֹם אֶלָּא כְּשֶׁיִּתְּנוּ מְקַבְּלִין מֵהֶן וְתוֹבְעִין אוֹתָן עַד שֶׁיִּתְּנוּ:</div></div><div class="callout"><div class="label">📅 ציר הזמן של הגבייה</div><strong>א׳ אדר</strong>: הכרזה. <strong>ט״ו אדר</strong>: שולחנות מוקמים בכל עיר — הגבאים שואלים <strong>בעדינות</strong>, ללא כפייה. <strong>כ״ה אדר</strong>: שולחנות במקדש — <strong>מתחילים לכפות</strong>, ממשכנים אפילו את בגדו. פטורים (נשים, קטנים) — <strong>אין ממשכנים</strong>. כוהנים אינם נמשכנים <strong>מפני שלום</strong>, אך שואלים אותם עד שייתנו.</div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/9</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 עקרונות מרכזיים</h2><div class="subtitle">פרק 1</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🏛️</div><strong>שוויון לפני המצווה</strong><br><span style="font-size:.9rem">עשיר ועני נותנים בדיוק אותו הסכום — מחצית השקל. שוויון זה מסמל שכל נשמות ישראל שוות לפני האל.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⏳</div><strong>המצווה תלויה בבית המקדש</strong><br><span style="font-size:.9rem">חובת השקל חלה רק בזמן שבית המקדש קיים. כיום הגבייה מופסקת; המנהג לתת לפני פורים הוא זכר בלבד.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📐</div><strong>דיוק במידות</strong><br><span style="font-size:.9rem">הרמב"ם מפרט כל שיעור מטבע כדי לקבוע פעם אחת ולתמיד את הבסיס לכל דיני ממונות בתורה.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🤝</div><strong>אכיפה מדורגת</strong><br><span style="font-size:.9rem">התורה דרשה גבייה אך קבעה שלבים: תחילה הכרזה, אחר כך שכנוע עדין, ולבסוף כפייה ממשית — מידתיות המשקפת כבוד האדם לצד חובת המצווה.</span></div></div></div>
+<div class="slide" data-slide="8"><div class="slide-num">9/9</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">מוכנים לבחון את עצמכם?</h2><p style="color:#888;margin-bottom:.5rem">הלכות שקלים פרק א</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 שאלות · בחירה מרובה</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">התחל מבחן →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>let cur=0;const tot=9;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
