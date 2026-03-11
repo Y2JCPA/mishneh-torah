@@ -52,5 +52,32 @@
     "emoji": "🫓",
     "book": "ספר זמנים · Sefer Zemanim",
     "chapters": 8
+  },
+  "forbidden-intercourse": {
+    "prefix": "forbidden-intercourse",
+    "dir": "kedushah/forbidden-intercourse",
+    "secHe": "הלכות איסורי ביאה",
+    "secEn": "Forbidden Intercourse",
+    "emoji": "🚷",
+    "book": "ספר קדושה · Sefer Kedushah",
+    "chapters": 22
+  },
+  "forbidden-foods": {
+    "prefix": "forbidden-foods",
+    "dir": "kedushah/forbidden-foods",
+    "secHe": "הלכות מאכלות אסורות",
+    "secEn": "Forbidden Foods",
+    "emoji": "🚫",
+    "book": "ספר קדושה · Sefer Kedushah",
+    "chapters": 17
+  },
+  "ritual-slaughter": {
+    "prefix": "ritual-slaughter",
+    "dir": "kedushah/ritual-slaughter",
+    "secHe": "הלכות שחיטה",
+    "secEn": "Ritual Slaughter",
+    "emoji": "🔪",
+    "book": "ספר קדושה · Sefer Kedushah",
+    "chapters": 14
   }
 }
