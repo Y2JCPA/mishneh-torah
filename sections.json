@@ -79,5 +79,41 @@
     "emoji": "🔪",
     "book": "ספר קדושה · Sefer Kedushah",
     "chapters": 14
+  },
+  "oaths": {
+    "prefix": "oaths",
+    "dir": "haflaah/oaths",
+    "secHe": "הלכות שבועות",
+    "secEn": "Oaths",
+    "emoji": "🤚",
+    "book": "ספר הפלאה · Sefer Hafla'ah",
+    "chapters": 12
+  },
+  "vows": {
+    "prefix": "vows",
+    "dir": "haflaah/vows",
+    "secHe": "הלכות נדרים",
+    "secEn": "Vows",
+    "emoji": "📜",
+    "book": "ספר הפלאה · Sefer Hafla'ah",
+    "chapters": 13
+  },
+  "nazariteship": {
+    "prefix": "nazariteship",
+    "dir": "haflaah/nazariteship",
+    "secHe": "הלכות נזירות",
+    "secEn": "Nazariteship",
+    "emoji": "✂️",
+    "book": "ספר הפלאה · Sefer Hafla'ah",
+    "chapters": 10
+  },
+  "appraisals-and-devoted-property": {
+    "prefix": "appraisals-and-devoted-property",
+    "dir": "haflaah/appraisals-and-devoted-property",
+    "secHe": "הלכות ערכים וחרמין",
+    "secEn": "Appraisals and Devoted Property",
+    "emoji": "⚖️",
+    "book": "ספר הפלאה · Sefer Hafla'ah",
+    "chapters": 8
   }
 }
