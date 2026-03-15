@@ -115,5 +115,149 @@
     "emoji": "⚖️",
     "book": "ספר הפלאה · Sefer Hafla'ah",
     "chapters": 8
+  },
+  "diverse-species": {
+    "prefix": "diverse-species",
+    "dir": "zeraim/diverse-species",
+    "secHe": "הלכות כלאים",
+    "secEn": "Diverse Species",
+    "emoji": "🌱",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 10
+  },
+  "gifts-to-the-poor": {
+    "prefix": "gifts-to-the-poor",
+    "dir": "zeraim/gifts-to-the-poor",
+    "secHe": "הלכות מתנות עניים",
+    "secEn": "Gifts to the Poor",
+    "emoji": "🤲",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 10
+  },
+  "heave-offerings": {
+    "prefix": "heave-offerings",
+    "dir": "zeraim/heave-offerings",
+    "secHe": "הלכות תרומות",
+    "secEn": "Heave Offerings",
+    "emoji": "🏺",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 15
+  },
+  "tithes": {
+    "prefix": "tithes",
+    "dir": "zeraim/tithes",
+    "secHe": "הלכות מעשרות",
+    "secEn": "Tithes",
+    "emoji": "📊",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 14
+  },
+  "second-tithes": {
+    "prefix": "second-tithes",
+    "dir": "zeraim/second-tithes-and-fourth-year-s-fruit",
+    "secHe": "הלכות מעשר שני ונטע רבעי",
+    "secEn": "Second Tithes and Fourth Year Fruit",
+    "emoji": "🍇",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 11
+  },
+  "first-fruits": {
+    "prefix": "first-fruits",
+    "dir": "zeraim/first-fruits-and-other-gifts-to-priests-outside-the-sanctuary",
+    "secHe": "הלכות ביכורים",
+    "secEn": "First Fruits and Priestly Gifts",
+    "emoji": "🧺",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 12
+  },
+  "sabbatical-year": {
+    "prefix": "sabbatical-year",
+    "dir": "zeraim/sabbatical-year-and-the-jubilee",
+    "secHe": "הלכות שמיטה ויובל",
+    "secEn": "Sabbatical Year and Jubilee",
+    "emoji": "🌾",
+    "book": "ספר זרעים · Sefer Zeraim",
+    "chapters": 13
+  },
+  "the-chosen-temple": {
+    "prefix": "the-chosen-temple",
+    "dir": "avodah/the-chosen-temple",
+    "secHe": "הלכות בית הבחירה",
+    "secEn": "The Chosen Temple",
+    "emoji": "🏛️",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 8
+  },
+  "vessels": {
+    "prefix": "vessels",
+    "dir": "avodah/vessels-of-the-sanctuary-and-those-who-serve-therein",
+    "secHe": "הלכות כלי המקדש",
+    "secEn": "Vessels of the Sanctuary",
+    "emoji": "🏆",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 10
+  },
+  "admission": {
+    "prefix": "admission",
+    "dir": "avodah/admission-into-the-sanctuary",
+    "secHe": "הלכות ביאת מקדש",
+    "secEn": "Admission into the Sanctuary",
+    "emoji": "🚪",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 9
+  },
+  "forbidden-altar": {
+    "prefix": "forbidden-altar",
+    "dir": "avodah/things-forbidden-on-the-altar",
+    "secHe": "הלכות איסורי מזבח",
+    "secEn": "Things Forbidden on the Altar",
+    "emoji": "🚫",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 7
+  },
+  "sacrificial-procedure": {
+    "prefix": "sacrificial-procedure",
+    "dir": "avodah/sacrificial-procedure",
+    "secHe": "הלכות מעשה הקרבנות",
+    "secEn": "Sacrificial Procedure",
+    "emoji": "🔥",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 19
+  },
+  "daily-offerings": {
+    "prefix": "daily-offerings",
+    "dir": "avodah/daily-offerings-and-additional-offerings",
+    "secHe": "הלכות תמידין ומוספין",
+    "secEn": "Daily and Additional Offerings",
+    "emoji": "🌅",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 10
+  },
+  "sacrifices-unfit": {
+    "prefix": "sacrifices-unfit",
+    "dir": "avodah/sacrifices-rendered-unfit",
+    "secHe": "הלכות פסולי המוקדשין",
+    "secEn": "Sacrifices Rendered Unfit",
+    "emoji": "⚠️",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 19
+  },
+  "yom-kippur-service": {
+    "prefix": "yom-kippur-service",
+    "dir": "avodah/service-on-the-day-of-atonement",
+    "secHe": "הלכות עבודת יום הכיפורים",
+    "secEn": "Service on the Day of Atonement",
+    "emoji": "🕊️",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 5
+  },
+  "trespass": {
+    "prefix": "trespass",
+    "dir": "avodah/trespass",
+    "secHe": "הלכות מעילה",
+    "secEn": "Trespass",
+    "emoji": "⛔",
+    "book": "ספר עבודה · Sefer Avodah",
+    "chapters": 8
   }
 }

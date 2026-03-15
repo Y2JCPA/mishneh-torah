@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות פסולי המוקדשין פרק י</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות פסולי המוקדשין</a><span class="title">פרק י · Ch 10</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר עבודה · Sefer Avodah</div><div class="emoji">⚠️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות פסולי המוקדשין</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Sacrifices Rendered Unfit</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק י</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 10 · 5 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Sacrifices Rendered Unfit (הלכות פסולי המוקדשין) Chapter 10</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Sacrifices Rendered Unfit (הלכות פסולי המוקדשין) Chapter 10</h2><div class="subtitle">Chapter 10</div><div class="flowchart"><div class="flow-box highlight">Explicit Designation, Priest Forgets<br><span style="font-size:.8rem;color:#888">הלכות ב</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Vow Species Forgotten Under Uncertainty<br><span style="font-size:.8rem;color:#888">הלכות ג</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Possibility of Lamb Obligation<br><span style="font-size:.8rem;color:#888">הלכות ד</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Doubt Sin-Offerings Are Not Eaten<br><span style="font-size:.8rem;color:#888">הלכות ה</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Explicit Designation, Priest Forgets</h2><div class="subtitle">הלכות ב</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">קָבְעָה נִדְרָהּ וְאָמְרָה אִם אֵלֵד זָכָר הֲרֵי עָלַי שְׁתֵּי תּוֹרִים. וְיָלְדָה וְהֵבִיאָה אַרְבָּעָה עוֹפוֹת. שְׁנַיִם לְנִדְרָהּ וּשְׁנַיִם לְחוֹבָתָהּ. וְעָשָׂה שְׁנַיִם לְמַעְלָה וּשְׁנַיִם לְמַטָּה וְלֹא יָדַע אֵי זֶה נַעֲשָׂה לְמַעְלָה וְאֵי זֶה נַעֲשָׂה לְמַטָּה. וְגַם הִיא שָׁכְחָה וְלֹא יָדְעָה בְּאֵי זֶה מִין קָבְעָה נִדְרָהּ אִם בְּתוֹרִים אוֹ בִּבְנֵי הַיּוֹנָה. הֲרֵי זוֹ צְרִיכָה לְהָבִיא שְׁתֵּי תּוֹרִים עִם שְׁנֵי בְּנֵי יוֹנָה לְנִדְרָהּ וְיֵעָשׂוּ אַרְבַּעְתָּן לְמַעְלָה. וְתָבִיא גּוֹזָל אֶחָד לְהַשְׁלִים חוֹבָתָהּ וְיֵעָשֶׂה לְמַעְלָה. (שֶׁכְּבָר עָשָׂה שְׁנַיִם לְמַטָּה שֶׁהֵם חַטָּאת). בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהֵבִיאָה הָאַרְבָּעָה תְּחִלָּה מִמִּין אֶחָד. אֲבָל אִם הָיוּ שְׁנֵי מִינִין צְרִיכָה לְהָבִיא שִׁשָּׁה עוֹפוֹת. שְׁתֵּי תּוֹרִים עִם שְׁנֵי בְּנֵי יוֹנָה לְנִדְרָהּ. וְתָבִיא לְחוֹבָתָהּ שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה וְיֵעָשֶׂה אֶחָד לְמַעְלָה וְאֶחָד לְמַטָּה. וְכֵן אִם נְתָנָתַם לַכֹּהֵן וְשָׁכְחָה מַה נָּתְנָה לוֹ. וְהָלַךְ הַכֹּהֵן וְעָשָׂה וְאֵינוֹ יוֹדֵעַ הֵיכָן עָשָׂה אִם הַכּל לְמַעְלָה אוֹ הַכּל לְמַטָּה אוֹ מֶחֱצָה לְמַעְלָה וּמֶחֱצָה לְמַטָּה. הֲרֵי זוֹ תָּבִיא שְׁתֵּי תּוֹרִים עִם שְׁנֵי בְּנֵי יוֹנָה לְנִדְרָהּ. וְתָבִיא שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה לְחוֹבָתָהּ:
+</div><div class="halacha-en long">[The following laws apply if a woman] defined17In his Commentary to the Mishnah (loc. cit.), the Rambam explains the difference between this instance and the one mentioned in the previous halachah. In the previous halachah, we are speaking about an instance where the woman defined which doves were to be offered for which sacrifice at the time she gave them to the priest to offer and the priest forgot how he had offered them. In this instance, in addition to defining them when giving them to the priest, she pledged to bring them from a specific type and then she forgot which type of doves she pledged to bring for each particular sacrifice. [which types of doves to be offered to fulfill] her vow, saying: "If I give birth to a male, I pledge two turtle doves," and she gave birth and brought four doves:18Of one type, as stated below. two for her vow and two for her obligation. The priest offered two on the upper portion [of the altar] and two on the lower portion, but did not know which were offered on the upper portion and which were offered on the lower portion and she also forgot and did not know the type of doves she had pledged for her vow, whether turtle doves or young doves. She should bring two turtle doves and two young doves for her vow.19The doves offered previously as a burnt-offering are of no consequence, because we are not certain that her vow was fulfilled. Because she is in doubt regarding which type she had specified in her vow, she must bring both types to fulfill it. [All] four should be offered on the upper portion of the altar. She should bring another dove to complete her obligation and it should be offered on the lower portion. 20In his Commentary to the Mishnah (loc. cit.), the Rambam explains that this follows the same rationale as above. One of the burnt-offerings is acceptable. Hence it is necessary to bring a sin-offering to complete her obligation. He continues explaining that this decision is somewhat of a leniency, because it is possible that she will be offering the sin-offering from a different type of dove than the burnt-offering. Nevertheless, since we do not know of which type the original four doves were, this leniency is granted.The above explanations are based on Rav Kappach's edition of the Rambam's Commentary to the Mishnah. The initial version (preserved in the standard printed texts) reads differently. Similarly, this explanation requires - as suggested by the Kessef Mishneh - amending the standard printed text of the Mishneh Torah to read:it should be offered on the upper portion, for two were already offered on the lower portion as sin-offerings.When does the above apply? When originally she brought all of the four of one type. If, however, they were of two types, she must bring six other doves: two turtle doves and two young doves for her vow21To be offered as burnt-offerings, for as above, it is possible that the ones designated as her vow were not offered as burnt-offerings and she does not remember which type she specified. and for her obligation, she should bring either two turtle doves or two young doves22In contrast to the previous situations, she must bring two doves to fulfill her obligation. In this instance, one of those that were offered as a burnt-offering is not acceptable, because we know for certain that the offerings originally brought were of two types and we do not know which type of dove was brought as a burnt-offering so that a sin-offering could be brought from the same type of dove. Hence she must bring an entire pair to fulfill her obligation.The Ra'avad differs with the Rambam's rulings based on his interpretation of the Mishnah in Kinnim (which is also supported by Rashi). Rav Yosef Corcus and the Kessef Mishneh explain the Rambam's understanding. and offer one on the upper portion of the altar and one on the lower portion.Similarly, if she gave them to the priest23Four doves. This is speaking about a situation where the woman designated two doves as a burnt-offering for her vow and two for her obligation, one as a burnt-offering and one as a sin-offering. She forgot which type of doves she vowed, which she brought to the priest, and how she designated them. and forgot what she gave him and the priest went and offered them, but was not aware where he offered all of the doves, whether he offered them all on the upper portion, all on the lower portion, or half above and half below, she should bring two turtle doves and two young doves for her vow24To be offered as burnt-offerings. It is necessary to bring these offerings, because it is possible that no burnt-offerings were offered or those designated as burnt-offerings were not offered for that purpose. It is necessary to bring both types, because the woman does not know which type she pledged as a burnt-offering. and two turtle doves or two young doves for her obligation.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">Key Outcome</div>When the woman explicitly assigned which birds were for vow vs. obligation but the priest forgot upper/lower placement, she must add birds to satisfy both possibilities, with larger replacement when two species were involved.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Vow Species Forgotten Under Uncertainty</h2><div class="subtitle">הלכות ג</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">קָבְעָה חוֹבָתָהּ וְקָבְעָה נִדְרָהּ וְשָׁכְחָה בַּמֶּה קָּבְעָה. וְאֶפְשָׁר שֶׁחוֹבָתָהּ כֶּבֶשׂ לְעוֹלָה וּפְרֵדָה אַחַת תּוֹר אוֹ בֶּן יוֹנָה לְחַטָּאת. לְפִיכָךְ תָּבִיא שִׁשָּׁה פְּרֵדִין. אַרְבָּעָה לְנִדְרָהּ וּשְׁנַיִם לְחוֹבָתָהּ. וְעוֹד תָּבִיא חַטָּאת אֶחָד בֶּן יוֹנָה אוֹ תּוֹר עִם כֶּבֶשׂ. נִמְצֵאת שֶׁהֵבִיאָה שִׁבְעָה עוֹפוֹת [וְכֶבֶשׂ]:
+</div><div class="halacha-en long">If she defined [which type of offering25I.e., whether she would bring a lamb, the burnt-offering brought by a woman of means after childbirth, or a dove, the burnt-offering brought when one lacks adequate means. to be offered to fulfill] her obligation and [which types of doves to be offered to fulfill] her vow and forgot what she defined, it is [also] possible that her obligation was a lamb for a burnt-offering and a dove - either a turtle dove or a young dove - as a sin-offering. Therefore she must bring six doves - four for her vow26Two turtle doves and two young doves. This is necessary, because she forgot what type of dove she specified that she would bring to fulfill her vow. and two for her obligation.27Of one type, either young doves or turtle doves, for perhaps she intended to bring the sacrifice of a poor woman. And she must bring one sin-offering, either a young dove or a turtle dove, with a lamb.28In the event she intended to bring the sacrifice of a woman of means.It must be noted that Kinnim 3:5, the source for the Rambam's ruling, does not mention a lamb at all. The Rambam mentions it, both here and in his Commentary to the Mishnah, because otherwise, there is no clear reason why an extra dove should be brought as a sin-offering (Kessef Mishneh). Thus she will have brought seven doves and a lamb.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">Key Outcome</div>If she forgot whether her vowed birds were turtle doves or young doves and placements are uncertain, she brings both species for the vow and additional birds for the childbirth obligation to cover all valid outcomes.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Possibility of Lamb Obligation</h2><div class="subtitle">הלכות ד</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">וְכָל הַחַטָּאוֹת הָאֵלּוּ אֵינָן נֶאֱכָלוֹת מִפְּנֵי שֶׁהֵם סָפֵק:
+</div><div class="halacha-en">None of these sin-offerings should be eaten, because they are all offered because of a doubt.29Instead, it should be burnt, as stated in Chapter 7, Halachah 10.</div></div><div class="callout"><div class="label">Key Outcome</div>If she also forgot whether her childbirth burnt-offering obligation was a lamb, she must add both expanded bird sets and a lamb, resulting in the broadest compensatory package.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Doubt Sin-Offerings Are Not Eaten</h2><div class="subtitle">הלכות ה</div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he"></div><div class="halacha-en"></div></div><div class="callout"><div class="label">Key Outcome</div>All sin-offerings brought due to unresolved doubt in these scenarios are burned rather than eaten.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 10</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔥</div><strong>Placement Determines Validity</strong><br><span style="font-size:.9rem">Bird burnt-offerings must be offered above and bird sin-offerings below; wrong placement can disqualify and trigger replacement offerings.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔥</div><strong>Pairs Must Match Species</strong><br><span style="font-size:.9rem">A required pair cannot mix one turtle dove with one young dove; each pair must be a single species.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔥</div><strong>Uncertainty Expands Required Replacements</strong><br><span style="font-size:.9rem">As doubts increase about designation, species, or placement, additional offerings are brought to satisfy every halachic possibility.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔥</div><strong>Doubt-Based Sin-Offerings Are Burned</strong><br><span style="font-size:.9rem">Sin-offerings brought because of doubt are not eaten by priests; they are burned.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות פסולי המוקדשין פרק י</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
