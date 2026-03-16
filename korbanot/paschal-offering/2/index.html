@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות קרבן פסח פרק ב — Paschal Offering — Rules of Enumeration and Company Composition</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות קרבן פסח</a><div class="chapter-label">🐑 פרק ב׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Enumeration and Eligibility Requirements</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">אֵין שׁוֹחֲטִין אֶת הַפֶּסַח אֶלָּא לִמְנוּיָיו שֶׁנֶּאֱמַר <small>(שמות יב ד)</small> "תָּכֹסּוּ עַל הַשֶּׂה" מְלַמֵּד שֶׁמִּתְמַנִּים עָלָיו כְּשֶׁהוּא חַי. וְאֵלּוּ הַמִּתְמַנִּים עַל הַפֶּסַח הֵם הַנִּקְרָאִים בְּנֵי חֲבוּרָה:
+</div><div class="halacha-en">The Paschal sacrifice should be slaughtered only for the sake of those who were enumerated for partaking of it, as Exodus 13:4 states: "Everyone... should be enumerated on the lamb." The implication is that one should be enumerated on it while it is alive. Those enumerated on a Paschal sacrifice are referred to as "the members of the company."</div></div><div class="halacha-card"><div class="halacha-he">יָחִיד שֶׁשָּׁחַט אֶת הַפֶּסַח לְעַצְמוֹ כָּשֵׁר. וְהוּא שֶׁיִּהְיֶה רָאוּי לֶאֱכוֹל אֶת כֻּלּוֹ. וּמִשְׁתַּדְּלִין שֶׁלֹּא יִשְׁחַט לְכַתְּחִלָּה עַל יָחִיד שֶׁנֶּאֱמַר <small>(שמות יב מז)</small> <small>(במדבר ט יא יב)</small> "יַעֲשׂוּ אֹתוֹ": 
+</div><div class="halacha-en">When one individual sacrifices a Paschal sacrifice for himself alone, it is acceptable, provided he is capable of partaking of it in its entirety. As an initial preference, an endeavor is made not to sacrifice the Paschal sacrifice for the sake of one individual alone, for Numbers 9:12 states: "They shall offer it."</div></div><div class="halacha-card"><div class="halacha-he">אֵין שׁוֹחֲטִין אֶת הַפֶּסַח אֶלָּא עַל מִי שֶׁרָאוּי לֶאֱכל. הָיָה אֶחָד מִבְּנֵי חֲבוּרָה קָטָן אוֹ זָקֵן אוֹ חוֹלֶה אִם יָכוֹל לֶאֱכל כְּזַיִת שׁוֹחֲטִין עָלָיו וְאִם לָאו אֵין שׁוֹחֲטִין עָלָיו שֶׁנֶּאֱמַר <small>(שמות יב ד)</small> "אִישׁ לְפִי אָכְלוֹ" עַד שֶׁיִּהְיֶה רָאוּי לֶאֱכל. אֲפִלּוּ חֲבוּרָה שֶׁל מֵאָה וְאֵין כָּל אֶחָד מֵהֶן יָכוֹל לֶאֱכל כְּזַיִת אֵין שׁוֹחֲטִין עֲלֵיהֶן:
+</div><div class="halacha-en">The Paschal sacrifice should be slaughtered only for those who are fit to partake of it. If one of the members of the company was a minor, an elder person, or infirm, he may be counted among those for whom the Paschal sacrifice is slaughtered if he is capable of eating an olive-sized portion. If not, he may not be counted among them, as implied by Exodus 12:4: "A person according to his capacity to eat," indicating that he must be fit to partake of it. Even if the company includes 100, if any one of them is not capable of eating an olive-sized portion, he may not be counted among those for whom it is slaughtered.</div></div><div class="halacha-card"><div class="halacha-he">אֵין עוֹשִׂין חֲבוּרָה נָשִׁים וַעֲבָדִים אוֹ קְטַנִּים וַעֲבָדִים מִפְּנֵי שֶׁלֹּא תִּהְיֶה קַלּוּת רֹאשׁ בֵּינֵיהֶן. אֲבָל עוֹשִׂים חֲבוּרָה כֻּלָּם נָשִׁים אֲפִלּוּ בְּפֶסַח שֵׁנִי. אוֹ כֻּלָּהּ עֲבָדִים. וְשׁוֹחֲטִין עַל הַקְּטַנִּים שֶׁיִּהְיוּ מִכְּלַל בְּנֵי הַחֲבוּרָה. לֹא שֶׁתִּהְיֶה חֲבוּרָה כֻּלָּהּ קְטַנִּים שֶׁאֵינָן בְּנֵי דַּעַת. וְכֵן אֵין עוֹשִׂין חֲבוּרָה כֻּלָּהּ חוֹלִים אוֹ זְקֵנִים אוֹ אוֹנְנִים אַף עַל פִּי שֶׁהֵן יְכוֹלִין לֶאֱכל הוֹאִיל וַאֲכִילָתָם מְעוּטָה. שֶׁמָּא יַשְׁאִירוּ הַפֶּסַח וִיבִיאוּהוּ לִידֵי פְּסוּל. וְאִם עָבְרוּ וְשָׁחֲטוּ עַל חֲבוּרָה זוֹ כָּשֵׁר. וְכֵן אֵין עוֹשִׂין חֲבוּרָה כֻּלָּהּ גֵּרִים שֶׁמָּא יְדַקְדְּקוּ בּוֹ וִיבִיאוּהוּ לִידֵי פִּסּוּל. וְאִם שָׁחֲטוּ עֲלֵיהֶן כָּשֵׁר:
+</div><div class="halacha-en">A company should not be composed of solely women and servants or minors and servants so that frivolity will not be found among them. A company may, however, be made entirely of women even for the second Paschal sacrifice or entirely of servants. Minors may be counted among the company for whom the Paschal sacrifice is slaughtered, but a company may not be comprised solely of minors, for they are not intellectually mature.Similarly, a company should not be made up solely of the infirm, the elderly, or those in an acute state of mourning. Even though they are capable of eating, since they will eat only a meager amount, it is possible that they will leave over from the Paschal sacrifice and cause it to become unacceptable. If they transgressed and had a Paschal sacrifice slaughtered for such a company, it is acceptable. Similarly, a company should not be made up solely of converts, lest they not be precise concerning it and cause it to be disqualified. If a Paschal sacrifice was slaughtered for such a company, it is acceptable.</div></div><div class="halacha-card"><div class="halacha-he">שְׁחָטוֹ שֶׁלֹּא לִמְנוּיָיו אוֹ לְמִי שֶׁאֵין כָּל אֶחָד מֵהֶן יָכוֹל לֶאֱכל כְּזַיִת אוֹ שֶׁשְּׁחָטוֹ לַעֲרֵלִים אוֹ לִטְמֵאִים פָּסוּל. שְׁחָטוֹ לְמִי שֶׁיָּכוֹל לֶאֱכל וּלְמִי שֶׁאֵינוֹ יָכוֹל לֶאֱכל כְּזַיִת. לִמְנוּיָיו וְשֶׁלֹּא לִמְנוּיָיו. לְמוּלִים וְלַעֲרֵלִים. לִטְהוֹרִים וְלִטְמֵאִין. כָּשֵׁר. שֶׁאֵלּוּ הָרְאוּיִין לוֹ אוֹכְלִין כַּהֲלָכָה וְהָאֲחֵרִים כְּאִלּוּ לֹא חָשַׁב עֲלֵיהֶם:
+</div><div class="halacha-en">If a Paschal sacrifice was slaughtered for people who were not enumerated upon it or for individuals whom none could eat an olive-sized portion or it was slaughtered for the uncircumcised or those impure, it is unacceptable. If it was slaughtered for one who could partake of it and one who could not partake of an olive-sized portion, for those enumerated on it and for others not enumerated on it, for circumcised and uncircumcised, for the pure and the impure, it is acceptable. Those who are fit to partake of it eat according to law; it is as if he did not have the others in mind.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Fundamental Eligibility</div><div class="callout-text">These halachot emphasize the necessity of <strong>proper enumeration and ability to consume</strong> the sacrifice. Both the intention during enumeration and the ability to eat an olive-sized portion are crucial to ensure the sacrifice remains valid.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Intent and Sacrifice Preparation</h2><div class="sub">הלכות ו׳–ז׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">שְׁחָטוֹ לְמוּלִים וְזָרַק הַדָּם לְשֵׁם מוּלִים וַעֲרֵלִים פָּסוּל. שֶׁהַזְּרִיקָה חֲמוּרָה שֶׁהִיא עִקַּר הַקָּרְבָּן. שְׁחָטוֹ לְמוּלִים שֶׁיִּתְכַּפְּרוּ בּוֹ עֲרֵלִים פָּסוּל שֶׁהֲרֵי יֵשׁ מַחֲשֶׁבֶת עֲרֵלִים בִּזְרִיקָה. שְׁחָטוֹ לְאוֹכְלָיו לִזְרֹק דָּמוֹ שֶׁלֹּא לְאוֹכְלָיו הַפֶּסַח כָּשֵׁר וְאֵין אָדָם יוֹצֵא בּוֹ יְדֵי חוֹבָתוֹ לְפִי שֶׁאֵין מַחֲשֶׁבֶת אוֹכְלִים בַּזְּרִיקָה:
+</div><div class="halacha-en">If the Paschal sacrifice was slaughtered for the sake of the circumcised, but its blood was cast on the altar for the sake of the circumcised and the uncircumcised, it is unacceptable. The rationale is that casting the blood is more severe, because it is the fundamental dimension of the sacrifice.If he slaughtered it for the circumcised so that the uncircumcised will derive atonement through it, it is unacceptable, because he had the uncircumcised in mind when casting the blood. If he slaughtered it for the sake of those who would partake of it so that its blood would be cast for those who would not partake of it, the Paschal sacrifice is acceptable, but no one fulfills their obligation with it, because the ones who will partake of it were not in mind when the blood was cast.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁהוּא בָּרִיא בִּשְׁעַת שְׁחִיטָה וְחוֹלֶה בִּשְׁעַת זְרִיקָה. אוֹ חוֹלֶה בִּשְׁעַת שְׁחִיטָה וּבָרִיא בִּשְׁעַת זְרִיקָה. אֵין שׁוֹחֲטִין וְזוֹרְקִין עָלָיו עַד שֶׁיִּהְיֶה בָּרִיא מִשְּׁעַת שְׁחִיטָה עַד שְׁעַת זְרִיקָה:
+</div><div class="halacha-en">When one was healthy at the time the sacrificial animal was slaughtered, but sick at the time its blood was cast or sick at the time of slaughter, but healthy at the time the blood was cast, the sacrificial animal should not be slaughtered, nor its blood cast for him unless he is healthy from the time it was slaughtered until its blood was cast.</div></div></div>
+        <div class="callout"><div class="callout-label">🎯 Correct Intent</div><div class="callout-text">These halachot highlight the significance of <strong>intent during both slaughter and blood application</strong>. Even if the initial slaughter is proper, misdirected intent during the critical step of blood application can render the sacrifice invalid.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Family Dynamics and Consent</h2><div class="sub">הלכות ח׳–י״ב</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">שׁוֹחֵט אָדָם עַל יְדֵי בְּנוֹ וּבִתּוֹ הַקְּטַנִּים וְעַל יְדֵי עַבְדּוֹ וְשִׁפְחָתוֹ הַכְּנַעֲנִים בֵּין מִדַּעְתָּן בֵּין שֶׁלֹּא מִדַּעְתָּן. אֲבָל אֵינוֹ שׁוֹחֵט עַל יְדֵי בְּנוֹ וּבִתּוֹ הַגְּדוֹלִים וְלֹא עַל יְדֵי עַבְדּוֹ וְשִׁפְחָתוֹ הָעִבְרִים וְלֹא עַל יְדֵי אִשְׁתּוֹ אֶלָּא מִדַּעְתָּן. וְאִם שָׁתְקוּ וְלֹא מִחוּ הֲרֵי זֶה מִדַּעְתָּן:
+</div><div class="halacha-en">A person may have a sacrificial animal slaughtered for the sake of his son or daughter who are below majority and for his Canaanite servants and maidservants, whether with their consent or without their consent. He may not, however, slaughter for the sake of his son or daughter who are above majority or for the sake of his Hebrew servants and maidservants or for the sake of his wife without their consent. If they were silent and did not protest, they are considered to have consented.</div></div><div class="halacha-card"><div class="halacha-he">שָׁחַט עַל יְדֵי בְּנוֹ וּבִתּוֹ הַקְּטַנִּים וְעַל יְדֵי עַבְדּוֹ וְשִׁפְחָתוֹ הַכְּנַעֲנִים וְהָלְכוּ וְשָׁחֲטוּ הֵן לְעַצְמָן יוֹצְאִין בְּשֶׁל רַבָּן:
+</div><div class="halacha-en">If one slaughtered a sacrificial animal for the sake of his son or daughter who are below majority and/or for his Canaanite servants and maidservants and they went and had one slaughtered for themselves, they fulfill their obligation by partaking of their master's sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">שָׁחַט עַל יְדֵי אִשְׁתּוֹ וּבְנוֹ וּבִתּוֹ הַגְּדוֹלִים וְעַל יְדֵי עַבְדּוֹ וְשִׁפְחָתוֹ הָעִבְרִים וְשָׁחֲטוּ הֵן לְעַצְמָן. אֵין לְךָ מִחוּי גָּדוֹל מִזֶּה וְאֵינָן יוֹצְאִין אֶלָּא בְּשֶׁל עַצְמָן:
+</div><div class="halacha-en">If one slaughtered a sacrificial animal for the sake of his wife, his son or daughter who are above majority and/or for his Hebrew servants and maidservants and they went and had one slaughtered for themselves, there is no greater protest than this. They fulfill their obligation by partaking of their own sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">הָאִשָּׁה שֶׁהִיא בְּבֵית בַּעְלָהּ שָׁחַט עָלֶיהָ אָבִיהָ וְשָׁחַט עָלֶיהָ בַּעְלָהּ תֹּאכַל מִשֶּׁל בַּעְלָהּ. הָיְתָה נֶחְפֶּזֶת לָלֶכֶת לְבֵית אָבִיהָ בָּרֶגֶל הָרִאשׁוֹן הַסָּמוּךְ לְנִשּׂוּאֶיהָ כְּדֶרֶךְ כָּל הַבָּנוֹת וְשָׁחַט עָלֶיהָ אָבִיהָ וְשָׁחַט עָלֶיהָ בַּעְלָהּ תֹּאכַל מִשֶּׁל אָבִיהָ. מִכָּאן וְאֵילָךְ תֹּאכַל מִמָּקוֹם שֶׁהִיא רוֹצָה. וְהוּא שֶׁתִּבְרֹר לָהּ מָקוֹם שֶׁתִּרְצֶה בִּשְׁעַת שְׁחִיטָה. וְכֵן יָתוֹם שֶׁשָּׁחֲטוּ עָלָיו אַפּוֹטְרוֹפְּסִין יֹאכַל מִמָּקוֹם שֶׁהוּא רוֹצֶה. בַּמֶּה דְּבָרִים אֲמוּרִים בְּיָתוֹם קָטָן. אֲבָל גָּדוֹל נַעֲשֶׂה כִּמְמַנֶּה עַצְמוֹ עַל שְׁנֵי פְּסָחִים וְהַמְמַנֶּה עַצְמוֹ עַל שְׁנֵי פְּסָחִים אֵינוֹ אוֹכֵל אֶלָּא מִן הַנִּשְׁחָט רִאשׁוֹן:
+</div><div class="halacha-en">When a woman is living in her husband's home and her father slaughters for her and her husband slaughters for her, she should partake of her husband's. If she was hurrying to go to her father's home on the first festival after her wedding as is the pattern of all women and both her father and her husband slaughtered for her, she should partake of her father's. From this point onward, she should eat at the place she desires, provided it is clear where she desires to eat at the time of slaughter.Similarly, if two guardians sacrifice on behalf of an orphan, the orphan should eat where he desires. When does the above apply? To an orphan below majority. If, however, he is above majority, it is as if he was enumerated on two Paschal sacrifices. And when one enumerates himself on two Paschal sacrifices, he may partake only of the one slaughtered first.</div></div><div class="halacha-card"><div class="halacha-he">עֶבֶד שֶׁל שְׁנֵי שֻׁתָּפִין בִּזְמַן שֶׁמַּקְפִּידִין זֶה עַל זֶה שֶׁלֹּא יִגְנְבֶנּוּ לֹא יֹאכַל מִשֶּׁל שְׁנֵיהֶן. וְאִם אֵינָן מַקְפִּידִין מִמָּקוֹם שֶׁיִּרְצֶה יֹאכַל:
+</div><div class="halacha-en">With regard to a Canaanite servant of two partners, if they are untrusting of each other, suspecting that the other will steal the servant, he should not partake of either of their Paschal sacrifice. If they are not untrusting, he may eat where he desires.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁחֶצְיוֹ עֶבֶד וְחֶצְיוֹ בֶּן חוֹרִין. לֹא יֹאכַל לֹא מִשֶּׁל רַבּוֹ וְלֹא מִשֶּׁל עַצְמוֹ עַד שֶׁיֵּעָשֶׂה כֻּלּוֹ בֶּן חוֹרִין:
+</div><div class="halacha-en">A person who is half a servant and half free, he should not partake of his masters, nor of his own until he attains his freedom.</div></div></div>
+        <div class="callout"><div class="callout-label">👪 Family and Consent</div><div class="callout-text">These rules discuss <strong>family roles and consent</strong> regarding who can be included in the offering. The need for consent varies depending on one's status (e.g., adult children, wives, servants) and can affect fulfillment of the obligation.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Complex Ownership Scenarios</h2><div class="sub">הלכות י״ג–ט״ו</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">עַד כַּמָּה נִמְנִים עַל הַפֶּסַח. עַד שֶׁיִּהְיֶה בּוֹ כְּזַיִת לְכָל אֶחָד וְאֶחָד. וְנִמְנִין עָלָיו וּמוֹשְׁכִין אֶת יְדֵיהֶן מִמֶּנּוּ עַד שֶׁיִּשָּׁחֵט. כֵּיוָן שֶׁנִּשְׁחַט אֵינוֹ יָכוֹל לִמְשֹׁךְ אֶת יָדוֹ שֶׁהֲרֵי נִשְׁחַט עָלָיו. נִמְנוּ עָלָיו וְחָזְרוּ אֲחֵרִים וְנִמְנוּ עָלָיו. רִאשׁוֹנִים שֶׁיֵּשׁ לָהֶם כְּזַיִת אוֹכְלִים וּפְטוּרִים מֵעֲשׂוֹת פֶּסַח שֵׁנִי וְאַחֲרוֹנִים שֶׁרָבוּ עַד שֶׁלֹּא נִמְצָא בּוֹ כְּזַיִת לְכָל אֶחָד אֵינָן אוֹכְלִין וְחַיָּבִים לַעֲשׂוֹת פֶּסַח שֵׁנִי:
+</div><div class="halacha-en">To what extent can people be enumerated on a Paschal sacrifice? Until there is an olive-sized portion for each one.One may be enumerated upon it and remove himself from it until it is slaughtered. Once it is slaughtered, he may not remove himself from it, for it was already slaughtered on his behalf.The following rules apply when some people were enumerated on a sacrificial animal and others came and enumerated themselves on the same animal. If there is an olive-sized portion for the first, they may partake of it and are exempt from bringing a second Paschal sacrifice. The later ones who were added until there was not an olive-sized portion for each person should not partake of it and are obligated to offer a second Paschal sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">הַמְמַנֶּה אֲחֵרִים עִמּוֹ עַל חֶלְקוֹ וְלֹא יָדְעוּ בָּהֶן בְּנֵי הַחֲבוּרָה הֲרֵי בְּנֵי הַחֲבוּרָה רַשָּׁאִין לִתֵּן לוֹ חֶלְקוֹ אַחַר שֶׁיִּצָּלֶה בְּעֵת הָאֲכִילָה וּבְנֵי הַחֲבוּרָה אוֹכְלִין מִשֶּׁלָּהֶן וְהוּא אוֹכֵל חֶלְקוֹ עִם הָאֲחֵרִים שֶׁמָּנָה עָלָיו בַּחֲבוּרָה שְׁנִיָּה. וְכֵן בְּנֵי הַחֲבוּרָה שֶׁהָיָה אֶחָד מֵהֶם גַּרְגְּרָן רַשָּׁאִים לְהוֹצִיאוֹ מֵהֶן וְנוֹתְנִין לוֹ חֶלְקוֹ וְיֹאכְלֵהוּ בַּחֲבוּרָתוֹ. וְאִם אֵינוֹ זוֹלֵל אֵינָן רַשָּׁאִין לְחַלֵּק:
+</div><div class="halacha-en">When a person enumerates others on his portion of the Paschal sacrifice without the other members of his company knowing, the members of the company are entitled to give him his portion after it was roasted at the time when the sacrifice is eaten. The members of the company partake of their portion and he eats together with the others whom he enumerated in a second company.Similarly, if one of the members of a company is a glutton, the members of the company are permitted to remove him and give him his portion which he will eat in his own company. If he is not a glutton, they may not divide.</div></div></div>
+        <div class="callout"><div class="callout-label">🔗 Ownership Complexities</div><div class="callout-text">These halachot address <strong>complex situations of ownership and partnership</strong> with servants or partial free individuals, affecting their eligibility to partake in the sacrifice.</div></div>
+      </div><div class="slide" data-slide="5">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Pre-Slaughter Intent</strong><div class="principle-desc">Enumeration must be done with the correct intent before slaughtering the Paschal sacrifice.</div></div></div><div class="principle"><span class="principle-icon">🎯</span><div><strong>Impact of Intentions</strong><div class="principle-desc">Intentions during sacrificial actions, including slaughter and blood application, can affect the validity of the offering.</div></div></div><div class="principle"><span class="principle-icon">👪</span><div><strong>Consent Requirement</strong><div class="principle-desc">The requirement of consent for enumeration varies based on family hierarchy and relationship dynamics.</div></div></div><div class="principle"><span class="principle-icon">🔗</span><div><strong>Handling Shared Assets</strong><div class="principle-desc">Shared ownership and complex personal statuses affect the obligation and participation in the Paschal sacrifice.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 5</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=5;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

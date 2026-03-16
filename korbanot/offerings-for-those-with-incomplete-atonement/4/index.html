@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות מחוסרי כפרה פרק ד — Offerings for Those with Incomplete Atonement — Procedures for Purification and Atonement</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות מחוסרי כפרה</a><div class="chapter-label">🕊️ פרק ד׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Purification Process for Those Afflicted by Tzara'at</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כְּשֶׁיִּתְרַפֵּא הַצָּרוּעַ מִצָּרַעְתּוֹ אַחַר שֶׁמְּטַהֲרִין אוֹתוֹ בְּעֵץ אֶרֶז וְאֵזוֹב וּשְׁנִי תוֹלַעַת וּשְׁתֵּי צִפֳּרִים וּמְגַלְּחִין אֶת כָּל בְּשָׂרוֹ וּמַטְבִּילִין אוֹתוֹ אַחַר כָּל זֹאת יִכָּנֵס לִירוּשָׁלַיִם וּמוֹנֶה שִׁבְעַת יָמִים וּבַיּוֹם הַשְּׁבִיעִי מְגַלֵּחַ תִּגְלַחְתּוֹ שְׁנִיָּה כַּתִּגְלַחַת הָרִאשׁוֹנָה וְטוֹבֵל וַהֲרֵי הוּא טְבוּל יוֹם וּמַעֲרִיב שִׁמְשׁוֹ וּלְמָחָר בַּשְּׁמִינִי טוֹבֵל פַּעַם שְׁנִיָּה וְאַחַר כָּךְ מַקְרִיבִין קָרְבְּנוֹתָיו. וּמִפְּנֵי מָה טוֹבֵל בַּשְּׁמִינִי אַחַר שֶׁטּוֹבֵל מֵאֶמֶשׁ. מִפְּנֵי שֶׁהָיָה רָגִיל בְּטֻמְאָה בִּימֵי חִלּוּטוֹ וְאֵינוֹ נִזְהָר מִשּׁוּם טֻמְאָה וְשֶׁמָּא נִטְמָא אַחַר שֶׁטָּבַל. לְפִיכָךְ טוֹבֵל בַּשְּׁמִינִי בְּעֶזְרַת הַנָּשִׁים בְּלִשְׁכַּת הַמְצֹרָעִים שֶׁשָּׁם אַף עַל פִּי שֶׁלֹּא הִסִּיחַ דַּעְתּוֹ:
+</div><div class="halacha-en">When a person afflicted by tzara'at is healed of his affliction, and he has been purified with a cedar branch, a hyssop, a crimson thread, and two birds, all of his flesh is shaved and he is immersed in a mikveh. After this entire process, he may enter Jerusalem. He then counts seven days and on the seventh day, he shaves a second time like the first shaving. He then immerses himself. His status is then that of a t'vul yom. He waits until the evening. On the morrow, on the eighth day, he immerses a second time and then he brings his sacrifices.Why must he immerse himself on the eighth day if he immersed himself previously? Because he had become habituated to contracting lesser types of impurity during the days that he was identified as one afflicted by tzara'at and he would not show care not to contract impurity and perhaps he contracted impurity after he immersed. Therefore, he would immerse himself on the eighth day in the Women's Courtyard, in the Chamber for those Afflicted by Tzara'at,even though he did not divert his attention after his immersion.</div></div><div class="halacha-card"><div class="halacha-he">נִתְאַחֵר וְלֹא גִּלֵּחַ בַּשְּׁבִיעִי וְגִלֵּחַ בַּשְּׁמִינִי אוֹ אַחַר כַּמָּה יָמִים בַּיּוֹם שֶׁיְּגַלֵּחַ יִטְבּל וְיַעֲרִיב שִׁמְשׁוֹ וּלְמָחָר יָבִיא קָרְבְּנוֹתָיו אַחַר שֶׁיִּטְבּל פַּעַם שְׁנִיָּה כְּמוֹ שֶׁבֵּאַרְנוּ. כֵּיצַד עוֹשִׂין לוֹ. הַמְצֹרָע עוֹמֵד חוּץ לְעֶזְרַת יִשְׂרָאֵל כְּנֶגֶד פֶּתַח מִזְרָחִית בְּאַסְקֻפַּת שַׁעַר נִיקָנוֹר וּפָנָיו לְמַעֲרָב וְשָׁם עוֹמְדִים כָּל מְחֻסְּרֵי כַּפָּרָה בְּעֵת שֶׁמְּטַהֲרִין אוֹתָן וְשָׁם מַשְׁקִין אֶת הַסּוֹטוֹת. וְהַכֹּהֵן לוֹקֵחַ אָשָׁם שֶׁל מְצֹרָע כְּשֶׁהוּא חַי וּמְנִיפוֹ עִם לוֹג הַשֶּׁמֶן בַּמִּזְרָח כְּדֶרֶךְ כָּל הַתְּנוּפוֹת. וְאִם הֵנִיף זֶה בִּפְנֵי עַצְמוֹ וְזֶה בִּפְנֵי עַצְמוֹ יָצָא. וְאַחַר כָּךְ מֵבִיא אֶת הָאָשָׁם שֶׁל מְצֹרָע עַד הַפֶּתַח וּמַכְנִיס שְׁתֵּי יָדָיו לָעֲזָרָה וְסוֹמֵךְ עָלָיו וְשׁוֹחֲטִין אוֹתוֹ מִיָּד. וּמְקַבְּלִין שְׁנֵי כֹּהֲנִים אֶת דָּמוֹ. אֶחָד מְקַבֵּל בִּכְלִי וְזוֹרְקוֹ עַל גַּבֵּי הַמִּזְבֵּחַ וְאֶחָד בְּיָדוֹ הַיְמָנִית וּמְעָרֶה לְיָדוֹ הַשְּׂמָאלִית וּמַזֶּה בְּאֶצְבָּעוֹ הַיְמָנִית. וְאִם שִׁנָּה וְקִבֵּל בִּשְׂמֹאל תְּחִלָּה פָּסַל. הַכֹּהֵן שֶׁקִּבֵּל מִקְצָת הַדָּם בִּכְלִי מוֹלִיכוֹ וְזוֹרְקוֹ עַל הַמִּזְבֵּחַ תְּחִלָּה. וְאַחַר כָּךְ יָבוֹא הַכֹּהֵן שֶׁקִּבֵּל הַדָּם בְּכַפּוֹ אֵצֶל הַמְצֹרָע. הַכֹּהֵן מִבִּפְנִים וְהַמְצֹרָע מִבַּחוּץ. וּמַכְנִיס הַמְצֹרָע רֹאשׁוֹ וְנוֹתֵן הַכֹּהֵן מִן הַדָּם שֶׁבְּכַפּוֹ עַל תְּנוּךְ אָזְנוֹ הַיְמָנִית. וְאַחַר כָּךְ יַכְנִיס יָדוֹ הַיְמָנִית וְיִתֵּן עַל בֹּהֶן יָדוֹ וְאַחַר כָּךְ יַכְנִיס רַגְלוֹ הַיְמָנִית וְיִתֵּן עַל בֹּהֶן רַגְלוֹ וְאִם נָתַן עַל הַשְּׂמֹאל לֹא יָצָא. וְאַחַר כָּךְ יַקְרִיב חַטָּאתוֹ וְעוֹלָתוֹ. וְאַחַר שֶׁיִּתֵּן הַדָּם עַל הַבְּהוֹנוֹת נוֹטֵל הַכֹּהֵן מִלּוֹג הַשֶּׁמֶן וְיוֹצֵק לְתוֹךְ כַפּוֹ שֶׁל חֲבֵרוֹ הַשְּׂמָאלִית וְאִם יָצַק לְתוֹךְ כַּף עַצְמוֹ יָצָא. וְטוֹבֵל אֶצְבָּעוֹ הַיְמָנִית בַּשֶּׁמֶן שֶׁבְּכַפּוֹ וּמַזֶּה שֶׁבַע פְּעָמִים כְּנֶגֶד בֵּית קֹדֶשׁ הַקֳדָשִׁים עַל כָּל הֲזָיָה טְבִילַת אֶצְבַּע בְּשֶׁמֶן. וְאִם הִזָּה וְלֹא כִּוֵּן כְּנֶגֶד בֵּית קֹדֶשׁ הַקֳדָשִׁים כְּשֵׁרוֹת. וְאַחַר כָּךְ יָבוֹא אֵצֶל הַמְצֹרָע וְיִתֵּן מִן הַשֶּׁמֶן עַל מְקוֹם דַּם הָאָשָׁם בִּתְנוּךְ אֹזֶן וּבֹהֶן יָדוֹ וּבֹהֶן רַגְלוֹ. וְהַנּוֹתָר מִן הַשֶּׁמֶן שֶׁבְּכַפּוֹ יִתְּנֶנּוּ עַל רֹאשׁ הַמִּתְטַהֵר וְאִם לֹא נָתַן לֹא כִּפֵּר. וּשְׁאָר הַלּוֹג מִתְחַלֵּק לַכֹּהֲנִים:
+</div><div class="halacha-en">If he delayed and did not shave on the seventh day, but instead, shaved on the eighth day or after several days, on the day that he shaves, he should immerse and wait until the evening. On the following day, he brings his sacrifices after immersing himself a second time, as we explained.What are the rites performed for him? The person who had been afflicted with tzara'at stands outside the Courtyard of the Israelites, in front of the eastern entrance, at the lintel of the Gate of Nicanor, facing west. There all those who require atonement stand at the time they are being purified and a sotah is forced to drink the bitter waters there.The priest takes the sheep to be offered as the guilt-offering of the afflicted person while it is alive and performs tenufah with it together with the log of oil in the eastern portion of the Temple Courtyard where all tenufot are performed. If tenufah was performed with the sheep and the oil each separately, the person fulfills his obligation.Afterwards, the guilt-offering of the afflicted person is brought to the entrance to the Temple Courtyard. The afflicted person inserts his two hands into the Courtyard and places them on his sheep. It is then slaughtered immediately. Two priests receive its blood. One receives it in a receptacle and casts it on the altar and one receives it in his right hand. He pours it into his left hand and sprinkles it with the index finger of his right hand. If he deviated and received it in his left hand first, it is disqualified.The priest who received a portion of the blood in a receptacle should carry it and cast it on the altar first. Afterwards, the priest who received the blood in his palm should approach the afflicted person at the entrance. The priest stands inside and the afflicted person outside. The afflicted person inserts his head and the priests applies some of the blood in his hand on the middle lobe of his right ear. Afterwards, the afflicted person inserts his right hand and the priest applies the blood to his thumb. Afterwards, he inserts his right foot and the priest applies the blood to his large toe. If he applies it the left organs, the afflicted person does not fulfill his obligation. Afterwards, his sin-offerings and burnt-offering are sacrificed.After he applied the blood to his thumb and toe, the priest takes the log of oil and pours it into the left palm of a colleague. If he pours it into his own palm, the person fulfills his obligation. He dips his right index finger in the oil in his palm and sprinkles seven times toward the Holy of Holies. Each time he sprinkles the oil, he dips his finger into it. If he sprinkled it, but did not direct it toward the Holy of Holies, it is acceptable.Afterwards, he approaches the afflicted person and applies the oil to the place where he applied the blood on the middle lobe of his ear, his thumb, and his large toe. He then applies the remainder of the oil to the head of the person seeking purification. If he did not apply it, he does not achieve atonement. The remainder of the log is divided among the priests.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Purification Sequence</div><div class="callout-text">The purification process for someone afflicted by tzara'at involves a series of immersions, shavings, and the bringing of sacrifices. <strong>Each step is meticulously timed</strong>, including specified days for shaving and immersing, to ensure a return to ritual purity.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Use and Consumption of the Log of Oil</h2><div class="sub">הלכות ג׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">שְׁיָרֵי הַלּוֹג אֵינוֹ נֶאֱכָל אֶלָּא בָּעֲזָרָה לְזִכְרֵי כְּהֻנָּה כִּשְׁאָר קָדְשֵׁי קָדָשִׁים שֶׁהֲרֵי הֻקַּשׁ לְאָשָׁם. וְאָסוּר לֶאֱכל מִלּוֹג הַשֶּׁמֶן עַד שֶׁיִּתֵּן מִמֶּנּוּ מַתַּן שֶׁבַע וּמַתַּן בְּהוֹנוֹת וְאִם אָכַל לוֹקֶה כְּאוֹכֵל קָדָשִׁים קֹדֶם זְרִיקָה:
+</div><div class="halacha-en">The remainder of the log of oil may be eaten only in the Temple Courtyard by males of the priestly family like other sacrifices of the most holy order,for an association was established between it and the guilt-offering. It is forbidden to partake of the log of oil until after the seven sprinklings and the application of blood to the thumbs and toes were performed. If one partakes of it, he is liable for lashes, like one who partook of the meat of sacrifices of the most holy order before their blood was cast upon the altar.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Oil Consumption Rules</div><div class="callout-text">The log of oil used in the atonement process has <strong>specific rules about its consumption</strong>. It may only be eaten by male priests in the Temple Courtyard, similar to sacrifices of the most holy order, post the ritual blood and oil applications.</div></div>
+      </div><div class="slide" data-slide="3">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Ordered Purification</strong><div class="principle-desc">Purification from tzara'at is a structured ritual with specific timings for each action.</div></div></div><div class="principle"><span class="principle-icon">🛑</span><div><strong>Prohibition on Premature Consumption</strong><div class="principle-desc">Oil from the log cannot be consumed before completing the ritual procedures.</div></div></div><div class="principle"><span class="principle-icon">💧</span><div><strong>Multiple Immersions</strong><div class="principle-desc">The individual must immerse multiple times to ensure cleanliness from habitual impurities.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Ritual Precision</strong><div class="principle-desc">Exact places for applying blood and oil are critical for achieving atonement.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 3</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=3;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

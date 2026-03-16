@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות בכורות פרק ז — Firstlings — Processes of Animal Tithing</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות בכורות</a><div class="chapter-label">🐄 פרק ז׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Procedures for Counting and Tithing Animals</h2><div class="sub">הלכות א׳–א׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">מִי שֶׁהָיוּ לוֹ עֲשָׂרָה טְלָאִים וְהִפְרִישׁ אֶחָד מֵעֲשָׂרָה. הָיוּ לוֹ מֵאָה וְהִפְרִישׁ עֲשָׂרָה לְמַעֲשֵׂר. אֵין אֵלּוּ מַעֲשֵׂר. אֶלָּא כֵּיצַד עוֹשֶׂה. כּוֹנֵס כָּל הַטְּלָאִים אוֹ כָּל הָעֲגָלִים לַדִּיר. וְעוֹשֶׂה לוֹ פֶּתַח קָטָן כְּדֵי שֶׁלֹּא יֵצְאוּ שְׁנַיִם כְּאֶחָד. וְאִמּוֹתֵיהֶן מַעֲמִיד מִבַּחוּץ. וְהֵן גּוֹעוֹת שֶׁיִּשְׁמְעוּ הַטְּלָאִים קוֹלָן וְיֵצְאוּ מִן הַדִּיר לִקְרָאתָן. שֶׁנֶּאֱמַר <small>(ויקרא כז לב)</small> "כּל אֲשֶׁר יַעֲבֹר תַּחַת הַשָּׁבֶט". שֶׁיַּעֲבֹר מֵעַצְמוֹ וְלֹא שֶׁיּוֹצִיאוֹ בְּיָדוֹ. וּכְשֶׁיֵּצְאוּ מִן הַדִּיר זֶה אַחַר זֶה. מַתְחִיל וּמוֹנֶה אוֹתָן בַּשֵּׁבֶט. א' ב' ג' ד' ה' ו' ז' ח' ט'. וְהַיּוֹצֵא עֲשִׂירִי בֵּין זָכָר בֵּין נְקֵבָה בֵּין תָּמִים בֵּין בַּעַל מוּם סוֹקְרוֹ בְּסִקְרָא וְאוֹמֵר הֲרֵי זֶה מַעֲשֵׂר. לֹא סְקָרוֹ בְּסִקְרָא וְלֹא מְנָאָן בַּשֵּׁבֶט אוֹ שֶׁמְּנָאָן רְבוּצִים אוֹ עוֹמְדִים הֲרֵי אֵלּוּ מַעֲשֵׂר הוֹאִיל וּמְנָאָם עֲשָׂרָה עֲשָׂרָה וְקִדֵּשׁ עֲשִׂירִי הֲרֵי זֶה מַעֲשֵׂר:
+</div><div class="halacha-en">When a person possesses ten lambs and he separates one as the tithes or he possesses 100 and he separates ten as the tithes, these are not tithes. What, instead, should he do? He should gather all of the lambs or all of the calves born that year in a corral. He then makes a small entrance so that two cannot emerge at the same time. He positions their mothers outside the corral and they bleat so that the lambs will hear their voices and leave the corral to meet them. This is necessary, as implied by Leviticus 27:32 which states: "all that passes beneath the staff," i.e., they must pass on their own initiative; one should not remove them by hand.As they leave the corral one by one, the owner begins to count them with a staff: one, two, three, four, five, six, seven, eight, nine. The tenth animal that departs, whether male or female, whether unblemished or blemished, should be painted with red paint, and the owner should say: "This is the tithe."If he did not paint the animals designated as the tithes with red paint, did not count them with a staff, or counted them while they are lying down or standing, the tithing takes effect. Since he counted them ten by ten and consecrated the tenth, it is considered a tithe.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Proper Tithing Method</div><div class="callout-text">The tithing process involves the animals passing beneath a staff by their own initiative. The counting must be done properly for the tithe to be valid, but certain rituals like painting are not obligatory for validity.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Combination and Timing Rules for Tithing</h2><div class="sub">הלכות ב׳–ו׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">אֵין צָרִיךְ לְצָרֵף כָּל בְּהֵמָה שֶׁנּוֹלְדָה בִּרְשׁוּתוֹ לְדִיר אֶחָד אֶלָּא מְצָרֵף כָּל עֵדֶר וְעֵדֶר לְבַדּוֹ. הָיוּ לוֹ חֲמִשָּׁה טְלָאִים בִּירוּשָׁלַיִם וַחֲמִשָּׁה טְלָאִים בְּעַכּוֹ אֵין מִצְטָרְפִין וְכֻלָּן פְּטוּרִין מִן הַמַּעֲשֵׂר. וְכַמָּה יִהְיֶה בֵּין אֵלּוּ לְאֵלּוּ וְיִצְטָרְפוּ שִׁשָּׁה עָשָׂר מִיל:
+</div><div class="halacha-en">It is not necessary to collect every animal born in a person's domain to one corral. Instead, the reckoning is made for every herd alone. If a person owned five lambs in Jerusalem and five in Acre, they are not combined into a single herd. Instead, they are all exempt from the tithes.What is the distance required to be between two herds for them to be combined? Sixteen mil.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ שְׁלֹשָׁה עֲדָרִים בֵּין כָּל אֶחָד וְאֶחָד שִׁשָּׁה עָשָׂר מִיל הֲרֵי שְׁלָשְׁתָּן מִצְטָרְפִין. כֵּיצַד. הָיָה תִּשְׁעָה מִכָּאן וְתִשְׁעָה מִכָּאן וְאֶחָד בְּאֶמְצַע הֲרֵי שְׁלָשְׁתָּן נִכְנָסִין לַדִּיר לְהִתְעַשֵּׂר:
+</div><div class="halacha-en">If there are three herds and there are sixteen mil between each one, the three are combined. What is implied? There were nine on one side, nine on the other side, and one in the center, all three herds are brought into the corral together to be tithed.</div></div><div class="halacha-card"><div class="halacha-he">אֵין מְעַשְּׂרִין מִן הַצֹּאן עַל הַבָּקָר וְלֹא מִן הַבָּקָר עַל הַצֹּאן. אֲבָל מְעַשְּׂרִין מִן הַכְּבָשִׂים עַל הָעִזִּים וּמִן הָעִזִּים עַל הַכְּבָשִׂים. שֶׁנֶּאֱמַר <small>(ויקרא כז לב)</small> "וְכָל מַעְשַׂר בָּקָר וָצֹאן" מַשְׁמָע כָּל צֹאן אֶחָד שֶׁשְּׁנֵיהֶם נִקְרָאִים שֶׂה וַהֲרֵי הֵם כְּמִין אֶחָד:
+</div><div class="halacha-en">Tithes are not taken from sheep for cattle, nor from cattle for sheep. One must, however, tithe sheep for goats and goats for sheep. This is derived from Leviticus 27:32: "All the tithes of your cattle and tzon." Implied is that all light, domesticated animals are included as one category, for they are both referred to with the term seh and they are like one species.</div></div><div class="halacha-card"><div class="halacha-he">אֵין מְעַשְּׂרִים מִן הַנּוֹלָדִים בְּשָׁנָה זוֹ עַל הַנּוֹלָדִים בְּשָׁנָה אַחֶרֶת כְּשֵׁם שֶׁאֵין מְעַשְּׂרִין בְּזֶרַע הָאָרֶץ מִן הֶחָדָשׁ עַל הַיָּשָׁן וְלֹא מִן הַיָּשָׁן עַל הֶחָדָשׁ שֶׁנֶּאֱמַר <small>(דברים יד כב)</small> "הַיֹּצֵא הַשָּׂדֶה שָׁנָה שָׁנָה". וְיֵרָאֶה לִי שֶׁאִם עִשֵּׂר בְּהֵמָה מִשָּׁנָה עַל שָׁנָה הֲרֵי זֶה מַעֲשֵׂר מִפְּנֵי חֻמְרַת הַקֳדָשִׁים שֶׁהֲרֵי לֹא הִקְפִּידָה תּוֹרָה עַל מַעֲשַׂר בְּהֵמָה בְּפֵרוּשׁ שֶׁיִּהְיֶה שָׁנָה שָׁנָה:
+</div><div class="halacha-en">We do not tithe animals born in one year with animals born in another year just as we do not tithe the crops from the new year for the crops from the past year nor the crops from the past year for the crops of the new year, as Deuteronomy 14:22: "Which are produced by the field year for year."It appears to me that if one tithed animals from one year for animals of another year, the tithing is binding because of the severity of consecrated animals. For the Torah did not explicitly emphasize that the tithing of animals must be from the same year.</div></div><div class="halacha-card"><div class="halacha-he">כָּל הַנּוֹלָדִים בְּאֶחָד בְּתִשְׁרֵי עַד עֶשְׂרִים וְתִשְׁעָה בֶּאֱלוּל מִצְטָרְפִין וּמְעַשְּׂרִין מֵאֵלּוּ עַל אֵלּוּ. נוֹלְדוּ חֲמִשָּׁה טְלָאִים בְּעֶשְׂרִים וְתִשְׁעָה בֶּאֱלוּל וַחֲמִשָּׁה בְּאֶחָד בְּתִשְׁרֵי אֵין מִצְטָרְפִין. יָלְדוּ תּוֹלָדוֹת בְּתוֹךְ שְׁנָתָן הֲרֵי הִיא וּבִתָּהּ נִכְנָסִים לַדִּיר לְהִתְעַשֵּׂר:
+</div><div class="halacha-en">All of the offspring born from the first of Tishrei until the twenty-ninth of Elul are combined and are tithed for each other. If five lambs are born on the twenty-ninth of Elul and five on the first of Tishrei of the following year, they are not combined. If an animal gave birth to offspring in its first year of life, it and its daughter should be brought into the corral together to be tithed.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Combining Herds</div><div class="callout-text">Animals must be grouped by *proximity* and *year*. Distance rules of *sixteen mil* determine herd combinations, and animals from different years should not be mixed for tithing purposes.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Permissibility Regarding Animal Offspring Usage</h2><div class="sub">הלכות ז׳–ח׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">אֵין הַטְּלָאִים הַנּוֹלָדִים כְּמוֹ הַטֶּבֶל שֶׁאָסוּר לֶאֱכל מִמֶּנּוּ עַד שֶׁיְּעַשֵּׂר כְּמוֹ שֶׁבֵּאַרְנוּ בִּמְקוֹמוֹ אֶלָּא מֻתָּר לִמְכֹּר וְלִשְׁחֹט כָּל מַה שֶּׁיִּרְצֶה עַד שֶׁיְּעַשֵּׂר וְיִהְיֶה הַמַּעֲשֵׂר קֹדֶשׁ וְיֵאָכֵל כְּהִלְכָתוֹ כְּמוֹ שֶׁבֵּאַרְנוּ:
+</div><div class="halacha-en">The lambs which are born are not like tevel from which one may not eat until one tithes as explained in its place. Instead, one may sell or slaughter all the offspring one desires until one tithes. Then animal designated as the tithe offering will be consecrated and must be eaten according to law, as explained above.</div></div><div class="halacha-card"><div class="halacha-he">קָבְעוּ חֲכָמִים שְׁלֹשָׁה זְמַנִּים בְּשָׁנָה לְמַעֲשַׂר בְּהֵמָה וּמִשֶּׁיַגִּיעַ זְמַן מֵהֶן אָסוּר לוֹ לִמְכֹּר אוֹ לִשְׁחֹט עַד שֶׁיְּעַשֵּׂר וְאִם שָׁחַט הֲרֵי זֶה מֻתָּר. וְאֵלּוּ הֵן הַשְּׁלֹשָׁה זְמַנִּים. בְּיוֹם חֲמִשָּׁה עָשָׂר קֹדֶם הַפֶּסַח וּבַיּוֹם חֲמִשָּׁה עָשָׂר קֹדֶם עֲצֶרֶת וּבַיּוֹם חֲמִשָּׁה עָשָׂר קֹדֶם הֶחָג. וְכָל זְמַן מֵאֵלּוּ נִקְרָא גֹּרֶן מַעֲשַׂר בְּהֵמָה. נִמְצֵאתָ אוֹמֵר שֶׁהַגֳּרָנוֹת שֶׁל מַעֲשַׂר בְּהֵמָה בְּיוֹם אַחֲרוֹן מֵחֹדֶשׁ אֲדָר וּבַיּוֹם שְׁלֹשִׁים וַחֲמִשָּׁה מִסְּפִירַת הָעֹמֶר וּבְיוֹם אַחֲרוֹן מֵחֹדֶשׁ אֱלוּל. וְלָמָּה קָבְעוּ הַגֳּרָנוֹת בַּיָמִים אֵלּוּ כְּדֵי שֶׁתִּהְיֶינָה הַבְּהֵמוֹת מְצוּיוֹת לְעוֹלֵי רְגָלִים. שֶׁאַף עַל פִּי שֶׁמֻּתָּר לִמְכֹּר קֹדֶם שֶׁיְּעַשֵּׂר כְּמוֹ שֶׁבֵּאַרְנוּ הָיוּ נִמְנָעִים לִמְכֹּר עַד שֶׁיְּעַשְּׂרוּ וְיַעֲשׂוּ הַמִּצְוָה:
+</div><div class="halacha-en">Our Sages established three fixed times for the tithing of one's animals.When one of these dates arrives, it is forbidden for a person to sell or slaughter the offspring of his animals until he tithes. If he slaughters, the meat is permitted.These are the three dates: the fifteenth day before the Paschal sacrifice, the fifteenth day before Shavuot, and the fifteenth day before Sukkot. Each of these times is called a "threshing floor" for the tithing of animals. Thus the "threshing floor" for the tithing of animals is on the last day of the month of Adar, on the thirty-fifth day of the Counting of the Omer, and on the last day of the month of Elul.Why were the "threshing floors" established on these dates? So that the animals would be available to the festive pilgrims. For even though it is permitted to sell animal offspring before they were tithed, as we explained, the people would refrain from selling them until they would tithe them and perform the mitzvah.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Usage Before Tithing</div><div class="callout-text"><strong>Before tithing</strong>, animals can be sold or slaughtered. Three specific dates defined as 'threshing floors' act as deadlines to prevent slaughter without tithing.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Management of Remaining Animals After Tithing</h2><div class="sub">הלכות ט׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הִכְנִיס כָּל הַצֹּאן אוֹ הַבָּקָר לַדִּיר וְהִתְחִיל לִמְנוֹת וּלְקַדֵּשׁ עֲשִׂירִי עַד שֶׁנִּשְׁאֲרוּ בְּתוֹךְ הַדִּיר פָּחוֹת מֵעֲשָׂרָה הֲרֵי זֶה מַנִּיחָן לְגֹרֶן אַחֵר וְהֵן מִצְטָרְפִין לְאֵלּוּ שֶׁיִּוָּלְדוּ וְיִתְעַשְּׂרוּ הַכּל בְּגֹרֶן אֶחָד. וְאַף עַל פִּי שֶׁהוּא יוֹדֵעַ שֶׁאֵלּוּ יִשָּׁאֲרוּ בַּמִּנְיָן חַיָּב לְהַכְנִיס הַכּל לַדִּיר וְהַנִּשְׁאָר יִשָּׁאֵר:
+</div><div class="halacha-en">When a person brought all his sheep or cattle into a corral and began to sanctify the tenth animal that departs until there remained less than ten in the corral, those should be left for the next "threshing floor" and they are joined together with those born and tithed and all are collected in one "threshing floor." Even though one knows that some will remain in the corral, he is obligated to bring them all into the corral and the remainder will be left over.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Leftover Animals</div><div class="callout-text">Animals not counted in a particular tithing session are reserved for the next 'threshing floor'. *No animal should be left out*; all are brought in even with fewer than ten.</div></div>
+      </div><div class="slide" data-slide="5">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Independent Passage</strong><div class="principle-desc">Animals must pass under the staff on their own for a valid tithe.</div></div></div><div class="principle"><span class="principle-icon">🐑</span><div><strong>Proximity-based Tithing</strong><div class="principle-desc">Herds must be within sixteen mil to be tithed together.</div></div></div><div class="principle"><span class="principle-icon">🎉</span><div><strong>Practical Use Before Tithing</strong><div class="principle-desc">Animals may be used or sold before they are tithed.</div></div></div><div class="principle"><span class="principle-icon">⏰</span><div><strong>Threshing Floor Timelines</strong><div class="principle-desc">Three key periods dictate deadlines for animal tithing.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 5</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=5;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

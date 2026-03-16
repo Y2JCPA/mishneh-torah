@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות קרבן פסח פרק ט — Paschal Offering — Regulations of Partaking and Group Dynamics</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות קרבן פסח</a><div class="chapter-label">🐑 פרק ט׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Rules About the Company and Consumption of the Paschal Sacrifice</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כָּל הָאוֹכֵל מִן הַפֶּסַח אֵינוֹ אוֹכֵל אֶלָּא בַּחֲבוּרָה אַחַת וְאֵין מוֹצִיאִין מִמֶּנּוּ מִן הַחֲבוּרָה שֶׁיֹּאכַל בָּהּ. וְהַמּוֹצִיא מִמֶּנּוּ כְּזַיִת בָּשָׂר מֵחֲבוּרָה לַחֲבוּרָה בְּלֵיל חֲמִשָּׁה עָשָׂר לוֹקֶה שֶׁנֶּאֱמַר <small>(שמות יב מו)</small> "לֹא תוֹצִיא מִן הַבַּיִת מִן הַבָּשָׂר חוּצָה". וְהוּא שֶׁיַּנִּיחֵנוּ בַּחוּץ. שֶׁהוֹצָאָה כְּתוּבָה בּוֹ כְּשַׁבָּת לְפִיכָךְ צָרִיךְ עֲקִירָה וְהַנָּחָה כְּהוֹצָאַת שַׁבָּת. וְאֵין מוֹצִיא אַחַר מוֹצִיא בְּפֶסַח שֶׁכֵּיוָן שֶׁהוֹצִיאוֹ הָרִאשׁוֹן נִפְסַל. מִן הָאֲגַף וּלְפָנִים כִּלְפָנִים מִן הָאֲגַף וְלַחוּץ כְּלַחוּץ וְהָאֲגַף עַצְמוֹ שֶׁהוּא עֳבִי הַפֶּתַח כְּלַחוּץ. הַחַלּוֹנוֹת וָעֳבִי הַכְּתָלִים כִּלְפָנִים. הַגַּגִּים וְהָעֲלִיּוֹת אֵינָן בִּכְלַל הַבַּיִת:
+</div><div class="halacha-en">Anyone who partakes of a Paschal sacrifice may partake of it only in one company. It may not be removed from the company to partake of it. If one removes an olive-sized portion of meat from a Paschal sacrifice from one company to another company on the night of the fifteenth of Nisan, he is liable for lashes, as Exodus 12:46 states: "Do not remove the meat from the house to the outside, "for that prooftext uses a form of the word hotza'ah which is used with regard to the Sabbath. Therefore it is necessary that one remove the article from its initial place and place it down outside, as is true with regard to the prohibition against transferring an article from one domain to another on the Sabbath.With regard to the Paschal sacrifice, one is not liable for removing meat from a company after it has already been removed once. Instead, since it was removed by the first person, it is disqualified.From the doorframe of a house inward is considered as part of the house. From the doorframe outward, is considered as outside the house. The doorframe, i.e., the width of the entrance, is considered as outside. The windows and the width of the walls are considered as inside. The roofs and the lofts are not considered as part of the house.</div></div><div class="halacha-card"><div class="halacha-he">בְּשַׂר הַפֶּסַח שֶׁיָּצָא חוּץ לַחֲבוּרָתוֹ בֵּין בְּזָדוֹן בֵּין בִּשְׁגָגָה נֶאֱסַר בַּאֲכִילָה וַהֲרֵי הוּא כִּבְשַׂר קָדְשֵׁי קָדָשִׁים שֶׁיָּצָא חוּץ לַעֲזָרָה אוֹ בְּשַׂר קָדָשִׁים קַלִּים שֶׁיָּצָא חוּץ לְחוֹמוֹת יְרוּשָׁלַיִם שֶׁהַכּל כִּטְרֵפָה. וְלוֹקִין עַל אֲכִילָתוֹ כְּמוֹ שֶׁבֵּאַרְנוּ בְּמַעֲשֵׂה הַקָּרְבָּנוֹת. אֵיבָר שֶׁיָּצָא מִקְצָתוֹ חוֹתֵךְ הַבָּשָׂר וְיוֹרֵד עַד שֶׁמַּגִּיעַ לָעֶצֶם וְקוֹלֵף אֶת הַבָּשָׂר כָּל שֶׁבִּפְנִים יֹאכַל וְכָל שֶׁבַּחוּץ יִשָּׂרֵף. כְּשֶׁהוּא מַגִּיעַ לָעֶצֶם חוֹתֵךְ בְּקוֹפִיץ אִם הָיָה שְׁאָר קָדָשִׁים. וְאִם הָיָה פֶּסַח שֶׁאָסוּר לִשְׁבֹּר בּוֹ עֶצֶם קוֹלֵף עַד הַפֶּרֶק וּמְפָרֵק הָאֵיבָר שֶׁיָּצָא מִקְצָתוֹ מִן הַפֶּרֶק וּמַשְׁלִיכוֹ לַחוּץ:
+</div><div class="halacha-en">When the meat of a Paschal sacrifice has been removed from its company - whether intentionally or inadvertently - it becomes forbidden to be eaten. It is comparable to the meat of sacrifices of the most sacred order that were taken outside the Temple Courtyard or sacrifices of a lesser degree of sanctity that were taken outside the walls of Jerusalem, in which instance, everything is considered like an animal that is treifah. One is liable for lashes for partaking of it, as stated in Hilchot Ma'aseh HaKorbanot.When part of a limb of a sacrificial animal is removed from its designated area, one should cut through the meat, descending until he reaches the bone and then scrape off the meat. Whatever is within the designated area should be eaten. Whatever is outside should be burnt. When he reaches the bone, he should cut off the bone with a butcher's knife, if other sacrifices are involved. If it is a Paschal sacrifice - in which instance it is forbidden to break its bones, one should scrape off the meat until the joint, separate the limb whose portion was removed from the joint, and cast it outside.</div></div><div class="halacha-card"><div class="halacha-he">שְׁתֵּי חֲבוּרוֹת שֶׁהָיוּ אוֹכְלוֹת בְּבַיִת אֶחָד צְרִיכָה כָּל חֲבוּרָה מֵהֶן לַעֲשׂוֹת לָהּ הֶקֵּף שֶׁנֶּאֱמַר <small>(שמות יב מו)</small> "מִן הַבָּשָׂר חוּצָה". מִפִּי הַשְּׁמוּעָה לָמְדוּ שֶׁצָּרִיךְ לִתֵּן לוֹ חוּצָה לִמְקוֹם אֲכִילָתוֹ. וְאֵלּוּ הוֹפְכִין אֶת פְּנֵיהֶן אֵילָךְ וְאוֹכְלִין וְאֵלּוּ הוֹפְכִין אֶת פְּנֵיהֶן אֵילָךְ וְאוֹכְלִין כְּדֵי שֶׁלֹּא יֵרָאוּ מְעֹרָבִים:
+</div><div class="halacha-en">When two companies are partaking of their Paschal sacrifices in one house, each company must delineate its borders with a partition. From the words "from the meat... outside," the Oral Tradition taught that the place outside the place where it is being eaten must be designated. Thus one company must turn their faces to one side and eat and the other must turn their faces to the other side and eat, so they will not appear as intermingled.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ הַמַּיִם שֶׁמּוֹזְגִים בּוֹ יֵינָם בְּאֶמְצַע הַבַּיִת בֵּין שְׁתֵּי הַחֲבוּרוֹת. כְּשֶׁהַשַּׁמָּשׁ עוֹמֵד לִמְזֹג קוֹפֵץ אֶת פִּיו וּמַחֲזִיר אֶת פָּנָיו עַד שֶׁמַּגִּיעַ אֵצֶל חֲבוּרָתוֹ וְאַחַר כָּךְ אוֹכֵל מַה שֶּׁבְּפִיו. שֶׁאָסוּר לָאוֹכֵל לֶאֱכל בִּשְׁתֵּי חֲבוּרוֹת. וּמֻתָּר לְכַלָּה לְהַחְזִיר פָּנֶיהָ מִפְּנֵי חֲבוּרָתָהּ וְאוֹכֶלֶת מִפְּנֵי שֶׁהִיא בּוֹשָׁה לֶאֱכל בִּפְנֵיהֶם:
+</div><div class="halacha-en">If the water with which they would mix their wines was in the center of the house, between the two companies, when the attendant rises to pour water, he should shut his mouth closed and then turn his face away from his company, keeping it closed until he returns to them. Only afterwards may he swallow what is in his mouth, for it is forbidden to partake of the Paschal sacrifice in two companies.A bride is permitted to turn her face away from the company and partake of the Paschal sacrifice, because she is embarrassed to eat in their presence.</div></div><div class="halacha-card"><div class="halacha-he">שְׁתֵּי חֲבוּרוֹת שֶׁנִּפְרְצָה מְחִצָּה מִבֵּינֵיהֶן אֵינָן אוֹכְלִין. וְכֵן אִם הָיְתָה חֲבוּרָה אַחַת וְנַעֲשֵׂית מְחִצָּה בֵּינֵיהֶן אֵינָן אוֹכְלִין עַד שֶׁתִּסְתַּלֵּק. שֶׁאֵין הַפֶּסַח נֶאֱכָל בִּשְׁתֵּי חֲבוּרוֹת וְאֵינָן נֶעֱקָרִין מֵחֲבוּרָה לַחֲבוּרָה:
+</div><div class="halacha-en">When the divider between two companies has been undone, they should not partake of their Paschal sacrifices. Similarly, if one company was partaking of a Paschal sacrifice and a divider was made separating some from the others, they should not partake of it until the divider is removed. The rationale is that a Paschal sacrifice may not be eaten in two companies and one should not move from one company to another.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Group Dynamics</div><div class="callout-text"><strong>The Paschal sacrifice must be eaten within a specific group</strong>, and the rules governing this are akin to those of carrying on Shabbat. Removing meat outside its designated group disqualifies it, emphasizing the cohesive structure and boundaries that must be maintained during the consumption of the sacrifice.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Eligibility and Restrictions of Paschal Sacrifice Consumption</h2><div class="sub">הלכות ו׳–ט׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">בְּנֵי חֲבוּרָה שֶׁנִּכְנְסוּ שְׁלֹשָׁה מֵהֶן אוֹ יֶתֶר לֶאֱכל פִּסְחֵיהֶן וְלֹא בָּאוּ שְׁאָר בְּנֵי חֲבוּרָה. אִם נִכְנְסוּ בְּשָׁעָה שֶׁדֶּרֶךְ בְּנֵי אָדָם לֶאֱכל הַפְּסָחִים וְחָזַר הַמְעוֹרֵר לְכֻלָּן עַל הַשְּׁאָר וְלֹא בָּאוּ הֲרֵי אֵלּוּ שֶׁנִּכְנְסוּ אוֹכְלִין עַד שֶׁיִּשְׂבְּעוּ וְאֵין מַמְתִּינִים לַשְּׁאָר. וַאֲפִלּוּ בָּאוּ הַמִּתְאַחֲרִין אַחַר כָּךְ וּמָצְאוּ אֵלּוּ הַשְּׁלֹשָׁה שֶׁאָכְלוּ הַכּל אֵין מְשַׁלְּמִים לָהֶן כְּדֵי חֶלְקָם. אֲבָל אִם נִכְנְסוּ שְׁנַיִם בִּלְבַד הֲרֵי אֵלּוּ מַמְתִּינִים. בַּמֶּה דְּבָרִים אֲמוּרִים בִּשְׁעַת כְּנִיסָתָן לֶאֱכל אֲבָל בְּעֵת שֶׁנִּפְטָרִין אֵין אָדָם צָרִיךְ לְהַמְתִּין לַחֲבֵרוֹ אֲפִלּוּ גָּמַר אֶחָד בִּלְבַד מִלֶּאֱכל יֵצֵא וְאֵינוֹ צָרִיךְ לְהַמְתִּין:
+</div><div class="halacha-en">The following rules apply when three or more members of a company come to partake of their Paschal sacrifice, but the other members of the company do not come. If they entered at the time most people partake of their Paschal sacrifices and the attendant called for the others and they did not come, they may enter and eat until satiation without waiting for the others. Even if those who came late come and see that the three consumed the entire sacrifice, they need not reimburse them for their portion. If, however, only two enter on time, they should wait.When does this apply? When they enter to eat. When, however, they depart, no one has to wait for his colleague. Even if only one person finished eating, he may depart. He need not wait for the others.</div></div><div class="halacha-card"><div class="halacha-he">הַמַּאֲכִיל כְּזַיִת מִן הַפֶּסַח בֵּין מִפֶּסַח רִאשׁוֹן בֵּין מִפֶּסַח שֵׁנִי לְמוּמָר לַעֲבוֹדָה זָרָה אוֹ לְגֵר תּוֹשָׁב אוֹ לְשָׂכִיר. הֲרֵי זֶה עוֹבֵר בְּלֹא תַּעֲשֶׂה וְאֵינוֹ לוֹקֶה אֲבָל מַכִּין אוֹתוֹ מַכַּת מַרְדּוּת. וּ <small>(שמות יב מג)</small> "בֶן נֵכָר" הָאָמוּר בַּתּוֹרָה זֶה הָעוֹבֵד אֵל נֵכָר. וְאֵין מַאֲכִילִין מִמֶּנּוּ לְנָכְרִי אֲפִלּוּ גֵּר תּוֹשָׁב אוֹ שָׂכִיר שֶׁנֶּאֱמַר <small>(שמות יב מה)</small> "תּוֹשָׁב וְשָׂכִיר לֹא יֹאכַל בּוֹ":
+</div><div class="halacha-en">One who gives an olive-sized portion of a Paschal sacrifice - whether the first Paschal sacrifice or the second - to an apostate who worships false deities, to a resident alien, or a gentile worker, violates a negative commandment, but is not liable for lashes. He is, however, liable for stripes for rebellious conduct.The term "foreigner" mentioned in the Torah refers to one who worships alien deities. One may not give a portion of the Paschal sacrifice to a gentile, even a resident alien or a worker, as Exodus 12:45 states: "Neither a resident, nor an alien should partake of it."</div></div><div class="halacha-card"><div class="halacha-he">עָרֵל שֶׁאָכַל כְּזַיִת מִבְּשַׂר הַפֶּסַח לוֹקֶה שֶׁנֶּאֱמַר <small>(שמות יב מח)</small> "כָּל עָרֵל לֹא יֹאכַל בּוֹ". בּוֹ הוּא שֶׁאֵינוֹ אוֹכֵל אֲבָל אוֹכֵל הוּא מַצָּה וּמָרוֹר. וְכֵן מֻתָּר לְהַאֲכִיל מַצָּה וּמָרוֹר לְגֵר תּוֹשָׁב וּלְשָׂכִיר:
+</div><div class="halacha-en">An uncircumcised person who ate an olive-sized portion of the Paschal sacrifice is liable for lashes, as ibid.:48 states: "No uncircumcised person shall partake of it." That verse can also be interpreted as meaning: He may not partake "of it"; he may, however, partake of matzah and bitter herbs. Similarly, it is permitted to feed matzah and bitter herbs to a resident alien, or a gentile worker.</div></div><div class="halacha-card"><div class="halacha-he">כְּשֵׁם שֶׁמִּילַת בָּנָיו וַעֲבָדָיו מְעַכַּבְתּוֹ מִלִּשְׁחֹט הַפֶּסַח כָּךְ מְעַכַּבְתּוֹ מִלֶּאֱכל שֶׁנֶּאֱמַר <small>(שמות יב מד)</small> "וּמַלְתָּה אֹתוֹ אָז יֹאכַל בּוֹ". כֵּיצַד. קָנָה עֶבֶד אַחַר שֶׁנִּשְׁחַט הַפֶּסַח. אוֹ שֶׁהָיָה לוֹ בֵּן שֶׁלֹּא הִגִּיעַ זְמַנּוֹ לְהִמּוֹל אֶלָּא אַחַר שְׁחִיטַת הַפֶּסַח. הֲרֵי זֶה אָסוּר לֶאֱכל עַד שֶׁיָּמוּל אוֹתָן. וְכֵיצַד יִהְיֶה הַבֵּן רָאוּי לְמִילָה אַחַר שְׁחִיטַת הַפֶּסַח וְלֹא יִהְיֶה רָאוּי קֹדֶם שְׁחִיטָה. כְּגוֹן שֶׁחֲלַצְתּוֹ חַמָּה שֶׁצָּרִיךְ שִׁבְעַת יָמִים מֵעֵת לְעֵת מִיּוֹם הַבְרָאָתוֹ. וּכְגוֹן שֶׁכָּאֲבָה עֵינוֹ וְנִרְפֵּאת אַחַר שְׁחִיטָה. אוֹ שֶׁהָיָה טֻמְטוּם וְנִקְרַע אַחַר שְׁחִיטַת הַפֶּסַח וְנִמְצָא זָכָר:
+</div><div class="halacha-en">Just as the circumcision of one's sons and servants holds one back from slaughtering the Paschal sacrifice, so too, it holds him back from partaking of it, as ibid.:44 states: "He shall circumcise him, then he shall partake of it."What is implied? One purchased a servant after the slaughter of the Paschal sacrifice or one had a son whose time for circumcision did not arrive until after the slaughter of the Paschal sacrifice. Such a person is forbidden to partake of the Paschal sacrifice until he circumcises them.How is it possible for the son to be fit to be circumcised after the slaughter of the Paschal sacrifice, but not to be fit to be circumcised before its slaughtered? For example, he had a fever and seven full days are needed from the time at which he became healed, his eye hurt severely and he was healed after the slaughter of the Paschal sacrifice, or he was a tumtum and he was operated on after the slaughter of the Paschal sacrifice and it was discovered that he was male.</div></div></div>
+        <div class="callout"><div class="callout-label">⚖️ Eligibility Rules</div><div class="callout-text">Rules governing who may partake in the Paschal sacrifice include prohibitions against sharing it with foreign worshipers, uncircumcised individuals, and those with uncircumcised dependents. <strong>The eligibility extends beyond personal status to include one's household</strong>, impacting who can partake.</div></div>
+      </div><div class="slide" data-slide="3">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Cohesion Within Groups</strong><div class="principle-desc">The Paschal sacrifice must be consumed within a designated group, maintaining strict boundaries.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Sanctity of Consumption</strong><div class="principle-desc">Once removed from its designated area, the sacrificial meat becomes forbidden, mirroring sanctuary laws.</div></div></div><div class="principle"><span class="principle-icon">🛑</span><div><strong>Restriction from Outsiders</strong><div class="principle-desc">Non-Jews and apostates may not partake in the Paschal sacrifice, highlighting exclusive sanctity.</div></div></div><div class="principle"><span class="principle-icon">🔗</span><div><strong>Circumcision Requirements</strong><div class="principle-desc">Participation in the Paschal sacrifice requires that all males within the household are circumcised.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 3</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=3;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

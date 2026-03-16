@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות קרבן פסח פרק י — Paschal Offering — Laws and Practices</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות קרבן פסח</a><div class="chapter-label">🐑 פרק י׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Breaking Bones of the Paschal Sacrifice</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַשׁוֹבֵר עֶצֶם בְּפֶסַח טָהוֹר הֲרֵי זֶה לוֹקֶה שֶׁנֶּאֱמַר <small>(שמות יב מו)</small> "וְעֶצֶם לֹא תִשְׁבְּרוּ בוֹ". וְכֵן נֶאֱמַר בְּפֶסַח שֵׁנִי וְעֶצֶם לֹא תִשְׁבְּרוּ בוֹ. אֲבָל פֶּסַח שֶׁבָּא בְּטֻמְאָה אִם שָׁבַר בּוֹ עֶצֶם אֵינוֹ לוֹקֶה. מִפִּי הַשְּׁמוּעָה לָמְדוּ לֹא תִשְׁבְּרוּ בוֹ בְּטָהוֹר וְלֹא בְּטָמֵא. אֶחָד הַשּׁוֹבֵר אֶת הָעֶצֶם בְּלֵילֵי חֲמִשָּׁה עָשָׂר אוֹ שֶׁשָּׁבַר בּוֹ עֶצֶם מִבְּעוֹד יוֹם אוֹ שֶׁשָּׁבַר אַחַר כַּמָּה יָמִים הֲרֵי זֶה לוֹקֶה: 
+</div><div class="halacha-en">A person who breaks a bone in a pure Paschal sacrifice is liable for lashes, as Exodus 12:46 states: "You shall not break a bone in it." And with regard to the second Paschal sacrifice, Numbers 9:12 states: "He shall not break a bone in it."When, however, the Paschal sacrifice is brought in a state of impurity, one is not liable for lashes. According to the Oral Tradition, it was taught: "You shall not break in it," i.e., in a pure sacrifice, not an impure one.Whether one breaks a bone of the Paschal sacrifice on the night of the fifteenth of Nisan, while it is still day on the fourteenth, or even after several days, he is liable for lashes.</div></div><div class="halacha-card"><div class="halacha-he">לְפִיכָךְ שׂוֹרְפִין עַצְמוֹת הַפֶּסַח בִּכְלַל הַנּוֹתָר מִבְּשָׂרוֹ כְּדֵי שֶׁלֹּא יָבוֹאוּ בָּהֶן לִידֵי תַּקָּלָה:
+</div><div class="halacha-en">For this reason, the bones of the Paschal sacrifice are burnt with the remainder of its meat so that they will not cause misfortune.</div></div><div class="halacha-card"><div class="halacha-he">אֵין חַיָּבִין אֶלָּא עַל שְׁבִירַת עֶצֶם שֶׁיֵּשׁ עָלָיו כְּזַיִת בָּשָׂר אוֹ שֶׁיֵּשׁ בּוֹ מוֹחַ. אֲבָל עֶצֶם שֶׁאֵין בּוֹ מוֹחַ וְשֶׁאֵין עָלָיו כְּזַיִת בָּשָׂר אֵינוֹ חַיָּב עַל שְׁבִירָתוֹ. הָיָה עָלָיו כְּזַיִת בָּשָׂר וְשָׁבַר הָעֶצֶם שֶׁלֹּא בִּמְקוֹם הַבָּשָׂר חַיָּב אַף עַל פִּי שֶׁהַמָּקוֹם שֶׁשָּׁבַר פָּנוּי מִבְּשָׂרוֹ:
+</div><div class="halacha-en">One is liable only for breaking a bone upon which there was an olive-sized portion of meat or which contains marrow. If, by contrast, a bone does not contain marrow and there is not an olive-sized portion of meat upon it, one is not liable for breaking it. If there was an olive-sized portion of meat on a bone, but one broke it in a place where there is no meat, he is liable, even though there is no meat where he broke the bone.</div></div><div class="halacha-card"><div class="halacha-he">הַשּׁוֹבֵר אַחַר הַשּׁוֹבֵר בְּעֶצֶם אֶחָד לוֹקֶה:
+</div><div class="halacha-en">When one breaks a bone that is already broken, he is liable for lashes.</div></div><div class="halacha-card"><div class="halacha-he">הַשּׂוֹרֵף עֲצָמוֹת וְהַמְחַתֵּךְ גִּידִים אֵינוֹ חַיָּב מִשּׁוּם שְׁבִירַת עֶצֶם:
+</div><div class="halacha-en">When one burns the bones of a Paschal sacrifice or cuts its sinews, he is not liable for breaking a bone.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Legal Implication</div><div class="callout-text">The prohibition against <strong>breaking bones</strong> applies strictly to a pure Paschal sacrifice, reflecting the sanctity and regulations surrounding its consumption.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Specific Conditions Affecting the Prohibition</h2><div class="sub">הלכות ו׳–י׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">פֶּסַח שֶׁהוּא נָא אוֹ מְבֻשָּׁל וְשָׁבַר בּוֹ אֶת הָעֶצֶם לוֹקֶה. אֲפִלּוּ נִפְסַל בְּטֻמְאָה וִיצִיאָה וְכַיּוֹצֵא בָּהֶם יֵשׁ בּוֹ אִסּוּר שְׁבִירַת הָעֶצֶם. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהָיְתָה לוֹ שְׁעַת הַכּשֶׁר וְנִפְסַל. אֲבָל אִם לֹא הָיְתָה לוֹ שְׁעַת הַכּשֶׁר כְּגוֹן שֶׁנִּתְפַּגֵּל אוֹ נַעֲשָׂה מַחֲשֶׁבֶת זְמַן אוֹ מַחֲשֶׁבֶת שִׁנּוּי הַשֵּׁם. אֵין בּוֹ מִשּׁוּם שְׁבִירַת הָעֶצֶם:
+</div><div class="halacha-en">When a Paschal sacrifice was lightly roasted or cooked and one broke a bone, he is liable for lashes. Even if it was disqualified because it contracted impurity, it was taken out of the home where it is being eaten, or the like, the prohibition against breaking its bones applies.When does the above apply? When there was a time the Paschal sacrifice was acceptable and it was disqualified. If, however, there was never a time when it was acceptable, e.g., it became piggul or was brought with a disqualifying intent concerning time or with a disqualifying intent concerning the type of sacrifice, the prohibition against breaking a bone does not apply.</div></div><div class="halacha-card"><div class="halacha-he">שָׁבַר עֶצֶם הָאַלְיָה אֵינוֹ לוֹקֶה שֶׁהֲרֵי אֵינוֹ רָאוּי לַאֲכִילָה:
+</div><div class="halacha-en">If one breaks the bone of the fat-tail, he is not liable, because it is not fit to be eaten.</div></div><div class="halacha-card"><div class="halacha-he">הַסְּחוּסִים שֶׁהֵם כְּמוֹ עֲצָמִים רַכִּים. הֲרֵי אֵלּוּ מֻתָּרִין לְאָכְלָן:
+</div><div class="halacha-en">Cartilage which is like soft bones are permitted to be eaten.</div></div><div class="halacha-card"><div class="halacha-he">הָיָה גְּדִי קָטָן וְרַךְ שֶׁעַצְמוֹתָיו רַכִּים לֹא יֹאכַל אוֹתָן שֶׁזֶּה שׁוֹבֵר עֶצֶם וְאִם אָכַל לוֹקֶה. שֶׁאֶחָד הַשּׁוֹבֵר עֶצֶם קָשֶׁה אוֹ עֶצֶם רַךְ. זֶה הַכְּלָל כָּל שֶׁנֶּאֱכָל בְּשׁוֹר הַגָּדוֹל אַחַר שֶׁיִּתְבַּשֵּׁל הוּא שֶׁמֻּתָּר לֶאֱכל כְּנֶגְדּוֹ מִן הַגְּדִי הָרַךְ אַחַר צְלִיָּתוֹ כְּגוֹן רָאשֵׁי כְּנָפַיִם וְהַסְּחוּסִים:
+</div><div class="halacha-en">If the Paschal sacrifice was a small and tender kid goat whose bones are soft, they may not be eaten, because that is considered as breaking a bone. If one partakes of them he is liable for lashes, for the liability applies equally whether one breaks a firm bone or a soft bone,This is the general principle: Whatever could be eaten in a large ox after it has been cooked may be eaten in a tender kid after it has been roasted, e.g., the cartilage around the joints and similar types of body tissue.</div></div><div class="halacha-card"><div class="halacha-he">גִּידִין הָרַכִּין שֶׁסּוֹפָן לְהִקָּשׁוֹת אַף עַל פִּי שֶׁהֵן רְאוּיִין לַאֲכִילָה עַתָּה וְנֶאֱכָלִין בְּפֶסַח אֵין נִמְנִין עֲלֵיהֶן. וְנִמְנִין עַל מוֹחַ שֶׁבָּרֹאשׁ מִפְּנֵי שֶׁיָּכוֹל לְהוֹצִיאוֹ בְּלֹא שְׁבִירַת עֶצֶם. וְאֵין נִמְנִין עַל מוֹחַ שֶׁבְּקוּלִית וְהוּא הָעֶצֶם הַסָּתוּם מִשְּׁנֵי רָאשָׁיו. שֶׁהֲרֵי אֵינוֹ יָכוֹל לְהוֹצִיאוֹ אֶלָּא בִּשְׁבִירַת עֶצֶם:
+</div><div class="halacha-en">Soft sinews that will ultimately become firm, even though they are fit to be eaten at the time and may be eaten from the Paschal sacrifice, they are not considered when enumerating people on the sacrifice. Persons may be enumerated because of the brain in the head, because it is possible to remove it without breaking a bone. One may not be enumerated on the marrow in the hip bone - it is bone closed on both sides - because it is impossible to remove the marrow without breaking a bone.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Conditional Applications</div><div class="callout-text">These halachot discuss when the prohibition against <strong>breaking bones</strong> applies, based on the state of the sacrifice and the nature of the bones.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Preparation and Consumption of the Paschal Sacrifice</h2><div class="sub">הלכות י׳א–י״ד</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כְּשֶׁאָדָם אוֹכֵל אֶת הַפֶּסַח חוֹתֵךְ הַבָּשָׂר וְאוֹכֵל וְחוֹתֵךְ הָעֲצָמוֹת מִן הַפֶּרֶק וּמְפָרְקָן אִם רָצָה. וּכְשֶׁיַּגִּיעַ לְגִיד הַנָּשֶׁה מוֹצִיאוֹ וּמַנִּיחוֹ עִם שְׁאָר הַגִּידִים וְהָעֲצָמוֹת וְהַקְּרוּמוֹת שֶׁיּוֹצְאִין בִּשְׁעַת אֲכִילָה. שֶׁאֵין מְנַקִּין אוֹתוֹ כִּשְׁאָר הַבָּשָׂר וְאֵין מְחַתְּכִין אוֹתוֹ אֶלָּא צוֹלִין אוֹתוֹ שָׁלֵם. וְאִם חֲתָכוֹ חֲתִיכוֹת חֲתִיכוֹת כָּשֵׁר וְהוּא שֶׁלֹּא יֶחְסַר אֵיבָר. צָרִיךְ אָדָם לְהִשְׁתַּדֵּל שֶׁלֹּא יַשְׁאִיר מִבְּשַׂר הַפֶּסַח עַד בֹּקֶר שֶׁנֶּאֱמַר <small>(שמות יב י)</small> "לֹא תוֹתִירוּ מִמֶּנּוּ עַד בֹּקֶר". וְכֵן בַּשֵּׁנִי שֶׁנֶּאֱמַר <small>(במדבר ט יב)</small> "לֹא יַשְׁאִירוּ מִמֶּנּוּ עַד בֹּקֶר". וְאִם הִשְׁאִיר מִמֶּנּוּ בֵּין בָּרִאשׁוֹן בֵּין בַּשֵּׁנִי עָבַר בְּלֹא תַּעֲשֶׂה. וְאֵינוֹ לוֹקֶה עַל לָאו זֶה שֶׁהֲרֵי נִתָּק לַעֲשֵׂה שֶׁנֶּאֱמַר <small>(שמות יב י)</small> "וְהַנֹּתָר מִמֶּנּוּ בָּאֵשׁ תִּשְׂרֹפוּ": 
+</div><div class="halacha-en">When a person partakes of the Paschal sacrifice, he should cut off the meat and partake of it. He may cut off the bones at the joints and separate them if he desires.When he reaches the sciatic nerve, he should remove it and place it with the remainder of sinews, bones, and membranes which are removed at the time of eating. It is not removed previously, as is done with regard to other meat.The Paschal sacrifice should not be cut into pieces before it is roasted. Instead, it is roasted whole. If it was cut into pieces, it is acceptable, provided it is not lacking a limb.A person should endeavor that none of the meat of the Paschal sacrifice remain until the morning, as Exodus 12:10 states: "Do not leave over any of it until the morning." Similarly, with regard to the second Paschal sacrifice, Exodus 12:10 states: "What remains from it, you shall burn in fire."</div></div><div class="halacha-card"><div class="halacha-he">כְּשֶׁמַּקְרִיבִין אֶת הַפֶּסַח בָּרִאשׁוֹן מַקְרִיבִין עִמּוֹ שְׁלָמִים בְּיוֹם י"ד מִן הַבָּקָר אוֹ מִן הַצֹּאן. גְּדוֹלִים אוֹ קְטַנִּים. זְכָרִים אוֹ נְקֵבוֹת כְּכָל זִבְחֵי הַשְּׁלָמִים. וְזוֹ הִיא הַנִּקְרֵאת חֲגִיגַת אַרְבָּעָה עָשָׂר וְעַל זֶה נֶאֱמַר בַּתּוֹרָה <small>(דברים טז ב)</small> "וְזָבַחְתָּ פֶּסַח לַה' אֱלֹהֶיךָ צֹאן וּבָקָר". אֵימָתַי מְבִיאִין עִמּוֹ חֲגִיגָה זוֹ בִּזְמַן שֶׁהוּא בָּא בְּחל וּבְטָהֳרָה וּבְמוּעָט. אֲבָל אִם חָל יוֹם אַרְבָּעָה עָשָׂר לִהְיוֹת בְּשַׁבָּת אוֹ שֶׁבָּא הַפֶּסַח בְּטֻמְאָה אוֹ שֶׁהָיוּ הַפְּסָחִים מְרֻבִּים אֵין מְבִיאִין עִמּוֹ חֲגִיגָה. וְאֵין מַקְרִיבִין אֶלָּא הַפְּסָחִים בִּלְבַד:
+</div><div class="halacha-en">When the first Paschal sacrifice is offered, a peace-offering is sacrificed with it on the fourteenth of Nissan from cattle or from sheep, whether a large animal or a small one, like all other peace-offerings. It is called the festive-offering of the fourteenth. This is the intent of the Torah's statement Deuteronomy 16:2: "And you bring a Paschal offering to God your Lord from sheep and from cattle."When is this festive-offering brought? When the Paschal sacrifice is offered during the week, in a state of ritual purity, and when there is a lack of Paschal sacrifices. If, however, the fourteenth of Nisan falls on the Sabbath, it is offered in a state of ritual impurity, or there are ample offerings, the festive-offering is not brought with it. Instead, only the Paschal sacrifices are brought.</div></div><div class="halacha-card"><div class="halacha-he">חֲגִיגַת אַרְבָּעָה עָשָׂר רְשׁוּת וְאֵינָהּ חוֹבָה. וְנֶאֱכֶלֶת לִשְׁנֵי יָמִים וְלַיְלָה אֶחָד כְּכָל זִבְחֵי שְׁלָמִים. וְאָסוּר לְהַנִּיחַ מִבְּשַׂר חֲגִיגַת אַרְבָּעָה עָשָׂר לַיּוֹם הַשְּׁלִישִׁי שֶׁנֶּאֱמַר <small>(דברים טז ד)</small> "וְלֹא יָלִין מִן הַבָּשָׂר אֲשֶׁר תִּזְבַּח בָּעֶרֶב בַּיּוֹם הָרִאשׁוֹן לַבֹּקֶר". מִפִּי הַשְּׁמוּעָה לָמְדוּ שֶׁזֶּה אַזְהָרָה לְמַנִּיחַ בְּשַׂר חֲגִיגַת אַרְבָּעָה עָשָׂר לְיוֹם שִׁשָּׁה עָשָׂר. שֶׁנֶּאֱמַר לַבֹּקֶר עַד בֹּקֶר שֶׁל יוֹם הַשֵּׁנִי. וְהַמּוֹתִיר אֵינוֹ לוֹקֶה אֶלָּא יִשְׂרֹף הַנּוֹתָר מִמֶּנָּה כִּשְׁאָר הַנּוֹתָרִים: 
+</div><div class="halacha-en">The festive-offering brought on the fourteenth is a voluntary matter; it is not an obligation. It may be eaten for two days and one night like all other peace-offerings. It is forbidden to leave over the meat of the festive-offering of the fourteenth until the third day, as Deuteronomy 16:4 states: "Do not leave any of the meat that you will sacrifice in the evening for the first day until the morning." According to the Oral Tradition, it was taught that this is a warning for a person who leaves over the meat of the festive-offering of the fourteenth until the sixteenth. The term "until the morning" means until the morning of the second day. One who leaves over the meat is not liable for lashes. Instead, he should burn the left over meat in the same manner as meat left over from other sacrifices is burnt.</div></div><div class="halacha-card"><div class="halacha-he">בְּשַׂר חֲגִיגָה שֶׁעָלָה עִם הַפֶּסַח עַל הַשֻּׁלְחָן וְכָל הַתַּבְשִׁילִין הָעוֹלִים עִמּוֹ עַל הַשֻּׁלְחָן מִתְבַּעֲרִין עִמּוֹ. וְאֵינָן נֶאֱכָלִים אֶלָּא עַד חֲצוֹת כַּפֶּסַח עַצְמוֹ גְּזֵרָה מִפְּנֵי הַתַּעֲרֹבֶת:
+</div><div class="halacha-en">The meat of the festive-offering that was served on the table with the Paschal sacrifice and similarly, the other cooked dishes served with it should be burnt with it. They may only be eaten until midnight like the Paschal sacrifice itself. This is a decree lest a mixture occur.</div></div><div class="halacha-card"><div class="halacha-he">מַה בֵּין פֶּסַח רִאשׁוֹן לְפֶסַח שֵׁנִי. הָרִאשׁוֹן אָסוּר בְּחָמֵץ בְּבַל יֵרָאֶה וּבַל יִמָּצֵא. וְאֵינוֹ נִשְׁחָט עַל חָמֵץ. וְאֵין מוֹצִיאִין מִמֶּנּוּ חוּץ לַחֲבוּרָה. וְטָעוּן הַלֵּל בַּאֲכִילָתוֹ. וּמְבִיאִין עִמּוֹ חֲגִיגָה. וְאֶפְשָׁר שֶׁיָּבוֹא בְּטֻמְאָה אִם נִטְמָא רֹב הַקָּהָל טֻמְאַת מֵת כְּמוֹ שֶׁבֵּאַרְנוּ. אֲבָל פֶּסַח שֵׁנִי חָמֵץ וּמַצָּה עִמּוֹ בַּבַּיִת. וְאֵינוֹ טָעוּן הַלֵּל בַּאֲכִילָתוֹ. וּמוֹצִיאִין אוֹתוֹ חוּץ לַחֲבוּרָתוֹ. וְאֵין מְבִיאִין עִמּוֹ חֲגִיגָה וְאֵינוֹ בָּא בְּטֻמְאָה. וּשְׁנֵיהֶם דּוֹחִין אֶת הַשַּׁבָּת. וּטְעוּנִין הַלֵּל בַּעֲשִׂיָּתָן וְנֶאֱכָלִין צָלִי בְּבַיִת אֶחָד עַל מַצָּה וּמָרוֹר. וְאֵין מוֹתִירִין מֵהֶן. וְאֵין שׁוֹבְרִין בָּהֶן אֶת הָעֶצֶם. וְלָמָּה לֹא יִשְׁוֶה הַשֵּׁנִי לָרִאשׁוֹן לְכָל הַדְּבָרִים מֵאַחַר שֶׁנֶּאֱמַר <small>(במדבר ט יב)</small> "כְּכָל חֻקַּת הַפֶּסַח יַעֲשׂוּ". לְפִי שֶׁפֵּרֵשׁ בּוֹ מִקְצָת חֻקַּת הַפֶּסַח. לְלַמֵּד שֶׁאֵינָהּ שָׁוָה לָרִאשׁוֹן אֶלָּא בִּדְבָרִים שֶׁנִּתְפָּרְשׁוּ בּוֹ. וְהֵן הַמִּצְוֹת שֶׁבְּגוּפוֹ וְהֵם חֻקַּת הַפֶּסַח. שֶׁכְּלָל זֶה שֶׁנֶּאֱמַר בְּמִצְרַיִם שֶׁיִּלָּקַח הַפֶּסַח מִבֶּעָשׂוֹר. וְשֶׁהוּא טָעוּן הַגָּעַת דָּם בַּאֲגוּדַת אֵזוֹב לַמַּשְׁקוֹף וְלִשְׁתֵּי הַמְּזוּזוֹת. וְשֶׁיֵּאָכֵל בְּחִפָּזוֹן. אֵין אוֹתָן הַדְּבָרִים נוֹהֲגִים לְדוֹרוֹת וְלֹא נַעֲשׂוּ אֶלָּא בְּפֶסַח מִצְרַיִם בִּלְבַד:
+</div><div class="halacha-en">What are the differences between the first Paschal sacrifice and the second Paschal sacrifice? At the time of the first, chametz is forbidden to be seen or possessed in one's domain. It may not be slaughtered while one is in possession of chametz. Its meat may not be removed from the company in which it was designated to be eaten. The Hallel must be recited when it is eaten. A festive-offering is brought with it. It may be brought in a state of impurity if the majority of the people are impure because of contact with a human corpse, as we explained.With regard to the second Paschal sacrifice, by contrast, both chametz and matzah may be possessed by the person at home. Hallel is not recited while partaking of it. It may be taken out of the company in which it was designated to be eaten. A festive-offering is not brought with it and it may not be brought in a state of impurity.Both are alike in that offering them supersedes the Sabbath prohibitions. Hallel is recited when they are offered. They are eaten roasted in one house together with matzah and bitter herbs. In neither instance may their meat be left over until the next morning, nor may their bones be broken.Why does the second Paschal sacrifice not resemble the first in all matters, as might be expected since Numbers 9:12 states with regard to the second Paschal sacrifice: "It shall be offered according to all the statutes of the Paschal sacrifice"? Because some of the statutes of the Paschal sacrifice are explicitly mentioned with regard to it. This teaches that it is analogous to the first only in those matters which are stated explicitly regarding it. They are the mitzvot that concern the body of the sacrifice. They are "the statutes of the Paschal sacrifice" included in the general category.The statements regarding the offering of the Paschal sacrifice in Egypt: that it should be set aside on the tenth of the month, that its blood should be applied to the lintel and the two doorposts with a bunch of hyssop, and that it should be eaten with haste, are not practices that are followed in future generations. They were observed only with regard to the Paschal sacrifice offered in Egypt.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Ritual Details</div><div class="callout-text">These laws detail how the Paschal sacrifice should be <strong>prepared and consumed</strong>, emphasizing the importance of maintaining its completeness and sanctity.</div></div>
+      </div><div class="slide" data-slide="4">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Prohibition of Breaking Bones</strong><div class="principle-desc">One may not break bones of the Paschal sacrifice; violation incurs lashes.</div></div></div><div class="principle"><span class="principle-icon">🐑</span><div><strong>Determining Liability</strong><div class="principle-desc">Liability depends on the presence of meat or marrow on the bones.</div></div></div><div class="principle"><span class="principle-icon">🕯️</span><div><strong>Ritual Purity</strong><div class="principle-desc">The prohibition's applicability varies with the sacrifice's ritual status and preparation method.</div></div></div><div class="principle"><span class="principle-icon">🥩</span><div><strong>Consumption Regulations</strong><div class="principle-desc">The meat must be consumed under strict guidelines and part of a collective dining experience.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 4</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=4;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

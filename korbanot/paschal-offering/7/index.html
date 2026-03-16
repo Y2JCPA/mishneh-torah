@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות קרבן פסח פרק ז — Paschal Offering Regulations — Impurity Rules and Exceptions</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות קרבן פסח</a><div class="chapter-label">🐑 פרק ז׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Community Impurity Rules</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">רַבִים שֶׁהָיוּ טְמֵאֵי מֵת בְּפֶסַח רִאשׁוֹן אִם הָיוּ מִעוּט הַקָּהָל הֲרֵי אֵלּוּ נִדְחִין לְפֶסַח שֵׁנִי כִּשְׁאָר הַטְּמֵאִים. אֲבָל אִם הָיוּ רֹב הַקָּהָל טְמֵאֵי מֵת אוֹ שֶׁהָיוּ הַכֹּהֲנִים אוֹ כְּלֵי שָׁרֵת טְמֵאִים טֻמְאַת מֵת אֵינָן נִדְחִין. אֶלָּא יַקְרִיבוּ כֻּלָּן הַפֶּסַח בְּטֻמְאָה הַטְּמֵאִים עִם טְהוֹרִים. שֶׁנֶּאֱמַר <small>(במדבר ט ו)</small> "וַיְהִי אֲנָשִׁים אֲשֶׁר הָיוּ טְמֵאִים לְנֶפֶשׁ אָדָם" יְחִידִים נִדְחִים וְאֵין הַצִּבּוּר נִדְחֶה. וְדָבָר זֶה בְּטֻמְאַת הַמֵּת בִּלְבַד כְּמוֹ שֶׁבֵּאַרְנוּ בְּבִיאַת הַמִּקְדָּשׁ:
+</div><div class="halacha-en">The following rules apply when there were many individuals who were ritually impure due to contact with a human corpse on the first Pesach. If they were the lesser portion of the Jewish people, their offering is postponed to the second Pesach like other impure individuals. If, however, the majority of the Jewish people were impure due to contact with a human corpse or the priests or the sacred utensils were impure due to contact with a human corpse, their offering is not postponed. Instead, they should all offer the Paschal sacrifice in a state of ritual impurity, those ritually impure together with those who are pure.This is derived from Numbers 9:6 which states: "And the men who were impure because of contact with the corpse of a human soul." Implied is that the offerings of individuals are postponed until the second Pesach, but those of the community are not postponed. This concept applies only with regard to the ritual impurity associated with a human corpse, as explained in Hilchot Bi'at HaMikdash.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ הַקָּהָל מֶחֱצָה טְהוֹרִים וּמֶחֱצָה טְמֵאֵי מֵת. כֻּלָּן עוֹשִׂין בָּרִאשׁוֹן וְהַטְּהוֹרִים עוֹשִׂין לְעַצְמָן בְּטָהֳרָה וְהַטְּמֵאִים עוֹשִׂין לְעַצְמָן בְּטֻמְאָה וְאוֹכְלִין אוֹתוֹ בְּטֻמְאָה. וְאִם הָיוּ טְמֵאֵי הַמֵּת עוֹדְפִין עַל הַטְּהוֹרִים אֲפִלּוּ אֶחָד יַעֲשׂוּ כֻּלָּן בְּטֻמְאָה:
+</div><div class="halacha-en">If the Jewish people were half ritually pure and half impure, they should all offer the sacrifice on the first Pesach. Those who are pure offer the sacrifice by themselves in a state of ritual purity and those who are impure offer it by themselves in a state of impurity and partake of it in impurity. If the impure outnumbered the pure even by one, they should all offer it in impurity.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Community Dynamics</div><div class="callout-text">These halachot detail when the **community's majority or minority impurity status** dictates whether the Paschal offering is performed in a state of impurity. The communal approach shows how holiness is preserved even amidst impurity.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Balancing Groups and Offerings</h2><div class="sub">הלכות ג׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הָיוּ הָאֲנָשִׁים מֶחֱצָה טְמֵאֵי מֵת וּמֶחֱצָה טְהוֹרִים וּבִזְמַן שֶׁאַתָּה מוֹנֶה הַנָּשִׁים בִּכְלַל הָאֲנָשִׁים יִהְיוּ הָרֹב טְהוֹרִים. הַטְּהוֹרִים עוֹשִׂים אֶת הָרִאשׁוֹן וְהַטְּמֵאִין אֵינָן עוֹשִׂין לֹא אֶת הָרִאשׁוֹן וְלֹא אֶת הַשֵּׁנִי. אֵין עוֹשִׂין רִאשׁוֹן מִפְּנֵי שֶׁהֵן מִעוּט. וְאֵין עוֹשִׂין אֶת הַשֵּׁנִי מִפְּנֵי שֶׁהַנָּשִׁים בַּשֵּׁנִי רְשׁוּת וְנִמְצְאוּ הַטְּמֵאִים מֶחֱצָה וְאֵין מֶחֱצָה עוֹשִׂין אֶת הַשֵּׁנִי:
+</div><div class="halacha-en">If the men were half impure due to contact with a human corpse and half pure and when you count the women together with the men, the majority will be pure, those who are pure should offer the first Paschal sacrifice. Those who are impure do not bring neither the first Paschal sacrifice or the second. They do not bring the first, because they are the lesser portion of the people. And they do not bring the second, because the women's offering of the second Paschal sacrifice is a matter of choice. Thus the impure persons are merely half the people and half the people do not bring the second Paschal sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ רֹב הַקָּהָל זָבִים וּמְצֹרָעִים וּבוֹעֲלֵי נִדּוֹת וּמִעוּטָן טְמֵאֵי מֵת. אוֹתָן טְמֵאֵי מֵת אֵינָן עוֹשִׂין בָּרִאשׁוֹן לְפִי שֶׁהֵן מִעוּט וְאֵין עוֹשִׂין הַשֵּׁנִי שֶׁאֵין הַיְחִידִים עוֹשִׂין אֶת הַשֵּׁנִי אֶלָּא בִּזְמַן שֶׁעָשׂוּ רֹב הַקָּהָל אֶת הָרִאשׁוֹן. וְכָאן הוֹאִיל וְלֹא עָשָׂה רֹב הַקָּהָל בָּרִאשׁוֹן לֹא יַעֲשׂוּ אֵלּוּ הַמִּעוּט הַטְּמֵאִים לְמֵת אֶת הַשֵּׁנִי:
+</div><div class="halacha-en">If the majority of the Jewish people were zavim, afflicted by tzara'at, or had relationships with niddot and the lesser portion were impure due to contact with a human corpse, those impure because of contact with a corpse should not offer the first Paschal sacrifice, because they are the lesser portion of the people. Nor do they offer the second, because individuals do not bring the second except at the time the majority of the people offered the first Paschal sacrifice. In this instance, since the majority of the Jewish people did not offer the first Paschal sacrifice, the lesser portion who are impure because of contact with a corpse should not bring the second Paschal sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ רֹב הַקָּהָל טְמֵאֵי מֵת וּמִעוּטָן זָבִים וְכַיּוֹצֵא בָּהֶן. טְמֵאֵי מֵת עוֹשִׂין אֶת הָרִאשׁוֹן וְהַזָּבִין וְכַיּוֹצֵא בָּהֶן אֵינָן עוֹשִׂין לֹא אֶת הָרִאשׁוֹן וְלֹא אֶת הַשֵּׁנִי. אֵינָן עוֹשִׂין בָּרִאשׁוֹן שֶׁאֵין נִדְחֵית בְּצִבּוּר אֶלָּא טֻמְאַת הַמֵּת בִּלְבַד. וְאֵינָן עוֹשִׂין בַּשֵּׁנִי שֶׁאֵין עוֹשִׂין פֶּסַח שֵׁנִי אֶלָּא אִם בָּא הָרִאשׁוֹן בְּטָהֳרָה. אֲבָל אִם נַעֲשָׂה רִאשׁוֹן בְּטֻמְאָה אֵין שָׁם פֶּסַח שֵׁנִי:
+</div><div class="halacha-en">If the majority of the Jewish people were impure because of contact with a human corpse and a lesser portion were zavim and the like, those who are impure because of contact with a corpse offer the first Paschal sacrifice, and those who are zavim and the like do not offer either the first Paschal sacrifice or the second. They do not offer the first, because the restrictions against offering in a state of impurity were suspended with regard to communal offerings only for those impure due to contact with a human corpse. Nor do they bring the second, because a second Paschal sacrifice is brought only when the first was brought in a state of ritual purity. If the first was brought in a state of impurity, there is no second offering.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Group Offerings</div><div class="callout-text">Decisions about offerings depend on **demographics**—whether groups are pure, impure due to corpse contact, or other impurities—affecting who participates in the first and second Paschal offerings.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Calculations and Impurity Conditions</h2><div class="sub">הלכות ו׳–ז׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הָיוּ שְׁלִישׁ הַקָּהָל טְהוֹרִים וּשְׁלִישׁ זָבִים וְכַיּוֹצֵא בָּהֶם וּשְׁלִישׁ טְמֵאֵי מֵת אוֹתָן טְמֵאֵי מֵת אֵין עוֹשִׂין אֶת הָרִאשׁוֹן וְלֹא אֶת הַשֵּׁנִי. אֵינָן עוֹשִׂין רִאשׁוֹן שֶׁהֲרֵי הֵן מֻעָטִים לְגַבֵּי טְהוֹרִים עִם הַזָּבִים. וּבַשֵּׁנִי לֹא יַעֲשׂוּ שֶׁהֲרֵי מִעוּט עָשׂוּ בָּרִאשׁוֹן כְּמוֹ שֶׁבֵּאַרְנוּ. כֵּיצַד מְשַׁעֲרִים הַפֶּסַח לֵידַע אִם רֹב הַקָּהָל טְמֵאִים אוֹ טְהוֹרִים. אֵין מְשַׁעֲרִין בְּכָל הָאוֹכְלִין שֶׁאֶפְשָׁר שֶׁיִּהְיוּ עֶשְׂרִים נִמְנִין עַל פֶּסַח אֶחָד וּמְשַׁלְּחִין אוֹתוֹ בְּיַד אֶחָד לִשְׁחֹט עֲלֵיהֶן אֶלָּא מְשַׁעֲרִין בְּכָל הַנִּכְנָסִים לָעֲזָרָה וְעַד שֶׁהֵן מִבַּחוּץ קֹדֶם שֶׁתִּכָּנֵס כַּת הָרִאשׁוֹנָה מְשַׁעֲרִין אוֹתָן:
+</div><div class="halacha-en">The following laws apply when a third of the Jewish people were pure, a third were zavim and the like, and a third were impure because of contact with a human corpse. Those who were impure because of contact with a corpse should not offer the first Paschal sacrifice, nor the second. They do not offer the first, because they are the lesser portion when compared to the aggregate of those who are pure and the zavvim. They should not offer the second, because the lesser portion of the people offered the first, as we explained.How do we calculate whether the majority of the people are impure or pure? We do not make a calculation of all those who seek to partake of it, because it is possible that 20 people will be enumerated on one Paschal sacrifice and they will send it with one person to slaughter it on their behalf. Instead, we calculate all of those who seek to enter the Temple Courtyard while they are outside. Before the first group enters the Temple Courtyard, the calculation is made.</div></div><div class="halacha-card"><div class="halacha-he">יָחִיד שֶׁנִּטְמָא בִּסְפֵק רְשׁוּת הַיָּחִיד כְּמוֹ שֶׁיִּתְבָּאֵר בִּמְקוֹמוֹ הֲרֵי זֶה יִדָּחֶה לְפֶסַח שֵׁנִי כִּשְׁאָר טְמֵאֵי מֵת. וְצִבּוּר שֶׁנִּטְמָא בִּסְפֵק רְשׁוּת הַיָּחִיד יַעֲשׂוּ כֻּלָּן בְּטֻמְאָה:
+</div><div class="halacha-en">When an individual becomes impure because of a questionable situation regarding ritual impurity in a private domain, as will be explained in the appropriate place, his offering is postponed until the second Pesach. When the majority of the Jewish people become impure because of a questionable situation in a private domain, they should all offer it in a state of impurity.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Impurity Calculations</div><div class="callout-text">The process of determining **majority status** is crucial, as well as handling cases of doubt in ritual impurity, revealing the thoroughness of the ritual law.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Eating the Paschal Offering in Impurity</h2><div class="sub">הלכות ח׳–ט׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">פֶּסַח שֶׁהִקְרִיבוּהוּ בְּטֻמְאָה הֲרֵי זֶה נֶאֱכָל בְּטֻמְאָה. שֶׁמִּתְּחִלָּתוֹ לֹא בָּא אֶלָּא לַאֲכִילָה. וְאֵינוֹ נֶאֱכָל לְכָל טָמֵא אֶלָּא לִטְמֵאֵי מֵת שֶׁנִּדְחֵית לָהֶם הַטֻּמְאָה הַזֹּאת וּלְכַיּוֹצֵא בָּהֶן מִטְּמֵאֵי מַגַּע טֻמְאוֹת. אֲבָל הַטְּמֵאִים שֶׁהַטֻּמְאָה יוֹצְאָה עֲלֵיהֶן מִגּוּפָן כְּגוֹן זָבִים וְזָבוֹת נִדּוֹת וְיוֹלְדוֹת וּמְצֹרָעִים לֹא יֹאכְלוּ מִמֶּנּוּ וְאִם אָכְלוּ פְּטוּרִין. מִפִּי הַשְּׁמוּעָה לָמְדוּ שֶׁהַנֶּאֱכָל לִטְהוֹרִין חַיָּבִין עָלָיו מִשּׁוּם טֻמְאָה וְהַנֶּאֱכָל לִטְמֵאִין אֵין חַיָּבִין עָלָיו מִשּׁוּם טֻמְאָה. אֲפִלּוּ אָכְלוּ טְמֵאֵי הַמֵּת מֵהָאֵימוּרִים שֶׁלּוֹ פְּטוּרִין. בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁהַפֶּסַח יֵאָכֵל בְּטֻמְאָה כְּשֶׁנִּטְמְאוּ הַצִּבּוּר קֹדֶם זְרִיקַת הַדָּם. אֲבָל אִם נִטְמְאוּ לְאַחַר זְרִיקַת הַדָּם לֹא יֵאָכֵל:
+</div><div class="halacha-en">When the Paschal sacrifice was offered in a state of impurity, it should also be eaten in a state of impurity, for from the outset, it was brought only to be eaten. It may not be eaten by all those who are impure, only by those impure because of contact with a human corpse. For them, this impurity is suspended. This also applies to those impure because of contact with other sources of impurity.Those who are impure because of an impurity that results from a physical condition, e.g., zavvim, zavot, niddot, women after childbirth, those afflicted by tzara'at, should not partake of it. If, however, they do partake of it, they are exempt. According to the Oral Tradition, we learned that when a sacrifice is eaten by those who are pure, those who are impure are liable for partaking of it in impurity. When it is eaten by those who are impure, there is no liability for partaking of it in impurity. Even if those who are impure because of contact with a human corpse partook of the fats and organs to be offered on the altar, they are exempt.When does the statement that a Paschal sacrifice may be eaten while ritually impure apply? When the people became impure before the blood was poured on the altar. If, however, they became impure after the blood was poured, it should not be eaten.</div></div><div class="halacha-card"><div class="halacha-he">שְׁחָטוּהוּ בְּטָהֳרָה וְנִטְמְאוּ רֹב הַצִּבּוּר קֹדֶם זְרִיקָה. זוֹרֵק אֶת הַדָּם וְהַפֶּסַח לֹא יֵאָכֵל. גְּזֵרָה שֶׁמָּא יִטָּמְאוּ אַחַר זְרִיקָה בְּשָׁנָה אַחֶרֶת וְיֹאכְלוּהוּ בְּטֻמְאָה. הָיוּ כְּלֵי שָׁרֵת טְמֵאִים בְּשֶׁרֶץ וְכַיּוֹצֵא בּוֹ. הוֹאִיל וְאֵינָן מְטַמְּאִין אֶת הָאָדָם כְּמוֹ שֶׁיִּתְבָּאֵר בִּמְקוֹמוֹ. אַף עַל פִּי שֶׁמְּטַמְּאִין אֶת הַבָּשָׂר לֹא יַעֲשׂוּהוּ אֶלָּא הַטְּהוֹרִים וְיֵאָכֵל אַף עַל פִּי שֶׁהוּא טָמֵא. מוּטָב שֶׁיֵּאָכֵל בְּטֻמְאַת בָּשָׂר שֶׁהִיא בְּלָאו וְלֹא יֹאכְלוּהוּ טְמֵאֵי הַגּוּף שֶׁהֵם בְּכָרֵת כְּמוֹ שֶׁבֵּאַרְנוּ בִּפְסוּלֵי הַמֻּקְדָּשִׁין:
+</div><div class="halacha-en">If the Paschal sacrifice was slaughtered in a state of ritual purity and the majority of the Jewish people became impure before its blood was poured on the altar, the blood should be poured on the altar, but the Paschal sacrifice should not be eaten. This is a Rabbinical decree lest the majority of the people become impure after the blood was poured in a following year and it be eaten in a state of impurity.The following rules apply if the sacred utensils were impure because of [contact with a dead crawling animal or the like. Although the sacred utensils do not cause the persons to become impure, as will be explained in the appropriate place, since they cause the meat to become impure, the Paschal sacrifice should only be brought by those who are pure and it should be eaten, even though it is impure. It is preferable that it be eaten when the meat is impure thus superseding only an ordinary negative prohibition than it be eaten by individuals whose bodies are impure. That would be a prohibition punishable by karet, as explained in Hilchot Pesulei HaMukdashim.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Eating Protocols</div><div class="callout-text">When the offering is made in impurity, it should be **eaten in impurity**, but only by specific groups. There are rules about how impurity affects both the eating and the ritual acceptance of the sacrifice.</div></div>
+      </div><div class="slide" data-slide="5">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Community Overrides Individual</strong><div class="principle-desc">Community impurity can allow offerings to proceed, unlike individual impurity.</div></div></div><div class="principle"><span class="principle-icon">✨</span><div><strong>Majority Determines Rituals</strong><div class="principle-desc">Whether a majority is impure or pure decides if the first or second Paschal offerings are used.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Impurity Assessment</strong><div class="principle-desc">Rituals depend on careful calculations of impurity populations at specific Temple stages.</div></div></div><div class="principle"><span class="principle-icon">🕊️</span><div><strong>Impurity and Consumption</strong><div class="principle-desc">Rules on who eats the Paschal sacrifice maintain sanctity even in impurity.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 5</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=5;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

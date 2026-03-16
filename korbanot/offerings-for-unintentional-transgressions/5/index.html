@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות שגגות פרק ה — Offerings for Unintentional Transgressions — Multiple Encounters and Awareness</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות שגגות</a><div class="chapter-label">⚖️ פרק ה׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Repeated Intimacy under Single or Multiple Awareness</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַבָא עַל עֶרְוָה בִּיאוֹת הַרְבֵּה בְּהֶעְלֵם אַחַת. אַף עַל פִּי שֶׁהָיָה בֵּין בְּעִילָה וּבְעִילָה יָמִים הַרְבֵּה. הוֹאִיל וְלֹא נוֹדַע לוֹ בֵּינְתַיִם וַהֲרֵי הִיא גּוּף אֶחָד. הֲרֵי הַכּל שְׁגָגָה אַחַת וְאֵינוֹ חַיָּב אֶלָּא חַטָּאת אַחַת. אֲבָל אִם שָׁגַג בָּהּ וְאַחַר כָּךְ נוֹדַע לוֹ וְחָזַר וְשָׁגַג בָּהּ עַצְמָהּ וּבְעָלָהּ. וְאַחַר כָּךְ נוֹדַע לוֹ וְחָזַר וְשָׁגַג בָּהּ עַצְמָהּ וּבְעָלָהּ. חַיָּב עַל כָּל בְּעִילָה וּבְעִילָה. שֶׁהַיְדִיעוֹת מְחַלְּקוֹת הַשְּׁגָגוֹת:
+</div><div class="halacha-en">When a man is intimate with a woman who is forbidden to him as an ervah many times in a single period of lapse of awareness, it is all considered as one inadvertent violation and he is liable only for one sin-offering. Even though there were many times between each experience of intimacy, since he did not become aware in the interim, and she is only one person, he is only liable once.If, by contrast, one inadvertently engaged in relations with her, the transgression became known to him afterwards, and then he inadvertently engaged in relations with that same woman, the transgression became known to him afterwards, and then he inadvertently engaged in relations with that same woman again, he is liable for a sin-offering for every time he engaged in relations. For his awareness separates between the inadvertent transgressions.</div></div><div class="halacha-card"><div class="halacha-he">הַבָּא עַל הָעֶרְוָה בִּיאוֹת הַרְבֵּה בְּהֶעְלֵם אַחַת. וְזוֹ הַנִּבְעֶלֶת הָיְתָה לָהּ יְדִיעָה בֵּין כָּל בִּיאָה וּבִיאָה. שֶׁנִּמְצְאוּ הַבִּיאוֹת אֶצְלָהּ בְּהַעֲלָמוֹת הַרְבֵּה. הוּא מֵבִיא חַטָּאת אַחַת. וְהִיא מְבִיאָה חַטָּאת עַל כָּל בִּיאָה וּבִיאָה. הוּא הָיוּ לוֹ יְדִיעוֹת בֵּינְתַיִם וְהִיא בְּהֶעְלֵם אַחַת. הוּא מֵבִיא חַטָּאוֹת הַרְבֵּה וְהִיא מְבִיאָה חַטָּאת אַחַת:
+</div><div class="halacha-en">When a man engages in relation with a woman forbidden as an ervah many times in one ongoing state of lapsed awareness, but the woman with whom he engaged in relations became aware of the transgression between each experience of intimacy, thus from her perspective, the relations involved several lapses of awareness, he brings one sin-offering and she brings a sin-offering for every time they engaged in relations.If he had knowledge of the transgressions in the interim and she act in one ongoing state of lapsed awareness, he brings many sin-offerings and she brings one sin-offering.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Continuous Awareness</div><div class="callout-text">The liability for sin-offerings in cases of repeated intimacy depends on <strong>the awareness between acts</strong>. If there is no awakening to awareness, the transgressions are counted as one, but once awareness is introduced, each act can warrant a separate offering.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Multiple Partners Under Lapsed Awareness</h2><div class="sub">הלכות ג׳–ד׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַבָּא עַל עֲרָיוֹת הַרְבֵּה בְּהֶעְלֵם אַחַת. אַף עַל פִּי שֶׁכֻּלָּן מִשֵּׁם אֶחָד הוֹאִיל וְהֵן גּוּפִים מֻחְלָקִים חַיָּב עַל כָּל אַחַת וְאַחַת. כֵּיצַד. הֲרֵי שֶׁבָּעַל חֲמֵשׁ נָשָׁיו נִדּוֹת. אוֹ שֶׁבָּא עַל חֲמֵשׁ אַחְיוֹתָיו אוֹ עַל חֲמֵשׁ בְּנוֹתָיו בְּהֶעְלֵם אַחַת. חַיָּב עַל כָּל גּוּף וְגוּף. מִכָּאן אַתָּה לָמֵד שֶׁזֶּה שֶׁאָמְרוּ חֲכָמִים הַבָּא עַל הַזָּכוּר וְהֵבִיא זָכוּר עָלָיו בְּהֶעְלֵם אַחַת חַיָּב חַטָּאת אַחַת. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהָיָה אוֹתוֹ הַזָּכוּר עַצְמוֹ. אֲבָל אִם הָיָה זָכוּר אַחֵר. בֵּין שֶׁבָּא עַל שְׁנַיִם בֵּין שֶׁבָּא עַל זֶה וְהֵבִיא זֶה עָלָיו חַיָּב עַל כָּל גּוּף וְגוּף. וְהוּא הַדִּין בְּבָא עַל הַבְּהֵמָה וְהֵבִיא בְּהֵמָה עָלָיו:
+</div><div class="halacha-en">When a man engages in relations with many women forbidden to him as ariyos in one ongoing state of lapsed awareness, he is liable for a sin-offering for every one of them. This applies even if they are all forbidden because of the same prohibition, because they are separate persons.What is implied? A man was intimate with five women in the niddah state, he was intimate with five of his sisters or five of his daughters in one ongoing state of lapsed awareness, he is liable for a sin-offering for every person.From this ruling, we learned the following interpretation of our Sages' statement that a person who sodomized a male and was sodomized by a male in one state of lapsed awareness is liable for only one sin-offering. When does this apply? When the same male was involved. If, however, there were two other males involved, whether he sodomized both or sodomized one and one sodomized him, he is liable for each person. The same laws also apply when one sodomizes an animal and has an animal sodomize him.</div></div><div class="halacha-card"><div class="halacha-he">הָאִשָּׁה שֶׁהֵבִיאָה עָלֶיהָ בְּהֵמוֹת הַרְבֵּה בְּהֶעְלֵם אַחַת חַיֶּבֶת חַטָּאת עַל כָּל בְּהֵמָה וּבְהֵמָה. שֶׁהֲרֵי גּוּפִין מֻחְלָקִין וַהֲרֵי זוֹ כְּמִי שֶׁנִּבְעֲלָה לַאֲנָשִׁים הַרְבֵּה בְּהֶעְלֵם אֶחָד שֶׁהִיא חַיֶּבֶת חַטָּאת עַל כָּל אִישׁ וְאִישׁ:
+</div><div class="halacha-en">When a women has many animals engage in relations with her in one period of lapsed awareness, she is liable for a sin-offering for every animal, for there are different bodies involved. It is like engaging in relations with many men in period of lapsed awareness in which instance, she is liable for a sin-offering for every man with whom she was intimate.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Multiple Individuals</div><div class="callout-text"><strong>Each unique individual</strong> involved in forbidden intimacy during a period of lapsed awareness incurs separate sin-offerings. Even if the prohibition is identical, the diversity of individuals dictates separate responsibilities.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Complex Scenarios of Awareness and Status Change</h2><div class="sub">הלכות ה׳–ז׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הָאִשָּׁה שֶׁהָלַךְ בַּעְלָהּ לִמְדִינַת הַיָּם וְשָׁמְעָה שֶׁמֵּת אוֹ שֶׁבָּאוּ עֵדִים שֶׁמֵּת וְנִשֵּׂאת בֵּין עַל פִּי עַצְמָהּ בֵּין עַל פִּי בֵּית דִּין. וְנוֹדַע שֶׁבַּעְלָהּ קַיָּם. חַיֶּבֶת קָרְבָּן אֶחָד. וְאִם נִשֵּׂאת לַאֲנָשִׁים הַרְבֵּה אוֹ שֶׁזִּנְּתָה עִם אֲנָשִׁים הַרְבֵּה. חַיֶּבֶת חַטָּאת עַל כָּל אִישׁ וְאִישׁ מִפְּנֵי שֶׁהֵן גּוּפִים מֻחְלָקִין וְאַף עַל פִּי שֶׁהַכּל בִּשְׁגָגָה אַחַת. הַבָּא עַל הַנִּדָּה בִּשְׁגָגָה וְטָהֲרָה מִנִּדָּתָהּ וְטָבְלָה וְחָזְרָה וְרָאֲתָה נִדָּה וּבָא עָלֶיהָ פַּעַם שְׁנִיָּה בְּאוֹתָהּ שְׁגָגָה עַצְמָהּ. חַיָּב עַל כָּל פַּעַם וּפַעַם. אַף עַל פִּי שֶׁהוּא בְּהֶעְלֵם אַחַת וְהוּא גּוּף אֶחָד. שֶׁזְּמַן נִדּוּת זֶה חוּץ מִזְּמַן נִדּוּת הַשֵּׁנִית. וַהֲרֵי הֵן כִּשְׁתֵּי נָשִׁים נִדּוֹת:
+</div><div class="halacha-en">When a woman's husband went overseas and she heard that he died or witnesses came and testified that he died and she married, whether on her own initiative or according to the counsel of the court, and then she discovered that her first husband is alive, she is liable only for one sin-offering. If she married many men or was promiscuous with many men, she is liable for a sin-offering for every man with whom she was intimate, for they are different persons even though she acted in one state of lapsed awareness.The following rules applies when a man was intimate with a woman in the niddah state inadvertently, then she became purified from her niddah state, immersed herself, then became a niddah again and they were intimate a second time in the same period of lapsed awareness. He is liable for a sin-offering for every span of time in which she is in the niddah state, even though it is in one state of lapsed awareness and only one person is involved. The rationale is that one span of time in which she is in the niddah state is distinct from another span of time in which she is in the niddah state. It is as if he was intimate with two different women in the niddah state.</div></div><div class="halacha-card"><div class="halacha-he">הַבָּא עַל אִשְׁתּוֹ שֶׁלֹּא בִּשְׁעַת וֶסְתָּהּ וְרָאֲתָה דָּם בִּשְׁעַת הַתַּשְׁמִישׁ. הֲרֵי אֵלּוּ פְּטוּרִין מִקָּרְבַּן חַטָּאת מִפְּנֵי שֶׁזֶּה כְּאָנוּס הוּא וְלֹא שׁוֹגֵג. שֶׁהַשּׁוֹגֵג הָיָה לוֹ לִבְדֹּק וּלְדַקְדֵּק וְאִלּוּ בָּדַק יָפֶה יָפֶה וְדִקְדֵּק בִּשְׁאֵלוֹת לֹא הָיָה בָּא לִידֵי שְׁגָגָה וּלְפִי שֶׁלֹּא טָרַח בִּדְרִישָׁה וּבַחֲקִירָה וְאַחַר כָּךְ יַעֲשֶׂה צָרִיךְ כַּפָּרָה. אֲבָל זֶה מַה לּוֹ לַעֲשׂוֹת הֲרֵי טְהוֹרָה הָיְתָה וְשֶׁלֹּא בִּשְׁעַת וֶסְתָּהּ בָּעַל אֵין זֶה אֶלָּא אֹנֶס. וּלְפִיכָךְ בֵּין שֶׁנִּמְצָא דָּם עַל עֵד שֶׁלָּהּ בֵּין שֶׁנִּמְצָא עַל עֵד שֶׁלּוֹ פְּטוּרִין. אֲבָל אִם עָבַר וּבָא עָלֶיהָ סָמוּךְ לַוֶּסֶת וְדִמָּה שֶׁיִּבְעל וְיִפְרשׁ קֹדֶם שֶׁתִּרְאֶה דָּם וְרָאֲתָה בִּשְׁעַת הַתַּשְׁמִישׁ. חַיָּבִין בְּקָרְבָּן. שֶׁזּוֹ הִיא שְׁגָגָה. לְפִיכָךְ אִם נִמְצָא דָּם עַל עֵד שֶׁלּוֹ שְׁנֵיהֶם טְמֵאִים וְחַיָּבִין בְּקָרְבָּן. נִמְצָא עַל עֵד שֶׁלָּהּ. אִם קִנְּחָה עַצְמָהּ מִיָּד כְּשֶׁפֵּרַשׁ הַבַּעַל וְלֹא שָׁהֲתָה שְׁנֵיהֶם טְמֵאִים וְחַיָּבִין בְּקָרְבָּן. ואִם שָׁהֲתָה כְּדֵי שֶׁתּוֹשִׁיט יָדָהּ לְתַחַת הַכַּר אוֹ לְתַחַת הַכֶּסֶת וְתִטּל עֵד לִבְדֹּק בּוֹ וְאַחַר כָּךְ קִנְּחָה עַצְמָהּ שְׁנֵיהֶן טְמֵאִים בְּסָפֵק וּפְטוּרִין מִקָּרְבָּן. וְאִם שָׁהֲתָה כְּדֵי שֶׁתֵּרֵד מִן הַמִּטָּה וְתָדִיחַ אֶת פָּנֶיהָ וְאַחַר כָּךְ קִנְּחָה עַצְמָהּ וְנִמְצָא דָּם. בַּעְלָהּ טָהוֹר:
+</div><div class="halacha-en">When a man is intimate with his wife at a time when she is not expected to menstruate and she menstruates in the midst of relations, they are exempt from bringing a sin-offering. This is considered as a situation beyond their control and not an inadvertent transgression. For with regard to an inadvertent transgression, the transgressor carries a certain amount of culpability, for he should have checked and been careful. Had he examined the matter thoroughly and been careful in asking questions, he would not have transgressed. Since he did not take the trouble to examine and research the matter before acting, he requires atonement. In this situation, however, what should the person have done? She was pure and they were intimate at a time when menstruation was not expected. This is considered as a matter beyond their control. Therefore, whether the blood was found on her inspection cloth or his, they are exempt.If, however, the man transgressed and was intimate with her close to the time when she could have been expected to menstruate, thinking that they could be intimate and separate before she would menstruate, and instead, she menstruated in the midst of relations, they are liable to bring a sin-offering, for this is an inadvertent transgression. Therefore, if blood is found on his inspection cloth, they are both impure and are obligated to bring a sacrifice. Slightly more lenient rules apply if blood was found on her examination cloth. If she cleaned herself immediately after separating from her husband, without waiting, they are both impure and are obligated to bring a sacrifice. If, however, she waited long enough so that she could have stretched her hand under the pillow or under the bolster and take an inspection cloth to examine herself and afterwards, she cleaned herself, they are both are considered to have contracted impurity of doubtful status and are exempt from bringing a sacrifice. If she waited long enough so that she could have descended from the bed and washedand afterwards, she cleaned herself and discovered blood, her husband is pure.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁעָבַר וּבָעַל סָמוּךְ לַוֶּסֶת עַל דַּעַת שֶׁתִּקְדֹּם בִּיאָתוֹ לִרְאִיַּת הַדָּם וְהִרְגִּישָׁה הָאִשָּׁה שֶׁנִּטְמֵאת בִּשְׁעַת תַּשְׁמִישׁ וְאָמְרָה לוֹ נִטְמֵאתִי. הֲרֵי זֶה לֹא יִפְרשׁ כְּשֶׁהוּא מִתְקַשֶּׁה כְּמוֹ שֶׁבֵּאַרְנוּ בְּהִלְכוֹת אִסּוּרֵי בִּיאָה. וְאִם לֹא יָדַע שֶׁאָסוּר לִפְרשׁ מִיָּד וּפֵרַשׁ כְּשֶׁהוּא מִתְקַשֶּׁה חַיָּב שְׁתֵּי חַטָּאוֹת. אַחַת עַל כְּנִיסָתוֹ שֶׁהֲרֵי בָּעַל נִדָּה וְאַחַת עַל יְצִיאָתוֹ שֶׁיְּצִיאָתוֹ הֲנָאָה לוֹ כְּבִיאָתוֹ. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁיָּדַע שֶׁאָסוּר לִבְעל בִּשְׁעַת הַוֶּסֶת וְדִמָּה שֶׁתִּקְדֹּם בְּעִילָתוֹ לִרְאִיָּתָהּ וְלֹא יָדַע שֶׁאָסוּר לִפְרשׁ מִיָּד. שֶׁנִּמְצְאוּ לוֹ שְׁתֵּי הַעֲלָמוֹת בִּשְׁתֵּי הַבְּעִילוֹת. אֲבָל אִם לֹא יָדַע שֶׁאָסוּר לִבְעל בִּשְׁעַת הַוֶּסֶת וְלֹא יָדַע שֶׁאָסוּר לִפְרשׁ מִן הַטֻּמְאָה מִיָּד אַף עַל פִּי שֶׁפֵּרַשׁ מִיָּד וְהוּא מִתְקַשֶּׁה אֵינוֹ חַיָּב אֶלָּא חַטָּאת אַחַת. מִפְּנֵי שֶׁכְּנִיסָתוֹ וִיצִיאָתוֹ שֶׁהֵן כִּשְׁתֵּי בְּעִילוֹת בִּשְׁגָגָה אַחַת הֵן וּבְהֶעְלֵם אַחַת עָשָׂה הַכּל. וְהוּא הַדִּין בִּשְׁאָר הָעֲרָיוֹת שֶׁאִם שָׁגַג וּבָא עַל הָעֶרְוָה עַל דַּעַת שֶׁהִיא מֻתֶּרֶת וְנוֹדַע לוֹ שֶׁהִיא עֶרְוָה וְהוּא בְּתוֹךְ הַתַּשְׁמִישׁ. לֹא יִפְרשׁ מִיָּד שֶׁיְּצִיאָתוֹ הֲנָאָה לוֹ כְּבִיאָתוֹ. וְאִם לֹא יָדַע שֶׁאָסוּר לִפְרשׁ מִיָּד וּפֵרַשׁ וְהוּא מִתְקַשֶּׁה אֵינוֹ חַיָּב אֶלָּא חַטָּאת אַחַת. שֶׁהַכּל שְׁגָגָה אַחַת הִיא:
+</div><div class="halacha-en">When a man transgressed and was intimate with his wife close to the time when she could have been expected to menstruate with the intent that he would complete relations before she began to menstruate and the woman felt that she became impure in the midst of relations and informed her husband of this, he should not withdraw while erect, as we explained in Hilchot Issurei Bi'ah. If he did not know that it is forbidden for him to withdraw immediately and he withdrew while erect, he is liable for two sin-offerings: one for entering, for he was intimate with a niddah, and one, for withdrawing, since withdrawing also afforded him pleasure, as entering did.When does the above apply? When he knew that it was forbidden to be intimate close to the time when she could have been expected to menstruate, but had the intent that he would complete relations before she began to menstruate and did not know that it is forbidden to withdraw while erect. Thus it is as if he has two lapses of awareness regarding two experiences of intimacy. If, however, he did not know that it was forbidden to be intimate close to the time when she could have been expected to menstruate and did not know that it is forbidden to withdraw from an impure woman immediately, he is liable for only one sin-offering even when he withdrew immediately, while erect. The rationale is that his entry and his withdrawal are considered as two experiences of intimacy performed during one lapse of awareness.The same principle applies with regard to other forbidden sexual relations. If one inadvertently was intimate with a woman under the conception that she was permitted and, while in the midst of intimacy, he became aware that she was forbidden, he should not withdraw immediately, for withdrawing also affords him pleasure, as entering does. If he does not know that it is forbidden to separate immediately and separates while he is erect, he is only liable for one sin-offering, for the act is considered as one inadvertent transgression.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Changing Conditions</div><div class="callout-text">Complexities in halacha arise when <strong>status changes</strong>, such as periods redefining niddah status, awareness at various stages, and circumstances out of control influence the sin-offering requirements.</div></div>
+      </div><div class="slide" data-slide="4">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Awareness Separates Acts</strong><div class="principle-desc">If awareness occurs between transgressions, a separate offering is required for each act.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Individual Accountability</strong><div class="principle-desc">Each person or animal involved in an act is counted separately for offerings.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Status Repetitions</strong><div class="principle-desc">Distinct time periods of forbidden status mandate distinct sin-offerings.</div></div></div><div class="principle"><span class="principle-icon">🚫</span><div><strong>Beyond Control Situations</strong><div class="principle-desc">Some scenarios exempt from offerings as they are beyond deliberate oversight or control.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 4</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=4;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

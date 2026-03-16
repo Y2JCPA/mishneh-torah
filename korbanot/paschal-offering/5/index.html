@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות קרבן פסח פרק ה — Paschal Offering (קרבן פסח) — Second Pesach and Specific Conditions</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות קרבן פסח</a><div class="chapter-label">🐑 פרק ה׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Second Pesach Obligation and Karet</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">מִי שֶׁהָיָה טָמֵא בִּשְׁעַת שְׁחִיטַת הַפֶּסַח שֶׁאֵין שׁוֹחֲטִין עָלָיו. אוֹ שֶׁהָיָה בְּדֶרֶךְ רְחוֹקָה. אוֹ נֶאֱנַס בְּאֹנֶס אַחֵר. אוֹ שֶׁשָּׁגַג וְלֹא הִקְרִיב בָּרִאשׁוֹן. הֲרֵי זֶה מֵבִיא פֶּסַח בְּאַרְבָּעָה עָשָׂר לַחֹדֶשׁ הַשֵּׁנִי בֵּין הָעַרְבַּיִם. וּשְׁחִיטַת פֶּסַח זֶה מִצְוַת עֲשֵׂה בִּפְנֵי עַצְמוֹ וְדוֹחָה אֶת הַשַּׁבָּת שֶׁאֵין הַשֵּׁנִי תַּשְׁלוּמִין לָרִאשׁוֹן אֶלָּא רֶגֶל בִּפְנֵי עַצְמוֹ לְפִיכָךְ חַיָּבִין עָלָיו כָּרֵת:
+</div><div class="halacha-en">When someone was impure at the time of the slaughter of the Paschal sacrifice and the Paschal sacrifice could not be slaughtered for him, was "on a distant way," he was prevented because of other reasons, or inadvertently failed to offer the first Paschal sacrifice, he should bring a Paschal sacrifice on the fourteenth of the second month in the afternoon. Slaughtering this Paschal sacrifice is an independent positive commandment and supersedes the Sabbath prohibitions. For the second Pesach is not compensation for the first, but an independent festival. Therefore one is liable for karet for failing to bring the sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">כֵּיצַד. מִי שֶׁשָּׁגַג אוֹ נֶאֱנַס וְלֹא הִקְרִיב בָּרִאשׁוֹן אִם הֵזִיד וְלֹא הִקְרִיב בַּשֵּׁנִי חַיָּב כָּרֵת. וְאִם שָׁגַג אוֹ נֶאֱנַס אַף בַּשֵּׁנִי פָּטוּר. הֵזִיד וְלֹא הִקְרִיב בָּרִאשׁוֹן הֲרֵי זֶה מַקְרִיב בַּשֵּׁנִי. וְאִם לֹא הִקְרִיב בַּשֵּׁנִי אַף עַל פִּי שֶׁשָּׁגַג הֲרֵי זֶה חַיָּב כָּרֵת שֶׁהֲרֵי לֹא הִקְרִיב קָרְבַּן ה' בְּמוֹעֲדוֹ וְהָיָה מֵזִיד. אֲבָל מִי שֶׁהָיָה טָמֵא אוֹ בְּדֶרֶךְ רְחוֹקָה וְלֹא עָשָׂה אֶת הָרִאשׁוֹן. אַף עַל פִּי שֶׁהֵזִיד בַּשֵּׁנִי אֵינוֹ חַיָּב כָּרֵת. שֶׁכְּבָר נִפְטַר בְּפֶסַח רִאשׁוֹן מִן הַכָּרֵת:
+</div><div class="halacha-en">What is implied? If a person inadvertently or because of forces beyond his control failed to offer the first Paschal sacrifice, if he intentionally refrained from offering the second, he is liable for karet. If he inadvertently did not offer the second Paschal sacrifice or was held back due to forces beyond his control, he is exempt from karet. If he intentionally did not offer the first Paschal sacrifice, he may offer the second. If he did not offer the second Paschal sacrifice, even if his lapse was unintentional, he is liable for karet. The rationale is that he did not offer God's sacrifice at the appointed time and was willful in his omission. If, however, he was impure or "on a distant way" and did not offer the first Paschal sacrifice, he is not liable for karet even though he willfully did not bring the second. The rationale is that on the first Pesach, he was already exempt from karet.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Importance of Intent</div><div class="callout-text">The second Pesach is not a compensation but rather an <strong>independent festival</strong>, hence the liability for karet if neglected intentionally. The intentionality behind failure to perform carries significant weight regarding one's culpability.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Sacrificial Eligibility and Impediments</h2><div class="sub">הלכות ג׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">וּמִי שֶׁהָיָה בְּדֶרֶךְ רְחוֹקָה וְשָׁחֲטוּ וְזָרְקוּ עָלָיו אֶת הַדָּם. אַף עַל פִּי שֶׁבָּא לָעֶרֶב לֹא הֻרְצָּה וְחַיָּב בְּפֶסַח שֵׁנִי:
+</div><div class="halacha-en">When someone was "on a distant way" on the fourteenth of Nisan, but the Paschal sacrifice was nevertheless sacrificed on his behalf and the blood was poured on the altar for him, it is not accepted and he is obligated to offer a second Paschal sacrifice even though he came in the evening.</div></div><div class="halacha-card"><div class="halacha-he">טָמֵא שֶׁיָּכוֹל לִטַּהֵר בְּפֶסַח רִאשׁוֹן. שֶׁלֹּא טָבַל אֶלָּא יָשַׁב בְּטֻמְאָתוֹ עַד שֶׁעָבַר זְמַן הַקָּרְבָּן. וְכֵן עָרֵל שֶׁלֹּא מָל עַד שֶׁעָבַר זְמַן הַקָּרְבָּן. הֲרֵי זֶה מֵזִיד בָּרִאשׁוֹן. לְפִיכָךְ אִם לֹא עָשָׂה אֶת הַשֵּׁנִי אֲפִלּוּ בִּשְׁגָגָה חַיָּב כָּרֵת:
+</div><div class="halacha-en">When a person is impure, but could purify himself to partake of the first Paschal sacrifice, and yet refrains from immersing himself and instead, remains in a state of impurity until the time for offering the sacrifices passes, he is considered as having intentionally failed to sacrifice the first Paschal sacrifice. This ruling also applies to an uncircumcised person who does not circumcise himself until the time for the sacrifice passes. Therefore if these individuals do not offer the second Paschal sacrifice - even if their failure to do so is inadvertent - they are liable for karet.</div></div><div class="halacha-card"><div class="halacha-he">כְּשֵׁם שֶׁמִּילַת עַצְמוֹ מְעַכַּבְתּוֹ מִלַּעֲשׂוֹת פֶּסַח כָּךְ מִילַת בָּנָיו הַקְּטַנִּים וּמִילַת כָּל עֲבָדָיו בֵּין גְּדוֹלִים בֵּין קְטַנִּים מְעַכֶּבֶת אוֹתוֹ. שֶׁנֶּאֱמַר <small>(שמות יב מח)</small> "הִמּוֹל לוֹ כָל זָכָר וְאָז יִקְרַב לַעֲשׂוֹתוֹ". וְאִם שָׁחַט קֹדֶם שֶׁיָּמוּל אוֹתָם הַפֶּסַח פָּסוּל. וְכֵן טְבִילַת אַמְהוֹתָיו לְשֵׁם עַבְדוּת מְעַכַּבְתּוֹ. וְדָבָר זֶה מִפִּי הַקַּבָּלָה. שֶׁהַטְּבִילָה לִשְׁפָחוֹת כְּמִילָה לַעֲבָדִים:
+</div><div class="halacha-en">Just as the failure to circumcise oneself holds a person back from offering the Paschal sacrifice, so too, the failure to circumcise one's children below the age of majority and the failure to circumcise all of one's Canaanite servants, whether above majority or below majority, holds him back, as Exodus 12:48 states: "He shall circumcise all males, then he will draw close to offer it." If one offered the Paschal sacrifice before circumcising the above individuals, the Paschal sacrifice is invalidated.Similarly, the immersion of one's Canaanite maidservants in a mikveh for the sake of servitude holds one back from offering the Paschal sacrifice. This matter is part of the received tradition: immersion for maidservants is equivalent to circumcision for servants.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Ritual Barriers</div><div class="callout-text">Individuals must meet certain conditions to partake in sacrifices, like purity and circumcision - not just personal, but familial and servile responsibilities as well. <strong>Unmet requirements</strong> invalidate participation.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Minor's and Convert's Obligations</h2><div class="sub">הלכות ��׳–ז׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַקָּטָן אֵין מִילַת עֲבָדָיו וּטְבִילַת שִׁפְחוֹתָיו מְעַכַּבְתּוֹ מִלְּהִמָּנוֹת עַל הַפֶּסַח. שֶׁנֶּאֱמַר <small>(שמות יב מד)</small> "וְכָל עֶבֶד אִישׁ" לְהוֹצִיא אֶת הַקָּטָן:
+</div><div class="halacha-en">The circumcision of his servants and the immersion of his maidservants does not prevent a minor from being enumerated on a Paschal sacrifice, as indicated by ibid.:44: "Any servant of a man." This excludes a minor.</div></div><div class="halacha-card"><div class="halacha-he">גֵּר שֶׁנִּתְגַּיֵּר בֵּין פֶּסַח רִאשׁוֹן לְפֶסַח שֵׁנִי. וְכֵן קָטָן שֶׁהִגְדִּיל בֵּין שְׁנֵי פְּסָחִים. חַיָּבִין לַעֲשׂוֹת פֶּסַח שֵׁנִי. וְאִם שָׁחֲטוּ עָלָיו בָּרִאשׁוֹן פָּטוּר:
+</div><div class="halacha-en">A convert who converts between the first Pesach and the second Pesach and similarly, a child who comes of age between these two holidays are obligated to offer the second Paschal sacrifice. If one slaughtered the first Paschal sacrifice for the sake of the minor, the minor is exempt from bringing the second sacrifice.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Lifecycle Transitions</div><div class="callout-text">Transitions of status, such as coming of age or conversion, obligate individuals in the second Pesach. <strong>Status changes</strong> are pivotal for obligations tied to specific Jewish festivals.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Special Considerations for Women and Distance</h2><div class="sub">הלכות ח׳–ט׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">נָשִׁים שֶׁנִּדְּחוּ לַשֵּׁנִי. בֵּין מִפְּנֵי הָאֹנֶס וְהַשְּׁגָגָה. בֵּין מִפְּנֵי הַטֻּמְאָה וְדֶרֶךְ רְחוֹקָה. הֲרֵי פֶּסַח שֵׁנִי לָהֶם רְשׁוּת. רָצוּ שׁוֹחֲטִין רָצוּ אֵין שׁוֹחֲטִין. לְפִיכָךְ אֵין שׁוֹחֲטִין עֲלֵיהֶן בִּפְנֵי עַצְמָן בְּשַׁבָּת בְּפֶסַח שֵׁנִי. אֲבָל אִם הָיְתָה הָאִשָּׁה אַחַת מִבְּנֵי חֲבוּרָה מֻתָּר. וְאֵי זוֹ הִיא דֶּרֶךְ רְחוֹקָה. חֲמִשָּׁה עָשָׂר מִיל חוּץ לְחוֹמַת יְרוּשָׁלַיִם:
+</div><div class="halacha-en">When the obligation of women is postponed until the second Pesach, whether because of forces beyond their control, inadvertent omission, impurity, or because they were "on a distant way," offering the second Paschal sacrifice is optional for them. If they desire, they may have the offering slaughtered; if they do not desire, they don't. Therefore one should not slaughter a Paschal sacrifice only for women when the second Pesach falls on the Sabbath. If, however, a woman is part of the company offering a second Paschal sacrifice, it is permitted.What is meant by the term "on a distant way" which exempts a person from bringing a Paschal sacrifice? Fifteen mil outside the walls of Jerusalem.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁהָיָה בֵּינוֹ וּבֵין יְרוּשָׁלַיִם יוֹם אַרְבָּעָה עָשָׂר עִם עֲלִיַּת הַשָּׁמֶשׁ חֲמִשָּׁה עָשָׂר מִיל אוֹ יֶתֶר הֲרֵי זֶה דֶּרֶךְ רְחוֹקָה. הָיָה בֵּינוֹ וּבֵינָהּ פָּחוֹת מִזֶּה אֵינוֹ בְּדֶרֶךְ רְחוֹקָה מִפְּנֵי שֶׁהוּא יָכוֹל לְהַגִּיעַ לִירוּשָׁלַיִם אַחַר חֲצוֹת כְּשֶׁיְּהַלֵּךְ בְּרַגְלָיו בְּנַחַת. הָלַךְ וְלֹא הִגִּיעַ מִפְּנֵי שֶׁעִכְּבוּהוּ הַבְּהֵמוֹת בְּדָחֳקָם. אוֹ שֶׁהָיָה בִּירוּשָׁלַיִם וְהָיָה חוֹלֶה בְּרַגְלָיו וְלֹא הִגִּיעַ לָעֲזָרָה עַד שֶׁעָבַר זְמַן הַקָּרְבָּן. הֲרֵי זֶה אָנוּס וְאֵינוֹ בְּדֶרֶךְ רְחוֹקָה. מִי שֶׁהָיָה חָבוּשׁ חוּץ לְחוֹמַת יְרוּשָׁלַיִם וְהִבְטִיחוּהוּ לָצֵאת לָעֶרֶב. שׁוֹחֲטִין עָלָיו וּכְשֶׁיֵּצֵא לָעֶרֶב יֹאכַל. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהָיָה חָבוּשׁ בְּיַד יִשְׂרָאֵל. אֲבָל אִם הָיָה חָבוּשׁ בְּיַד עַכּוּ"ם אֵין שׁוֹחֲטִין עָלָיו עַד שֶׁיֵּצֵא. וְאִם שָׁחֲטוּ עָלָיו וְיָצָא הֲרֵי זֶה אוֹכֵל. וְאִם לֹא יָצָא פָּטוּר מִלַּעֲשׂוֹת פֶּסַח שֵׁנִי שֶׁהֲרֵי נִשְׁחַט עָלָיו. וְכֵן הָאוֹנֵן וְהַחוֹלֶה וְהַזָּקֵן שֶׁהֵם יְכוֹלִין לֶאֱכל שֶׁשָּׁחֲטוּ עֲלֵיהֶן וְאַחַר שֶׁנִּזְרַק הַדָּם נִטְמְאוּ בְּמֵת וַהֲרֵי אֵינָן יְכוֹלִין לֶאֱכל. הֲרֵי אֵלּוּ פְּטוּרִין מִלַּעֲשׂוֹת פֶּסַח שֵׁנִי:
+</div><div class="halacha-en">If one was fifteen mil or more outside of Jerusalem at the appearance of the sun on the fourteenth of Nisan, he is considered to be "on a distant way." If he was closer than this, he is not considered to be "on a distant way," because he could reach Jerusalem after midday while walking comfortably by foot.If he journeyed and did not reach Jerusalem in time, because he was held back by a press of animals or he was in Jerusalem, but was infirm in his legs and did not reach the Temple Courtyard until the time for the offering of the sacrifice passed, he is considered as having been held back by forces beyond his control, but not "on a distant way."If someone was imprisoned outside the walls of Jerusalem and was promised to be released in the evening, the offering may be slaughtered on his behalf and when he is released in the evening, he may partake of it.When does the above apply? When he was imprisoned by Jews. If, by contrast, he was imprisoned by gentiles, the Paschal sacrifice should not be slaughtered on his behalf until he is released. If, however, it was slaughtered on his behalf and he was released, he may partake of it. If he was not released, he is exempt from bringing a second Paschal sacrifice, since the sacrifice was slaughtered on his behalf.Similar laws apply when a Paschal sacrifice was slaughtered for a person in the acute state of onain mourning, for an invalid, or for an elderly person who could have partaken of the sacrifice who became impure after the blood was poured on the altar and thus they are no longer able to partake of it. They are exempt from offering the second Paschal sacrifice.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Conditional Obligation</div><div class="callout-text">Women's participation is optional in regard to the second Pesach, underscoring a <strong>unique flexibility</strong> in obligations. Additionally, the concept of 'distant way' exempts one due to physical displacement from Jerusalem.</div></div>
+      </div><div class="slide" data-slide="5">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Independent Commandment</strong><div class="principle-desc">The second Pesach is its own commandment, not just a make-up date.</div></div></div><div class="principle"><span class="principle-icon">🕊️</span><div><strong>Intent and Accountability</strong><div class="principle-desc">Intentional failure to observe leads to severe consequences like karet.</div></div></div><div class="principle"><span class="principle-icon">🔍</span><div><strong>Participation Prerequisites</strong><div class="principle-desc">Requirements like circumcision impact one's ability to partake in sacrifices.</div></div></div><div class="principle"><span class="principle-icon">🛤️</span><div><strong>Distant Way Exemptions</strong><div class="principle-desc">Physical distance from Jerusalem provides valid exemption from first Pesach obligations.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 5</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=5;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

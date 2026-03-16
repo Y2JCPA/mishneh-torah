@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות שגגות פרק ג — Offerings for Unintentional Transgressions — Specific Dynamics</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות שגגות</a><div class="chapter-label">⚖️ פרק ג׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Witnesses and Admission of Transgression</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">מִי שֶׁהֵעִידוּ עָלָיו עֵדִים שֶׁחָטָא חֵטְא שֶׁחַיָּבִין עָלָיו חַטָּאת קְבוּעָה וְלֹא הִתְרוּ בּוֹ אֶלָּא אָמְרוּ רְאִינוּךָ שֶׁעָשִׂיתָ מְלָאכָה בְּשַׁבָּת אוֹ שֶׁאָכַלְתָּ חֵלֶב וְהוּא אוֹמֵר אֲנִי יוֹדֵעַ בְּוַדַּאי שֶׁלֹּא עָשִׂיתִי דָּבָר זֶה. אֵינוֹ חַיָּב חַטָּאת הוֹאִיל וְאִם יֹאמַר מֵזִיד הָיִיתִי יִפָּטֵר מִן הַקָּרְבָּן כְּשֶׁאָמַר לָהֶן לֹא אָכַלְתִּי וְלֹא עָשִׂיתִי נַעֲשָׂה כְּאוֹמֵר לֹא אָכַלְתִּי בִּשְׁגָגָה אֶלָּא בְּזָדוֹן שֶׁהוּא פָּטוּר מִן הַקָּרְבָּן וְלֹא הִכְחִישׁ אֶת הָעֵדִים:
+</div><div class="halacha-en">When witnesses testify that a person violated a transgression that is punishable by a fixed sin-offering, but they did not warn him, instead, they told him: "We saw that you performed forbidden labor on the Sabbath" or "...that you partook of forbidden fat" and he replied: "I know that I did not perform that act," he is not liable for a sin-offering. The rationale is that since he would be exempt from bringing the sacrifice if he said: "I acted intentionally," when he says: "I did not eat" or "I did not perform," it is as if he said: "I did not eat inadvertently, but rather intentionally," in which instance, he is exempt from bringing the sacrifice and did not contradict the witnesses.</div></div><div class="halacha-card"><div class="halacha-he">שָׁתַק וְלֹא הִפְלִיג אֶת הָעֵדִים (אֶלָּא) אֲפִלּוּ אָמְרָה לוֹ אִשָּׁה אָכַלְתָּ חֵלֶב אוֹ עָשִׂיתָ מְלָאכָה בְּשַׁבָּת וְשָׁתַק חַיָּב לְהָבִיא חַטָּאת. אָמַר לוֹ עֵד אֶחָד חֵלֶב הוּא זֶה וְשָׁתַק. וְחָזַר וַאֲכָלוֹ בִּשְׁגָגָה מֵבִיא חַטָּאת. וְאִם הִתְרוּ בּוֹ לוֹקֶה עָלָיו. אַף עַל פִּי שֶׁעִקַּר הָעֵדוּת בְּעֵד אֶחָד:
+</div><div class="halacha-en">If the alleged transgressor remained silent and did not contradict the witnesses - indeed, even if a woman told him: "You partook of forbidden fat" or "...performed forbidden labor on the Sabbath" and he remained silent - he is liable to bring a sin-offering. If one witness told him: "This is forbidden fat" and he remained silentand then he partook of it inadvertently, he must bring a sin-offering. If he warned him, he is liable for lashes, even though the essence of the testimony depends on one witness.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Witness Impact</div><div class="callout-text">These halachot explore how testimony and personal admission affects liability for a sin-offering. The key theme is that **personal realization and intention** play crucial roles in determining when a sin-offering is required.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Designation and Purpose of Sin-Offerings</h2><div class="sub">הלכות ג׳–ו׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כְּבָר בֵּאַרְנוּ בְּהִלְכוֹת פְּסוּלֵי הַמֻּקְדָּשִׁין שֶׁהַמַּפְרִישׁ חַטָּאתוֹ עַל הַחֵלֶב שֶׁאָכַל לֹא יְבִיאֶנָּה עַל הַשַּׁבָּת שֶׁחִלֵּל אוֹ עַל הַדָּם שֶׁאָכַל שֶׁנֶּאֱמַר <small>(ויקרא ד כח)</small> "וְהֵבִיא קָרְבָּנוֹ שְׂעִירַת עִזִּים" וְגוֹ' <small>(ויקרא ד כח)</small> "עַל חַטָּאתוֹ אֲשֶׁר חָטָא" עַד שֶׁיִּהְיֶה קָרְבָּנוֹ לְשֵׁם חֶטְאוֹ לֹא שֶׁיַּקְרִיבֶנָּה מֵחֵטְא עַל חֵטְא. וְאִם הִקְרִיב פְּסָלָהּ. יֶתֶר עַל זֶה אָמְרוּ הִפְרִישׁ חַטָּאתוֹ עַל חֵלֶב שֶׁאָכַל אֶמֶשׁ לֹא יְבִיאֶנָּה עַל חֵלֶב שֶׁאָכַל הַיּוֹם וְאִם הֵבִיא כִּפֵּר. וְאֵין צָרִיךְ לוֹמַר שֶׁאִם הִפְרִישָׁהּ אָבִיו וּמֵת וְהָיָה הַבֵּן מְחֻיָּב בְּאוֹתוֹ הַחֵטְא שֶׁלֹּא יְבִיאֶנָּה הַבֵּן עַל חֶטְאוֹ כְּמוֹ שֶׁנִּתְבָּאֵר שָׁם:
+</div><div class="halacha-en">We already explained in Hilchot Pesulei HaMukdashim that a person who set aside a sin-offering for eating forbidden fat should not bring it for the desecration of the Sabbath or for partaking of blood, as implied by Leviticus 4:28 which states: "And he shall bring his sacrifice, a she-goat... for the transgression that he committed." The sacrifice must be for the sake of the particular sin; one should not offer one designated for one sin for another. If he offered it, he disqualifies it.In addition, our Sages said that if one set aside a sin-offering for forbidden fat that he ate on the previous day, he should not bring it for fat that he eats on the present day. Nevertheless, if he brings it for that purpose, he finds atonement. Needless to say, if a father sets aside a sin-offering and dies and the son was liable for that same transgression, the son should not bring his father's sacrifice for his transgression, as explained there.</div></div><div class="halacha-card"><div class="halacha-he">הַמֵּבִיא חַטָּאת עַל שְׁנֵי חֲטָאִים תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְתִמָּכֵר וְיָבִיא בִּדְמֵי חֶצְיָהּ לְחֵטְא זֶה וּבִדְמֵי חֶצְיָהּ לַחֵטְא הַשֵּׁנִי. וְכֵן שְׁנַיִם שֶׁהֵבִיאוּ חַטָּאת אַחַת עַל שְׁנֵי חֲטָאֵיהֶם תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְתִמָּכֵר וְיָבִיא זֶה חַטָּאתוֹ בִּדְמֵי חֶצְיָהּ וְיָבִיא זֶה חַטָּאתוֹ בִּדְמֵי חֶצְיָהּ:
+</div><div class="halacha-en">When a person brings an animal as a sin-offering for two transgressions, it should be left to pasture until it contracts a disqualifying blemish and be sold. Half of the proceeds should be used to bring a sin-offering for one transgression and half for a sin-offering for the second transgression.Similarly, if two people bring one animal as a sin-offering for two transgressions, it should be left to pasture until it contracts a disqualifying blemish and be sold. One should bring his sin-offering with half of the proceeds and the other should bring his sin-offering with the other half.</div></div><div class="halacha-card"><div class="halacha-he">הֵבִיא שְׁתֵּי חַטָּאוֹת עַל חֵטְא אֶחָד יַקְרִיב אֵי זוֹ שֶׁיִּרְצֶה וְהַשְּׁנִיָּה תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְיִפְּלוּ דָּמֶיהָ לִנְדָבָה:
+</div><div class="halacha-en">If one brings two animals as sin-offerings for one transgression, he should sacrifice whichever one he desires. The second should be left to pasture until it contracts a disqualifying blemish and be sold. A freewill offering should be brought with the proceeds.</div></div><div class="halacha-card"><div class="halacha-he">הֵבִיא שְׁתֵּי חַטָּאוֹת עַל שְׁנֵי חֲטָאִים זוֹ תִּשָּׁחֵט לְשֵׁם חֵטְא הָאֶחָד וְהַשְּׁנִיָּה לְשֵׁם הַחֵטְא הַשֵּׁנִי:
+</div><div class="halacha-en">If, however, a person brings two animals for sin-offerings for two transgressions without specifying the transgression for which each sacrifice is being brought, he should make that determination and slaughter one for one transgression and the other for the second.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Designation</div><div class="callout-text">The offering must match the specific transgression. **Intentionality in designation** of the sin-offering impacts whether it is acceptable; mixing purposes invalidates these offerings.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Conditions Affecting Validity of Offerings</h2><div class="sub">הלכות ז׳–ח׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כְּבָר בֵּאַרְנוּ בְּהִלְכוֹת מַעֲשֵׂה הַקָּרְבָּנוֹת שֶׁהַמּוּמָר לַעֲבוֹדָה זָרָה אוֹ לְחַלֵּל שַׁבָּתוֹת בְּפַרְהֶסְיָא אֵין מְקַבְּלִין מִמֶּנּוּ קָרְבָּן כְּלָל. וְהַמּוּמָר לַעֲבֵרָה מִשְּׁאָר עֲבֵרוֹת אֵין מְקַבְּלִין מִמֶּנּוּ חַטָּאת עַל אוֹתוֹ הַחֵטְא. כֵּיצַד. מוּמָר לֶאֱכל חֵלֶב שֶׁאָכַל חֵלֶב בִּשְׁגָגָה וְהֵבִיא חַטָּאתוֹ אֵין מְקַבְּלִין מִמֶּנּוּ עַד שֶׁיַּחֲזֹר בִּתְשׁוּבָה. אֲפִלּוּ הָיָה מוּמָר לֶאֱכל חֵלֶב לְתֵאָבוֹן וְנִתְחַלֵּף לוֹ חֵלֶב בְּשֻׁמָּן וַאֲכָלוֹ וְהֵבִיא קָרְבָּן אֵין מְקַבְּלִין מִמֶּנּוּ. שֶׁמִּשֶּׁאָכַל בְּזָדוֹן בֵּין לְהַכְעִיס בֵּין לְתֵאָבוֹן הֲרֵי הוּא מוּמָר. הָיָה מוּמָר לֶאֱכל חֵלֶב וְשָׁגַג וְאָכַל דָּם מְקַבְּלִין מִמֶּנּוּ כְּמוֹ שֶׁבֵּאַרְנוּ:
+</div><div class="halacha-en">We already explained in Hilchot Ma'aseh HaKorbanot, that no sacrifices at all are accepted from an apostate who worships idols or desecrates the Sabbath in public. When a person is an apostate with regard to a particular sin, we do not accept a sin-offering for him for that sin.What is implied? If a person was an apostate with regard to partaking of forbidden fat and then he inadvertently partook of fat and brought a sin-offering for this transgression, it is not accepted until he repents.Even if he was an apostate with regard to partaking of forbidden fat to fulfill his desires and once he accidentally partook of forbidden fat instead of permitted fat and he brought a sacrifice in atonement, it is not accepted from him. Since he partook of the forbidden fat willfully, whether to purposefully anger God or merely to fulfill his desires, he is considered as an apostate with regard to that transgression.If a person was an apostate with regard to partaking of forbidden fat and then he inadvertently partook of blood, we accept a sin-offering he brings for partaking of blood, as we explained.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁשָּׁגַג וְהִפְרִישׁ חַטָּאתוֹ וְאַחַר כָּךְ נַעֲשָׂה מוּמָר וְחָזַר בִּתְשׁוּבָה אוֹ נִשְׁתַּטָּה וְחָזַר וְנִשְׁתַּפָּה. אַף עַל פִּי שֶׁנִּדְחָה הַקָּרְבָּן בֵּינְתַיִם הֲרֵי זֶה חָזַר וְנִרְאָה שֶׁאֵין בַּעֲלֵי חַיִּים נִדְחִין כְּמוֹ שֶׁבֵּאַרְנוּ בְּהִלְכוֹת פְּסוּלֵי הַמֻּקְדָּשִׁין לְפִיכָךְ יַקְרִיבֶנָּה עַצְמָהּ. וּכְשֵׁם שֶׁאִם נוֹלַד בּוֹ מוּם עוֹבֵר וְנִתְרַפֵּא יַחְזֹר לְכַשְׁרוּתוֹ כָּךְ אִם נִדְּחוּ הַבְּעָלִים וְחָזְרוּ וְנִרְאוּ יִקָּרֵב:
+</div><div class="halacha-en">When a person committed a transgression punishable by karet inadvertently and set aside an animal as a sin-offering, and afterwards, became an apostate and then repented or he lost control of his intellectual or emotional faculties and then regained control, that animal may be brought as a sacrifice even though there was a time when it was not to be offered. The rationale is that living animals are not deemed unacceptable forever, as we explained in Hilchot Pesulei HaMukdashim. Therefore that animal itself should be sacrificed. Just like if it contracted a temporary blemish and was healed, it returns to an acceptable state, so too, if the owners became disqualified and then became acceptable, it should be sacrificed.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Apostasy and Repentance</div><div class="callout-text">Here, the focus is on the effect of apostasy and subsequent repentance on the validity of offerings. **Repentance restores acceptability**, just as healing restores blemished offerings.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Impact of Yom Kippur and Repentance</h2><div class="sub">הלכות ט׳–י׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">חַיָּבֵי חַטָּאוֹת וַאֲשָׁמוֹת וַדָּאִים שֶׁעָבַר עֲלֵיהֶן יוֹם הַכִּפּוּרִים חַיָּבִין לְהָבִיא לְאַחַר יוֹם הַכִּפּוּרִים. וְחַיָּבֵי אֲשָׁמוֹת תְּלוּיִין פְּטוּרִין שֶׁנֶּאֱמַר <small>(ויקרא טז ל)</small> "מִכּל חַטֹּאתֵיכֶם לִפְנֵי ה' תִּטְהָרוּ". כָּךְ לָמְדוּ מִפִּי הַשְּׁמוּעָה שֶׁכָּל חֵטְא שֶׁאֵין מַכִּיר בּוֹ אֶלָּא ה' נִתְכַּפֵּר לוֹ. לְפִיכָךְ מִי שֶׁבָּא עַל יָדוֹ סְפֵק עֲבֵרָה בְּיוֹם הַכִּפּוּרִים אֲפִלּוּ עִם חֲשֵׁכָה פָּטוּר מֵאָשָׁם תָּלוּי שֶׁכָּל הַיּוֹם מְכַפֵּר. נִמְצֵאתָ לָמֵד שֶׁאֵין מְבִיאִין עַל לֹא הוֹדַע שֶׁל יוֹם הַכִּפּוּרִים אָשָׁם תָּלוּי אֶלָּא אִם לֹא כִּפֵּר לוֹ יוֹם הַכִּפּוּרִים כְּמוֹ שֶׁיִּתְבָּאֵר:
+</div><div class="halacha-en">Those liable for sin-offerings and definitive guilt-offerings remain obligated to bring those offerings even after Yom Kippur passed. Those liable for tentative guilt-offerings, by contrast, are exempt after Yom Kippur passes, as indicated by Leviticus 16:30: "From all of your sins before God will you be purified." According to the Oral Tradition, it was taught: Any sin that only God recognizes will be granted atonement. Therefore if a person enters a situation where he is in doubt of whether he transgressed on Yom Kippur, even at nightfall, he is exempt from the obligation to bring a tentative guilt-offering, for the entire day of Yom Kippur generates atonement.Thus we learn that a conditional guilt-offering is not brought for a situation concerning which one does not know which occurred on Yom Kippur, unless Yom Kippur will not generate atonement for that person, as will be explained.</div></div><div class="halacha-card"><div class="halacha-he">אֵין יוֹם הַכִּפּוּרִים וְלֹא הַחַטָּאת וְלֹא הָאָשָׁם מְכַפְּרִין אֶלָּא עַל הַשָּׁבִים הַמַּאֲמִינִים בְּכַפָּרָתָן. אֲבָל הַמְבַעֵט בָּהֶן אֵינָן מְכַפְּרִין בּוֹ. כֵּיצַד. הָיָה מְבַעֵט וְהֵבִיא חַטָּאתוֹ אוֹ אֲשָׁמוֹ וְהוּא אוֹמֵר אוֹ מְחַשֵּׁב בְּלִבּוֹ שֶׁאֵין אֵלּוּ מְכַפְּרִין. אַף עַל פִּי שֶׁקָּרְבוּ כְּמִצְוָתָן לֹא נִתְכַּפֵּר לוֹ וּכְשֶׁיַּחֲזֹר בִּתְשׁוּבָה מִבְּעִיטָתוֹ צָרִיךְ לְהָבִיא חַטָּאתוֹ וַאֲשָׁמוֹ. וְכֵן הַמְבַעֵט בְּיוֹם הַכִּפּוּרִים אֵין יוֹם הַכִּפּוּרִים מְכַפֵּר עָלָיו. לְפִיכָךְ אִם נִתְחַיֵּב בְּאָשָׁם תָּלוּי וְעָבַר עָלָיו יוֹם הַכִּפּוּרִים וְהוּא מְבַעֵט בּוֹ הֲרֵי זֶה לֹא נִתְכַּפֵּר לוֹ וּכְשֶׁיַּחֲזֹר בִּתְשׁוּבָה אַחַר יוֹם הַכִּפּוּרִים חַיָּב לְהָבִיא כָּל אָשָׁם תָּלוּי שֶׁהָיָה חַיָּב בּוֹ:
+</div><div class="halacha-en">Yom Kippur, sin-offerings and guilt-offerings do not generate atonement unless one repents and believes in the atonement they grant. If, however, one rebels against them, they do not generate atonement for him.What is implied? A person was in a state of rebellion, but brought a sin-offering or a guilt-offering, saying or thinking in his heart that these will not generate atonement. Accordingly, even though they were offered as commanded, they do not generate atonement for him. When he repents from his rebellion, he must bring another sin-offering and/or guilt-offering.Similarly, when one is in a state of rebellion on Yom Kippur, Yom Kippur does not atone for him. Therefore if he was obligated to bring a tentative guilt-offering and Yom Kippur passed while he was in a state of rebellion, Yom Kippur does not generate atonement for him. When he repents after Yom Kippur, he is obligated to bring all the tentative guilt-offerings for which he is liable.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Atonement Timing</div><div class="callout-text">A key principle here is that **Yom Kippur provides atonement** for known and unknown sins, conditional on repentance. However, sins not reconciled through belief in atonement are not covered.</div></div>
+      </div><div class="slide" data-slide="5">
+        <div class="slide-header"><h2>Exceptions and Execution Timing</h2><div class="sub">הלכות י״א–י״ב</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כָּל אֲשָׁמוֹת שֶׁבַּתּוֹרָה מְעַכְּבִין אֶת הַכַּפָּרָה חוּץ מֵאֲשַׁם נָזִיר. סְפֵק נָזִיר וּסְפֵק מְחֻסְּרֵי כְּפָרָה וּסְפֵק סוֹטָה כֻּלָּם מְבִיאִין קָרְבְּנוֹתֵיהֶן אַחַר יוֹם הַכִּפּוּרִים:
+</div><div class="halacha-en">All of the guilt-offerings required by the Torah hold back atonement with the exception of the guilt-offering of a nazirite. A person who is in doubt whether he or she is required to bring a nazirite offering or an offering brought by one lacking atonement and a sotah who bring an offering because of doubt must bring their offerings after Yom Kippur.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁהוּא מְחֻיָּב חַטָּאת אוֹ אָשָׁם וַהֲרֵי הוּא יוֹצֵא מִבֵּית דִּין לֵהָרֵג אִם הָיָה זִבְחוֹ זָבוּחַ מַשְׁהִין אוֹתוֹ עַד שֶׁיִּזָּרֵק הַדָּם וְאַחַר כָּךְ יֵהָרֵג. וְאִם עֲדַיִן לֹא נִשְׁחַט הַזֶּבַח אֵין מַשְׁהִין אוֹתוֹ עַד שֶׁיַּקְרִיבוּ עָלָיו:
+</div><div class="halacha-en">The following laws apply when a person is obligated to bring a sin-offering or a guilt-offering and he is being taken out of the court to be executed. If the animal to be offered had already been slaughtered, we let him tarry until the blood is cast on the altar and then he is executed. If, however, the animal to be offered has not been slaughtered, we do not let him tarry until it is offered on his behalf.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Legal Exceptions</div><div class="callout-text">Legal distinctions are made for unique cases such as the nazirite offering, and the consideration of **execution relative to offering completion**.</div></div>
+      </div><div class="slide" data-slide="6">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Transgression Intentionality</strong><div class="principle-desc">Liability for a sin-offering hinges on whether the act was unintentional.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Specificity of Offerings</strong><div class="principle-desc">Offerings must be designated specifically for the sin committed to be valid.</div></div></div><div class="principle"><span class="principle-icon">🌙</span><div><strong>Yom Kippur's Atonement</strong><div class="principle-desc">Yom Kippur has the power to atone, but requires a repentant mindset.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Apostasy and Return</strong><div class="principle-desc">An apostate's offering is only valid post-repentance.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 6</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=6;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

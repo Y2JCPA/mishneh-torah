@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות שגגות פרק ט״ו — Offerings for Unintentional Transgressions — Special Cases and Authority Figures</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות שגגות</a><div class="chapter-label">⚖️ פרק ט״ו׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Role-Based Sacrifice Obligations</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כְּבָר בֵּאַרְנוּ שֶׁכָּל שְׁגָגָה שֶׁהַהֶדְיוֹט מֵבִיא עָלֶיהָ חַטָּאת הַקְּבוּעָה כִּשְׂבָּה אוֹ שְׂעִירָה אִם שָׁגַג בָּהּ הַנָּשִׂיא מֵבִיא שָׂעִיר וְאִם שָׁגַג בָּהּ כֹּהֵן מָשִׁיחַ מֵבִיא פַּר. בַּמֶּה דְּבָרִים אֲמוּרִים שֶׁכֹּהֵן מָשִׁיחַ מֵבִיא פַּר עַל שִׁגְגָתוֹ כְּשֶׁטָּעָה בְּהוֹרָאַת עַצְמוֹ וְעָשָׂה מַעֲשֶׂה בְּשִׁגְגַת הוֹרָאָתוֹ לְבַדָּהּ וְהוּא שֶׁיִּהְיֶה חָכָם מֻפְלָא שֶׁנֶּאֱמַר <small>(ויקרא ד ג)</small> "אִם הַכֹּהֵן הַמָּשִׁיחַ יֶחֱטָא לְאַשְׁמַת הָעָם" הֲרֵי מָשִׁיחַ כְּצִבּוּר מָה הַצִּבּוּר שֶׁהֵן בֵּית דִּין אֵינָן חַיָּבִין בְּקָרְבָּן עַד שֶׁיִּהְיוּ חֲכָמִים רְאוּיִין לְהוֹרָאָה וְיִטְעוּ בְּהוֹרָאָה וְיַעֲשׂוּ הָעוֹשִׂים עַל פִּיהֶם וְיוֹרוּ לְבַטֵּל מִקְצָת וּלְקַיֵּם מִקְצָת כָּךְ הַמָּשִׁיחַ בְּכָל הַדְּרָכִים הָאֵלּוּ:
+</div><div class="halacha-en">We have already explained that for every transgression for which an ordinary person must bring a ewe or a she-goat as a fixed sin-offering, a nasiwho violates it inadvertently must bring a he-goat. And if an anointed priest violates it inadvertently, he must bring a bull.When does the statement that an anointed priest brings a bull because of his inadvertent transgression apply? When he errs in issuing a ruling and acts according to his ruling alone. And to be liable he must be a sage of distinction, as implied by Leviticus 4:3: "If the anointed priest will sin, bringing guilt to the nation," i.e., an equivalence is established between the anointed priest and the people as a whole. Just as the community, i.e., the court, are not obligated to bring a sacrifice unless the judges are sages fit to deliver rulings, they deliver an erroneous ruling, the transgressors err because of this ruling, and they ruled to nullify certain aspects of a prohibition and maintain others, so too, an anointed priest is not liable unless all these stipulations are met.</div></div><div class="halacha-card"><div class="halacha-he">כֵּיצַד. כֹּהֵן מָשִׁיחַ שֶׁטָּעָה בְּהוֹרָאָה לְעַצְמוֹ. וְדִמָּה שֶׁהַזּוֹרֵק מֵרְשׁוּת לִרְשׁוּת בְּשַׁבָּת מֻתָּר וְזָרַק מֵרְשׁוּת לִרְשׁוּת וְהוּא תּוֹלֶה בְּהוֹרָאָתוֹ לְעַצְמוֹ. כְּשֶׁיִּוָּדַע לוֹ חֶטְאוֹ יָבִיא פַּר לְחַטָּאת. אֲבָל אִם לֹא תָּלָה בְּהוֹרָאָתוֹ אֶלָּא שָׁגַג וְזָרַק בִּשְׁגָגָה. אוֹ שֶׁתָּלָה בְּהוֹרָאָתוֹ וְלֹא הָיָה חָכָם מֻפְלָא. אוֹ שֶׁעָקַר כָּל הַגּוּף בְּהוֹרָאָתוֹ לְעַצְמוֹ. אוֹ שֶׁשָּׁגַג בְּהוֹרָאָתוֹ לְבַטֵּל מִקְצָת וְלֹא עָשָׂה וְהוּא סוֹמֵךְ עַל הוֹרָאָתוֹ אֶלָּא עָשָׂה בִּשְׁגָגָה אַחֶרֶת. אוֹ שֶׁהָיָה מֵזִיד בְּהוֹרָאָה וְשָׁגַג בְּמַעֲשֶׂה הֲרֵי זֶה פָּטוּר מִקָּרְבַּן כְּלָל שֶׁדִּינוֹ לְהוֹרָאַת עַצְמוֹ כְּדִין הַקָּהָל לְהוֹרָאַת בֵּית דִּין לְכָל דָּבָר. הוֹרָה לְעַצְמוֹ וְשָׁכַח מֵאֵי זֶה טַעַם הוֹרָה וּבִשְׁעַת מַעֲשֶׂה אָמַר הֲרֵינִי עוֹשֶׂה עַל דַּעַת הוֹרָאָתִי הֲרֵי זֶה מֵבִיא פַּר חַטָּאת:
+</div><div class="halacha-en">What is implied? If the anointed priest ruled erroneously for himself and thought that it was permitted to throw an article from one domain to another on the Sabbath and acted in this manner, relying on his judgment, when he becomes aware of his transgression, he should bring a bull as a sin-offering. If, however, he did not rely on his ruling, but instead, acted inadvertently and threw an article, or he relied on his ruling, but was not a distinguished sage, or he nullified a prohibition in its entirety when ruling for himself, or he ruled erroneously to negate only a portion of the prohibition, but did not act while relying on his ruling, but instead, performed the transgression inadvertently for another reason, or he purposely delivered an erroneous ruling, but performed the transgression inadvertently, he is exempt from bringing a sacrifice entirely. For the laws that apply to an anointed priest's ruling for himself are identical to those applying to the congregation with regard to the ruling of the court in all regards.If he delivered a ruling for himself and then forgot the rationale motivating the ruling and at the time he acted said: "I am acting on the basis of my previous ruling," he must bring a bull as a sin-offering.</div></div><div class="halacha-card"><div class="halacha-he">הוֹרָה לְעַצְמוֹ לְבַטֵּל מִקְצָת וּלְקַיֵּם מִקְצָת בַּעֲבוֹדָה זָרָה וְעָשָׂה כְּפִי הוֹרָאָתוֹ. הֲרֵי זֶה מֵבִיא שְׂעִירָה כְּהֶדְיוֹט וְהוּא שֶׁיִּשְׁגֹּג בְּהוֹרָאָה כְּמוֹ שֶׁבֵּאַרְנוּ. שֶׁאֵין הַכֹּהֵן הַמָּשִׁיחַ חַיָּב קָרְבָּן אֶלָּא בְּהֶעְלֵם דָּבָר בְּהוֹרָאָה עִם שִׁגְגַת הַמַּעֲשֶׂה בְּצִבּוּר אֲבָל אִם שָׁגַג בְּמַעֲשֶׂה בִּלְבַד בְּלֹא הוֹרָאָה בֵּין בַּעֲבוֹדָה זָרָה בֵּין בִּשְׁאָר מִצְוֹת אֵינוֹ מֵבִיא קָרְבָּן כְּלָל:
+</div><div class="halacha-en">If he delivered a ruling for himself to nullify certain aspects of the prohibition against the worship of false deities and maintain others and he acted according to his ruling, he brings a she-goat, as does an ordinary person, provided he erred in his ruling, as we explained. For the anointed priest is not obligated to bring a sacrifice unless he has a lapse of awareness while delivering a ruling and then acts inadvertently as is the law with regard to the community as a whole. If, however, he merely acted inadvertently without delivering a ruling, whether he violated the prohibition against the worship of false deities or other commandments, he does not bring a sacrifice at all.</div></div><div class="halacha-card"><div class="halacha-he">הוֹרָה הַכֹּהֵן הַמָּשִׁיחַ עִם בֵּית דִּין וְשָׁגַג הוּא וְהֵם בְּהוֹרָאָה אַף עַל פִּי שֶׁעָשׂוּ עַל פִּי הַהוֹרָאָה הַזֹּאת שֶׁטָּעוּ בָּהּ. הוֹאִיל וְלֹא סָמַךְ בִּשְׁעַת מַעֲשֶׂה עַל הוֹרָאָתוֹ לְבַדָּהּ אֶלָּא עַל הוֹרָאָתוֹ עִם הוֹרָאַת בֵּית דִּין הֲרֵי זֶה פָּטוּר וְאֵין צָרִיךְ לְהָבִיא כַּפָּרָה בִּפְנֵי עַצְמוֹ. אֶלָּא אִם הָיוּ בֵּית דִּין מְבִיאִין קָרְבָּן מִתְכַּפֵּר לוֹ בִּכְלַל הַצִּבּוּר. וְאִם הָיוּ הָעוֹשִׂים הֵם הַמְּבִיאִים קָרְבָּן הוּא אֵינוֹ מֵבִיא קָרְבָּן שֶׁהֲרֵי אֵין צָרִיךְ כַּפָּרָה בִּפְנֵי עַצְמוֹ:
+</div><div class="halacha-en">When the anointed priest ruled together with the High Court and he and they both erred in their ruling, the anointed priest is exempt even though he acted according to the mistaken ruling that he issued. The rationale is that he did not rely only on his ruling alone, but his ruling together with that of the court. Hence it is not necessary for him to bring a sacrifice for atonement individually. Instead, if the court bring a sacrifice, he receives atonement together with the community at large. And if the transgressors bring a sacrifice, he does not bring a sacrifice, because he does not bring a sacrifice individually.</div></div><div class="halacha-card"><div class="halacha-he">הוֹרָה עִם בֵּית דִּין בִּשְׁגָגָה וְשָׁגְגוּ הֵם בְּדָם וְהוּא בְּחֵלֶב. אֵינוֹ מִתְכַּפֵּר לוֹ עִם הַצִּבּוּר אֶלָּא מֵבִיא פַּר לְעַצְמוֹ:
+</div><div class="halacha-en">If he together with the court ruled erroneously, they ruled concerning forbidden blood and he ruled concerning forbidden fats, he does not receive atonement together with the community. Instead, he brings a bull on his own accord.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Distinctions in Role Obligations</div><div class="callout-text">The chapter emphasizes the <strong>different obligations</strong> for sin-offerings based on one's role: a High Priest (anointed priest) and a nasi (prince or king) are specifically addressed, highlighting how their rulings and statuses affect their required offerings.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Implications of Office Changes on Offerings</h2><div class="sub">הלכות ו׳–י׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כֹּהֵן מָשִׁיחַ שֶׁנִּסְתַּפֵּק לוֹ אִם שָׁגַג שְׁגָגָה זוֹ שֶׁהִיא שִׁגְגַת הוֹרָאָה עִם הַמַּעֲשֶׂה אוֹ לֹא שָׁגַג אוֹתָהּ. אֵינוֹ מֵבִיא אָשָׁם תָּלוּי מִפְּנֵי שֶׁהוּא בָּהּ כְּצִבּוּר שֶׁאֵינָן מְבִיאִין אָשָׁם תָּלוּי עַל לֹא הוֹדַע שֶׁל שִׁגְגַת הוֹרָאָה. אֲבָל הַנָּשִׂיא אִם נִסְתַּפֵּק לוֹ אִם חָטָא אוֹ לֹא חָטָא מֵבִיא אָשָׁם תָּלוּי כִּשְׁאָר הַהֶדְיוֹטוֹת. מִפְּנֵי שֶׁאֵין שִׁגְגָתוֹ תְּלוּיָה בְּהוֹרָאָתוֹ. אֵי זֶהוּ נָשִׂיא הָאָמוּר בַּתּוֹרָה זֶה מֶלֶךְ שֶׁאֵין עָלָיו רְשׁוּת מֵאָדָם מִיִּשְׂרָאֵל וְאֵין לְמַעְלָה מִמֶּנּוּ בְּמַלְכוּתוֹ אֶלָּא ה' אֱלֹהָיו. בֵּין שֶׁהָיָה מִבֵּית דָּוִד אוֹ מִשְּׁאָר שִׁבְטֵי יִשְׂרָאֵל. וְאִם הָיוּ מְלָכִים רַבִּים וְאֵין אֶחָד מֵהֶן עוֹבֵד אֶת חֲבֵרוֹ. כָּל אֶחָד וְאֶחָד מֵהֶן מֵבִיא שְׂעִיר עִזִּים עַל שִׁגְגָתוֹ. וְאֵי זֶהוּ כֹּהֵן מָשִׁיחַ זֶה כֹּהֵן גָּדוֹל שֶׁנִּמְשַׁח בְּשֶׁמֶן הַמִּשְׁחָה לֹא הַמְרֻבֶּה בִּבְגָדִים:
+</div><div class="halacha-en">When an anointed priest is in doubt of whether or not he committed this type of advertent transgression - i.e., he ruled in error and acted accordingly - he does not bring a provisional guilt offering, for he is comparable to the community at large who do not bring a provisional guilt-offering. When, by contrast, a nasi is in doubt whether he transgressed or did not transgress, he should bring a provisional guilt-offering like other ordinary people, because his obligation for an inadvertent transgression is not dependent on his ruling.What is the connotation of the term nasi used in the Torah? A king who is not under the jurisdiction of any other man in Israel. There is no one superior to him in his sovereignty except, God, his Lord. This applies whether he is of the Davidic dynasty or of other tribes. If there were several kings and one is not subject to the other, each one should bring a goat for his inadvertent transgression.What is meant by the term "anointed priest"? This refers to a High Priest who was anointed with the oil of anointment, not one who was installed in his office through wearing the priestly garments.</div></div><div class="halacha-card"><div class="halacha-he">כֹּהֵן גָּדוֹל שֶׁנִּמְשַׁח בְּשֶׁמֶן הַמִּשְׁחָה וְעָבַר מֵעֲבוֹדָתוֹ מִפְּנֵי מוּם אוֹ זִקְנָה וְכַיּוֹצֵא בָּהֶן וְחָטָא בִּשְׁגָגָה זוֹ מֵבִיא פַּר עַל שִׁגְגָתוֹ. לְפִי שֶׁאֵין בֵּין כֹּהֵן מָשִׁיחַ הַמְשַׁמֵּשׁ לְכֹהֵן מָשִׁיחַ שֶׁעָבַר אֶלָּא פַּר יוֹם הַכִּפּוּרִים וַעֲשִׂירִית הָאֵיפָה שֶׁל כָּל יוֹם שֶׁאֵין מַקְרִיב אוֹתָן אֶלָּא כֹּהֵן הַמְשַׁמֵּשׁ בִּכְהוּנָה גְּדוֹלָה. אֲבָל פַּר הַבָּא עַל כָּל הַמִּצְווֹת שָׁוִים הֵם בּוֹ:
+</div><div class="halacha-en">When a High Priest who had been anointed with the anointing oil, but was removed from his office, because of a physical blemish, old age, or the like and inadvertently violated a transgression in this manner, he must bring a bull for his inadvertent transgression. For there is no difference between an anointed priest who serves and one who was removed from his office except the bull offered on Yom Kippur and the tenth of an ephah offered each day. These are brought only by a High Priest who is serving in his office, but with regard to the bull brought for the inadvertent violation of all the mitzvot, the two are governed by the same laws.</div></div><div class="halacha-card"><div class="halacha-he">נָשִׂיא שֶׁעָשָׂה עִם הַצִּבּוּר בְּהוֹרָאַת בֵּית דִּין הֲרֵי זֶה מִתְכַּפֵּר לוֹ בִּכְלַל הָעָם. שֶׁאִם הָיוּ בֵּית דִּין הֵם שֶׁהִקְרִיבוּ עַל שִׁגְגָתָן כָּל הָעָם וְהַמֶּלֶךְ פְּטוּרִין מִן הַקָּרְבָּן כְּמוֹ שֶׁבֵּאַרְנוּ. וְאִם הָיוּ הָעוֹשִׂים עַל פִּי בֵּית דִּין הֵם שֶׁחַיָּבִין בְּקָרְבָּן וְהָיָה הַמֶּלֶךְ מִן הָעוֹשִׂים. הֲרֵי זֶה מֵבִיא שָׂעִיר שֶׁשְּׂעִיר נָשִׂיא בִּמְקוֹם כִּשְׂבָּה אוֹ שְׂעִירָה שֶׁל הֶדְיוֹט הוּא עוֹמֵד:
+</div><div class="halacha-en">When a nasi performs a transgression together with the community, because of a ruling of the court, he receives atonement together with the people at large. If the court were offering a sacrifice due to their error, the entire nation and the king are exempt from a sacrifice, as we explained. If those who transgressed due to the court's ruling were obligated to bring a sacrifice and the king was one of them who transgressed, he should bring a goat. For the goat brought by the nasi takes the place of a ewe or a she-goat that an ordinary person brings.</div></div><div class="halacha-card"><div class="halacha-he">נָשִׂיא שֶׁנִּצְטָרֵעַ עָבַר מִנְּשִׂיאוּתוֹ וְנָשִׂיא שֶׁעָבַר מִנְּשִׂיאוּתוֹ הֲרֵי הוּא כְּהֶדְיוֹט. חָטָא כְּשֶׁהָיָה נָשִׂיא וְעָבַר מִגְּדֻלָּתוֹ הֲרֵי זֶה מֵבִיא שָׂעִיר שֶׁנֶּאֱמַר <small>(ויקרא ד ג)</small> "עַל חַטָּאתוֹ אֲשֶׁר חָטָא". כִּשְׁעַת חַטָּאתוֹ הוּא מֵבִיא:
+</div><div class="halacha-en">When a nasi becomes afflicted by tzara'at and is removed from his office or he is removed from his office for other reasons, he is considered as an ordinary person. If a nasi transgressed while in office and then was removed, he must still bring a goat, as can be inferred from Leviticus 4:22: "because of his transgression that he violated," i.e., the sacrifice that he brings depends on his status at the time he transgresses.</div></div><div class="halacha-card"><div class="halacha-he">כֹּהֵן מָשִׁיחַ אוֹ מֶלֶךְ שֶׁחָטְאוּ עַד שֶׁלֹּא נִתְמַנּוּ. אַף עַל פִּי שֶׁלֹּא נוֹדַע לָהֶם אֶלָּא אַחַר שֶׁנִּתְמַנּוּ הֲרֵי אֵלּוּ כְּהֶדְיוֹט. שֶׁנֶּאֱמַר <small>(ויקרא ד כב)</small> "אֲשֶׁר נָשִׂיא יֶחֱטָא". <small>(ויקרא ד ג)</small> "אִם הַכֹּהֵן הַמָּשִׁיחַ יֶחֱטָא". עַד שֶׁיֶּחְטָא כְּשֶׁהוּא נָשִׂיא וּכְשֶׁהוּא מָשִׁיחַ. לְפִיכָךְ אִם אָכַל סְפֵק חֵלֶב כְּשֶׁהוּא הֶדְיוֹט וְנוֹדַע לוֹ עַל סְפֵקוֹ אַחַר שֶׁנִּתְמַנָּה לִהְיוֹת כֹּהֵן גָּדוֹל הֲרֵי זֶה מֵבִיא אָשָׁם תָּלוּי. אָכַל חֲצִי זַיִת חֵלֶב כְּשֶׁהוּא הֶדְיוֹט וַחֲצִי זַיִת כְּשֶׁהוּא נָשִׂיא בְּהֶעְלֵם אַחַת אוֹ שֶׁאָכַל חֲצִי זַיִת כְּשֶׁהוּא נָשִׂיא וַחֲצִי זַיִת אַחַר שֶׁעָבַר אֵינוֹ מִצְטָרֵף וּפָטוּר. אָכַל חֲצִי זַיִת כְּשֶׁהוּא הֶדְיוֹט וְנִתְמַנָּה וְעָבַר וְאָכַל חֲצִי זַיִת כְּשֶׁהוּא הֶדְיוֹט. הֲרֵי זֶה סָפֵק אִם מִצְטָרֵף אוֹ כְּבָר הִפְסִיקָה הַנְּשִׂיאוּת:
+</div><div class="halacha-en">When an anointed priest or a king violate a transgression requiring a sacrifice before they are appointed to their office, they must bring a sacrifice like an ordinary person even if they become aware of it after they become appointed. This is derived from Leviticus 4:22: "When a nasi transgresses," and ibid.:3: "If the anointed priest will transgress...," i.e., these sacrifices are required only when he transgresses while a nasi or while anointed.Accordingly, if a priest ate a piece of fat concerning which there was a question whether it was forbidden and he became aware of this question after he was appointed as a High Priest, he must bring a provisional guilt-offering.If one ate half an olive-sized portion of forbidden fat while he was an ordinary person and another half after becoming a nasi in one lapse of awareness or he ate half an olive-sized portion while he was a nasi and half after leaving his office, they are not combined and he is exempt.If one ate half an olive-sized portion when he was an ordinary person, he was appointed as a nasi and then was removed from his office, there is an unresolved doubt if the two times he ate are combined to make him liable or his service as a nasi creates a distinction between the two.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Office and Offering Changes</div><div class="callout-text">When individuals change their <strong>official status</strong>, such as being appointed or removed from an office, their offering requirements may change or remain linked to the time of transgression. Notably, this affects cases of incomplete offerings and the handling of awareness of transgressions relative to office tenure.</div></div>
+      </div><div class="slide" data-slide="3">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Role-Specific Offerings</strong><div class="principle-desc">Different roles in Israel require different offerings for similar transgressions.</div></div></div><div class="principle"><span class="principle-icon">👑</span><div><strong>Nasi's Offering</strong><div class="principle-desc">A nasi typically brings a goat for unintended sins, differing from ordinary people.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Status and Obligation</strong><div class="principle-desc">The status at the time of awareness affects the obligation for an offering.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Court's Influence</strong><div class="principle-desc">Court rulings can affect personal obligations for offerings, especially for high officials.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 3</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=3;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

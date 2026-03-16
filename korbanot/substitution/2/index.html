@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות תמורה פרק ב — Substitution (תמורה), Chapter 2 — Detailed Rules of Substitution</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות תמורה</a><div class="chapter-label">🔄 פרק ב׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Rules for Successful and Unsuccessful Substitution</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַתְמוּרָה הוּא שֶׁיֹּאמַר בַּעַל הַקָּרְבָּן עַל בֶּהֱמַת חֻלִּין שֶׁיֵּשׁ לוֹ הֲרֵי זוֹ תַּחַת זוֹ. אוֹ הֲרֵי זוֹ חֲלִיפַת זוֹ. וְאֵין צָרִיךְ לוֹמַר אִם אָמַר הֲרֵי זוֹ תַּחַת חַטָּאת זוֹ אוֹ תַּחַת עוֹלָה זוֹ שֶׁהִיא תְּמוּרָה. וְכֵן אִם אָמַר הֲרֵי זוֹ תַּחַת חַטָּאת שֶׁיֵּשׁ לִי בְּתוֹךְ הַבַּיִת אוֹ תַּחַת עוֹלָה שֶׁיֵּשׁ לִי בְּמָקוֹם פְּלוֹנִי הֲרֵי זוֹ תְּמוּרָה וְהוּא שֶׁיֵּשׁ לוֹ. אֲבָל אִם אָמַר עַל בֶּהֱמַת חֻלִּין הֲרֵי זוֹ תַּחַת עוֹלָה אוֹ הֲרֵי זוֹ תַּחַת חַטָּאת לֹא אָמַר כְּלוּם. וְכֵן אִם אָמַר הֲרֵי זוֹ מְחֻלֶּלֶת עַל זוֹ אֵינָהּ תְּמוּרָה:
+</div><div class="halacha-en">The act of transferring the holiness of a sacrificial animal involves the owner of the animal saying with regard to an ordinary animal that he possesses: "This should be substituted for this" or "This is a replacement for this." Needless to say, holiness is transferred if one says: "This should be substituted for this sin-offering" or "... substituted for this burnt-offering." Similarly, holiness is transferred if one says: "This should be substituted for the sin-offering I possess at home" or "...substituted for the burnt-offering I possess in such-and-such a place."If, by contrast, one said with regard to an ordinary animal: "This should be substituted for a burnt-offering" or "This is substituted for a sin-offering," his words are of no consequence. If he states: "The holiness of this is conveyed to this," a transfer of holiness is not brought about.</div></div><div class="halacha-card"><div class="halacha-he">הָיוּ לְפָנָיו שְׁתֵּי בְּהֵמוֹת אַחַת חֻלִּין וְאַחַת הֶקְדֵּשׁ שֶׁנָּפַל בָּהּ מוּם. הִנִּיחַ יָדוֹ עַל בֶּהֱמַת חֻלִּין וְאָמַר הֲרֵי זוֹ תַּחַת זוֹ הֲרֵי זוֹ תְּמוּרָה וְלוֹקֶה. הִנִּיחַ יָדוֹ עַל בֶּהֱמַת הֶקְדֵּשׁ וְאָמַר הֲרֵי זוֹ תַּחַת זוֹ הֲרֵי זֶה חִלְּלָהּ עַל בֶּהֱמַת הַחֻלִּין וְאֵין זוֹ תְּמוּרָה אֶלָּא כְּפוֹדֶה בַּעֲלַת מוּם בְּזוֹ הַבְּהֵמָה:
+</div><div class="halacha-en">The following rules apply when there were two animals before a person, one ordinary animal and one consecrated animal that became blemished. If he placed his hand on the ordinary animal and said: "This one is substituted for this," he has brought about a forbidden exchange of holiness and he is liable for lashes. If, by contrast, he placed his hand on the consecrated animal and said: "This is substituted for this," he has exchanged its holiness and transferred it to the ordinary animal. This is not a forbidden exchange of holiness, but instead, is comparable to redeeming the blemished sacrificial animal with this ordinary animal.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Successful and Forbidden Transfers</div><div class="callout-text">The transfer of holiness involves specific conditions and intentions. <strong>Successful substitution</strong> requires a clear, intentional statement aligning with allowed practices. If conditions are unmet or actions are forbidden, such as intentionally replacing a sacrificial animal with a blemished one, lashes are the consequence in certain situations.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Multiple Animals and Intent in Substitution</h2><div class="sub">הלכות ג׳–ד׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הָיוּ לְפָנָיו שָׁלֹשׁ בְּהֵמוֹת קָדְשֵׁי מִזְבֵּחַ וְאַחַת מֵהֶן בַּעֲלַת מוּם שֶׁהֲרֵי הִיא עוֹמֶדֶת לְפִדְיוֹן וְשָׁלֹשׁ בְּהֵמוֹת תְּמִימוֹת חֻלִּין וְאָמַר הֲרֵי אֵלּוּ תַּחַת אֵלּוּ. הֲרֵי שְׁתַּיִם מִן הַחֻלִּין תַּחַת שְׁתַּיִם הַתְּמִימוֹת תְּמוּרָתָן תְּמוּרָה וְלוֹקֶה עֲלֵיהֶם שְׁתַּיִם. וְהַבְּהֵמָה הַשְּׁלִישִׁית הִיא תַּחַת בַּעֲלַת מוּם שֶׁנִּתְחַלְּלָה עָלֶיהָ וּלְחַלְּלָהּ נִתְכַּוֵּן וְלֹא לְהָמִיר בָּהּ. שֶׁכֵּיוָן שֶׁיֵּשׁ לְפָנָיו דֶּרֶךְ אִסּוּר וְהִיא הַתְּמוּרָה וְדֶרֶךְ הֶתֵּר וְהוּא הַחִלּוּל חֲזָקָה הִיא שֶׁאֵין אָדָם מַנִּיחַ הַהֶתֵּר וְעוֹשֶׂה הָאִסּוּר וּלְפִיכָךְ אֵינוֹ לוֹקֶה שָׁלֹשׁ מַלְקִיּוֹת. וְכֵן אִם אָמַר עֶשֶׂר בְּהֵמוֹת אֵלּוּ תַּחַת עֶשֶׂר בְּהֵמוֹת אֵלּוּ וְאַחַת מֵהֶן בַּעֲלַת מוּם אֵינוֹ לוֹקֶה אֶלָּא תֵּשַׁע מַלְקִיּוֹת שֶׁהַבְּהֵמָה הָעֲשִׂירִית לְחַלְּלָהּ נִתְכַּוֵּן וְלֹא לְהָמִיר בָּהּ. שֶׁאַף עַל פִּי שֶׁהֻחְזַק זֶה בְּמַלְקִיּוֹת הַרְבֵּה הוֹאִיל וְיֵשׁ שָׁם דֶּרֶךְ הֶתֵּר אֵינוֹ מַנִּיחַ דְּבַר הַהֶתֵּר וְעוֹשֶׂה הָאִסּוּר. שְׁתֵּי בְּהֵמוֹת שֶׁל הֶקְדֵּשׁ וְאַחַת מֵהֶן בַּעֲלַת מוּם וּשְׁתֵּי בְּהֵמוֹת שֶׁל חֻלִּין וְאַחַת מֵהֶן בַּעֲלַת מוּם וְאָמַר הֲרֵי אֵלּוּ תַּחַת אֵלּוּ הֲרֵי הַתְּמִימָה תְּמוּרַת הַתְּמִימָה וְלוֹקֶה אַחַת וּבַעֲלַת הַמּוּם מְחֻלֶּלֶת עַל בַּעֲלַת הַמּוּם שֶׁאֵינוֹ מֵנִיחַ הַהֶתֵּר וְעוֹשֶׂה הָאִסּוּר:
+</div><div class="halacha-en">The following rule applies when there were three animals consecrated for the altar before a person and one of them was blemished and awaiting redemption and also three unblemished ordinary animals. If he says: "These are substituted for these," the holiness of two of the consecrated animals is transferred to two of the ordinary animals through the convention of temurah and he is liable for two sets of lashes. The third ordinary animal is substituted for the blemished animal through the convention of chillul. We assume that he sought to use that convention rather than the convention of temurah. The rationale is that since the person had a forbidden course of action, temurah and a permitted course of action, chillul, we operate under the assumption that a person will not abandon the permitted course of action and follow the forbidden one. Therefore he is not liable for three sets of lashes.Similarly, if one says: "These ten ordinary animals are substituted for these ten consecrated animals," and one of the consecrated animals is blemished, the person is liable for only nine sets of lashes, for he intended to transfer the holiness of the tenth animal through the convention of chillul. Even though he had established a halachic presumption by being liable for many sets of lashes, since there is a permitted way for him to transfer the animal's holiness, we presume that he will not abandon the permitted course of action and follow the forbidden one.When there are two consecrated animals and one of them is blemished and two ordinary animals and one of them is blemished, and one says: "These are substituted for these," the holiness of the unblemished animal is transferred to the unblemished animal through the convention of temurah and he is liable for one set of lashes and the holiness of the blemished animal is transferred to the blemished animal through the convention of chillul. The rationale is that we presume that he will not abandon the permitted course of action and follow the forbidden one.</div></div><div class="halacha-card"><div class="halacha-he">הָאוֹמֵר הֲרֵי זוֹ תְּמוּרַת עוֹלָה וּשְׁלָמִים דְּבָרָיו קַיָּמִים וְתִמָּכֵר וְיָבִיא בַּחֲצִי דָּמֶיהָ תְּמוּרַת עוֹלָה וּבַחֲצִי דָּמֶיהָ תְּמוּרַת שְׁלָמִים. אָמַר הֲרֵי זוֹ תְּמוּרַת עוֹלָה וּתְמוּרַת שְׁלָמִים אִם נִתְכַּוֵּן לְכָךְ מִתְּחִלָּה דְּבָרָיו קַיָּמִים וְאִם לֹא נִתְכַּוֵּן בַּתְּחִלָּה אֶלָּא לִתְמוּרַת עוֹלָה וְחָזַר וְאָמַר תְּמוּרַת שְׁלָמִים אַף עַל פִּי שֶׁחָזַר בְּתוֹךְ כְּדֵי דִּבּוּר אֵין תּוֹפְשִׂין אֶלָּא לָשׁוֹן רִאשׁוֹן וַהֲרֵי הִיא תְּמוּרַת עוֹלָה בִּלְבַד:
+</div><div class="halacha-en">When one says: "The holiness of an animal designated as a burnt-offering and one designated as a peace-offering is transferred to this animal," his statements are of consequence. The animal should be sold and half of the proceeds used to bring the exchange of a burnt-offering and half used to bring the exchange of a peace-offering.If one said: "The holiness of an animal designated as a burnt-offering and the holiness of an animal dedicated as a peace-offering are transferred to this animal," we examine if that was his original intent. If it was, his words are of consequence. If his original intent was merely to transfer the holiness of a burnt-offering, and he afterwards, added "the holiness of a peace-offering" later, only his original statements are of consequence. Even though he retracted them immediately thereafter, only the holiness of a burnt-offering was transferred to the animal.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Intent and Assumptions</div><div class="callout-text">When handling multiple animals, a mix of <strong>temurah</strong> (substitution) and <strong>chillul</strong> (redemption) is considered. The individual's intent is crucial, highlighting the assumption that people prefer allowable methods over forbidden ones for transferring holiness.</div></div>
+      </div><div class="slide" data-slide="3">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Intent Determines Outcome</strong><div class="principle-desc">Holiness transfer depends on clear, correct intent as per halacha.</div></div></div><div class="principle"><span class="principle-icon">🐮</span><div><strong>Blemished Animals</strong><div class="principle-desc">Blemished sacrificial animals can be redeemed but not substituted freely.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Forbidden Exchanges</strong><div class="principle-desc">Attempting to substitute holiness illicitly incurs penalties such as lashes.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Balancing Permitted and Forbidden</strong><div class="principle-desc">When faced with dual options, halacha presumes choosing permitted methods.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 3</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=3;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

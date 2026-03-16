@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות שגגות פרק י — Offerings for Unintentional Transgressions — Chapter 10</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות שגגות</a><div class="chapter-label">⚖️ פרק י׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Obligations for Specific Individuals</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">שִׁשָׁה מִצְוָתָן שֶׁיַּקְרִיבוּ קָרְבָּן עוֹלֶה וְיוֹרֵד וְאֵלּוּ הֵן. הַמְצֹרָע. וְהַיּוֹלֶדֶת. וְהַנִּשְׁבָּע שְׁבוּעַת הָעֵדוּת בֵּין בְּזָדוֹן בֵּין בִּשְׁגָגָה. וְהַנִּשְׁבָּע שְׁבוּעַת בִּטּוּי לַשֶּׁקֶר בִּשְׁגָגָה. וְהַטָּמֵא שֶׁאָכַל קֹדֶשׁ בִּשְׁגָגָה. וְהַטָּמֵא שֶׁנִּכְנַס לַמִּקְדָּשׁ בִּשְׁגָגָה:
+</div><div class="halacha-en">There are six individuals who are commanded to bring an adjustable guilt-offering. They are: one who becomes purified from tzara'at, a woman who gives birth, a person who takes an oath denying the knowledge of testimony whether intentionally or inadvertently, one who takes a false sh'vuat bitu'i inadvertently, an impure person who partook of consecrated food inadvertently and an impure person who entered the Temple inadvertently.</div></div><div class="halacha-card"><div class="halacha-he">קָרְבַּן הַיּוֹלֶדֶת אִם הָיְתָה עֲשִׁירָה מְבִיאָה כֶּבֶשׂ בֶּן שְׁנָתוֹ לְעוֹלָה וּבֶן יוֹנָה אוֹ תּוֹר לְחַטָּאת. וְאִם אֵין יָדָהּ מַשֶּׂגֶת הֲרֵי קָרְבָּנָהּ יוֹרֵד וּמְבִיאָה שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה אֶחָד עוֹלָה וְאֶחָד חַטָּאת. אֲפִלּוּ הָיְתָה יָדָהּ מַשֶּׂגֶת לְשֶׂה וְאֵינָהּ מַשֶּׂגֶת לִנְסָכָיו מְבִיאָה קָרְבַּן עָנִי:
+</div><div class="halacha-en">With regard to the sacrifice brought by a woman after childbirth: If she is wealthy, she brings a sheep in its first year of life as a burnt-offering and a young dove or a turtle dove for a sin-offering. If she does not have the means, her obligation for a sacrifice is reduced and she must bring merely two turtle doves or two young doves, one as a burnt-offering and one, as a sin-offering. Even if she has the means to bring a sheep, but does not have the means to bring its accompanying offerings, she should bring the offering of a poor woman.</div></div><div class="halacha-card"><div class="halacha-he">הַמְצֹרָע כְּשֶׁיִּטְהַר מֵבִיא שָׁלֹשׁ בְּהֵמוֹת מֵהֶן שְׁנֵי כְּבָשִׂים אֶחָד עוֹלָה וְאֶחָד אָשָׁם וְכַבְשָׂה לְחַטָּאת. אִם אֵין יָדוֹ מַשֶּׂגֶת מֵבִיא שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה אֶחָד עוֹלָה וְאֶחָד חַטָּאת. וְכֶבֶשׂ לְאָשָׁם:
+</div><div class="halacha-en">When a person afflicted by tazara'at becomes purified, he must bring three animals as sacrifices: two sheep, one, as a burnt-offering and one, as a guilt-offering, and a ewe, as a sin-offering. If he does not have the means, he must bring two turtle doves or two young doves, one, as a burnt-offering and one, as a sin-offering, and a sheep, as a guilt-offering.</div></div><div class="halacha-card"><div class="halacha-he">עַל שְׁבוּעַת הָעֵדוּת וְעַל שִׁגְגַת שְׁבוּעַת בִּטּוּי וְעַל שִׁגְגַת טֻמְאַת מִקְדָּשׁ וְטֻמְאַת קָדָשָׁיו מֵבִיא כִּשְׂבָּה אוֹ שְׂעִירָה כִּשְׁאָר הַחַטָּאוֹת הַקְּבוּעוֹת. וְאִם אֵין יָדוֹ מַשֶּׂגֶת מֵבִיא שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה אֶחָד עוֹלָה וְאֶחָד חַטָּאת. וְאִם אֵין יָדוֹ מַשֶּׂגֶת לְעוֹף מֵבִיא עֲשִׂירִית הָאֵיפָה סלֶת וְהִיא הַקְּרוּיָה מִנְחַת חוֹטֵא שֶׁכְּבָר נִתְפָּרְשׁוּ מַעֲשֶׂיהָ בְּהִלְכוֹת מַעֲשֵׂה הַקָּרְבָּנוֹת:
+</div><div class="halacha-en">One who takes a false sh'vuah concerning testimony, inadvertently takes a false sh'vuat habitu'i, or inadvertently enters the Temple or partakes of consecrated food while in a state of ritual impurity must bring a ewe or a she-goat, like other fixed sin-offerings. If he does not have the means, he must bring two turtle doves or two young doves, one, as a burnt-offering and one, as a sin-offering. If he does not have the means to purchase the fowl, he should bring a tenth of an ephah of flour. This is referred to as "the meal-offering of a sinner." The manner in which it is offered has been described in Hilchot Ma'aseh HaKorbanot.</div></div><div class="halacha-card"><div class="halacha-he">כָּל הַקָּרְבָּנוֹת הָאֵלּוּ מְפֹרָשִׁין בַּתּוֹרָה וּמְפֹרָשׁ זֶה שֶׁחַיָּב לַהֲבִיאָן. חוּץ מִטָּמֵא שֶׁנִּכְנַס לַמִּקְדָּשׁ בִּשְׁגָגָה אוֹ אָכַל קֹדֶשׁ שֶׁכָּךְ כָּתוּב שָׁם <small>(ויקרא ה א)</small> "וְנֶפֶשׁ כִּי תֶחֱטָא וְשָׁמְעָה קוֹל אָלָה" וְגוֹ'. <small>(ויקרא ה ב)</small> "אוֹ נֶפֶשׁ אֲשֶׁר תִּגַּע בְּכָל דָּבָר טָמֵא" וְגוֹ'. <small>(ויקרא ה ד)</small> "אוֹ נֶפֶשׁ כִּי תִשָּׁבַע לְבַטֵּא בִשְׂפָתַיִם" וְגוֹ'. <small>(ויקרא ה ה)</small> "וְהָיָה כִי יֶאְשַׁם לְאַחַת מֵאֵלֶּה" וְגוֹ'. מִפִּי הַשְּׁמוּעָה לָמְדוּ שֶׁזֶּה שֶׁחִיֵּב כָּאן קָרְבָּן לְטָמֵא כְּשֶׁנִּטְמָא וְנִכְנַס לַמִּקְדָּשׁ אוֹ אָכַל קֹדֶשׁ וְהוּא לֹא יָדַע אַף עַל פִּי שֶׁהַדָּבָר מִפִּי הַקַּבָּלָה הֲרֵי הוּא כִּמְפֹרָשׁ שֶׁהֲרֵי בְּפֵרוּשׁ חִיְּבָה תּוֹרָה כָּרֵת לְטָמֵא שֶׁאָכַל קֹדֶשׁ וּלְטָמֵא שֶׁנִּכְנַס לַמִּקְדָּשׁ. בְּאוֹכֵל נֶאֱמַר <small>(ויקרא ז כ)</small> "וְהַנֶּפֶשׁ אֲשֶׁר תֹּאכַל בָּשָׂר מִזֶּבַח הַשְּׁלָמִים אֲשֶׁר לַה' וְטֻמְאָתוֹ עָלָיו וְנִכְרְתָה". וּבְנִכְנָס לַמִּקְדָּשׁ נֶאֱמַר <small>(במדבר יט כ)</small> "וְנִכְרְתָה הַנֶּפֶשׁ הַהִיא מִתּוֹךְ הַקָּהָל כִּי אֶת מִקְדַּשׁ ה' טִמֵּא". וְכֵיוָן שֶׁחִיְּבָה תּוֹרָה כָּרֵת עַל טֻמְאַת מִקְדָּשׁ וְקָדָשָׁיו פֵּרֵשׁ הַקָּרְבָּן שֶׁמְּבִיאִין עַל שִׁגְגָתָן:
+</div><div class="halacha-en">All of these sacrifices are explicitly mentioned in the Torah and it is explicitly mentioned that these individuals are obligated to bring them with the exception of an impure person who inadvertently entered the Temple or partook of consecrated food. For it is written in Leviticus 5:1-5: "When a soul will sin and hear a voice of adjuration... or a soul that will touch any impure thing.... or a soul that will take an oath, explicitly stating it with his lips,... and one will be guilty with regard to one of these." According to the Oral Tradition, it was taught that the obligation for an impure person to bring a sacrifice refers to a person who became impure and then entered the Temple or partook of consecrated food without knowing of the prohibition. Although this interpretation was conveyed by the Oral tradition, it is as if it was stated explicitly, for the Torah explicitly obligated an impure person who partook of consecrated food or who entered the Temple for karet. With regard to an impure person who partakes of consecrated food, Leviticus 7:20 states: "And a soul that will partake of meat from a peace-offering brought to God while he is impure will be cut off." And with regard to one who entered the Temple, Numbers 19:20 states: "And the soul shall be cut off from the congregation, because he made the Sanctuary of God impure." Since the Torah obligated one who entered the Temple or partook of consecrated food while impure for karet, it is understood that here it stated the sacrifice that must be brought because of the inadvertent violation of these prohibitions.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Defined Obligations</div><div class="callout-text">This group covers the specific individuals obligated to bring an adjustable guilt-offering and outlines their sacrifices. <strong>The Torah specifies certain obligations</strong> explicitly, while others are derived from Oral Tradition, reflecting the inclusive nature of scriptural and oral laws.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Role of Wealth and Poverty in Sacrificial Offerings</h2><div class="sub">הלכות ו׳–י״ג</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כָּל קָרְבָּנוֹת שֶׁהָאִשָּׁה חַיֶּבֶת בַּעְלָהּ מֵבִיא עַל יָדֶיהָ. אִם הָיָה עָנִי מֵבִיא קָרְבַּן עָנִי וְאִם הָיָה עָשִׁיר מֵבִיא עַל יָדֶיהָ קָרְבַּן עָשִׁיר. וּמֵבִיא אָדָם עַל יְדֵי בְּנוֹ וְעַל יְדֵי בִּתּוֹ וְעַל יְדֵי עַבְדּוֹ וְשִׁפְחָתוֹ קָרְבַּן עָנִי וּמַאֲכִילָן בִּזְבָחִים:
+</div><div class="halacha-en">Whenever a woman is obligated to bring a sacrifice, her husband is obligated to bring it on her behalf. If he is poor, he brings the offering of a poor person. If he is wealthy, he brings the sacrifice of a wealthy person on her behalf. A person may bring an offering of a poor person on behalf of his son, his daughter, his servant and his maid-servant and have them partake of the offerings.</div></div><div class="halacha-card"><div class="halacha-he">הַמֶּלֶךְ וְכֹהֵן מָשִׁיחַ מְבִיאִין קָרְבָּנָן עַל שְׁבוּעַת הָעֵדוּת אוֹ עַל שְׁבוּעַת בִּטּוּי אוֹ עַל טֻמְאַת מִקְדָּשׁ וְקָדָשָׁיו כִּשְׁאָר הֶדְיוֹטוֹת. שֶׁלֹּא חִלֵּק הַכָּתוּב קָרְבַּן מֶלֶךְ מִקָּרְבַּן הֶדְיוֹט וּמִקָּרְבַּן כֹּהֵן מָשִׁיחַ אֶלָּא בְּמִצְווֹת שֶׁחַיָּבִים עַל שִׁגְגָתָן חַטָּאת קְבוּעָה כְּמוֹ שֶׁבֵּאַרְנוּ אֲבָל בְּקָרְבָּן עוֹלֶה וְיוֹרֵד כֻּלָּן שָׁוִים. כְּבָר בֵּאַרְנוּ בְּהִלְכוֹת שְׁבוּעוֹת אֵימָתַי יִהְיֶה חַיָּב עַל שְׁבוּעַת הָעֵדוּת וְעַל שְׁבוּעַת שִׁגְגַת בִּטּוּי וְאֵימָתַי יִהְיֶה פָּטוּר עֲלֵיהֶן וְעַל אֵי זוֹ דֶּרֶךְ יִהְיֶה חַיָּב קָרְבָּנוֹת הַרְבֵּה כְּמִנְיַן הַשְּׁבוּעוֹת וְעַל אֵי זֶה דֶּרֶךְ לֹא יִהְיֶה חַיָּב אֶלָּא קָרְבָּן אֶחָד. וּבְהִלְכוֹת מְחֻסְּרֵי כַּפָּרָה אֲבָאֵר בְּאֵיזֶה דֶּרֶךְ תִּתְחַיֵּב הַיּוֹלֶדֶת וְהַמְצֹרָע קָרְבָּנוֹת הַרְבֵּה וּבְאֵי זֶה דֶּרֶךְ יִתְחַיֵּב כָּל אֶחָד מֵהֶן קָרְבָּן אֶחָד:
+</div><div class="halacha-en">A king and an anointed priest must bring the same sacrifices for a false oath regarding testimony, a false sh'vuat bitu'i, and for entering the Temple or partaking of sacrificial food while ritually impure as others. For the Torah did not distinguish between the sacrifices brought by a king or an anointed priest and ordinary individuals except with regard to those commandments for which one is obligated to bring a fixed sin-offering for their inadvertent transgression, as we explained. With regard to an adjustable guilt-offering, by contrast, all are equal.We already explained in Hilchot Sh'vuot, when one is liable for a sacrifice for a false oath concerning testimony and a false sh'vuat bitu'i and when one is exempt, in which instances he would be liable for many sacrifices according to the number of oaths he took and in which instances, he would be liable for only one sacrifice. In Hilchot Mechusrei Kaparah, I will explain in which instances a woman who gave birth and a person becoming purified from tzara'at will be liable for many sacrifices and in which instance, they will be liable for only one sacrifice.</div></div><div class="halacha-card"><div class="halacha-he">כָּל הַמֵּבִיא קָרְבָּן עַל הַזָּדוֹן כִּשְׁגָגָה. אִם הָיָה אָנוּס פָּטוּר מִן הַקָּרְבָּן. וְאֵין צָרִיךְ לוֹמַר שְׁאָר עֲבֵרוֹת שֶׁאֵינוֹ חַיָּב חַטָּאת אֶלָּא עַל שִׁגְגָתָן שֶׁאִם הָיָה אָנוּס פָּטוּר:
+</div><div class="halacha-en">With regard to all sins that one must bring a sacrifice whether he transgressed willfully or inadvertently, if a person violates them due to factors under duress, he is exempt from bringing a sacrifice. Needless to say, this applies with regard to other sins for which he is liable for a sin-offering only when he transgresses inadvertently. If he sins under duress, he is exempt.</div></div><div class="halacha-card"><div class="halacha-he">מִי שֶׁהִפְרִישׁ מָעוֹת לְכַבְשָׂה שֶׁל חַטָּאתוֹ וְצָרִיךְ לָהֶן. הֲרֵי זֶה מֵבִיא שְׂעִירָה וִיחַלֵּל אוֹתָם הַמָּעוֹת עַל הַשְּׂעִירָה וְיֵהָנֶה בָּהֶן. וְכֵן אִם הִפְרִישׁ לִשְׂעִירָה וְלָקַח כִּשְׂבָּה יֵהָנֶה בָּהֶן:
+</div><div class="halacha-en">When a person set aside money for a ewe for a sin-offering and then needed it for another purpose, he may bring a she-goat and transfer the holiness of the money to the she-goat and derive benefit from the money. Similarly, if he set aside money for a she-goat and purchased a ewe, he may derive benefit from the money.</div></div><div class="halacha-card"><div class="halacha-he">הִפְרִישׁ מָעוֹת לִבְהֵמָה וְהֶעֱנִי יִקַּח שְׁתֵּי תּוֹרִים אוֹ שְׁנֵי בְּנֵי יוֹנָה וִיחַלֵּל עֲלֵיהֶן אוֹתָם הַמָּעוֹת וְיֵהָנֶה בָּהֶם. הִפְרִישׁ מָעוֹת לִבְנֵי יוֹנָה אוֹ לְתוֹרִים וְהֶעֱנִי. יָבִיא עֲשִׂירִית הָאֵיפָה וִיחַלֵּל עֲלֵיהֶן אוֹתָם הַמָּעוֹת וְיֵהָנֶה בָּהֶן. וְכֵן אִם הָיָה עָנִי וְהִפְרִישׁ מָעוֹת לַעֲשִׂירִית הָאֵיפָה וְהֶעֱשִׁיר יוֹסִיף עֲלֵיהֶן וְיָבִיא עוֹף. הִפְרִישׁ לְעוֹף וְהֶעֱשִׁיר יוֹסִיף עֲלֵיהֶן וְיָבִיא כִּשְׂבָּה אוֹ שְׂעִירָה. אֲפִלּוּ הָיָה מוֹרִישׁוֹ גּוֹסֵס הֲרֵי זֶה עָנִי עַד שֶׁיָּמוּת מוֹרִישׁוֹ וְיִירָשֶׁנּוּ:
+</div><div class="halacha-en">When a person set aside money for an animal and then became poor, he should take two turtledoves or two young doves and transfer the holiness of the money to them. Then he may benefit from the remainder.If one set aside money for young doves or turtledoves and became poor, he should take an tenth of an ephah and transfer the holiness of the money to it. Then he may benefit from the money. Conversely, if he was poor and set aside money for a tenth of an ephah and became wealthier, he should add to that amount and bring a fowl. If he set aside money for a fowl and became wealthy, he should add to it and bring a ewe or a she-goat.Even if a person was fit to inherit money and the testator was on his deathbed, he is still considered as poor until the testator dies and he inherits his estate.</div></div><div class="halacha-card"><div class="halacha-he">עָשִׁיר שֶׁהִפְרִישׁ כִּשְׂבָּה אוֹ שְׂעִירָה וְנָפַל בָּהּ מוּם [וְהֶעֱנִי] אִם רָצָה יָבִיא בְּדָמֶיהָ עוֹף אֲבָל אִם הִפְרִישׁ עוֹף וְנִפְסַל לֹא יָבִיא בְּדָמָיו עֲשִׂירִית הָאֵיפָה שֶׁאֵין לָעוֹף פִּדְיוֹן:
+</div><div class="halacha-en">When a wealthy person set aside a ewe or a she-goat and it contracted a blemish and then he became poor, if he desires, he may bring a fowl with the proceeds of its sale. If, however, he set aside a fowl and it was disqualified, he may not bring a tenth of an ephah of meal with the proceeds of its sale. It may not be sold, since there is no concept of redeeming a fowl.</div></div><div class="halacha-card"><div class="halacha-he">הִפְרִישׁ עֲשִׂירִית הָאֵיפָה וְהֶעֱשִׁיר. עַד שֶׁלֹּא קָדְשָׁה בִּכְלִי הֲרֵי הִיא כְּכָל הַמְּנָחוֹת וְתִפָּדֶה וְתֵאָכֵל. וּמִשֶּׁקָּדְשָׁהּ בִּכְלִי תְּעֻבַּר צוּרָתָהּ וְתֵצֵא לְבֵית הַשְּׂרֵפָה:
+</div><div class="halacha-en">When a person set aside a tenth of an ephah and then became wealthy before the meal was consecrated by placing it in a sacred utensil, it is like all other meal offerings and may be redeemed and eaten. Once it has been consecrated in a sacred utensil, it cannot be redeemed. Instead, it should be left overnight and then taken to the place where sacrifices are burnt.</div></div><div class="halacha-card"><div class="halacha-he">עָשִׁיר שֶׁהִפְרִישׁ קֵן לְמָכְרָהּ וְלִקַּח בְּדָמֶיהָ כִּשְׂבָּה אוֹ שְׂעִירָה וְהֶעֱנִי יָבִיא קֵן זוֹ אַף עַל פִּי שֶׁהִיא קְדֵשַּׁת דָּמִים שֶׁהִיא נִדְחֵית. וְלָמָּה לֹא נִדְחֵית מִפְּנֵי שֶׁדִּחוּי מֵעִקָּרוֹ אֵינוֹ דִּחוּי וַהֲרֵי נִרְאֶה קֵן זוֹ לוֹ עַתָּה. עָנִי שֶׁהִקְרִיב קָרְבַּן עָשִׁיר יָצָא וְעָשִׁיר שֶׁהִקְרִיב קָרְבַּן עָנִי לֹא יָצָא:
+</div><div class="halacha-en">When a wealthy person set aside a pair of doves to be sold with the intent of using the proceeds of the sale as part of the funds for a ewe or a she-goat and then became poor, he may bring this pair of doves even though they were consecrated only for their worth and thus originally disqualified as sacrifices.Why are these doves not disqualified forever? Because when they were disqualified originally, they were not disqualified in an ultimate sense. For this pair of doves is now fit for sacrifice.When a poor person brings the sacrifice of a rich person, he fulfills his obligation. Conversely, when a rich person brings the sacrifice of a poor person, he does not fulfill his obligation.</div></div></div>
+        <div class="callout"><div class="callout-label">💰 Wealth Impact</div><div class="callout-text">This section emphasizes how a person's financial status affects the sacrifices they need to bring. <strong>Both the wealthy and the poor have specific guidelines</strong> for when they become obligated to shift between types of sacrifices, illustrating the adaptability of sacrificial laws to one's circumstances.</div></div>
+      </div><div class="slide" data-slide="3">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Obligation from Oral Tradition</strong><div class="principle-desc">Some obligations are not explicit in the Torah but are known through Oral Tradition, such as offerings for entering the Temple impure.</div></div></div><div class="principle"><span class="principle-icon">💰</span><div><strong>Adaptability of Offerings</strong><div class="principle-desc">The offering requirements adjust to the financial capability of the individual, allowing more accessible participation in sacrificial obligations.</div></div></div><div class="principle"><span class="principle-icon">👑</span><div><strong>Equality in Sacrificial Laws</strong><div class="principle-desc">Kings and priests bring the same offerings as others for certain transgressions, highlighting equality in religious responsibilities.</div></div></div><div class="principle"><span class="principle-icon">❌</span><div><strong>Exemption from Sacrifices</strong><div class="principle-desc">If a transgression occurs under duress, individuals are exempt from owing a sacrifice, acknowledging circumstances beyond one's control.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 3</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=3;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

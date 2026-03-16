@@ -259,5 +259,71 @@
     "emoji": "⛔",
     "book": "ספר עבודה · Sefer Avodah",
     "chapters": 8
+  },
+  "paschal-offering": {
+    "prefix": "paschal-offering",
+    "dir": "korbanot/paschal-offering",
+    "secHe": "הלכות קרבן פסח",
+    "secEn": "Paschal Offering",
+    "emoji": "🐑",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Paschal Offering",
+    "chapters": 10
+  },
+  "festival-offering": {
+    "prefix": "festival-offering",
+    "dir": "korbanot/festival-offering",
+    "secHe": "הלכות חגיגה",
+    "secEn": "Festival Offering",
+    "emoji": "🎉",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Festival Offering",
+    "chapters": 3
+  },
+  "firstlings": {
+    "prefix": "firstlings",
+    "dir": "korbanot/firstlings",
+    "secHe": "הלכות בכורות",
+    "secEn": "Firstlings",
+    "emoji": "🐄",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Firstlings",
+    "chapters": 8
+  },
+  "unintentional-transgressions": {
+    "prefix": "unintentional-transgressions",
+    "dir": "korbanot/offerings-for-unintentional-transgressions",
+    "secHe": "הלכות שגגות",
+    "secEn": "Offerings for Unintentional Transgressions",
+    "emoji": "⚖️",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Offerings for Unintentional Transgressions",
+    "chapters": 15
+  },
+  "incomplete-atonement": {
+    "prefix": "incomplete-atonement",
+    "dir": "korbanot/offerings-for-those-with-incomplete-atonement",
+    "secHe": "הלכות מחוסרי כפרה",
+    "secEn": "Offerings for Those with Incomplete Atonement",
+    "emoji": "🕊️",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Offerings for Those with Incomplete Atonement",
+    "chapters": 5
+  },
+  "substitution": {
+    "prefix": "substitution",
+    "dir": "korbanot/substitution",
+    "secHe": "הלכות תמורה",
+    "secEn": "Substitution",
+    "emoji": "🔄",
+    "book": "ספר קרבנות",
+    "bookEn": "Sefer Korbanot",
+    "sefaria": "Mishneh Torah, Substitution",
+    "chapters": 4
   }
 }

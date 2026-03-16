@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות תמורה פרק ג — Substitution — Laws Governing Holiness Transfer</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות תמורה</a><div class="chapter-label">🔄 פרק ג׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Handling Animals with Transferred Holiness</h2><div class="sub">הלכות א׳–ב׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כֵּיצַד דִּין הַתְּמוּרוֹת לִקָּרֵב. תְּמוּרַת הָעוֹלָה תִּקָּרֵב עוֹלָה וְאִם הָיְתָה תְּמוּרָתָהּ נְקֵבָה אוֹ בַּעֲלַת מוּם תִּרְעֶה הַנְּקֵבָה עַד שֶׁיִּפּל בָּהּ מוּם וְתִמָּכֵר וְיָבִיא בְּדָמֶיהָ עוֹלָה. תְּמוּרַת הַחַטָּאת תָּמוּת כְּמוֹ שֶׁבֵּאַרְנוּ בִּפְסוּלֵי הַמֻּקְדָּשִׁין. תְּמוּרַת הָאָשָׁם תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְיִפְּלוּ דָּמֶיהָ לִנְדָבָה. תְּמוּרַת הַשְּׁלָמִים כִּשְׁלָמִים לְכָל דָּבָר טְעוּנָה סְמִיכָה וּנְסָכִים וּתְנוּפַת חָזֶה וְשׁוֹק. תְּמוּרַת הַתּוֹדָה כְּתוֹדָה אֶלָּא שֶׁאֵינָהּ טְעוּנָה לֶחֶם כְּמוֹ שֶׁבֵּאַרְנוּ בְּהִלְכוֹת פְּסוּלֵי הַמֻּקְדָּשִׁין. תְּמוּרַת הַפֶּסַח אִם הֵמִיר בָּהּ קֹדֶם חֲצוֹת יוֹם אַרְבָּעָה עָשָׂר אֵין תְּמוּרָתוֹ קְרֵבָה אֶלָּא תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְיָבִיא בְּדָמֶיהָ שְׁלָמִים וְאִם הֵמִיר בָּהּ אַחַר חֲצוֹת הֲרֵי הַתְּמוּרָה עַצְמָהּ תִּקָּרֵב שְׁלָמִים. תְּמוּרַת הַבְּכוֹר וְהַמַּעֲשֵׂר אֵינָם קְרֵבִין לְעוֹלָם שֶׁנֶּאֱמַר בִּבְכוֹר <small>(ויקרא כז כו)</small> <small>(ויקרא כז ל)</small> "לַה' הוּא". מִפִּי הַשְּׁמוּעָה לָמְדוּ הוּא קָרֵב וְאֵין תְמוּרָתוֹ קְרֵבָה. וְדִין הַמַּעֲשֵׂר בִּבְכוֹר תְּמוּרָתָן תִּרְעֶה עַד שֶׁיִּפּל בָּהּ מוּם וְתֵאָכֵל: 
+</div><div class="halacha-en">What are the laws governing the offering of an animal to which holiness was transferred? A male animal to which the holiness of a burnt-offering was transferred should be sacrificed as a burnt-offering. If the animal to which the holiness of a burnt-offering was transferred was female or blemished, the female should be left to pasture until it contracts a disqualifying blemish. Then it should be sold and a burnt-offering brought with the proceeds of the sale.An animal to which the holiness of a sin-offering was transferred should be consigned to death, as we explained in Hilchot Pesulei HaMukdashim. An animal to which the holiness of a guilt-offering was transferred should be left to pasture until it contracts a disqualifying blemish. Then it should be sold and freewill offerings brought with the proceeds of the sale. An animal to which the holiness of a peace-offering was transferred is like a peace-offering in all respects: It requires semichah, accompanying offerings, and the waving of the breast and the thigh.An animal to which the holiness of a thanksgiving-offering was transferred is like a thanksgiving-offering except that it does not require bread, as we explained in Hilchot Pesulei HaMukdashim.The following laws apply to an animal to which the holiness of a Paschal sacrifice was transferred. If the transfer was made before noon on the fourteenth of Nisan, the animal to which the holiness was transferred is not offered. Instead, it should be left to pasture until it contracts a disqualifying blemish. Then it should be sold and a peace-offering brought with the proceeds of the sale. If the transfer was made after noon, the animal to which the holiness was transferred should itself be sacrificed as a peace-offering.An animal to which the holiness of a firstborn offering or a tithe offering was transferred should never be sacrificed. This is derived from Leviticus 27:26 which states with regard to a firstborn: "It is God's." According to the Oral Tradition, it was taught: "It" is sacrificed, but an animal to which its holiness is transferred is not sacrificed. The laws pertaining to the tithe offering are the same as those pertaining to the firstborn offering. An animal to which the holiness of these offerings was transferred should be left to pasture until it contracts a disqualifying blemish. Afterwards, it may be eaten.</div></div><div class="halacha-card"><div class="halacha-he">תְּמוּרַת הַבְּכוֹר לַכֹּהֲנִים וּתְמוּרַת הַמַּעֲשֵׂר לַבְּעָלִים. וּכְשֵׁם שֶׁאֵין פּוֹדִין בְּכוֹר וּמַעֲשֵׂר שֶׁנָּפַל בָּהֶן מוּם כְּמוֹ שֶׁבֵּאַרְנוּ בְּהִלְכוֹת אִסּוּרֵי מִזְבֵּחַ כָּךְ אֵין פּוֹדִים תְּמוּרָתָן:
+</div><div class="halacha-en">An animal to which the holiness of a firstborn is transferred should be given to the priests and an animal to which the holiness of a tithe offering was transferred is given to its owners. Just as a firstborn animal or a tithe offering that contracts a disqualifying physical blemish is not redeemed, as explained in Hilchot Issurei Mizbeiach, so too, an animal to which their holiness is transferred is not redeemed.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Holiness Hierarchy</div><div class="callout-text">The treatment of animals with <strong>transferred holiness</strong> depends on the type of offering. Each type has specific guidelines, revealing the nuanced approach required when holiness transitions.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Special Cases of Holiness Transfer</h2><div class="sub">הלכות ג׳–ד׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">בְּהֵמָה שֶׁהִקְדִּישָׁהּ חֶצְיָהּ עוֹלָה וְחֶצְיָהּ שְׁלָמִים תְּמוּרָתָהּ כָּמוֹהָ. וְכֵן כָּל בֶּהֱמַת הֶקְדֵּשׁ שֶׁאֵינָהּ קְרֵבָה מִפְּנֵי תְּחִלַּת הֶקְדֵּשָׁהּ הֲרֵי תְּמוּרָתָהּ כָּמוֹהָ. אָמַר חֲצִי בְּהֵמָה זוֹ תְּמוּרָה וְחֶצְיָהּ עוֹלָה הֲרֵי זוֹ תִּקָּרֵב עוֹלָה. חֶצְיָהּ עוֹלָה וְחֶצְיָהּ מַעֲשֵׂר תִּקָּרֵב עוֹלָה. חֶצְיָהּ תְּמוּרָה וְחֶצְיָהּ מַעֲשֵׂר הֲרֵי זוֹ סָפֵק וְאֵינָהּ קְרֵבָה:
+</div><div class="halacha-en">When an animal was consecrated half as a burnt-offering and half as a peace-offering, an animal to which its holiness was transferred is given the same status. Similarly, when the holiness of any consecrated animal which should not be sacrificed because of a difficulty at the time of its consecration was transferred to another animal, that second animal should also not be sacrificed.If one said: "The holiness of a sacrificial animal should be transferred to half this animal and the other half should be consecrated as a burnt-offering," it should be offered as a burnt-offering. If he consecrated it half as a burnt-offering and half, as a tithe offering, it should be sacrificed as a burnt-offering. If he transferred the holiness of a sacrificial animal to half of it and he consecrated half as a tithe offering, its status is in doubt and it should not be sacrificed.</div></div><div class="halacha-card"><div class="halacha-he">הַמַּקְדִּישׁ בַּעֲלַת מוּם עוֹבֵר וְאֵין צָרִיךְ לוֹמַר תְּמִימָה וְאַחַר כָּךְ נוֹלַד בָּהּ מוּם קָבוּעַ וְנִפְדֵּית וְהֵמִיר בָּהּ אַחַר שֶׁנִּפְדֵּית. הֲרֵי זוֹ תְּמוּרָה וְאֵינָהּ קְרֵבָה וְאֵינָהּ נִפְדֵּית אֶלָּא מַנִּיחָהּ עַד שֶׁתָּמוּת. אֵינָהּ קְרֵבָה מִפְּנֵי שֶׁבָּאָה מִכֹּחַ קְדֻשָּׁה דְּחוּיָה וְאֵינָהּ נִפְדֵּית שֶׁאֵין בְּכֹחַ קְדֻשָּׁתָהּ לִתְפּשֹׁ פִּדְיוֹנָהּ:
+</div><div class="halacha-en">The following rules apply when a person consecrates an animal with a temporary blemish or, needless to say, an unblemished animal and then it contracts a permanent blemish and it is redeemed. If one endeavored to transfer its holiness after it was redeemed, the transfer is binding, but the animal to which the transfer was made should neither be sacrificed, nor redeemed. Instead, it should be left until it dies. It should not be sacrificed, because it comes from holiness that was already deferred. Nor may it be redeemed, because its holiness does not have the strength to encompass the entity used to redeem it.</div></div></div>
+        <div class="callout"><div class="callout-label">🚩 Mixed Intentions</div><div class="callout-text">Complex scenarios arise when holiness is transferred to animals under <strong>mixed consecration statuses</strong> or after redemption, reflecting the need for careful determination of each animal's final status.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Consequences of Blemished Holiness</h2><div class="sub">הלכות ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">כָּל הַתְּמוּרוֹת שֶׁהָיוּ בַּעֲלֵי מוּמִין קְבוּעִין מִתְּחִלָּתָן הֲרֵי אֵלּוּ יִפָּדוּ וְאֵינָן יוֹצְאִין לְחֻלִּין לְכָל דָּבָר כְּדֵי שֶׁיִּהְיוּ מֻתָּרִין בְּגִזָּה וַעֲבוֹדָה אַחַר פִּדְיוֹנָן. שֶׁהַקְּדֻשָּׁה חָלָה בַּתְּמוּרָה עַל בַּעֲלַת מוּם קָבוּעַ שֶׁנֶּאֱמַר <small>(ויקרא כז י)</small> "אוֹ רַע בְּטוֹב" וְרַע הָאָמוּר כָּאן הוּא בַּעַל מוּם וְכַיּוֹצֵא בּוֹ שֶׁאֵינוֹ רָאוּי לְקָרְבָּן וְאַף עַל פִּי כֵן כָּתוּב בּוֹ <small>(ויקרא כז י)</small> "יִהְיֶה קֹדֶשׁ":
+</div><div class="halacha-en">When any animal to which holiness was transferred was permanently blemished from the outset, they should be redeemed. Nevertheless, they do not become ordinary animals in a complete sense to the extent that it is permitted to shear them or perform work with them after they are redeemed. For holiness that is transferred can encompass an animal that possesses a permanent blemish, as evident from Leviticus 27:10 which speaks of transferring holiness "from the good to the bad." Here the intent of the term "bad" is an animal that is blemished or the like and thus is not fit to serve as a sacrifice. Nevertheless, concerning it, the verse continues: "It shall be consecrated."</div></div></div>
+        <div class="callout"><div class="callout-label">✨ Blemished but Holy</div><div class="callout-text"><strong>Blemished animals</strong> to which holiness was transferred maintain a level of sanctity, highlighting the enduring nature of consecration even in imperfection.</div></div>
+      </div><div class="slide" data-slide="4">
+        <div class="slide-header"><h2>Intermingling of Sacrificial Animals</h2><div class="sub">הלכות ו׳–ז׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">עוֹלָה שֶׁנִּתְעָרְבָה בִּזְבָחִים וְהֵמִיר בְּאַחַת מִן הַתַּעֲרוֹבוֹת הֲרֵי זֶה מֵבִיא בְּהֵמָה אַחֶרֶת וְאוֹמֵר אִם תְּמוּרַת עוֹלָה הִיא זוֹ הֲרֵי בְּהֵמָה זוֹ שְׁלָמִים וְאִם תְּמוּרַת שְׁלָמִים הִיא זוֹ הֲרֵי בְּהֵמָה זוֹ עוֹלָה. וְנִמְצָא הַבְּהֵמָה שֶׁהֵבִיא עִם הַתְּמוּרָה כְּעוֹלָה וּשְׁלָמִים שֶׁנִּתְעָרְבוּ זֶה בָּזֶה. חָזַר וְהֵמִיר בְּאַחַת מִשְּׁתֵּיהֶן וְאֵין יָדוּעַ בְּאֵי זוֹ מֵהֶן הֵמִיר. מֵבִיא זֶבַח אַחֵר מִתּוֹךְ בֵּיתוֹ. וְאוֹמֵר עַל הַתְּמוּרָה הַשְּׁנִיָּה. אִם תְּמוּרַת תְּמוּרָה הִיא זוֹ הֲרֵי זוֹ שֶׁהֵבִיא חֻלִּין. וְאִם תְּמוּרַת עוֹלָה אוֹ שְׁלָמִים הִיא הֲרֵי זֶה שֶׁהֵבִיא עוֹלָה אוֹ שְׁלָמִים. וַהֲרֵי זֶה שֶׁהֵבִיא עִם הַתְּמוּרָה הַשְּׁנִיָּה כְּזֶבַח וּתְמוּרָה שֶׁנִּתְעָרְבוּ זֶה בָּזֶה. וּכְבָר בֵּאַרְנוּ דִּין הַתַּעֲרוֹבוֹת בְּהִלְכוֹת פְּסוּלֵי הַמֻּקְדָּשִׁין:
+</div><div class="halacha-en">The following laws apply when an animal consecrated as a burnt-offering became intermingled with sacrificial animals consecrated as peace-offerings and one transferred the holiness of one of the animals in the mixture to an ordinary animal.One should bring another animal and consecrate it, saying: "If this one had the holiness of a burnt-offering transferred to it, this animal is a peace-offering. And if this one had the holiness of a peace-offering transferred to it, this animal is a burnt-offering." Thus the animal which he brought together with the animal to which the holiness of the animal was transferred are like animals consecrated as burnt-offerings and as peace-offerings that became intermingled.If the person transformed the holiness of one of these two to a third animal and it is not known which one's holiness he transferred, he should bring another animal fit for sacrifice from his home and consecrate it conditionally, saying with regard to the second animal to which holiness is being transferred: "If this is an animal to which the holiness of an animal was transferred, the animal that was brought remains an ordinary animal. If this animal is an animal to which the holiness of a burnt-offering or a peace-offering was transferred, the animal that was brought is a burnt-offering or a peace-offering." Thus the animal which he brought with the second animal to which holiness was transferred is like a sacrificial animal that became intermingled with an animal to which holiness was transferred. We have already explained the laws pertaining to the intermingling of animals to which holiness was transferred in Hilchot Pesulei HaMukdashim.</div></div><div class="halacha-card"><div class="halacha-he">שְׁלָמִים שֶׁנִּתְעָרְבוּ בִּבְכוֹר אוֹ בְּמַעֲשֵׂר וְהֵמִיר בְּאֶחָד מֵהֶן הֲרֵי זֶה לֹא יִקְרַב אֶלָּא יִרְעֶה עַד שֶׁיִּפּל בּוֹ מוּם וְיִפָּדֶה וְיֵאָכֵל כִּבְכוֹר אוֹ כְּמַעֲשֵׂר כְּמוֹ שֶׁבֵּאַרְנוּ:
+</div><div class="halacha-en">When an animal consecrated as a peace-offering became intermingled with a firstborn animal or a tithe offering and one transferred the holiness of one of the animals of the mixture to another animal, that animal should not be offered. Instead, it should be left to pasture until it contracts a disqualifying blemish and then be redeemed, and then it should be eaten in the same manner as a blemished firstborn or tithe offering, as explained.</div></div></div>
+        <div class="callout"><div class="callout-label">🔄 Complex Interactions</div><div class="callout-text">When <strong>intermingling occurs</strong>, determining the status of each animal becomes challenging, necessitating conditional statements and pasture until blemishing, reflecting the complexity of sacrificial law.</div></div>
+      </div><div class="slide" data-slide="5">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Holiness Transfer</strong><div class="principle-desc">Different offerings have distinct rules for animals with transferred holiness.</div></div></div><div class="principle"><span class="principle-icon">🚩</span><div><strong>Mixed Consecration</strong><div class="principle-desc">Handling of animals with mixed or partially consecrated statuses impacts their sacrificial use.</div></div></div><div class="principle"><span class="principle-icon">✨</span><div><strong>Blemished Sacrifices</strong><div class="principle-desc">Blemished animals retain holiness, modifying their treatment post-redemption.</div></div></div><div class="principle"><span class="principle-icon">🔄</span><div><strong>Animals Intermingling</strong><div class="principle-desc">Special rules apply when sacrificial and transferred holiness animals mix.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 5</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=5;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>

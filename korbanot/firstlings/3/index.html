@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות בכורות פרק ג — Firstlings, Chapter 3 — Regulations for Firstborn Animal Slaughter and Benefits</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body>
+<div class="top-bar"><a href="../" class="back-link">← הלכות בכורות</a><div class="chapter-label">🐄 פרק ג׳</div><div class="progress"><div class="progress-bar" id="pbar"></div></div></div>
+<div class="slides-container" id="slides"><div class="slide" data-slide="1">
+        <div class="slide-header"><h2>Authority and Process for Slaughter of Blemished Firstborns</h2><div class="sub">הלכות א׳–ה׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">אֵין שׁוֹחֲטִין אֶת הַבְּכוֹר אֶלָּא עַל פִּי מֻמְחֶה שֶׁנָּתַן לוֹ הַנָּשִׂיא שֶׁבְּאֶרֶץ יִשְׂרָאֵל רְשׁוּת וְאָמַר לוֹ הַתֵּר בְּכוֹרוֹת בְּמוּמָן. אֲפִלּוּ הָיָה מוּם גָּדוֹל וְגָלוּי לַכּל לֹא יַתִּירוֹ אֶלָּא מֻמְחֶה שֶׁנָּטַל רְשׁוּת. וְכָל הַבְּכוֹרוֹת אָדָם רוֹאֶה חוּץ מִבְּכוֹרֵי עַצְמוֹ:
+</div><div class="halacha-en">A firstborn animal may not be slaughtered because of its blemish unless a ruling to that effect was delivered by an expert who was authorized to do so by the nasi and told by him: "Give license for slaughter of firstborn animals because of their blemishes." Even if a blemish was large and obvious to everyone, license to slaughter it should not be granted by anyone other than an expert who was granted authority.Such an expert may inspect all firstborn animals except his own.</div></div><div class="halacha-card"><div class="halacha-he">אִם אֵין שָׁם מֻמְחֶה וְהָיָה הַמּוּם מִן הַמּוּמִין הַגְּלוּיִין הַמֻּבְהָקִין. כְּגוֹן שֶׁנִּסְמֵית עֵינוֹ. אוֹ נִקְטְעָה יָדוֹ. אוֹ נִשְׁבְּרָה רַגְלוֹ. הֲרֵי זֶה יִשָּׁחֵט עַל פִּי שְׁלֹשָׁה בְּנֵי הַכְּנֶסֶת. וְכֵן בְּכוֹר שֶׁיָּצָא לְחוּצָה לָאָרֶץ וְנָפַל בּוֹ מוּם מֻבְהָק. הֲרֵי זֶה יֻתַּר עַל פִּי שְׁלֹשָׁה בְּנֵי הַכְּנֶסֶת:
+</div><div class="halacha-en">If there is no expert in a locale and the blemish was one of the blemishes that are obvious and distinct, e.g., the animal's eye was blinded, its forefoot was cut off, or its hindfoot was broken, it may be slaughtered with license of three members of the synagogue. Similarly, if a firstborn animal was taken to the Diaspora and contracted a distinct blemish, license for its slaughter can be granted by three members of the synagogue.</div></div><div class="halacha-card"><div class="halacha-he">אֵין רוֹאִין אֶת הַבְּכוֹר לְיִשְׂרָאֵל עַד שֶׁיִּהְיֶה כֹּהֵן עִמּוֹ. שֶׁמָּא יֹאמַר לוֹ הַמֻּמְחֶה מוּם הוּא וּמֻתָּר לִשְׁחֹט עָלָיו וְיֵלֵךְ וְיִשְׁחָטֶנּוּ לְעַצְמוֹ וְלֹא יִתְּנֶנּוּ לַכֹּהֵן. שֶׁאַף עַל פִּי שֶׁאֵינוֹ חָשׁוּד לֶאֱכל קָדָשִׁים בַּחוּץ. חָשׁוּד הוּא לִגְזל מַתְּנוֹת כְּהֻנָּה. לְפִיכָךְ אִם הָיָה חָכָם וְיָדוּעַ שֶׁהוּא מְדַקְדֵּק עַל עַצְמוֹ רוֹאִין לוֹ. הָיָה הַמּוּם גָּלוּי לַכּל כְּגוֹן שֶׁנִּקְטְעָה יָדוֹ אוֹ רַגְלוֹ. הוֹאִיל וֶהֱבִיאוֹ לְחָכָם הַמֻּמְחֶה הֲרֵי זֶה בְּחֶזְקַת מְדַקְדֵּק עַל עַצְמוֹ לְפִיכָךְ רוֹאִין לוֹ אַף עַל פִּי שֶׁאֵין עִמּוֹ כֹּהֵן:
+</div><div class="halacha-en">An expert should not inspect a firstborn animal in Eretz Yisrael unless he is accompanied by a priest, lest the expert tell the owner: "It is a blemish and it is permitted to slaughter the animal because of it," and he slaughter it for himself without giving it to the priest. For although he is not suspect to slaughter sanctified animalsoutside the Temple Courtyard, he is suspect to steal the presents given to the priests.Therefore if the owner was a wise man who is known to be careful in his observance, an animal may be inspected for him without a priest. If the blemish was something obvious to all, e.g., the firstborn's foreleg or hindleg was cut off, since he brought to a sage expert for inspection, we assume that he is careful in his observance. Hence the experts inspects the animal for him even though he is not accompanied by a priest.</div></div><div class="halacha-card"><div class="halacha-he">הַשּׁוֹחֵט אֶת הַבְּכוֹר וְאַחַר כָּךְ הֶרְאָה אֶת מוּמוֹ אַף עַל פִּי שֶׁהוּא מוּם גָּלוּי שֶׁאֵינוֹ מִשְׁתַּנֶּה בִּשְׁחִיטָה כְּגוֹן שֶׁנֶּחְתְּכָה יָדוֹ אוֹ רַגְלוֹ הוֹאִיל וְנִשְׁחַט שֶׁלֹּא עַל פִּי מֻמְחֶה הֲרֵי זֶה אָסוּר וְיִקָּבֵר כִּבְכוֹר שֶׁמֵּת:
+</div><div class="halacha-en">When a person slaughters a firstborn animal and afterwards shows its blemish to an expert - even if the blemish is overtly recognizable and will not be affected by ritual slaughter, e.g., its foreleg or hindleg were cut off - since it was not slaughtered with license granted by an expert - it is forbidden to benefit from it and it should be buried like a firstborn animal that died.</div></div><div class="halacha-card"><div class="halacha-he">בְּכוֹר שֶׁהָיְתָה לוֹ בֵּיצָה אַחַת וּשְׁנֵי כִּיסִים. וּבְדָקוֹ הַמֻּמְחֶה וְהוֹשִׁיבוּהוּ עַל הַרְגּוֹזוֹ וּמִעֲכוּ וְלֹא יָצָאת בֵּיצָה שְׁנִיָּה וְהִתִּירוֹ הַמֻּמְחֶה וְנִשְׁחַט וְנִמְצָא הַשְּׁנִיָּה דְּבוּקָה בַּכְּסָלִים הֲרֵי זֶה מֻתָּר הוֹאִיל וּמִעֲכוּ. אֲבָל אִם לֹא נִמְעַךְ אַף עַל פִּי שֶׁנִּשְׁחַט עַל פִּי מֻמְחֶה הֲרֵי זֶה יִקָּבֵר:
+</div><div class="halacha-en">When a firstborn had only one testicle, but two sacs, it was sat on its rear, and its genital area kneaded without finding the second testicle, an expert granted permission for its slaughter and it was slaughtered, it is permitted to be eaten even though the second testicle was found clinging to the flanks. Since its genital area was kneaded, the original ruling is not rescinded. If, however, its genital area was not kneaded, even though permission to slaughter it was granted by an expert, it must be buried.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Authorization Protocols</div><div class="callout-text">Slaughtering a firstborn animal due to blemishes requires <strong>explicit authorization</strong> from an expert or, in some cases, three synagogue members. This ensures the sanctity of firstborn animals and prevents misuse.</div></div>
+      </div><div class="slide" data-slide="2">
+        <div class="slide-header"><h2>Consequences of Unauthorized Slaughter and Inspection</h2><div class="sub">הלכות ו׳–ח׳</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">מִי שֶׁאֵינוֹ מֻמְחֶה וְרָאָה אֶת הַבְּכוֹר וְנִשְׁחַט עַל פִּיו. הֲרֵי זֶה יִקָּבֵר וִישַׁלֵּם מִבֵּיתוֹ. וְכַמָּה מְשַׁלֵּם. רְבִיעַ לְדַקָּה וּמֶחֱצָה לְגַסָּה. וּמִפְּנֵי מָה לֹא יְשַׁלֵּם כָּל דָּמָיו מִפְּנֵי שֶׁקָּנְסוּ אֶת בַּעַל הַבְּהֵמָה כְּדֵי שֶׁלֹּא יַשְׁהֶנָּה וְלֹא יְגַדֵּל בְּהֵמָה דַּקָּה בְּאֶרֶץ יִשְׂרָאֵל:
+</div><div class="halacha-en">When a person who is not an expert inspects a firstborn and has it slaughtered, it should be buried and he must make restitution from his personal resources.How much should he pay? A fourth of the worth of a small animal and half the worth of a large animal. Why does he not pay its entire worth? Because the owner of the animal was penalized so that he not delay offering the firstborn and so that he not raise a small animal in Eretz Yisrael.</div></div><div class="halacha-card"><div class="halacha-he">הַנּוֹטֵל שְׂכָרוֹ לִהְיוֹת רוֹאֶה בְּכוֹרוֹת אֵין שׁוֹחֲטִין עַל פִּיו אֶלָּא אִם כֵּן הָיָה מֻמְחֶה גָּדוֹל וְיָדְעוּ בּוֹ חֲכָמִים שֶׁאֵין כְּמוֹתוֹ וּפָסְקוּ לוֹ שָׂכָר עַל הָרְאִיָּה וְהַבִּקּוּר בֵּין שֶּׁנִּמְצָא בּוֹ מוּם בֵּין שֶּׁנִּמְצָא תָּמִים. וְלֹא יִטּל שָׂכָר עַל בְּהֵמָה זוֹ חוּץ מִפַּעַם אַחַת וְרוֹאֶה אוֹתָהּ לְעוֹלָם כָּל זְמַן שֶׁמְּבִיאִין אוֹתָהּ כְּדֵי שֶׁלֹּא יָבוֹא לִידֵי חֲשָׁד:
+</div><div class="halacha-en">When a person receives a wage for inspecting a firstborn animal for a blemish, the animal may not be slaughtered on the basis of his rulings unless he was a great expert and the sages knew that there were none like him and they allotted a fee to him for the visit and inspection whether a blemish was found or not.He should not take a fee for any given animal more than once and should continue to inspect it as long as it is brought to him, so that no suspicions will be aroused.</div></div><div class="halacha-card"><div class="halacha-he">הֶחָשׁוּד עַל הַבְּכוֹרוֹת לְמָכְרָן לְשֵׁם חֻלִּין אֵין לוֹקְחִין מִמֶּנּוּ אֲפִלּוּ בְּשַׂר צְבָאִים מִפְּנֵי שֶׁהוּא דּוֹמֶה לִבְשַׂר עֵגֶל. וְאֵין לוֹקְחִים מִמֶּנּוּ עוֹרוֹת שֶׁאֵינָן עֲבוּדִים אֲפִלּוּ שֶׁל נְקֵבָה שֶׁמָּא יַחְתֹּךְ זִכְרוּתוֹ וְיֹאמַר עוֹר נְקֵבָה הוּא. וְאֵין לוֹקְחִין מִמֶּנּוּ צֶמֶר אֲפִלּוּ מְלֻבָּן וְאֵין צָרִיךְ לוֹמַר צוֹאִי. אֲבָל לוֹקְחִין מִמֶּנּוּ טָוּוּי וּלְבָדִין וְעוֹרוֹת עֲבוּדִים. שֶׁאֵינוֹ מְעַבֵּד עוֹר בְּכוֹר תָּמִים מִפְּנֵי שֶׁהוּא מְפַחֵד לַשְׁהוֹתוֹ אֶצְלוֹ שֶׁמָּא יִשְׁמְעוּ הַדַּיָּנִים וְיִקְנְסוּהוּ כְּפִי רִשְׁעוֹ:
+</div><div class="halacha-en">When a person is suspect to sell firstborn animals as ordinary animals, one may not purchase even the meat of deer from him, because it resembles the meat of a calf. One may not purchase from him hides that have not been processed, even the hides of a female animal, lest he cut off the place of the male organ and say: "This is the hide of a female animal."One may not purchase wool from him, even wool that has been whitened. Needless to say, this refers to wool that is still soiled. We may, however, purchase from him spun wool, rolls of wool and processed hides. The rationale is that one will not process the hide from an unblemished firstborn animal, because he fears to leave it in his domain, lest the judges hear and penalize him according to his wickedness.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Unauthorized Actions</div><div class="callout-text">Improper inspection or slaughter without authorization leads to <strong>serious penalties</strong>, including financial restitution and burial of the animal. Trusted expert procedures are critical to avoid suspicions of theft and ensure fair practice.</div></div>
+      </div><div class="slide" data-slide="3">
+        <div class="slide-header"><h2>Regulations on Firstborn Wool and Meat Transactions</h2><div class="sub">הלכות ט׳–י״ג</div></div>
+        <div class="halachot"><div class="halacha-card"><div class="halacha-he">הַשּׁוֹחֵט אֶת הַבְּכוֹר וּמְכָרוֹ וְנוֹדַע שֶׁלֹּא הֶרְאָהוּ לְמֻמְחֶה. מַה שֶּׁאָכְלוּ אָכְלוּ וְיַחְזִיר לָהֶם אֶת הַדָּמִים. וּמַה שֶּׁלֹּא נֶאֱכַל יִקָּבֵר וְיַחְזִיר אֶת הַדָּמִים. וְכֵן הַדִּין בְּמַאֲכִיל אֶת הַטְּרֵפָה כְּמוֹ שֶׁיִּתְבָּאֵר בְּהִלְכוֹת מִקָּח וּמִמְכָּר:
+</div><div class="halacha-en">When one slaughtered a firstborn and sold its meat and afterwards, it became known that he did not show it to an expert, what was eaten was eaten. The owner should, however, return the money paid by the purchasers. What was not eaten should be burned and the money returned. This law also applies when one feeds meat from an animal that is treifah, as will be explained in Hilchot Mikach UMemcar.</div></div><div class="halacha-card"><div class="halacha-he">בְּכוֹר שֶׁנִּמְצָא טְרֵפָה אִם תָּמִים הוּא וְנִמְצָא טְרֵפָה אַחַר שֶׁהֻפְשַׁט הָעוֹר יִשָּׂרֵף כְּמוֹ שֶׁבֵּאַרְנוּ בְּהִלְכוֹת פְּסוּלֵי הַמֻּקְדָּשִׁין וְהַבָּשָׂר יִקָּבֵר. וְאִם בְּמוּמוֹ נִשְׁחַט הַבָּשָׂר יִקָּבֵר וְיֵהָנוּ הַכֹּהֲנִים בְּעוֹרוֹ. וְהוּא שֶׁנִּשְׁחַט עַל פִּי מֻמְחֶה:
+</div><div class="halacha-en">The following rules apply when it is discovered that a firstborn was treifah. If it was unblemished and it was discovered to be treifah after it was skinned, the hide should be burnt, as explained in Hilchot Pesulei HaMukdashim, and the meat should be buried. If it was slaughtered because of a blemish, the meat should be buried and the priests should be allowed to benefit from its hide, provided it was slaughtered on the basis of the ruling of an expert.</div></div><div class="halacha-card"><div class="halacha-he">הַבְּכוֹר שֶׁנֶּאֱכַל בְּשָׂרוֹ כַּהֲלָכָה בֵּין תָּמִים בֵּין בַּעַל מוּם. כְּשֵׁם שֶׁמֻּתָּר לֵהָנוֹת בְּעוֹרוֹ כָּךְ נֶהֱנִין בְּגִזּוֹתָיו. אֲבָל כָּל צֶמֶר שֶׁנִּגְזַז מִמֶּנּוּ כְּשֶׁהוּא חַי אֲפִלּוּ נָשַׁר הֲרֵי הוּא אָסוּר בַּהֲנָאָה. וַאֲפִלּוּ נָשַׁר מִמֶּנּוּ אַחַר שֶׁנָּפַל בּוֹ מוּם. וַאֲפִלּוּ אַחַר שְׁחִיטָתוֹ וְאֵין צָרִיךְ לוֹמַר אַחַר מִיתָתוֹ שֶׁהֲרֵי אוֹתוֹ הַצֶּמֶר שֶׁנָּשַׁר מִמֶּנּוּ מֵחַיִּים בְּאִסּוּרוֹ עוֹמֵד. וְכֵן בְּמַעֲשַׂר בְּהֵמָה. וּכְבָר בֵּאַרְנוּ בְּהִלְכוֹת מְעִילָה שֶׁלֹּא גָּזְרוּ גְּזֵרָה זוֹ אֶלָּא עַל הַבְּכוֹר וְעַל הַמַּעֲשֵׂר בִּלְבַד מִפְּנֵי שֶׁאֵינָן בָּאִין לְכַפָּרָה שֶׁמָּא יַשְׁהֵם אֶצְלוֹ כְּדֵי לִקַּח כָּל הַצֶּמֶר שֶׁיִּנְשֹׁר מֵהֶם. וּכְבָר בֵּאַרְנוּ שֶׁמִּצְוָה לְאָכְלוֹ תּוֹךְ שְׁנָתוֹ בֵּין תָּמִים בֵּין בַּעַל מוּם:
+</div><div class="halacha-en">When the meat of a firstborn animal, whether unblemished or blemished, has been eaten according to law, just as it is permitted to benefit from its hide, so too, is it permitted to benefit from its shearings. Nevertheless, it is forbidden to benefit from any wool which is cut off from it while it is alive - and even from wool that it shed, and even to wool that was shed after the animal contracted a blemish. Even after it was slaughtered, and, needless to say, after it died, the wool remains forbidden. For the same wool that was shed from the animal during its lifetime remains forbidden even after these events take place. These same laws apply with regard to the tithes of animals.We have already explained in Hilchot Me'ilah that this decree was instituted only with regard to the firstborn and tithe sacrifices, because they do not come to secure atonement. Hence with regard to these sacrifices, there is room to suspect that the owner will leave them in his domain to take all the wool that sheds from them. This is undesirable, because as we have already explained, it is a mitzvah to eat the firstborn in the first year of its life, whether it is unblemished or blemished.</div></div><div class="halacha-card"><div class="halacha-he">בְּכוֹר שֶׁהָיָה בּוֹ צֶמֶר מְדֻבְלָל וּשְׁחָטוֹ. אֶת שֶׁהוּא נִרְאֶה עִמּוֹ מִן הַגִּזָּה מֻתָּר בַּהֲנָאָה. וְאֶת שֶׁאֵינוֹ נִרְאֶה עִמּוֹ וְהוּא הַצֶּמֶר שֶׁעִקָּרוֹ הָפוּךְ כְּלַפֵּי רֹאשׁוֹ אָסוּר. שֶׁזֶּה כְּמוֹ שֶׁנָּשַׁר מֵחַיִּים:
+</div><div class="halacha-en">The following rules apply when a firstborn has loose-hanging wooland it was slaughtered because of its blemish. It is permitted to benefit from the loose-hanging wool that resembles the animal's other wool. It is, however, forbidden to benefit from the loose-hanging wool that does not resemble the animal's other wool, i.e., its roots are turned in the opposite direction and face its tips, for this is considered as if it were shed while the animal was alive.</div></div><div class="halacha-card"><div class="halacha-he">גִּזַּת בְּכוֹר אֲפִלּוּ בַּעַל מוּם שֶׁנִּתְעָרְבָה בְּגִזֵּי חֻלִּין אֲפִלּוּ אַחַת בְּכַמָּה אֲלָפִים הַכּל אֲסוּרִים. הֲרֵי הוּא דָּבָר חָשׁוּב וּמְקַדֵּשׁ בְּכָל שֶׁהוּא. הָאוֹרֵג מְלֹא הַסִּיט מִצֶּמֶר הַבְּכוֹר בְּבֶגֶד יִדָּלֵק. מִצֶּמֶר הַמֻּקְדָּשִׁין מְקַדֵּשׁ בְּכָל שֶׁהוּא:
+</div><div class="halacha-en">When the shearings of the wool from a firstborn animal, even one that was blemished, become intermingled with the shearings of ordinary animals - even one with several thousand - they are all forbidden. The rationale is that the shearings are a significant entity and even the slightest amount causes the entire mixture to be considered as consecrated.When one weaves a full length of a sit of wool from a firstborn animal in a garment, it should be destroyed by burning. If wool from consecrated animals was used, even the slightest amount causes the entire garment to be consecrated.</div></div></div>
+        <div class="callout"><div class="callout-label">🔥 Use and Sale Restrictions</div><div class="callout-text">Handling of firstborn animal products has detailed regulations. Unauthorized sale leads to restitution. Wool use is severely restricted due to its significant sanctity, highlighting the importance of <strong>mitzvot observance</strong> and proper procedures.</div></div>
+      </div><div class="slide" data-slide="4">
+      <div class="slide-header"><h2>Key Principles</h2><div class="sub">עקרונות מרכזיים</div></div>
+      <div class="principles"><div class="principle"><span class="principle-icon">🔥</span><div><strong>Expert Authorization Essential</strong><div class="principle-desc">Only authorized experts can permit the slaughter of blemished firstborn animals.</div></div></div><div class="principle"><span class="principle-icon">🔍</span><div><strong>Transparency in Blemish Rulings</strong><div class="principle-desc">Ensuring a priest is present during inspections prevents misuse and theft of holy portions.</div></div></div><div class="principle"><span class="principle-icon">⚖️</span><div><strong>Penalties for Unauthorized Actions</strong><div class="principle-desc">Severe repercussions follow unauthorized inspections and slaughter, emphasizing responsibility.</div></div></div><div class="principle"><span class="principle-icon">🐑</span><div><strong>Strict Wool Regulations</strong><div class="principle-desc">Wool from firstborns has specific restrictions to prevent improper benefit from sacred animals.</div></div></div></div>
+      <a href="quiz.html" class="quiz-cta">🎓 Take the Quiz →</a>
+    </div></div>
+<div class="nav"><button class="nav-btn" id="prev" onclick="go(-1)">→ הקודם</button><div class="slide-counter" id="counter">1 / 4</div><button class="nav-btn" id="next" onclick="go(1)">הבא ←</button></div>
+<script>let cur=1,total=4;function show(n){document.querySelectorAll('.slide').forEach(s=>s.style.display='none');const s=document.querySelector('[data-slide="'+n+'"]');if(s)s.style.display='block';document.getElementById('counter').textContent=n+' / '+total;document.getElementById('pbar').style.width=(n/total*100)+'%';document.getElementById('prev').disabled=n<=1;document.getElementById('next').disabled=n>=total}function go(d){cur=Math.max(1,Math.min(total,cur+d));show(cur)}show(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});</script></body></html>
