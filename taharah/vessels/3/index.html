@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות כלים פרק ג</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות כלים</a><span class="title">פרק ג · Ch 3</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר טהרה · Sefer Taharah</div><div class="emoji">🏺</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות כלים</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Vessels</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ג</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 3 · 8 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">The Forty Se'ah Rule — Stationary vs. Portable Vessels</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">The Forty Se'ah Rule — Stationary vs. Portable Vessels</h2><div class="subtitle">Chapter 3</div><div class="flowchart"><div class="flow-box highlight">Portability as the Defining Criterion<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">The Forty Se'ah Standard and Large Containers<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ו׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Exceptional Portable Vessels and Leg Removal<br><span style="font-size:.8rem;color:#888">הלכות ז׳–ח׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Portability as the Defining Criterion</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כָּל כְּלִי עֵץ הֶעָשׂוּי לְנַחַת אֲפִלּוּ אֵינוֹ מְקַבֵּל אֶלָּא דָּבָר מוּעָט אֵינוֹ מְקַבֵּל טֻמְאָה לֹא מִן הַתּוֹרָה וְלֹא מִדִּבְרֵי סוֹפְרִים. וְכָל כְּלִי עֵץ הֶעָשׂוּי לְהִתְטַלְטֵל מָלֵא וְרֵיקָן כְּשַׂק אֲפִלּוּ הָיָה מַחֲזִיק מֵאָה סְאָה וְאַף עַל פִּי שֶׁיֵּשׁ לוֹ שׁוּלַיִם הוֹאִיל וְאֵינוֹ עָשׂוּי לְנַחַת הֲרֵי זֶה מְקַבֵּל טֻמְאָה דִּין תּוֹרָה כִּשְׁאָר כְּלֵי קִבּוּל. וְכָל כְּלִי עֵץ שֶׁהוּא סְתָם אִם הָיוּ לוֹ שׁוּלַיִם לֵישֵׁב עֲלֵיהֶם עַל הַקַּרְקַע כְּדֵי שֶׁלֹּא יְהֵא נוֹחַ לְהִתְגַּלְגֵּל וְהָיָה מַחֲזִיק אַרְבָּעִים סְאָה בְּלַח שֶׁהֵן כּוֹרַיִים בְּיָבֵשׁ אֵינוֹ מְקַבֵּל טֻמְאָה כְּלָל לֹא מִן הַתּוֹרָה וְלֹא מִדִּבְרֵי סוֹפְרִים מִפְּנֵי שֶׁחֶזְקָתוֹ שֶׁעָשׂוּי לְנַחַת. וּדְבָרִים אֵלּוּ דִּבְרֵי קַבָּלָה הֵן. מִפִּי הַשְּׁמוּעָה לָמְדוּ מָה שַׂק שֶׁהוּא מִתְטַלְטֵל מָלֵא וְרֵיקָן אַף כְּלִי עֵץ לֹא יִטְמָא אֶלָּא אִם כֵּן הָיָה מִטַּלְטֵל מָלֵא וְרֵיקָן לְהוֹצִיא כְּלִי עֵץ הֶעָשׂוּי לְנַחַת: 
+</div><div class="halacha-en long">Any wooden <i>k'li</i> that is made with the intent that it remain in one place, even though it is made to contain only a small amount, is not susceptible to ritual impurity, neither according to Scriptural Law, nor according to Rabbinic Law. Conversely, any wooden <i>k'li</i> that is intended to be carried whether full or empty like a sack - even if it holds 100 <i>se'ah</i> and it has a base, since it is not intended to remain in one place - it is susceptible to ritual impurity according to Scriptural Law like other receptacles.<br>Whenever a <i>k'li's</i> use is undefined, if it has a base to rest upon on the ground so that it is not easily rolled and it could hold 40 <i>se'ah</i> of liquid measure which equals two <i>kor</i> in dry measure, it is not susceptible to impurity at all, neither according to Scriptural Law nor Rabbinic Law, because it can be assumed that it is not intended to be moved.<br>These principles are part of our received tradition. According to the Oral Tradition, it was taught that just as a sack is carried whether full or empty, so too, a wooden implement is not susceptible to impurity unless it would be carried full or empty. This excludes a wooden implement that is intended to remain in one place.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">הַכֵּלִים שֶׁחֶזְקָתָן שֶׁהֵן עֲשׂוּיִין לְנַחַת כְּגוֹן שִׁדָּה תֵּבָה וּמִגְדָּל וְכַוֶּרֶת הַקַּשׁ וְכַוֶּרֶת הַקָּנִים וּבוֹר סְפִינָה גְּדוֹלָה וְכַיּוֹצֵא בְּאֵלּוּ. אִם הֵן מַחֲזִיקִין אַרְבָּעִים סְאָה אֵין מְקַבְּלִין טֻמְאָה. וְאֵלּוּ הֵן הַכֵּלִים שֶׁל עֵץ שֶׁהֵן עֲשׂוּיִין לְהִתְטַלְטֵל בִּמְלוֹאָן. דִּרְדּוּר שֶׁמַּנִּיחִין אוֹתוֹ עַל הָעֲגָלָה וְקוֹסְטוֹת הַמְּלָכִים וַעֲרֵבַת הַעֲבְּדָן וּבוֹר סְפִינָה קְטַנָּה שֶׁאֵינָהּ יְכוֹלָה לְהַלֵּךְ בְּאֶמְצַע הַיָּם הַגָּדוֹל וְהָאָרוֹן. כָּל אֶחָד מֵחֲמֵשֶׁת כְּלֵי עֵץ אֵלּוּ אַף עַל פִּי שֶׁהֵן מְקַבְּלִין יוֹתֵר מֵאַרְבָּעִים סְאָה הֲרֵי אֵלּוּ מְקַבְּלִין טֻמְאָה שֶׁלֹּא נַעֲשׂוּ מִתְּחִלָּתָן אֶלָּא לְהִטַּלְטֵל מְלֵאִין. וּשְׁאָר כָּל כְּלֵי עֵץ אִם הָיוּ מְקַבְּלִין אַרְבָּעִים סְאָה וְיֵשׁ לָהֶם שׁוּלַיִם חֶזְקָתָן שֶׁאֵינָן עֲשׂוּיִין לְהִתְטַלְטֵל בִּמְלוֹאָן וּלְפִיכָךְ אֵין מְקַבְּלִין טֻמְאָה. וְכֵן כְּלֵי עֶצֶם וּכְלֵי הָעוֹר הַמְקַבְּלִין אַרְבָּעִים סְאָה בְּלַח אֵין מְקַבְּלִין טֻמְאָה אֶלָּא אִם כֵּן נַעֲשׂוּ מִתְּחִלָּתָן כְּשֶׁהֵן מְלֵאִין: 
+</div><div class="halacha-en long"><i>Keilim</i> that are made to remain in one place, e.g., a chest, a counter, a closet, a bee-hive like container made of reeds, a reservoir of drinking water for a large ship, and the like, if they contain 40 <i>se'ah</i>, they are not susceptible to ritual impurity.<br>The following are wooden <i>keilim</i> that are intended to be moved even when they are full: a large barrel of water that is placed on a wagon, a food trolley of kings, a leather maker's trough, the water reservoir of a small ship that cannot sail on a large sea, and a coffin. Even though all of these five types of wooden <i>keilim</i> contain more than 40 <i>se'ah</i>, they are susceptible to impurity, because initially they were made to be carried while full.<br>It can be assumed that all other wooden containers that are made to hold 40 <i>se'ah</i> and that have a base are not meant to be carried when full. Therefore they are not susceptible to ritual impurity. Similarly, containers made of bone or leather that hold 40 <i>se'ah</i> of liquid measure are not susceptible to impurity unless they were initially made to be carried when they were full.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🚶 Portable vs. Fixed</div>A wooden vessel made to <strong>remain in one place</strong> is not susceptible to impurity regardless of size. One made to be <strong>carried full or empty</strong> is susceptible even if enormous — analogous to a sack that is carried full or empty.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Forty Se'ah Standard and Large Containers</h2><div class="subtitle">הלכות ג׳–ו׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">הַשִּׁדָּה וְהַתֵּבָה וְהַמִּגְדָּל שֶׁל זְכוּכִית הַבָּאִים בְּמִדָּה טְהוֹרִין וּשְׁאָר כְּלֵי זְכוּכִית אַף עַל פִּי שֶׁמְּקַבְּלִין אַרְבָּעִים סְאָה הֲרֵי הֵן מְקַבְּלִין טֻמְאָה. וְזֶה חֹמֶר בִּכְלֵי זְכוּכִית מִבִּכְלֵי עֵץ: 
+</div><div class="halacha-en">Large chests, counters, and closets of glass are pure. Other glass containers, even if they hold more than 40 <i>se'ah</i>, are susceptible to ritual impurity. This is an added stringency that applies to glass <i>keilim</i> over wooden <i>keilim</i>.</div></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">כָּל כְּלִי שֶׁיֵּשׁ בְּשִׁבּוּרוֹ אַמָּה עַל אַמָּה בְּרוּם שָׁלֹשׁ הֲרֵי הוּא מַחֲזִיק אַרְבָּעִים סְאָה בְּלַח. וּכְשֶׁמּוֹדְדִין אֶת הַכְּלִי מוֹדְדִין אוֹתוֹ מִבַּחוּץ אִם הָיָה בּוֹ אַמָּה עַל אַמָּה בְּרוּם שָׁלֹשׁ אַף עַל פִּי שֶׁאֵין תּוֹכוֹ אֶלָּא פָּחוֹת מִזֶּה הֲרֵי הוּא טָהוֹר שֶׁאֵין עֳבִי הַדְּפָנוֹת מְמַעֵט. אֲבָל עֳבִי הָרַגְלַיִם וָעֳבִי הַזֵּר אִם הָיָה לוֹ זֵר אֵין נִמְדָּדִין עִמּוֹ: 
+</div><div class="halacha-en long">Whenever the volume of a container is one cubit by one cubit with a height of three cubits, it will contain 40 <i>se'ah</i> of liquid measure. When the container is measured, it is measured from the outside. If it is one cubit by one cubit with a height of three cubits, it is pure even though its inner space is less than that. For the thickness of the walls does not reduce its size. The breadth of its legs and the breadth of its border, if it has one, is not included in its measure.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">הָיָה בְּתוֹךְ הַכְּלִי תֵּבָה קְטַנָּה כְּגוֹן מוּכְנִי שֶׁבְּתוֹךְ הַשִּׁדָּה בִּזְמַן שֶׁהִיא נִשְׁמֶטֶת אֵינָהּ נִמְדֶּדֶת עִמָּהּ וְאֵינָהּ חִבּוּר לָהּ וְאֵינָהּ מַצֶּלֶת עִמָּהּ בְּאֹהֶל הַמֵּת. וְאִם אֵינָהּ נִשְׁמֶטֶת נִמְדֶּדֶת עִמָּהּ וַהֲרֵי הֵן כִּכְלִי אֶחָד: 
+</div><div class="halacha-en long">If there was a drawer in a small counter, e.g., a drawer in a chest, it is not included in the measure of its volume if it can be removed. It is not considered as attached to it, nor is it protected from impurity by it in a shelter that is impure due to the presence of a human corpse. If it cannot be removed, it is measured with it and they are considered as one utensil.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">הָיָה לַכְּלִי כִּסּוּי קָמוּר בִּזְמַן שֶׁהוּא קָבוּעַ נִמְדָּד עִמּוֹ. אֵינוֹ קָבוּעַ אֵינוֹ נִמְדָּד עִמּוֹ. הָיוּ בּוֹ מְגוּרוֹת מִבִּפְנִים נִמְדֶּדֶת עִמּוֹ. וְאִם הָיוּ מִבַּחוּץ אֵינָן נִמְדָּדוֹת עִמּוֹ: 
+</div><div class="halacha-en long">When a large container has a domed cover, if it is permanently affixed to it, it is included in its measurement. If it is not permanently affixed, it is not. If it has drawers that open to the inside, they are measured with it. If they open to the outside, they are not measured with it.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">📏 40 Se'ah Rule</div>A container of <strong>one cubit × one cubit × three cubits</strong> holds 40 se'ah (measured from outside). Containers holding 40 se'ah with a base are presumed stationary and pure. Removable drawers are excluded from measurement; permanently affixed domed covers are included.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Exceptional Portable Vessels and Leg Removal</h2><div class="subtitle">הלכות ז׳–ח׳</div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">כְּלִי עֵץ שֶׁאֵינוֹ מְקַבֵּל אַרְבָּעִים סְאָה כְּדַרְכּוֹ אֶלָּא אִם כֵּן הִטָּהוּ עַל צִדּוֹ אוֹ סְמָכוֹ בְּדָבָר אַחֵר הוֹאִיל וּמְקַבֵּל אַרְבָּעִים סְאָה מִכָּל מָקוֹם טָהוֹר: 
+</div><div class="halacha-en long">Even though a wooden container does not hold 40 <i>se'ah</i> when standing upright, if it could hold such an amount when leaned on its side or supported by another entity, since it is ultimately capable of holding more than 40 <i>se'ah</i>, it is pure.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">הַשִּׁדָּה וְהַתֵּבָה שֶׁנִּטְּלָה אַחַת מֵרַגְלֵיהֶן אַף עַל פִּי שֶׁלֹּא נִקְּבוּ אֶלָּא הֲרֵי הֵן מְקַבְּלִין הֲרֵי אֵלּוּ טְהוֹרִין וַעֲדַיִן יֵשׁ לָהֶם שׁוּלַיִם וְחֶזְקָתָן שֶׁהֵן לְנַחַת כְּשֶׁהָיוּ: 
+</div><div class="halacha-en long">When one of the legs of a chest, a counter, or a closet was removed - even though it was not perforated and thus they can still serve as containers - they are pure. The rationale is that they still have a base and it can be assumed that the intent is still that they will not be moved like they were originally.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚠️ Exceptions</div>Five large vessel types exceeding 40 se'ah remain susceptible because made to be <strong>carried while full</strong>: wagon barrels, royal food trolleys, tanners' troughs, small-ship reservoirs, and coffins. When a <strong>leg is removed</strong> from a chest/counter/closet, even if it still holds contents, it becomes pure — the base indicates stationary intent.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 3</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>Intent Determines Status</strong><br><span style="font-size:.9rem">Whether a vessel was designed to be portable or stationary determines susceptibility — not its actual size or capacity.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📐</div><strong>The 40 Se'ah Threshold</strong><br><span style="font-size:.9rem">Containers holding 40 se'ah with a base are presumed stationary and therefore pure, absent contrary evidence.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔧</div><strong>Structure Reveals Intent</strong><br><span style="font-size:.9rem">A base indicates intended permanence; leg removal from large chests signals the stationary presumption applies.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🏺</div><strong>Glass Exception</strong><br><span style="font-size:.9rem">Glass chests follow the same 40 se'ah rule as wood, but other glass containers remain susceptible regardless of size.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות כלים פרק ג</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

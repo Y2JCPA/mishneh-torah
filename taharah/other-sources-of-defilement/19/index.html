@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות שאר אבות הטומאה פרק י״ט</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות שאר אבות הטומאה</a><span class="title">פרק י״ט · Ch 19</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר טהרה · Sefer Taharah</div><div class="emoji">⚠️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות שאר אבות הטומאה</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Other Sources of Defilement</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק י״ט</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 19 · 4 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 19 — Two Paths, Sequential vs. Simultaneous Inquiry, and Nullification by Majority</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 19 — Two Paths, Sequential vs. Simultaneous Inquiry, and Nullification by Majority</h2><div class="subtitle">Chapter 19</div><div class="flowchart"><div class="flow-box highlight">One Person, Two Paths: Purification Between Creates Pure Second Set<br><span style="font-size:.8rem;color:#888">הלכות א׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Two Persons Inquiring Together vs. Separately<br><span style="font-size:.8rem;color:#888">הלכות ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Impure Loaf Mixed into Nine Pure Loaves: First vs. Last Group<br><span style="font-size:.8rem;color:#888">הלכות ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">One Pure and One Impure Person Walking Two Paths<br><span style="font-size:.8rem;color:#888">הלכות ד׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">One Person, Two Paths: Purification Between Creates Pure Second Set</h2><div class="subtitle">הלכות א׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">שְׁנֵּי שְׁבִילִין אֶחָד טָמֵא וְאֶחָד טָהוֹר הָלַךְ בְּאֶחָד מִהן וְאֵין יָדוּעַ בְּאֵי זֶה מֵהֶן הָלַךְ וְעָשָׂה טָהֳרוֹת וְנֶאֶכְלוּ וְהִזָּה שְׁלִישִׁי וּשְׁבִיעִי וְטָבַל וְטָהַר וְהָלַךְ בַּשֵּׁנִי וְעָשָׂה טָהֳרוֹת הֲרֵי אֵלּוּ טְהוֹרוֹת. אִם קַיָּמוֹת הָרִאשׁוֹנוֹת אֵלּוּ וְאֵלּוּ תְּלוּיוֹת שֶׁבְּוַדַּאי שֶׁאֶחָד מִן הַטָּהֳרוֹת טָמֵא. וְאִם לֹא טָהַר בֵּינְתַיִם הָרִאשׁוֹנוֹת תְּלוּיוֹת וְהַשְּׁנִיּוֹת יִשָּׂרְפוּ שֶׁהֲרֵי הֵן טְמֵאוֹת בְּוַדַּאי שֶׁזֶּה טָמֵא הוּא מִפְּנֵי שֶׁהָלַךְ בִּשְׁנֵי הַשְּׁבִילִין. וְכֵן הַשֶּׁרֶץ וְהַצְּפַרְדֵּעַ בִּרְשׁוּת הָרַבִּים וְאֵין צוּרָתָן נִכֶּרֶת וְאֵין יָדוּעַ אֵי זֶהוּ הַשֶּׁרֶץ וְנָגַע בְּאֶחָד מֵהֶן וְעָשָׂה טָהֳרוֹת וְנֶאֶכְלוּ וְטָבַל וְנָגַע בַּשֵּׁנִי וְעָשָׂה טָהֳרוֹת הֲרֵי אֵלּוּ טְהוֹרוֹת. וְאִם קַיָּמוֹת הָרִאשׁוֹנוֹת אֵלּוּ וְאֵלּוּ תְּלוּיוֹת. וְאִם לֹא טָבַל בֵּינְתַיִם הָרִאשׁוֹנוֹת תְּלוּיוֹת וְהַשְּׁנִיּוֹת יִשָּׂרְפוּ: 
+</div><div class="halacha-en long">The following rules apply when there are two paths, one impure and one pure, and a person walked down one of them, but he did not know which one he walked down. Afterwards, he came in contact with pure foods and they were eaten. He then had the ashes of the red heifer sprinkled upon himself on the third and seventh days, and then, immersed to purify himself. He then walked down the other path and came in contact with pure foods. Those foods are considered as pure.<br>If the foods he touched first still exist, the status of both is held in abeyance. The rationale is that one of the sets of pure food is definitely impure. If the person did not purify himself in the interim, the status of the first set is held in abeyance, while the second set should be burnt. The rationale is that these foods are certainly impure, since the person is impure because he walked down both paths.<br>Similar laws apply if there was a carcass of both a creeping animal and a frog in the public domain and their form was no longer recognizable and it was impossible to determine which was the creeping animal. If one touched one of the carcasses and then came in contact with pure foods which were eaten, immersed himself, touched the other one and then came in contact with pure foods, they are pure. If the foods he touched first still exist, the status of both is held in abeyance. If he did not immerse himself, the status of the first set is held in abeyance, while the second set should be burnt.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🛤️ Sequential Paths</div>One person walks down one of two paths (one pure, one impure) — makes pure foods, performs purification (sprinkling and immersion), then walks down the second path and makes more pure foods. The <strong>second set is pure</strong>. If the first set still exists: both sets are suspended (one is certainly impure). Without purification between: first is suspended, second is burnt (certainly impure — he walked both paths). Same rules apply to sheretz vs. frog doubt.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Two Persons Inquiring Together vs. Separately</h2><div class="subtitle">הלכות ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">שְׁנֵי שְׁבִילִין אֶחָד טָמֵא וְאֶחָד טָהוֹר הָלַךְ בְּאֶחָד מֵהֶן וְעָשָׂה טָהֳרוֹת וּבָא חֲבֵרוֹ וְהָלַךְ בַּשֵּׁנִי וְעָשָׂה טָהֳרוֹת אִם בָּאוּ וְנִשְׁאֲלוּ זֶה אַחַר זֶה מוֹרִין לְכָל אֶחָד מֵהֶן בִּפְנֵי עַצְמוֹ שֶׁהוּא טָהוֹר. בָּאוּ שְׁנֵיהֶן כְּאֶחָד אוֹ שֶׁבָּא הָאֶחָד וְשָׁאַל עָלָיו וְעַל חֲבֵרוֹ וְאָמַר שְׁנַיִם הָיִינוּ וּבִשְׁנֵי הַשְּׁבִילִים הָלַכְנוּ וּשְׁתֵּי טָהֳרוֹת עָשִׂינוּ הֲרֵי שְׁנֵיהֶם טְמֵאִין וְטָהֳרוֹת שֶׁעָשׂוּ נִשְׂרָפוֹת. וְכֵן אִם נִטְמְאוּ בְּטֻמְאָה קַלָּה. כֵּיצַד. שְׁנֵי כִּכָּרִים אֶחָד טָמֵא וְאֶחָד טָהוֹר אָכַל אֶת אֶחָד מֵהֶם וְעָשָׂה טָהֳרוֹת וּבָא חֲבֵרוֹ וְאָכַל אֶת הַשֵּׁנִי וְעָשָׂה טָהֳרוֹת אִם נִשְׁאֲלוּ זֶה אַחַר זֶה שְׁנֵיהֶן טְהוֹרִין מִפְּנֵי שֶׁהֵן סָפֵק דִּבְרֵי סוֹפְרִים שֶׁהוּא מִכְּלַל הַסְּפֵקוֹת שֶׁטִּהֲרוּ חֲכָמִים כְּמוֹ שֶׁבֵּאַרְנוּ. נִשְׁאֲלוּ שְׁנֵיהֶן כְּאַחַת אוֹ שֶׁנִּשְׁאַל עָלָיו וְעַל חֲבֵרוֹ שְׁנֵיהֶן טְמֵאִין מִסָּפֵק וְטָהֳרוֹתָם נִשְׂרָפוֹת שֶׁהֲרֵי וַדַּאי אַחַת מֵהֶן טְמֵאָה. וַאֲפִלּוּ כִּכָּר אֶחָד טָמֵא שֶׁנִּתְעָרֵב בְּמֵאָה כִּכָּרוֹת טְהוֹרִין כֻּלָּן טְמֵאִין וְיִשָּׂרְפוּ: 
+</div><div class="halacha-en long">Different rules apply when there are two paths, one impure and one pure, a person walked down one of them and came in contact with pure foods and another person walked down the other and came in contact with pure foods. If they came and inquired about their status one after the other, a ruling is given to each one that he is pure. If they both came together or one came and asked about his status and that of his friend, saying: "We were two people. We walked down the two paths and we both came in contact with pure foods," they are both deemed impure and the pure foods with which they came in contact should be burnt.<br>Similar principles apply if they contracted impurity from a lesser source. What is implied? There were two loaves of bread, one pure and one impure. A person ate one of them and came in contact with pure foods. Another person came and ate the second and came in contact with pure foods. If they inquired about their status one after the other, they are both pure, because this is a doubt involving a question of Rabbinic Law which is one of the doubtful situations that our Sages ruled were pure, as we explained. If they both asked together or one asked about his status and that of his friend, they are both considered impure because of the doubt and the pure foods should be burnt, for certainly, one of them is impure. Even if there is one impure loaf mixed with 100 pure loaves, they are all impure and must be burnt.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">👥 Joint vs. Separate</div>Two people each walk one of two paths and each makes pure foods. If they inquire <strong>separately</strong>: each is ruled pure (public-domain doubt). If they inquire <strong>together</strong> (or one asks on behalf of both): both are impure — because certainly one of them is. Even one impure loaf mixed into 100 pure loaves: all 100 are impure and must be burnt (the loaves, once combined, cannot be individually exonerated). Only if inquired separately can each be ruled pure.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Impure Loaf Mixed into Nine Pure Loaves: First vs. Last Group</h2><div class="subtitle">הלכות ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">כִּכָּר טָמֵא שֶׁנִּתְעָרֵב בְּתִשְׁעָה כִּכָּרוֹת טְהוֹרִין וּבָאוּ חֲמִשָּׁה בְּנֵי אָדָם וְאָכְלוּ חֲמִשָּׁה כִּכָּרוֹת מֵהֶן וּבָאוּ חֲמִשָּׁה בְּנֵי אָדָם אֲחֵרִים וְאָכְלוּ הַחֲמִשָּׁה הַנִּשְׁאָרִים הָרִאשׁוֹנִים טְמֵאִים מִפְּנֵי שֶׁאֵין לָהֶן אֲנָשִׁים אֲחֵרִים שֶׁיִּתְלוּ בָּהֶן וְהַחֲמִשָּׁה הָאֲנָשִׁים הָאַחֲרוֹנִים טְהוֹרִין מִפְּנֵי שֶׁהֵן תּוֹלִין בָּרִאשׁוֹנִים: 
+</div><div class="halacha-en long">When an impure loaf of bread became mixed with nine pure loaves and five people came and ate five loaves and five others came and ate the five remaining, the ones who came first are deemed impure, because they have no one else to hold accountable. The five last men are pure, because they can hold the first five accountable.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🥖 First vs. Last</div>An impure loaf mixed with 9 pure ones. <strong>First group of 5</strong> people eats 5 loaves: impure (no other group to attribute the impure loaf to). <strong>Second group of 5</strong> eats the remaining 5: pure — they can attribute the impure loaf to the first group. The second group's uncertainty is resolved because the entire first group already absorbed the 'certainly impure' element.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">One Pure and One Impure Person Walking Two Paths</h2><div class="subtitle">הלכות ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">שְׁנֵי שְׁבִילִין אֶחָד טָמֵא וְאֶחָד טָהוֹר וְהָלְכוּ בָּהֶן שְׁנֵי אֲנָשִׁים אִישׁ אֶחָד טָהוֹר וְאִישׁ אֶחָד טָמֵא אֲפִלּוּ הָיָה הָאֶחָד תָּלוּי הֲרֵי זֶה הַטָּהוֹר תּוֹלֶה בַּתָּלוּי וְאוֹמְרִין זֶה הַטָּהוֹר הָלַךְ בַּשְּׁבִיל הַטָּהוֹר וַהֲרֵי הוּא בְּטָהֳרָתוֹ וְזֶה הַתָּלוּי הָלַךְ בַּשְּׁבִיל הַטָּמֵא. וְאַף עַל פִּי שֶׁנִּשְׁאֲלוּ שְׁנֵיהֶן כְּאֶחָד: 
+</div><div class="halacha-en long">When there are two paths, one impure and one pure, and each of two people, one pure and one impure - or even one whose status was being held in abeyance - walked down one of these paths, the one who is pure can place the onus on the one who is impure or whose status is held in abeyance. We say: The person who was pure walked down the pure path and his status is still considered as pure and the one whose status was held in abeyance walked down the impure path. This applies even if they inquired about their status at the same time.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🔗 Attributing Doubt</div>Two paths: one pure, one impure. Two people walk them — one is definitely pure, one is impure or whose status is suspended. The <strong>pure person can attribute the impure path to the other</strong>: we say the pure person took the pure path, the impure/suspended person took the impure path. The pure person remains pure. This applies even if they inquire simultaneously.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 19</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔄</div><strong>Purification Between Paths is Critical</strong><br><span style="font-size:.9rem">Purifying between walking two paths converts the second set of pure foods from 'certainly one is impure' to a fresh state — making them definitively pure.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">👥</div><strong>Together vs. Separately Changes Everything</strong><br><span style="font-size:.9rem">Two people with symmetric doubt who inquire separately are each pure; if they inquire together — knowing that certainly one is impure — both are declared impure.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🎯</div><strong>Attribute to the First Group</strong><br><span style="font-size:.9rem">When consecutive groups face a mixture of impure and pure, later groups can be exonerated by attributing the known impurity to the earlier group that already absorbed it.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>Pure Person Can Shift the Burden</strong><br><span style="font-size:.9rem">When a known-pure person and a known-impure person each walk one of two paths, the pure person can shift the impure-path attribution to the other — maintaining his own purity.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות שאר אבות הטומאה פרק י״ט</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

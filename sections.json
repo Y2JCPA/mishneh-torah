@@ -325,5 +325,85 @@
     "bookEn": "Sefer Korbanot",
     "sefaria": "Mishneh Torah, Substitution",
     "chapters": 4
+  },
+  "defilement-by-a-corpse": {
+    "prefix": "defilement-by-a-corpse",
+    "dir": "taharah/defilement-by-a-corpse",
+    "secHe": "הלכות טומאת מת",
+    "secEn": "Defilement by a Corpse",
+    "emoji": "💀",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 25,
+    "sefaria": "Mishneh Torah, Defilement by a Corpse"
+  },
+  "red-heifer": {
+    "prefix": "red-heifer",
+    "dir": "taharah/red-heifer",
+    "secHe": "הלכות פרה אדומה",
+    "secEn": "Red Heifer",
+    "emoji": "🐄",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 15,
+    "sefaria": "Mishneh Torah, Red Heifer"
+  },
+  "defilement-by-leprosy": {
+    "prefix": "defilement-by-leprosy",
+    "dir": "taharah/defilement-by-leprosy",
+    "secHe": "הלכות טומאת צרעת",
+    "secEn": "Defilement by Leprosy",
+    "emoji": "🏥",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 16,
+    "sefaria": "Mishneh Torah, Defilement by Leprosy"
+  },
+  "those-who-defile-bed-or-seat": {
+    "prefix": "those-who-defile-bed-or-seat",
+    "dir": "taharah/those-who-defile-bed-or-seat",
+    "secHe": "הלכות מטמאי משכב ומושב",
+    "secEn": "Those Who Defile Bed or Seat",
+    "emoji": "🛏️",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 13,
+    "sefaria": "Mishneh Torah, Those Who Defile Bed or Seat"
+  },
+  "other-sources-of-defilement": {
+    "prefix": "other-sources-of-defilement",
+    "dir": "taharah/other-sources-of-defilement",
+    "secHe": "הלכות שאר אבות הטומאה",
+    "secEn": "Other Sources of Defilement",
+    "emoji": "⚠️",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 20,
+    "sefaria": "Mishneh Torah, Other Sources of Defilement"
+  },
+  "defilement-of-foods": {
+    "prefix": "defilement-of-foods",
+    "dir": "taharah/defilement-of-foods",
+    "secHe": "הלכות טומאת אוכלין",
+    "secEn": "Defilement of Foods",
+    "emoji": "🍞",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 16,
+    "sefaria": "Mishneh Torah, Defilement of Foods"
+  },
+  "vessels-taharah": {
+    "prefix": "vessels-taharah",
+    "dir": "taharah/vessels",
+    "secHe": "הלכות כלים",
+    "secEn": "Vessels",
+    "emoji": "🏺",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 28,
+    "sefaria": "Mishneh Torah, Vessels"
+  },
+  "immersion-pools": {
+    "prefix": "immersion-pools",
+    "dir": "taharah/immersion-pools",
+    "secHe": "הלכות מקוואות",
+    "secEn": "Immersion Pools",
+    "emoji": "💧",
+    "book": "ספר טהרה · Sefer Taharah",
+    "chapters": 11,
+    "sefaria": "Mishneh Torah, Immersion Pools"
   }
 }

@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות כלים פרק כ״ח</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות כלים</a><span class="title">פרק כ״ח · Ch 28</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר טהרה · Sefer Taharah</div><div class="emoji">🏺</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות כלים</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Vessels</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק כ״ח</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 28 · 7 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Inner and Outer Surfaces — Separate Status for Impurity</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Inner and Outer Surfaces — Separate Status for Impurity</h2><div class="subtitle">Chapter 28</div><div class="flowchart"><div class="flow-box highlight">External Surface Impurity Does Not Penetrate Inward<br><span style="font-size:.8rem;color:#888">הלכות א׳–ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Plows, Pouches, and Carved Wood Measurements<br><span style="font-size:.8rem;color:#888">הלכות ד׳–ו׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">The Concluding Principle<br><span style="font-size:.8rem;color:#888">הלכות ז׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">External Surface Impurity Does Not Penetrate Inward</h2><div class="subtitle">הלכות א׳–ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כָּל הַכֵּלִים שֶׁיֵּשׁ לָהֶן בֵּית קִבּוּל שֶׁנִּטְמְאוּ אֲחוֹרֵיהֶן בְּמַשְׁקִין לֹא נִטְמָא תּוֹכָן לִתְרוּמָה וְלֹא אָגְנֵיהֶן וְלֹא אָזְנֵיהֶן וְלֹא מְקוֹם אֶצְבַּע הַשּׁוֹקֵעַ בִּשְׂפַת הַכְּלִי. נִטְמָא תּוֹךְ הַכְּלִי נִטְמְאוּ כֻּלָּן. נָפְלוּ מַשְׁקִין טְמֵאִין עַל כַּנֵּי הַכֵּלִים אוֹ עַל אָגְנֵיהֶן אוֹ עַל אָזְנֵיהֶן אוֹ עַל יְדוֹת הַכֵּלִים הַמְקַבְּלִין הֲרֵי זֶה מְנַגְּבָן וְהֵן טְהוֹרִין וַאֲפִלּוּ אֲחוֹרֵי הַכְּלִי כֻּלּוֹ לֹא נִטְמְאוּ: 
+</div><div class="halacha-en long">Whenever the external surface of a <i>k'li</i> that has a receptacle contracts impurity from liquids, its inner side does not contract impurity vis-à-vis <i>terumah</i>. Nor does the outer side of the <i>k'li</i>'s neck, its handles, or the fingerhold on the rim of the <i>k'li</i> contract impurity. If the inner portion of the <i>k'li</i> contracts impurity, all of the above components also contract impurity.<br>If impure liquids fall on the bases of <i>keilim</i>, their rims, their projections, or handles of <i>keilim</i> with receptacles, one should dry them and the receptacle is pure. Even the entire outer surface does not become impure.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">אֶחָד כְּלֵי הַשַּׂק כְּגוֹן הַשַּׂקִּין וְהַמַּרְצּוּפִין. אוֹ כְּלֵי הָעוֹר כְּגוֹן הַכָּרִים וְהַכְּסָתוֹת. וְאֶחָד כְּלֵי עֵץ אֲפִלּוּ קֻפּוֹת וּמִשְׁפָּלוֹת אִם נִטְמְאוּ אֲחוֹרֵיהֶן בְּמַשְׁקִין לֹא נִטְמָא תּוֹכָן: 
+</div><div class="halacha-en long">The following law applies to <i>keilim</i> made from goats hair, e.g., sacks and carrying bags, leather <i>keilim</i>, e.g., pillows and bolsters, and wooden <i>keilim</i>, even baskets and dispensers. If their external surface contracts impurity from liquids, their inner portion does not contract impurity.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">פְּשׁוּטֵי כְּלֵי שֶׁטֶף שֶׁאֵין רְאוּיִין לְמִדְרָס כְּגוֹן הַשֻּׁלְחָן וְטַבְלָא שֶׁאֵין לָהּ דֹּפֶן הוֹאִיל וְאֵין מְקַבְּלִין טֻמְאָה מִן הַתּוֹרָה אִם נִטְמְאוּ אֲחוֹרֵיהֶן בְּמַשְׁקִין לֹא נִטְמָא תּוֹכָן. אֲבָל פְּשׁוּטֵי כְּלֵי שֶׁטֶף הָרְאוּיִים לְמִדְרָס כְּגוֹן הַמִּטָּה וְהָעוֹר שֶׁיְּשֵׁנִים עָלָיו וְהַכִּסֵּא וְכַיּוֹצֵא בָּהֶן אֵין לָהֶם אֲחוֹרַיִם וְתוֹךְ אֶלָּא בֵּין שֶׁנָּגְעוּ מַשְׁקִין בָּהֶן מִתּוֹכָן אוֹ מֵאֲחוֹרֵיהֶן נִטְמָא הַכְּלִי כֻּלּוֹ. וְכֵן מִדּוֹת יַיִן וְשֶׁמֶן וְזוֹמָא לִיסְטְרוֹת וּמְסַנֶּנֶת שֶׁל חַרְדָּל וּמְשַׁמֶּרֶת שֶׁל יַיִן אֵין לָהֶן אֲחוֹרַיִם וְתוֹךְ אֶלָּא אִם נָפַל מַשְׁקִין עַל מִקְצָתָן נִטְמְאוּ כֻּלָּן כְּמוֹ הַבְּגָדִים: 
+</div><div class="halacha-en long">Flat <i>keilim</i> that can be purified by immersion, that are not fit to sit or lie upon, e.g., a table or countertop that does not have a side are not susceptible to impurity according to Scriptural Law. Accordingly, if the external surface of such a <i>k'li</i> contracts impurity from liquids, its inner surface does not contract impurity. If, however, flat <i>keilim</i> that can be purified by immersion are fit to sit or lie upon, e.g., a bed, a hide on which one sleeps, a chair or the like, the distinction between an inner surface and an outer surface does not apply. Instead, whether impure liquids touch their inner surface or their outer surface, the entire <i>k'li</i> contracts impurity.<br>Similarly, the distinction between an inner surface and an outer surface does not apply with regard to measures for wine and oil, a two-sided cooking <i>k'li</i>, a filter for mustard, and a filter for wine. If impure liquids fell on a portion of the <i>k'li</i>, the entire <i>k'li</i> contracts impurity, as is the law with regard to garments.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🔲 Inner vs. Outer</div>When the <strong>external surface</strong> of a vessel with a receptacle contracts impurity from liquids, its inner surface does not contract impurity from that source. This applies to all vessels susceptible to midras that are also containers. Vessels from goat's hair (sacks, bags) and leather (pillows, bolsters) also follow this inner/outer distinction. Flat vessels that can be purified by immersion but cannot be sat upon — the inner/outer concept does not apply to them.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Plows, Pouches, and Carved Wood Measurements</h2><div class="subtitle">הלכות ד׳–ו׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">הַמַּרְדֵּעַ וְהַמַּלְמָד יֵשׁ לָהֶן אֲחוֹרַיִם וְתוֹךְ. כֵּיצַד. נָפְלוּ מַשְׁקִין עַל הַחַרְחוּר לֹא נִטְמָא מִן הָעֵץ הַסָּמוּךְ לַחַרְחוּר אֶלָּא שִׁבְעָה טְפָחִים בִּלְבַד וּשְׁאָר הָעֵץ טָהוֹר. וְכֵן אִם נָפְלוּ מַשְׁקִין עַל הַדָּרְבָן לֹא נִטְמָא אֶלָּא אַרְבָּעָה טְפָחִים הַסְּמוּכִין לַדָּרְבָן. נָפְלוּ חוּץ לְשִׁבְעָה וְחוּץ לְאַרְבָּעָה הֲרֵי זֶה כִּכְלִי קִבּוּל שֶׁנָּגְעוּ מַשְׁקִין בַּאֲחוֹרָיו וְלֹא נִטְמְאוּ אֶלָּא מִמְּקוֹם מַגָּעוֹ וְלַחוּץ: 
+</div><div class="halacha-en long">A concept paralleling an external surface and an inner surface apply with regard to a plow.<br>What is implied? If impure liquids fall on the lance, only seven handbreadths of the beam adjacent to the lance become impure and the remainder of the beam is pure. Similarly, if impure liquids fall on the metal peg, only the four handbreadths of the beam that is adjacent to the metal peg become impure. If the liquids fell beyond the seven handbreadths and the four handbreadths, the situation resembles a receptacle whose outer surface was touched by impure liquids, in which instance, only the place where the liquids touched and the outer surface contract impurity.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">כִּיס שֶׁבְּתוֹךְ כִּיס שֶׁנִּטְמָא אֶחָד מֵהֶן בְּמַשְׁקִין לֹא נִטְמָא חֲבֵרוֹ. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהָיוּ שִׂפְתוֹתֵיהֶן שָׁוִין. אֲבָל אִם הָיָה הַחִיצוֹן עוֹדֵף וְנִטְמָא הַפְּנִימִי. נִטְמָא הַחִיצוֹן נִטְמָא הַחִיצוֹן לֹא נִטְמָא הַפְּנִימִי וּבְשֶׁרֶץ בֵּין כָּךְ וּבֵין כָּךְ אִם נִטְמָא אֶחָד מֵהֶם לֹא נִטְמָא חֲבֵרוֹ: 
+</div><div class="halacha-en long">When there is a pouch with an inner pocket and one of the two contracted impurity due to contact with impure liquids, the other does not contract impurity.<br>When does the above apply? When their rims are on the same level. If, however, the external one overlaps the inner one, and the inner one contracts impurity, the external one also contracts impurity. If the external one contracts impurity, the inner one does not contract impurity. If the impurity stems from the carcass of a crawling animal, in all instances, if one contracted impurity, the others also did.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">הַחוֹקֵק רֹבַע וַחֲצִי רֹבַע בְּעֵץ אֶחָד וְנִטְמָא אֶחָד מֵהֶן בְּמַשְׁקִין לֹא נִטְמָא הַשֵּׁנִי אַף עַל פִּי שֶׁהֵן עֵץ אֶחָד. כֵּיצַד. נָגְעוּ מַשְׁקִין טְמֵאִין בְּתוֹךְ הָרֹבַע הָרֹבַע וַאֲחוֹרָיו טְמֵאִין וַחֲצִי הָרֹבַע וַאֲחוֹרָיו טְהוֹרִין. נָגְעוּ בַּחֲצִי הָרֹבַע מִתּוֹכוֹ חֲצִי הָרֹבַע וַאֲחוֹרָיו טְמֵאִים הָרֹבַע וַאֲחוֹרָיו טְהוֹרִין. וּכְשֶׁהוּא מַטְבִּיל מַטְבִּיל אֶת הַכּל. נִטְמְאוּ אֲחוֹרֵי הָרֹבַע אוֹ אֲחוֹרֵי חֲצִי הָרֹבַע בְּמַשְׁקִין הֲרֵי אֲחוֹרֵי הַכְּלִי טָמֵא שֶׁאֵין חוֹלְקִין אֶת הָאֲחוֹרַיִם: 
+</div><div class="halacha-en long">When one carves out a measure of a <i>revi'it</i> and half a <i>revi'it</i> into one piece of wood and one of them contracted impurity from impure liquids, the other does not contract impurity even though they are on the same piece of wood.<br>What is implied? If impure liquids touched the inner surface of the <i>revi'it</i> measure, that measure and its outer side are impure, the half-<i>revi'it</i> measure and its outer side are pure. If the liquids touched the inner surface of the half-<i>revi'it</i> measure, that measure and its outer side are impure, the <i>revi'it</i> measure and its outer side are pure.<br>When one immerses this piece of wood in a <i>mikveh</i>, it should be immersed in its entirety all at one time. If the outer surface of the <i>revi'it</i> measure or of the half-<i>revi'it</i> measure contracted impurity from liquids, the entire outer surface of the piece of wood contracts impurity, because an outer surface is not divided.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🌾 Special Cases</div>A plow also has inner/outer distinctions: impure liquids falling on the lance (upper surface) do not contaminate the underside. A pouch with an inner pocket: if one contracted impurity from liquids, the other does not — they are independent surfaces. Two different measurements carved from one piece of wood: if one contracts impurity from liquids, the other remains pure. A boiling kettle's outer surface: we do not suspect that liquids from inside flowed out and returned to create cross-contamination.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Concluding Principle</h2><div class="subtitle">הלכות ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">קוּמְקוּמוֹס שֶׁהָיוּ אֲחוֹרָיו טְמֵאִין וְהָיָה מַרְתִּיחַ אֵין חוֹשְׁשִׁין שֶׁמָּא יָצְאוּ מַשְׁקִין מִתּוֹכוֹ וְנָגְעוּ בַּאֲחוֹרָיו וְחָזְרוּ לְתוֹכוֹ אֶלָּא הֲרֵי הַמַּשְׁקִין שֶׁבְּתוֹכוֹ טְהוֹרִין לִתְרוּמָה: בְּרִיךְ רַחֲמָנָא דְּסַיְּעָן 
+</div><div class="halacha-en long">When the outer surface of a kettle was impure and it was boiling, we do not suspect that maybe liquids flowed out from it, touched its outer surface, and then receded back inside it. Instead, the liquids that are inside it are pure with regard to <i>terumah</i>.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚖️ Final Principle</div>The <strong>concluding halacha</strong> confirms the principle: when the outer surface of a kettle is impure and it is boiling, we do not suspect that liquids may have flowed from inside, touched the outer surface, and returned to create inner impurity. The external and internal surfaces maintain their independent status — <strong>each surface is judged on its own</strong>.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 28</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔲</div><strong>Surfaces Are Legally Independent</strong><br><span style="font-size:.9rem">The external and internal surfaces of a vessel are treated as independent entities for impurity — contamination of one does not automatically spread to the other.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌾</div><strong>Plows Follow the Same Rule</strong><br><span style="font-size:.9rem">Agricultural implements like plows also have a conceptual inner/outer distinction — impure liquids on one side do not contaminate the other.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🫙</div><strong>Separate Compartments Stay Separate</strong><br><span style="font-size:.9rem">Pouches with inner pockets and carved wood with multiple measurements maintain separate impurity statuses between their sections.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>No Speculation About Contamination</strong><br><span style="font-size:.9rem">We do not create hypothetical contamination pathways — only actual contact creates impurity, not suspected flows of liquid.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות כלים פרק כ״ח</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
