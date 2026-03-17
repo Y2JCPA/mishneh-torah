@@ -405,5 +405,55 @@
     "book": "ספר טהרה · Sefer Taharah",
     "chapters": 11,
     "sefaria": "Mishneh Torah, Immersion Pools"
+  },
+  "damages-to-property": {
+    "prefix": "damages-to-property",
+    "dir": "nezikim/damages-to-property",
+    "secHe": "הלכות נזקי ממון",
+    "secEn": "Damages to Property",
+    "emoji": "💥",
+    "book": "ספר נזיקין · Sefer Nezikin",
+    "chapters": 14,
+    "sefaria": "Mishneh Torah, Damages to Property"
+  },
+  "theft": {
+    "prefix": "theft",
+    "dir": "nezikim/theft",
+    "secHe": "הלכות גניבה",
+    "secEn": "Theft",
+    "emoji": "🔒",
+    "book": "ספר נזיקין · Sefer Nezikin",
+    "chapters": 9,
+    "sefaria": "Mishneh Torah, Theft"
+  },
+  "robbery-and-lost-property": {
+    "prefix": "robbery-and-lost-property",
+    "dir": "nezikim/robbery-and-lost-property",
+    "secHe": "הלכות גזילה ואבידה",
+    "secEn": "Robbery and Lost Property",
+    "emoji": "⚖️",
+    "book": "ספר נזיקין · Sefer Nezikin",
+    "chapters": 18,
+    "sefaria": "Mishneh Torah, Robbery and Lost Property"
+  },
+  "one-who-injures": {
+    "prefix": "one-who-injures",
+    "dir": "nezikim/one-who-injures-a-person-or-property",
+    "secHe": "הלכות חובל ומזיק",
+    "secEn": "One Who Injures a Person or Property",
+    "emoji": "🩹",
+    "book": "ספר נזיקין · Sefer Nezikin",
+    "chapters": 8,
+    "sefaria": "Mishneh Torah, One Who Injures a Person or Property"
+  },
+  "murderer-preservation-of-life": {
+    "prefix": "murderer-preservation-of-life",
+    "dir": "nezikim/murderer-and-the-preservation-of-life",
+    "secHe": "הלכות רוצח ושמירת הנפש",
+    "secEn": "Murderer and the Preservation of Life",
+    "emoji": "🛡️",
+    "book": "ספר נזיקין · Sefer Nezikin",
+    "chapters": 13,
+    "sefaria": "Mishneh Torah, Murderer and the Preservation of Life"
   }
 }
