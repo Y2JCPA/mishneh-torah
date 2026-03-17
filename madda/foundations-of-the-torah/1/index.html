@@ -370,9 +370,9 @@ h2{direction:ltr}
 </div>
 
 <div class="controls">
-  <button class="arrow" id="prev" onclick="go(-1)" disabled>→</button>
+  <button class="arrow" id="prev" onclick="go(-1)" disabled>←</button>
   <div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div><div class="dot" onclick="goTo(8)"></div></div>
-  <button class="arrow" id="next" onclick="go(1)">←</button>
+  <button class="arrow" id="next" onclick="go(1)">→</button>
 </div>
 
 <script>
@@ -401,7 +401,7 @@ function goTo(n){
   document.getElementById('next').disabled=cur===total-1;
   document.querySelector('.slide-wrap').scrollTop=0;
 }
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
 let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});
