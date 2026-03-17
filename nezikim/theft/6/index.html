@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות גניבה פרק ו</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות גניבה</a><span class="title">פרק ו · Ch 6</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר נזיקין · Sefer Nezikin</div><div class="emoji">🔒</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות גניבה</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Theft</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ו</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 6 · 9 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter Six — Presumptions of Theft and Forbidden Purchases</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter Six — Presumptions of Theft and Forbidden Purchases</h2><div class="subtitle">Chapter 6</div><div class="flowchart"><div class="flow-box highlight">The General Rule: Presumed Stolen Means Forbidden<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Regulated Purchases — Produce, Wood, and Wool<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Craftsmen's Entitlements — Fluff, Thread, and Shavings<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ח׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Selling Beyond Entitlement — Presumption of Theft<br><span style="font-size:.8rem;color:#888">ח׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The General Rule: Presumed Stolen Means Forbidden</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כָּל דָּבָר שֶׁחֶזְקָתוֹ שֶׁהוּא גָּנוּב אָסוּר לִקַּח אוֹתוֹ. וְכֵן אִם רֹב אוֹתוֹ הַדָּבָר שֶׁהוּא גָּנוּב אֵין לוֹקְחִין אוֹתוֹ. לְפִיכָךְ אֵין לוֹקְחִים מִן הָרוֹעִים צֶמֶר אוֹ חָלָב אוֹ גְּדָיִים. אֲבָל לוֹקְחִין מֵהֶן חָלָב וּגְבִינָה בַּמִּדְבָּר אֲבָל לֹא בַּיִּשּׁוּב. וּמֻתָּר לִקַּח מִן הָרוֹעִים אַרְבַּע צֹאן אוֹ אַרְבַּע גִּזּוֹת שֶׁל צֶמֶר מֵעֵדֶר קָטָן אוֹ חָמֵשׁ מֵעֵדֶר גָּדוֹל. שֶׁאֵין חֶזְקָתוֹ שֶׁהוּא גָּנוּב בְּדָבָר זֶה: 
+</div><div class="halacha-en long">Whenever the prevailing assumption is that an article is stolen, one is forbidden to purchase it. Similarly, if the majority of a particular substance is stolen, one is forbidden to purchase it. Therefore, one should not purchase wool, milk or kids from shepherds. This applies within a settled community. In the desert, by contrast, one may purchase milk and cheese from them.<br>Similarly, one may purchase four sheep or the shearing of four sheep from the shepherd of a small herd, or five from the shepherd of a large herd, for we do not presume that an amount of this size is stolen.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">כְּלָלוֹ שֶׁל דָּבָר כָּל שֶׁהָרוֹעֶה מוֹכְרוֹ אִם הָיָה בַּעַל הַבַּיִת מַרְגִּישׁ בּוֹ מֻתָּר לְלָקְחוֹ מִן הָרוֹעֶה. וְאִם אֵין בַּעַל הַבַּיִת מַרְגִּישׁ בּוֹ אָסוּר לְלָקְחוֹ: 
+</div><div class="halacha-en">To state the general principle: Whenever a shepherd sells an article that would be noticed by the owner, it may be purchased from the shepherd. If the owner would not notice it, it is assumed to be stolen and may not be purchased from the shepherd.</div></div><div class="callout"><div class="label">🚩 Suspicion Creates Prohibition</div>Whenever an item is <strong>presumed stolen</strong>, it is forbidden to purchase it — doing so aids a transgressor. The key principle for shepherds and watchmen: if selling an article <strong>would draw the owner's notice</strong>, they may not sell it. If sold openly in the marketplace in normal commerce, it is permitted.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Regulated Purchases — Produce, Wood, and Wool</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">אֵין לוֹקְחִין מִשּׁוֹמְרֵי פֵּרוֹת עֵצִים אוֹ פֵּרוֹת אֶלָּא בִּזְמַן שֶׁהֵן יוֹשְׁבִין וּמוֹכְרִים וְהַסַּלִּים וְהַפֶּלֶס לִפְנֵיהֶם. שֶׁהֲרֵי הַדָּבָר גָּלוּי וְיֵשׁ לוֹ קוֹל וְאֵין זֶה גְּנֵבָה. וְלוֹקְחִין מִפֶּתַח הַגִּנָּה אֲבָל לֹא מֵאֲחוֹרֵי הַגִּנָּה. וְכֻלָּן שֶׁאָמְרוּ הַטְמֵן אָסוּר לָקַחַת מֵהֶן. וּמֻתָּר לָקַחַת מִן הָאָרִיס שֶׁהֲרֵי יֵשׁ לוֹ חֵלֶק בַּפֵּרוֹת וּבָעֵצִים: 
+</div><div class="halacha-en long">We may not purchase wood or produce from the watchmen of produce unless they sit openly and sell with baskets of produce and scales in front of them. In such an instance, the matter is overt and will be spoken about; therefore, we can conclude that theft is not involved.<br>We may purchase from the entrance to a garden, but not from its rear. And whenever a seller says: "Hide the goods," it is forbidden to purchase from him.<br>One may purchase from a sharecropper, for he has a share in the produce and the wood.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">אֵין לוֹקְחִין מִן הַנָּשִׁים וּמִן הָעֲבָדִים וּמִן הַקְּטַנִּים אֶלָּא דְּבָרִים שֶׁחֶזְקָתָן שֶׁהֵן שֶׁלָּהֶן מִדַּעַת הַבְּעָלִים. כְּגוֹן נָשִׁים שֶׁמָּכְרוּ כְּלֵי פִּשְׁתָּן בַּגָּלִיל אוֹ עֲגָלִים בַּשָּׁרוֹן. וְכֻלָּן שֶׁאָמְרוּ הַטְמֵן אָסוּר לִקַּח מֵהֶן מִפְּנֵי שֶׁהֵן בְּחֶזְקַת גְּנֵבָה. וְלוֹקְחִים בֵּיצִים וְתַרְנְגוֹלִים בְּכָל מָקוֹם מִכָּל אָדָם. וְאִם אָמַר הַטְמֵן אָסוּר: 
+</div><div class="halacha-en long">We should not purchase articles from married women, servants or minors unless the prevailing assumption is that they were granted these articles by their owner; for example, women who sell linen garments in the Galilee or calves in the Sharon. In all instances, if they say "Hide the goods," it is forbidden to purchase from them, for we assume that the goods were stolen.<br>We may purchase eggs or roosters anywhere, from any person. If, however, one says "Hide what was sold," it is forbidden.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🌿 Who May Sell What</div>Watchmen of produce may not sell <strong>unless selling openly</strong> with clear permission. Purchases from <strong>married women, servants, and minors</strong> are generally forbidden unless there is a clear prevailing assumption they are selling legitimately. Olive press workers may sell within the normal scope — <strong>large quantities</strong> raise suspicion.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Craftsmen's Entitlements — Fluff, Thread, and Shavings</h2><div class="subtitle">הלכות ה׳–ח׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">לוֹקְחִין מִן הַבַּדָּדִין זֵיתִים בְּמִדָּה וְשֶׁמֶן בְּמִדָּה אֲבָל לֹא זֵיתִים מוּעָטִים וְלֹא שֶׁמֶן מוּעָט שֶׁחֶזְקָתוֹ גְּנֵבָה הֵם. וְכֵן כָּל כַּיּוֹצֵא בָּהֶם: 
+</div><div class="halacha-en long">One may purchase a large measure of olives or oil from an owner of an olive press. One may not, however, purchase a small amount of olives or oil, for the prevailing assumption is that these would be stolen goods. Similar laws apply in other like situations.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">מוֹכִין שֶׁהַכּוֹבֵס מוֹצִיא הֲרֵי אֵלּוּ שֶׁלּוֹ וְשֶׁהַסּוֹרֵק מוֹצִיא הֲרֵי אֵלּוּ שֶׁל בַּעַל הַבַּיִת. הַכּוֹבֵס נוֹטֵל שְׁלֹשָׁה חוּטִין וְהֵן שֶׁלּוֹ יֶתֶר מִכֵּן שֶׁל בַּעַל הַבַּיִת. אִם הָיָה שָׁחוֹר עַל גַּבֵּי לָבָן נוֹטֵל אֶת הַכּל וְהֵם שֶׁלּוֹ: 
+</div><div class="halacha-en long">A launderer of a new woolen garment is entitled to the fluff that he removes. The strands that the comber removes, by contrast, belong to the owner of the wool.<br>The launderer may take three strands. Anything more belongs to the owner of the garment. If the additional strands were black against a white garment, the launderer may take all of them.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">הַחַיָּט שֶׁשִּׁיֵּר מִן הַחוּט כְּדֵי מְשִׁיכַת מַחַט וְשִׁיֵּר מִן הַבֶּגֶד מַטְלִית שֶׁהִיא שָׁלֹשׁ אֶצְבָּעוֹת עַל שָׁלֹשׁ אֶצְבָּעוֹת חַיָּב לְהַחְזִירָן לַבְּעָלִים. פָּחוֹת מִכָּאן שֶׁלּוֹ: 
+</div><div class="halacha-en">When a tailor leaves more thread than necessary to sew with a needle, and a piece of cloth that is more than three fingerbreadths by three fingerbreadths, he is obligated to return it to the owner. Anything less than that, he may keep as his own.</div></div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">נְסֹרֶת שֶׁהֶחָרָשׁ מוֹצִיא. בְּמַעֲצָד שֶׁלּוֹ. בְּכַשִּׁיל שֶׁל בַּעַל הַבַּיִת. וְאִם הָיָה עוֹשֶׂה אֵצֶל בַּעַל הַבַּיִת אַף הַנְּסֹרֶת שֶׁל בַּעַל הַבַּיִת. וְכָל הַדְּבָרִים הָאֵלּוּ וְכַיּוֹצֵא בָּהֶן הוֹלְכִין בָּהֶן אַחַר מִנְהַג הַמְּדִינָה: 
+</div><div class="halacha-en long">A carpenter may keep the shavings of wood that he produces with a plane. The chips he produces with a hatchet, by contrast, belong to the owner. If he is working for the owner as a hired hand, even the shavings belong to the owner.<br>With regard to all these matters, the prevailing local custom is followed.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🔨 Craftsmen and Leftovers</div>Each craft has defined entitlements to <strong>byproducts</strong>: a launderer keeps fluff but not threads; a tailor retains extra thread and fabric scraps below a set minimum; a carpenter keeps <strong>plane shavings</strong> but not hatchet chips. These entitlements are based on local custom and the nature of the craft — selling beyond what is permitted raises presumption of theft.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Selling Beyond Entitlement — Presumption of Theft</h2><div class="subtitle">ח׳</div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">כָּל אֻמָּן שֶׁמָּכַר דָּבָר מִן הַדְּבָרִים שֶׁאֵינוֹ שֶׁלּוֹ כְּהִלְכוֹת הַמְּדִינָה. כְּגוֹן מוֹכִין שֶׁמְּכָרָן הַסּוֹרֵק בְּמָקוֹם שֶׁנָּהֲגוּ שֶׁיִּהְיוּ שֶׁל בַּעַל הַבַּיִת. אָסוּר לִקַּח מִמֶּנּוּ מִפְּנֵי שֶׁהֵן בְּחֶזְקַת גְּנֵבָה. אֲבָל לוֹקְחִין מִמֶּנּוּ כַּר מָלֵא מוֹכִין. וְאִם מָכַר הָאֻמָּן דְּבָרִים שֶׁהֵן שֶׁלּוֹ כְּהִלְכוֹת מְדִינָה לוֹקְחִין מִמֶּנּוּ. וְאִם אָמַר הַטְמֵן אָסוּר: 
+</div><div class="halacha-en long">Whenever a craftsman sells items to which he is not entitled according to the local practice - e.g., strands of fluff sold by a comber where it is customary that they are returned to the owner - it is forbidden to purchase from him, for we assume that they are stolen. If, however, he sells a pillow filled with wool, one may purchase it from him.<br>If a craftsman sells articles to which he is entitled according to the local practice, it is permitted to purchase them from him. If, however, he says, "Hide it," purchase is forbidden.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚠️ The Line of Permitted Sales</div>Whenever a <strong>craftsman sells items beyond local practice</strong> — items he is not customarily entitled to — there is a presumption of theft, and purchasing from him is forbidden. The prohibition is calibrated to <strong>local norms</strong>: what is standard in one locale may be suspicious in another.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 6</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">👀</div><strong>Openness Signals Legitimacy</strong><br><span style="font-size:.9rem">Selling openly in the marketplace, rather than covertly, is the primary indicator that a watchman or worker is selling legitimately rather than disposing of stolen property.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🧵</div><strong>Trade Entitlements Are Precisely Defined</strong><br><span style="font-size:.9rem">Each type of craftsman has halachically defined entitlements to byproducts — launderers, tailors, and carpenters each have distinct rules for what they may retain.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>Local Custom Sets the Standard</strong><br><span style="font-size:.9rem">What constitutes a permitted transaction versus a suspicious one is determined by local commercial practice — the standard adapts to regional norms.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🚫</div><strong>Purchasing from Vulnerable Parties Requires Care</strong><br><span style="font-size:.9rem">Buying from married women, minors, and servants requires a clear presumption of legitimacy — these parties lack full legal independence and their sales are suspect.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות גניבה פרק ו</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
