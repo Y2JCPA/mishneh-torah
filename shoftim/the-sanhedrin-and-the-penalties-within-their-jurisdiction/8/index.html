@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות סנהדרין פרק ח</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{direction:ltr;unicode-bidi:isolate;color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{direction:ltr;unicode-bidi:isolate;background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות סנהדרין</a><span class="title">פרק ח · Ch 8</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">🏛️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות סנהדרין</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">The Sanhedrin and the Penalties within Their Jurisdiction</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ח</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 8 · 3 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 8 — Following the Majority in Court Decisions</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 8 — Following the Majority in Court Decisions</h2><div class="subtitle">Chapter 8</div><div class="flowchart"><div class="flow-box highlight">The Principle of Majority Rule<br><span style="font-size:.8rem;color:#888">הלכות א׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Split Decisions in Courts of Three<br><span style="font-size:.8rem;color:#888">הלכות ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">When a Judge Says 'I Don't Know'<br><span style="font-size:.8rem;color:#888">הלכות ג׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Principle of Majority Rule</h2><div class="subtitle">הלכות א׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">בֵּית דִּין שֶׁנֶּחְלְקוּ מִקְצָתָם אוֹמְרִים זַכַּאי וּמִקְצָתָם אוֹמְרִים חַיָּב הוֹלְכִין אַחַר הָרֹב. וְזוֹ מִצְוַת עֲשֵׂה שֶׁל תּוֹרָה שֶׁנֶּאֱמַר <small>(שמות כג ב)</small> "אַחֲרֵי רַבִּים לְהַטֹּת". בַּמֶּה דְּבָרִים אֲמוּרִים בְּדִינֵי מָמוֹנוֹת וּבִשְׁאָר דִּינֵי אָסוּר וּמֻתָּר וְטָמֵא וְטָהוֹר וְכַיּוֹצֵא בָּהֶן. אֲבָל בְּדִינֵי נְפָשׁוֹת אִם נֶחְלְקוּ בָּזֶה הַחוֹטֵא אִם יֵהָרֵג אוֹ לֹא יֵהָרֵג. אִם הָיוּ הָרֹב מְזַכִּים זַכַּאי וְאִם הָיוּ הָרֹב מְחַיְּבִין אֵינוֹ נֶהֱרָג עַד שֶׁיִּהְיוּ הַמְחַיְּבִין יֶתֶר עַל הַמְזַכִּים שְׁנַיִם. מִפִּי הַשְּׁמוּעָה לָמְדוּ שֶׁעַל זֶה הִזְהִירָה תּוֹרָה וְאָמְרָה <small>(שמות כג ב)</small> "לֹא תִהְיֶה אַחֲרֵי רַבִּים לְרָעֹת". כְּלוֹמַר אִם הָרֹב נוֹטִים לְרָעָה לַהֲרֹג לֹא תִּהְיֶה אַחֲרֵיהֶם עַד שֶׁיִּטּוּ הַטָּיָה גְּדוֹלָה וְיוֹסִיפוּ הַמְחַיְּבִין שְׁנַיִם. שֶׁנֶּאֱמַר <small>(שמות כג ב)</small> "לִנְטֹת אַחֲרֵי רַבִּים לְהַטֹּת" הַטָּיָתְךָ לְטוֹבָה עַל פִּי אֶחָד לְרָעָה עַל פִּי שְׁנַיִם. וְכָל אֵלּוּ הַדְּבָרִים קַבָּלָה הֵם: 
+</div><div class="halacha-en long">When a court reaches a split decision - some say that the defendant is not liable, and others say that he is liable, we follow the majority. This is a positive mitzvah of Scriptural origin, as Exodus 23:2 states: "Follow after the inclination of the majority."<br>When does the above apply? With regard to financial matters and with regard to laws involving questions of what is forbidden and what is permitted, what is impure and what is pure and the like. With regard to capital cases, different laws apply if there is a difference of opinion whether the transgressor should be executed or not. If the majority rule to exonerate him, he is exonerated. If, however, the majority rules that he is guilty, he should not be executed until there are at least two more judges who hold him guilty than who exonerate him.<br>According to the Oral Tradition, we learned that the Torah warned against this saying <i>Ibid.</i>: "Do not follow the majority to do harm." That is to say that if the majority are inclined "to do harm," i.e., to execute the defendant, you should not follow them until there is a significant inclination, and there is a majority of two judges who rule that he is guilty.<br>This is implied by (<i>Ibid.</i>): "to follow the inclination of the majority and influence the judgment." A positive inclination may be made on the basis of a majority of one, a harmful inclination, on the basis of a majority of two. All of these concepts are based on the Oral Tradition.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">📊 Majority Rules</div>Following the majority in judicial decisions is a <strong>positive Torah commandment</strong> from Exodus 23:2. This applies whether the majority favors liability or exoneration in monetary cases.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Split Decisions in Courts of Three</h2><div class="subtitle">הלכות ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">בֵּית דִּין שֶׁל שְׁלֹשָׁה שֶׁנֶּחְלְקוּ שְׁנַיִם אוֹמְרִים זַכַּאי וְאֶחָד אוֹמֵר חַיָּב הֲרֵי זֶה זַכַּאי. שְׁנַיִם אוֹמְרִים חַיָּב וְאֶחָד אוֹמֵר זַכַּאי הֲרֵי זֶה חַיָּב. אֶחָד אוֹמֵר זַכַּאי וְאֶחָד אוֹמֵר חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ. אוֹ שֶׁאָמְרוּ שְׁנַיִם זַכַּאי אוֹ חַיָּב וְהַשְּׁלִישִׁי אוֹמֵר אֵינִי יוֹדֵעַ יוֹסִיפוּ הַדַּיָּנִים שְׁנַיִם. נִמְצְאוּ חֲמִשָּׁה נוֹשְׂאִים וְנוֹתְנִים בַּדָּבָר. אָמְרוּ שְׁלֹשָׁה מֵהֶם זַכַּאי וּשְׁנַיִם אוֹמְרִים חַיָּב הֲרֵי זֶה זַכַּאי. אָמְרוּ שְׁלֹשָׁה חַיָּב וּשְׁנַיִם זַכַּאי הֲרֵי זֶה חַיָּב. אָמְרוּ שְׁנַיִם מֵהֶם זַכַּאי וּשְׁנַיִם מֵהֶם חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ מוֹסִיפִין שְׁנַיִם. אֲבָל אִם אָמְרוּ אַרְבָּעָה זַכַּאי אוֹ חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ. אוֹ שֶׁאָמְרוּ שְׁלֹשָׁה זַכַּאי וְאֶחָד חַיָּב וְאָמַר אֶחָד אֵינִי יוֹדֵעַ בֵּין שֶׁהָיָה זֶה שֶׁאָמַר אֵינִי יוֹדֵעַ הוּא שֶׁאָמַר אֵינִי יוֹדֵעַ בַּתְּחִלָּה בֵּין שֶׁאָמַר אַחֵר הוֹלְכִים אַחַר הָרֹב. הָיוּ מֶחֱצָה לְמֶחֱצָה וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ הֲרֵי אֵלּוּ מוֹסִיפִין שְׁנַיִם אֲחֵרִים. וְכֵן אִם נִסְתַּפֵּק הַדָּבָר מוֹסִיפִין וְהוֹלְכִין עַד שִׁבְעִים וְאֶחָד. הִגִּיעוּ לְשִׁבְעִים וְאֶחָד וְאָמְרוּ שְׁלֹשִׁים וַחֲמִשָּׁה חַיָּב וּשְׁלֹשִׁים וַחֲמִשָּׁה זַכַּאי וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ נוֹשְׂאִים וְנוֹתְנִים עִמּוֹ עַד שֶׁיַּחֲזֹר לְדִבְרֵי הַצַּד הָאֶחָד וְנִמְצְאוּ שְׁלֹשִׁים וְשִׁשָּׁה מְזַכִּים אוֹ מְחַיְּבִין. וְאִם לֹא חָזַר לֹא הוּא וְלֹא אֶחָד מֵהֶן הֲרֵי הַדָּבָר סָפֵק וּמַעֲמִידִין אֶת הַמָּמוֹן בְּחֶזְקַת בְּעָלָיו: 
+</div><div class="halacha-en long">The following laws apply when there is a difference of opinion within a court of three judges with regard to a monetary issue: If two say the defendant's claim should be vindicated and one says that he is liable, his claim is vindicated. If two say that he is liable and one says his claim should be vindicated, he is held liable. If one says that his claim should be vindicated and one says he is liable, or two say that his claim should be vindicated or that he is liable and the third judge says: "I do not know," we add another two judges. Thus five judges debate the matter.<br>If three say the defendant's claim should be vindicated and two say that he is liable, his claim is vindicated. If three say that he is liable and two say his claim should be vindicated, he is held liable. If two say that his claim should be vindicated and two say he is liable, and the fifth judge says: "I do not know," we add another two judges. If, however, four say his claim should be vindicated or that he is liable and one says: "I don't know," or three say his claim should be vindicated and one says that he is liable, and the fifth says: "I don't know," we follow the majority. This applies whether the judge who says: "I don't know" is the same who said "I don't know" at the outset or another individual.<br>If, in this situation as well, the opinions are evenly balanced and one says: "I don't know," or in any situation that there is a doubt, we continue to add two more judges until we reach 71 judges. If, after reaching 71, the issue is still unresolved, i.e., 35 hold him liable, and 35 wish to vindicate his claim and one says: "I don't know," they debate the matter until the judge who has not made up his mind sides with one of the opinions and thus there will be 36 who vindicate him or 36 who hold him liable. If neither that judge or another changes his opinion, the matter remains unresolved and the money is allowed to remain in the possession of its owner.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚖️ 2 vs 1</div>In a court of three, a <strong>two-to-one majority</strong> decides the case — whether for liability or exoneration. If all three disagree with each other on different grounds, two more judges are added until a majority is reached.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">When a Judge Says 'I Don't Know'</h2><div class="subtitle">הלכות ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">כָּל מִי שֶׁאָמַר אֵינִי יוֹדֵעַ אֵינוֹ צָרִיךְ לָתֵת טַעַם לִדְבָרָיו וּלְהוֹדִיעַ מֵאֵי זֶה טַעַם בָּא לוֹ הַסָּפֵק. כְּדֶרֶךְ שֶׁמַּרְאֶה הַמְזַכֶּה מֵאֵי זֶה טַעַם מְזַכֶּה וְהַמְחַיֵּב מֵאֵי זֶה טַעַם מְחַיֵּב: 
+</div><div class="halacha-en long">Whenever a judge says: "I don't know," he is not required to explain the rationale for his statements and explain the reason why he is in doubt. In contrast, a judge who rules that a litigant's claim is vindicated must state why he vindicates the claim, or if he holds him liable, he must state why he holds him liable.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🤔 Abstention Rules</div>A judge who says 'I don't know' is <strong>not required</strong> to explain his doubt. But a judge who rules for one side <strong>must explain</strong> his reasoning. The 'I don't know' judge counts toward the quorum but not toward the majority.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 8</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📜</div><strong>Majority Rule is a Torah Commandment</strong><br><span style="font-size:.9rem">Following the majority is not merely a practical convention — it is a positive commandment from the Torah. This elevates democratic judicial process to a level of religious obligation.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔢</div><strong>A Two-Vote Majority Suffices</strong><br><span style="font-size:.9rem">Even in a court of only three judges, a majority of two is sufficient and binding. This ensures that small courts can function effectively without requiring unanimity.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🗣️</div><strong>Judges Must Explain Rulings, Not Doubts</strong><br><span style="font-size:.9rem">A judge who rules on a case owes the parties an explanation. A judge who abstains with 'I don't know' does not. This asymmetry reflects that certainty carries the burden of justification.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔄</div><strong>Deadlock Requires Expansion</strong><br><span style="font-size:.9rem">When three judges each take a different position with no majority, the court must expand by adding two judges at a time until a clear majority emerges — ensuring every case reaches resolution.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות סנהדרין פרק ח</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});document.addEventListener('touchend',e=>{const dx=tx-e.changedTouches[0].clientX;const dy=ty-e.changedTouches[0].clientY;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){dx>0?go(1):go(-1)}},{passive:true});</script></body></html>
