@@ -455,5 +455,55 @@
     "book": "ספר נזיקין · Sefer Nezikin",
     "chapters": 13,
     "sefaria": "Mishneh Torah, Murderer and the Preservation of Life"
+  },
+  "sales": {
+    "prefix": "sales",
+    "dir": "kinyan/sales",
+    "secHe": "הלכות מכירה",
+    "secEn": "Sales",
+    "emoji": "🤝",
+    "book": "ספר קניין · Sefer Kinyan",
+    "chapters": 30,
+    "sefaria": "Mishneh Torah, Sales"
+  },
+  "ownerless-property-and-gifts": {
+    "prefix": "ownerless-property-and-gifts",
+    "dir": "kinyan/ownerless-property-and-gifts",
+    "secHe": "הלכות זכיה ומתנה",
+    "secEn": "Ownerless Property and Gifts",
+    "emoji": "🎁",
+    "book": "ספר קניין · Sefer Kinyan",
+    "chapters": 12,
+    "sefaria": "Mishneh Torah, Ownerless Property and Gifts"
+  },
+  "neighbors": {
+    "prefix": "neighbors",
+    "dir": "kinyan/neighbors",
+    "secHe": "הלכות שכנים",
+    "secEn": "Neighbors",
+    "emoji": "🏘️",
+    "book": "ספר קניין · Sefer Kinyan",
+    "chapters": 14,
+    "sefaria": "Mishneh Torah, Neighbors"
+  },
+  "agents-and-partners": {
+    "prefix": "agents-and-partners",
+    "dir": "kinyan/agents-and-partners",
+    "secHe": "הלכות שלוחין ושותפין",
+    "secEn": "Agents and Partners",
+    "emoji": "👥",
+    "book": "ספר קניין · Sefer Kinyan",
+    "chapters": 10,
+    "sefaria": "Mishneh Torah, Agents and Partners"
+  },
+  "slaves": {
+    "prefix": "slaves",
+    "dir": "kinyan/slaves",
+    "secHe": "הלכות עבדים",
+    "secEn": "Slaves",
+    "emoji": "⛓️",
+    "book": "ספר קניין · Sefer Kinyan",
+    "chapters": 9,
+    "sefaria": "Mishneh Torah, Slaves"
   }
 }
