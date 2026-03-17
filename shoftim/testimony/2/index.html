@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות עדות פרק ב</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות עדות</a><span class="title">פרק ב · Ch 2</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">📋</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות עדות</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Testimony</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ב</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 2 · 5 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 2 — When Testimonies Align or Conflict</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 2 — When Testimonies Align or Conflict</h2><div class="subtitle">Chapter 2</div><div class="flowchart"><div class="flow-box highlight">Contradictions That Nullify Testimony<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Multiple Witnesses and Partial Disagreements<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Acceptable Margins of Error in Time<br><span style="font-size:.8rem;color:#888">הלכה ה׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Contradictions That Nullify Testimony</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מַה בֵּין חֲקִירוֹת וּדְרִישׁוֹת לִבְדִיקוֹת. בַּחֲקִירוֹת וּדְרִישׁוֹת אִם כִּוֵּן הָאֶחָד אֶת עֵדוּתוֹ וְהַשֵּׁנִי אוֹמֵר אֵינִי יוֹדֵעַ עֵדוּתָן בְּטֵלָה. אֲבָל בִּבְדִיקוֹת אֲפִלּוּ שְׁנֵיהֶן אוֹמְרִין אֵין אָנוּ יוֹדְעִין עֵדוּתָן קַיֶּמֶת. וּבִזְמַן שֶׁהֵן מַכְחִישִׁין זֶה אֶת זֶה אֲפִלּוּ בִּבְדִיקוֹת עֵדוּתָן בְּטֵלָה. כֵּיצַד. הֵעִידוּ שֶׁהָרַג זֶה אֶת זֶה וְאָמַר הָאֶחָד כְּשֶׁנֶּחְקַר בְּשָׁבוּעַ פְּלוֹנִי. בְּשָׁנָה פְּלוֹנִית. בְּחֹדֶשׁ פְּלוֹנִי. בְּכָךְ וְכָךְ בְּחֹדֶשׁ. בִּרְבִיעִי בְּשַׁבָּת. בְּשֵׁשׁ שָׁעוֹת בַּיּוֹם. בְּמָקוֹם פְּלוֹנִי הֲרָגוֹ. וְכֵן כְּשֶׁדָּרְשׁוּ בַּמֶּה הֲרָגוֹ אָמַר הֲרָגוֹ בְּסַיִף. וְכֵן הָעֵד הַשֵּׁנִי כִּוֵּן עֵדוּתוֹ בַּכּל חוּץ מִן הַשָּׁעוֹת שֶׁאָמַר אֵינִי יוֹדֵעַ בְּכַמָּה שָׁעוֹת הָיָה בַּיּוֹם. אוֹ שֶׁכִּוֵּן אֶת הַשָּׁעוֹת וְאָמַר אֵינִי יוֹדֵעַ בַּמֶּה הֲרָגוֹ וְלֹא הֵבַנְתִּי בַּכְּלִי שֶׁהָיָה בְּיָדוֹ. הֲרֵי עֵדוּתָן בְּטֵלָה. אֲבָל אִם כִּוְּנוּ הַכּל וְאָמְרוּ לָהֶן הַדַּיָּנִים כֵּלָיו הָיוּ שְׁחוֹרִים אוֹ לְבָנִים וְאָמְרוּ אֵין אָנוּ יוֹדְעִים וְלֹא שַׂמְנוּ לִבֵּנוּ לִדְבָרִים אֵלּוּ שֶׁאֵין בָּהֶן מַמָּשׁ הֲרֵי עֵדוּתָן קַיֶּמֶת: 
+</div><div class="halacha-en long">What is the difference between the <i>chakirot</i> and the <i>derishot</i> and the <i>bedikot</i>? With regard to the <i>chakirot</i> and the <i>derishot</i>, if one witness gave specific testimony and the second said: "I do not know," their testimony is of no consequence. With regard to the <i>bedikot</i>, by contrast, even if both of them say: "I don't know," their testimony is allowed to stand. If, however, they contradict each other, even with regard to the <i>bedikot</i>, their testimony is nullified.<br>What is implied? The witnesses testified that one person killed another. One of the witnesses specified the year of the seven year cycle, the year, the month, the date, the day of the week, Wednesday, the time, 12 noon, and the place of the murder. Similarly, they asked him: "With what did he kill him?", and he answered: "With a sword." If the second witnesses outlined his testimony in the same manner except for the time, i.e., he said: "I do not know the time of day at which the murder took place," or he was able to specify the time, but said: "I don't know what he used to kill him. I did not take notice of the murder weapon," their testimony is nullified. If, however, they outlined all the above factors identically, but were asked: "Was he dressed in black or white?" their testimony is allowed to stand if they replied: "We don't know. We did not pay attention to factors like these which are of no consequence."</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">אָמַר אֶחָד כֵּלִים שְׁחוֹרִים הָיָה לָבוּשׁ וְהַשֵּׁנִי אָמַר לֹא כֵן אֶלָּא לְבָנִים הָיָה לָבוּשׁ הֲרֵי עֵדוּתָן בְּטֵלָה. וּכְאִלּוּ אָמַר אֶחָד בִּרְבִיעִי בְּשַׁבָּת וְהַשֵּׁנִי בַּחֲמִישִׁי שֶׁאֵין כָּאן עֵדוּת. אוֹ שֶׁאָמַר הָאֶחָד בְּסַיִף הֲרָגוֹ וְהַשֵּׁנִי אָמַר בְּרֹמַח שֶׁאֵין כָּאן עֵדוּת. שֶׁנֶּאֱמַר <small>(דברים יג טו)</small> "נָכוֹן הַדָּבָר" וְכֵיוָן שֶׁהִכְחִישׁוּ זֶה אֶת זֶה בְּאֵי זֶה מִכָּל הַדְּבָרִים אֵין זֶה נָכוֹן: 
+</div><div class="halacha-en long">If one of the witnesses said: "He was wearing black clothes," and the second one said: "That is not so," he was wearing white clothes, their testimony is nullified. It is as one said: "It took place on Wednesday," and the other said: "It took place on Thursday," in which instance, the testimony is of no consequence. Or it can be compared to a situation where one said: ""He killed him with a sword," and the other says: "He killed him with a lance." The need for corroboration of the witnesses' testimony is derived from Deuteronomy 13:15 which states: "And the matter is precise." If they contradicted each other in any matter, their testimony is not precise.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">❌ Fatal Contradictions</div>In <strong>chakirot</strong>, if one witness says 'I don't know,' testimony is nullified. If witnesses <strong>contradict each other</strong> — even in bedikot — testimony is nullified. The testimony must be <em>nachon</em> (precise and established).</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Multiple Witnesses and Partial Disagreements</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">הָיוּ הָעֵדִים מְרֻבִּים שְׁנַיִם מֵהֶן כִּוְּנוּ עֵדוּתָן בַּחֲקִירוֹת וּבִדְרִישׁוֹת וְהַשְּׁלִישִׁי אוֹמֵר אֵינִי יוֹדֵעַ תִּתְקַיֵּם הָעֵדוּת בִּשְׁנַיִם וְיֵהָרֵג. אֲבָל אִם הִכְחִישׁ אֶת שְׁנֵיהֶן אֲפִלּוּ בִּבְדִיקוֹת עֵדוּתָן בְּטֵלָה: 
+</div><div class="halacha-en long">The following rules apply if there were many witnesses. If two of them testified in a like manner with regard to the <i>chakirot</i> and the <i>derishot</i>, their testimony is allowed to stand and the defendant is executed, even though the third witness says: "I don't know." If, however, that witness contradicts the other two, even with regard to the <i>bedikot</i>, their testimony is nullified.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">עֵד אֶחָד אוֹמֵר בִּרְבִיעִי בְּשַׁבָּת בִּשְׁנַיִם לַחֹדֶשׁ וְהַשֵּׁנִי אוֹמֵר בִּרְבִיעִי בְּשַׁבָּת בִּשְׁלֹשָׁה לַחֹדֶשׁ עֵדוּתָן קַיֶּמֶת. שֶׁזֶּה יוֹדֵעַ בְּעִבּוּרוֹ שֶׁל חֹדֶשׁ וְזֶה אֵינוֹ יוֹדֵעַ. בַּמֶּה דְּבָרִים אֲמוּרִים עַד חֲצוֹת הַחֹדֶשׁ. אֲבָל אַחַר חֲצוֹת הַחֹדֶשׁ כְּגוֹן שֶׁאָמַר הָאֶחָד בְּשִׁשָּׁה עָשָׂר בַּחֹדֶשׁ וְהַשֵּׁנִי אוֹמֵר בְּשִׁבְעָה עָשָׂר בַּחֹדֶשׁ אַף עַל פִּי שֶׁכִּוְּנוּ שְׁנֵיהֶם יוֹם אֶחָד מִימֵי הַשַּׁבָּת עֵדוּתָן בְּטֵלָה. שֶׁאֵין חֲצִי הַחֹדֶשׁ בָּא וּכְבָר יָדְעוּ הַכּל אֵימָתַי הָיָה רֹאשׁ הַחֹדֶשׁ: 
+</div><div class="halacha-en long">If one witness says: "The murder took place on Wednesday, the second of the month," and another says: "It took place on Wednesday, the third of the month," their testimony is allowed to stand. Although there is a contradiction between them, we assume that one knew that an extra day was added to the month, and one did not know.<br>Until when does the above apply? Until the middle of the month. After the middle of the month, by contrast, e.g., one said: "It took place on the sixteenth of the month," and the second said: "It took place on the seventeenth of the month," their testimony is nullified even though both of them spoke about the same day of the week. The rationale is that by the middle of the month, every one knows when Rosh Chodesh was commemorated.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">👥 Multiple Witnesses</div>If three witnesses testify and two agree on all chakirot while the third says 'I don't know,' the two suffice. A <strong>one-day discrepancy in the date</strong> before mid-month may be excused — but not after mid-month when everyone knows the date.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Acceptable Margins of Error in Time</h2><div class="subtitle">הלכה ה׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">אָמַר הָאֶחָד בִּשְׁלֹשָׁה וְהַשֵּׁנִי אוֹמֵר בַּחֲמִשָּׁה עֵדוּתָן בְּטֵלָה. אָמַר עֵד אֶחָד בִּשְׁתֵּי שָׁעוֹת בַּיּוֹם וְהַשֵּׁנִי אוֹמֵר בְּשָׁלֹשׁ שָׁעוֹת הֲרֵי עֵדוּתָן קַיֶּמֶת שֶׁדֶּרֶךְ הָעָם לִטְעוֹת בְּשָׁעָה אַחַת. אֲבָל אִם אָמַר הָאֶחָד בְּשָׁלֹשׁ שָׁעוֹת וְהַשֵּׁנִי אוֹמֵר בְּחָמֵשׁ עֵדוּתָן בְּטֵלָה. אָמַר עֵד אֶחָד קֹדֶם הָנֵץ הַחַמָּה וְאֶחָד אוֹמֵר בְּהָנֵץ הַחַמָּה עֵדוּתָן בְּטֵלָה אַף עַל פִּי שֶׁהִיא שָׁעָה אַחַת שֶׁהַדָּבָר נִכָּר לַכּל. וְכֵן אִם נֶחְלְקוּ בִּשְׁקִיעָתָהּ: 
+</div><div class="halacha-en long">If, however, one witness says: "It took place on the third of the month," and the other says: "It took place on the fifth of the month," their testimony is nullified.<br>If one witness says: "It took place during the second hour of the day," and the other says: "It took place during the third hour," their testimony is allowed to stand. The rationale is that it is common for people to err with regard to one hour. If, however, one says: "It took place during the third hour," and the other says: "It took place during the fifth hour," their testimony is nullified.<br>If one witness says: "It took place before sunrise," and the other says: "It took place at sunrise," their testimony is nullified. Even though the discrepancy between them is less than one hour, the matter is evident to all. Similar concepts apply with regard to sunset.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🕐 One-Hour Margin</div>Witnesses differing by <strong>one hour</strong> (e.g., 2nd vs. 3rd hour) — testimony stands, as such errors are common. But two hours' difference nullifies it. Discrepancy at <strong>sunrise or sunset</strong> — even less than an hour — nullifies testimony because these moments are unmistakable.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 2</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🎯</div><strong>Precision Is the Foundation of Testimony</strong><br><span style="font-size:.9rem">Testimony must be 'nachon' — precise and corroborated. Any contradiction between witnesses in essential matters (chakirot) nullifies the entire testimony, even if the contradiction is minor.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔁</div><strong>The Third Witness Who Says 'I Don't Know'</strong><br><span style="font-size:.9rem">When one of several witnesses cannot confirm the chakirot, the others' testimony may still stand — provided no one actively contradicts the others.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📅</div><strong>Calendar Knowledge and Testimony</strong><br><span style="font-size:.9rem">A one-day discrepancy in dates early in the month may reflect ignorance of the month's length — acceptable before the 15th. After mid-month, everyone knows when Rosh Chodesh was, so no discrepancy is tolerated.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⏰</div><strong>Honest Human Error in Time</strong><br><span style="font-size:.9rem">People commonly err by one hour — so courts accept a one-hour time discrepancy. But sunrise and sunset are universally known moments; any discrepancy there nullifies testimony regardless of how small.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות עדות פרק ב</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

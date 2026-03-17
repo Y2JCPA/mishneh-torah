@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות עדות פרק ז</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות עדות</a><span class="title">פרק ז · Ch 7</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">📋</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות עדות</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Testimony</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ז</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 7 · 7 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 7 — Relatives Identifying Signatures and Complex Validation Scenarios</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 7 — Relatives Identifying Signatures and Complex Validation Scenarios</h2><div class="subtitle">Chapter 7</div><div class="flowchart"><div class="flow-box highlight">Relatives and Minors Identifying Signatures<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Two Witnesses Required Per Signature<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ה׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Validation When Witnesses Contradict Each Other<br><span style="font-size:.8rem;color:#888">הלכות ו׳–ז׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Relatives and Minors Identifying Signatures</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מֵעִיד קָרוֹב עַל כְּתַב קְרוֹבוֹ. כֵּיצַד. שְׁטָר שֶׁעֵדָיו רְאוּבֵן וְשִׁמְעוֹן וּמֵתוּ אוֹ שֶׁהָלְכוּ לִמְדִינַת הַיָּם וּבָא בְּנוֹ שֶׁל רְאוּבֵן וְאָמַר זֶה כְּתַב יָדוֹ שֶׁל אָבִי וּבָא בְּנוֹ שֶׁל שִׁמְעוֹן וְאָמַר זֶה כְּתַב יָדוֹ שֶׁל אָבִי הֲרֵי אֵלּוּ כִּשְׁנֵי עֵדִים כְּשֵׁרִים שֶׁאֵינָן קְרוֹבִים וְאִם יִצְטָרֵף עִמָּהֶם שְׁלִישִׁי וְהֵעִיד עַל כְּתַב יָדָן שֶׁל שְׁנֵיהֶם הֲרֵי נִתְקַיֵּם הַשְּׁטָר: 
+</div><div class="halacha-en long">A relative may give testimony with regard to his relative's signature.<br>What is implied? There was a legal document which Reuven and Shimon signed as witnesses. They died or traveled overseas. Reuven's son came and testified: "This is my father's signature," and Shimon's son came and testified: "This is my father's signature," it is as if they are two acceptable witnesses who are not related to the witnesses who have signed. If a third witness joins together with them and testifies with regard to the two signatures, the authenticity of the legal document is validated.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">וְאֵלּוּ מִדְּבָרִים שֶׁנֶּאֱמָנִים הַגְּדוֹלִים לְהָעִיד בְּגָדְלָם מַה שֶּׁרָאוּ בְּקָטְנָם. נֶאֱמָן אָדָם לוֹמַר כְּשֶׁהוּא גָּדוֹל זֶהוּ כְּתַב יָדוֹ שֶׁל אָבִי זֶהוּ כְּתַב יָדוֹ שֶׁל רַבִּי זֶהוּ כְּתַב יָדוֹ שֶׁל אָחִי שֶׁהָיִיתִי מַכִּיר בִּכְתַב יָדָם כְּשֶׁהָיִיתִי קָטָן. וְהוּא שֶׁיִּצְטָרֵף עִמּוֹ אַחֵר שֶׁמַּכִּיר כְּתַב יָדָן כְּשֶׁהוּא גָּדוֹל: 
+</div><div class="halacha-en long">The statements of the following individuals are acceptable when, as adults, they testify with regard to what they observed as minors. A person's words is accepted when, as an adult, he states: "This is the signature of my father....", "This is the signature of my teacher...", "This is the signature of my brother which I learned to recognize when I was a minor."<br>The above applies, provided he is joined by another person who learned to recognize these signatures while an adult.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">👨‍👦 Relatives May Identify</div>A <strong>relative may identify the signature of his relative</strong> for document validation purposes. For example, Reuven's son and Shimon's son can each identify their father's signature — treated as two independent acceptable witnesses. Adults may also testify about signatures they recognized as minors, if joined by another who recognized them as an adult.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Two Witnesses Required Per Signature</h2><div class="subtitle">הלכות ג׳–ה׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">שְׁטָר שֶׁעֵדָיו רְאוּבֵן וְשִׁמְעוֹן וּבָאוּ שְׁנַיִם וְהֵעִידוּ שֶׁזֶּה כְּתַב יָדוֹ שֶׁל רְאוּבֵן וְזֶה כְּתַב יָדוֹ שֶׁל שִׁמְעוֹן נִתְקַיֵּם הַשְּׁטָר. אֲבָל אִם הֵעִיד זֶה עַל כְּתַב יָדוֹ [שֶׁל] רְאוּבֵן וְהַשֵּׁנִי הֵעִיד עַל כְּתַב יָדוֹ [שֶׁל] שִׁמְעוֹן לֹא נִתְקַיֵּם הַשְּׁטָר לְפִי שֶׁצָּרִיךְ שְׁנֵי עֵדִים עַל כְּתַב [כָּל] יַד אֶחָד מִשְּׁנֵיהֶם. וְאִם יֵשׁ שְׁלִישִׁי מֵעִיד עַל כְּתַב רְאוּבֵן וְשִׁמְעוֹן כְּאֶחָד נִתְקַיֵּם: 
+</div><div class="halacha-en long">When there is a legal document on which Reuven and Shimon signed as witnesses and two others came and testified to the authenticity of the signatures of both Reuven and Shimon, the legal document is validated. If, however, one testified to the authenticity of Reuven's signature and the other testified to the authenticity of Shimon's signature, the document is not validated. The rationale is that two witnesses must testify with regard to both witnesses' signature. If there is a third witness who testifies with regard to the authenticity of both Reuven's and Shimon's signature, the document is validated.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">אָמַר הָרִאשׁוֹן זֶה כְּתַב יָדִי וְהֵעִיד הוּא וְאַחֵר עַל כְּתַב יְדֵי הַשֵּׁנִי לֹא נִתְקַיֵּם לְפִי שֶׁנִּמְצָא שְׁלֹשֶׁת רִבְעֵי הַמָּמוֹן שֶׁבַּשְּׁטָר תָּלוּי בְּעֵדוּת הָאֶחָד. וְכֵן אִם הֵעִיד אָחִיו אוֹ בְּנוֹ שֶׁל רִאשׁוֹן עִם אַחֵר עַל כְּתַב יְדֵי הַשֵּׁנִי לֹא נִתְקַיֵּם שֶׁהֲרֵי שְׁלֹשֶׁת רִבְעֵי הַמָּמוֹן תָּלוּי בְּעֵדוּת הַקְּרוֹבִים: 
+</div><div class="halacha-en long">When one witness says: "This is my signature," and he and another witness testify with regard to the signature of the other witness, the document is not validated, for three fourths of the money mentioned in the legal document is dependent on the testimony of one person. Similarly, if the son or the brother of the first witness testifies with another person with regard to the signature of the second witness, the document is not validated, because three fourths of the money is dependent on the testimony of relatives.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">שְׁנַיִם שֶׁחֲתוּמִין עַל הַשְּׁטָר וּמֵת אֶחָד מֵהֶן צָרִיךְ שְׁנֵי עֵדִים לְהָעִיד עַל כְּתַב יָדוֹ שֶׁל מֵת וְאִם לֹא נִמְצָא אֶלָּא עֵד אֶחָד עִם זֶה הָעֵד הַחַי כּוֹתֵב חֲתִימַת יָדוֹ בִּפְנֵי עֵדִים אֲפִלּוּ עַל הַחֶרֶס וּמַשְׁלִיכוֹ בְּבֵית דִּין עַד שֶׁתֻּחְזַק כְּתַב יָדוֹ בְּבֵית דִּין וְלֹא יִהְיֶה צָרִיךְ לוֹמַר שֶׁזֶּה כְּתַב יָדוֹ וְיָעִיד הוּא וְאַחֵר עַל כְּתַב יְדֵי הַמֵּת וְיִתְקַיֵּם כְּתַב יָדוֹ שֶׁלֹּא בְּפָנָיו: 
+</div><div class="halacha-en long">When two witnesses sign a legal document and one of them dies, it is necessary that two witnesses testify with regard to the authenticity of the witness who died. If there is only one other witness who recognizes his signature in addition to the witness who is alive, the latter should write his signature, even on a shard, in the presence of two witnesses and send it to the court so that his signature will be validated. In that instance, it is not necessary for him to declare that it is his signature. Accordingly, he and another person can testify with regard to the signature of the deceased person so that his signature will be validated even though he is not present.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">✌️ Two Per Signature</div><strong>Two witnesses are required for each signatory's signature</strong>, not one per witness. If one person identifies Reuven's signature and another identifies Shimon's, the document is not validated — each signature needs two verifiers. A third witness who can identify both suffices.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Validation When Witnesses Contradict Each Other</h2><div class="subtitle">הלכות ו׳–ז׳</div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">שְׁלֹשָׁה שֶׁיָּשְׁבוּ לְקַיֵּם אֶת הַשְּׁטָר שְׁנַיִם מֵהֶן מַכִּירִין חֲתִימַת יְדֵי עֵדִים וְאֶחָד אֵינוֹ מַכִּיר. עַד שֶׁלֹּא חָתְמוּ מְעִידִין בְּפָנָיו וְחוֹתֵם. שֶׁהָעֵדִים נַעֲשִׂים דַּיָּנִים בְּדָבָר שֶׁהוּא מִדִּבְרֵיהֶם כְּמוֹ שֶׁבֵּאַרְנוּ. אֲבָל אַחַר שֶׁחָתְמוּ אֵין מְעִידִין בְּפָנָיו וְחוֹתֵם [שֶׁהֲרֵי בְּעֵת שֶׁחָתְמוּ לֹא הָיוּ מַכִּירִין אֶלָּא הַשְּׁנַיִם] וְאֵין מְקַיְּמִין אֶלָּא עַד שֶׁיִּהְיוּ שְׁלָשְׁתָּן מַכִּירִין אוֹ יָעִידוּ הָעֵדִים עַל הַכְּתָב בִּפְנֵי כָּל אֶחָד וְאֶחָד: 
+</div><div class="halacha-en long">The following principles apply if three judges sit together to validate the authenticity of a legal document, two of them recognize the signatures of the witnesses and one of them does not. Before the judges sign the validation, the two witnesses who recognize the signatures may deliver testimony before the third judge. Then they may sign the validation, for witnesses may serve as judges in a matter that is a Rabbinic ordinance, as we explained.<br>If the two witnesses who recognize the signatures sign the validation before testifying, they may not testify in the presence of the third judge and have him sign. For at the time they signed, only those two recognized the signature of the witnesses. A legal document may be validated only when all three judges recognize the signatures or witnesses deliver testimony on the signatures before each one of them.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">שְׁנַיִם שֶׁהָיוּ חֲתוּמִין עַל הַשְּׁטָר וּמֵתוּ וּבָאוּ שְׁנַיִם וְאָמְרוּ כְּתַב יָדָן הוּא זֶה אֲבָל אֲנוּסִים הָיוּ קְטַנִּים הָיוּ פְּסוּלֵי עֵדוּת הָיוּ. אַף עַל פִּי שֶׁיֵּשׁ שָׁם עֵדִים אֲחֵרִים שֶׁזֶּה כְּתַב יָדָן אוֹ שֶׁהָיָה כְּתַב יָדָן יוֹצֵא מִשְּׁטָר אַחֵר שֶׁקָּרָא עָלָיו עַרְעָר וְהֻחְזַק בְּבֵית דִּין הֲרֵי זֶה לֹא נִתְקַיֵּם. אֶלָּא מְעִידִין הַשְּׁנַיִם שֶּׁבַּשְּׁטָר כְּנֶגֶד הַשְּׁנַיִם שֶׁהֵעִידוּ עֲלֵיהֶן שֶׁהֵן פְּסוּלִין וְאֵין גּוֹבִין בּוֹ כְּלוּם: 
+</div><div class="halacha-en long">The following law applies when the two witnesses who signed on a legal document died and two others came and testified, saying: "This is their signature, but they signed under duress," "...they were minors," or "...they were unacceptable as witnesses." Even though there were other witnesses who testify with regard to their signatures or their signatures could be recognized from another legal document concerning which a protest was raised and afterwards, it was validated by the court, the legal document is not validated. Instead, the two witnesses who signed the document are balanced against the two who testified that they were unacceptable as witnesses, and the legal document may not be used to expropriate money.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚔️ Competing Testimony</div>When two challengers say the document signatories were 'unfit' and other evidence supports the signatures, the <strong>two sets of witnesses are balanced</strong> against each other and the document cannot be used. A validation cannot proceed when one of three judges did not hear the testimony before signing.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 7</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🧬</div><strong>Family Testimony on Signatures Is Valid</strong><br><span style="font-size:.9rem">Though relatives cannot testify for each other in ordinary matters, each child identifying only their own parent's signature is not testifying 'for' a relative — they are independent facts about two different people. This is treated as two valid witnesses.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔢</div><strong>Two Witnesses for Each Signatory</strong><br><span style="font-size:.9rem">Validating a document requires two witnesses to verify each signer's handwriting. Splitting the testimony — one person per signature — leaves three-fourths of the document's enforceability dependent on single witnesses, which is invalid.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🧠</div><strong>Childhood Memories Are Valid if Corroborated</strong><br><span style="font-size:.9rem">A person may testify as an adult about signatures he recognized as a child — provided another adult who recognizes the signature currently joins him. Memory from childhood, when corroborated, is legally valid.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>Competing Witnesses Cancel Each Other</strong><br><span style="font-size:.9rem">When two witnesses challenge document signatories and no independent verification exists, the challenge and the document signatures balance each other out — the document cannot be enforced.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות עדות פרק ז</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

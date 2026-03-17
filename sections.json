@@ -550,5 +550,50 @@
     "emoji": "📜",
     "book": "ספר משפטים · Sefer Mishpatim",
     "chapters": 11
+  },
+  "sanhedrin": {
+    "prefix": "sanhedrin",
+    "dir": "shoftim/sanhedrin",
+    "secHe": "הלכות סנהדרין",
+    "secEn": "The Sanhedrin and the Penalties within Their Jurisdiction",
+    "emoji": "🏛️",
+    "book": "ספר שופטים · Sefer Shoftim",
+    "chapters": 26
+  },
+  "testimony": {
+    "prefix": "testimony",
+    "dir": "shoftim/testimony",
+    "secHe": "הלכות עדות",
+    "secEn": "Testimony",
+    "emoji": "📋",
+    "book": "ספר שופטים · Sefer Shoftim",
+    "chapters": 22
+  },
+  "rebels": {
+    "prefix": "rebels",
+    "dir": "shoftim/rebels",
+    "secHe": "הלכות ממרים",
+    "secEn": "Rebels",
+    "emoji": "⚡",
+    "book": "ספר שופטים · Sefer Shoftim",
+    "chapters": 7
+  },
+  "mourning": {
+    "prefix": "mourning",
+    "dir": "shoftim/mourning",
+    "secHe": "הלכות אבל",
+    "secEn": "Mourning",
+    "emoji": "🕯️",
+    "book": "ספר שופטים · Sefer Shoftim",
+    "chapters": 14
+  },
+  "kings-and-wars": {
+    "prefix": "kings-and-wars",
+    "dir": "shoftim/kings-and-wars",
+    "secHe": "הלכות מלכים ומלחמות",
+    "secEn": "Kings and Wars",
+    "emoji": "👑",
+    "book": "ספר שופטים · Sefer Shoftim",
+    "chapters": 12
   }
 }

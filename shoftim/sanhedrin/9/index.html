@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות סנהדרין פרק ט</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות סנהדרין</a><span class="title">פרק ט · Ch 9</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/7</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">🏛️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות סנהדרין</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">The Sanhedrin and the Penalties within Their Jurisdiction</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ט</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 9 · 3 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 9 — Majority Rules in Capital Cases</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 9 — Majority Rules in Capital Cases</h2><div class="subtitle">Chapter 9</div><div class="flowchart"><div class="flow-box highlight">Unanimous Liability Means Exoneration<br><span style="font-size:.8rem;color:#888">הלכות א׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Majority Rules in the Minor Sanhedrin<br><span style="font-size:.8rem;color:#888">הלכות ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">The Supreme Sanhedrin: No Expansion Needed<br><span style="font-size:.8rem;color:#888">הלכות ג׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Unanimous Liability Means Exoneration</h2><div class="subtitle">הלכות א׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">סַנְּהֶדְרִין שֶׁפָּתְחוּ כֻּלָּם בְּדִינֵי נְפָשׁוֹת תְּחִלָּה וְאָמְרוּ כֻּלָּן חַיָּב הֲרֵי זֶה פָּטוּר עַד שֶׁיִּהְיוּ שָׁם מִקְצָת מְזַכִּין שֶׁיְּהַפְּכוּ בִּזְכוּתוֹ וְיִרְבּוּ הַמְחַיְּבִין וְאַחַר כָּךְ יַהֲרֹג: 
+</div><div class="halacha-en long">When all the judges of a <i>Sanhedrin</i> begin their judgment of a case involving capital punishment and say that the defendant is liable, he is exonerated. There must be some who seek to exonerate him and argue on his behalf, but yet the majority hold him liable. Only then he is executed.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🔄 Paradox of Unanimity</div>In capital cases, if <strong>all judges vote liable</strong>, the defendant is <strong>exonerated</strong>. There must be at least some who argue for exoneration — a unanimous guilty verdict reflects a flawed process, not justice.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Majority Rules in the Minor Sanhedrin</h2><div class="subtitle">הלכות ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">סַנְהֶדְרִי קְטַנָּה שֶׁנֶּחְלְקוּ בְּדִינֵי נְפָשׁוֹת שְׁנֵים עָשָׂר אוֹמְרִים זַכַּאי וְאַחַד עָשָׂר אוֹמְרִים חַיָּב הֲרֵי זֶה זַכַּאי. שְׁנֵים עָשָׂר אוֹמְרִים חַיָּב וְאַחַד עָשָׂר אוֹמְרִים זַכַּאי אוֹ שֶׁאָמְרוּ אַחַד עָשָׂר זַכַּאי וְאַחַד עָשָׂר חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ אֲפִלּוּ עֶשְׂרִים וּשְׁנַיִם מְזַכִּין אוֹ מְחַיְּבִין וְהָאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ יוֹסִיפוּ שְׁנַיִם. זֶה שֶׁאָמַר אֵינִי יוֹדֵעַ הֲרֵי הוּא כְּמִי שֶׁאֵינוֹ שֶׁהֲרֵי אֵינוֹ חוֹזֵר וּמְלַמֵּד חוֹבָה וְנִמְצְאוּ אַחַר הַתּוֹסֶפֶת עֶשְׂרִים וְאַרְבָּעָה חוּץ מִזֶּה הַמִּסְתַּפֵּק. אָמְרוּ שְׁנֵים עָשָׂר זַכַּאי וּשְׁנֵים עָשָׂר חַיָּב הֲרֵי זֶה זַכַּאי. אַחַד עָשָׂר אוֹמְרִים זַכַּאי וּשְׁלֹשָׁה עָשָׂר אוֹמְרִים חַיָּב אַף עַל פִּי שֶׁהָאֶחָד מִן הָרִאשׁוֹנִים אוֹמֵר אֵינִי יוֹדֵעַ הֲרֵי זֶה חַיָּב שֶׁהֲרֵי הַמְחַיְּבִין רַבּוּ בִּשְׁנַיִם. אָמְרוּ שְׁנֵים עָשָׂר זַכַּאי וּשְׁנֵים עָשָׂר חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ מוֹסִיפִין שְׁנַיִם אֲחֵרִים. וְכֵן מוֹסִיפִין וְהוֹלְכִין עַד שֶׁיִּרְבּוּ הַמְזַכִּין אֶחָד וִיהֵא זַכַּאי אוֹ יִרְבּוּ הַמְחַיְּבִין שְׁנַיִם אוֹ יוֹתֵר וִיהֵא חַיָּב. הָיוּ אֵלּוּ כְּנֶגֶד אֵלּוּ וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ אוֹ שֶׁהָיוּ הַמְחַיְּבִין יוֹתֵר אֶחָד בִּלְבַד מוֹסִיפִין וְהוֹלְכִין עַד שִׁבְעִים וְאֶחָד. הִגִּיעוּ לְשִׁבְעִים וְאֶחָד שְׁלֹשִׁים וְשִׁשָּׁה אוֹמְרִים זַכַּאי וּשְׁלֹשִׁים וַחֲמִשָּׁה אוֹמְרִים חַיָּב הֲרֵי זֶה זַכַּאי. שְׁלֹשִׁים וְשִׁשָּׁה אוֹמְרִים חַיָּב וּשְׁלֹשִׁים וַחֲמִשָּׁה אוֹמְרִים זַכַּאי דָּנִים אֵלּוּ כְּנֶגֶד אֵלּוּ עַד שֶׁיִּרְאֶה אֶחָד מֵהֶן דִּבְרֵי חֲבֵרוֹ וּמְזַכִּין אוֹתוֹ אוֹ מְחַיְּבִין אוֹתוֹ. וְאִם לֹא רָאָה גָּדוֹל שֶׁבַּדַּיָּנִים אוֹמֵר נִזְדַּקֵּן הַדִּין וּפוֹטְרִין אוֹתוֹ. שְׁלֹשִׁים וַחֲמִשָּׁה אוֹמְרִים חַיָּב וּשְׁלֹשִׁים וַחֲמִשָּׁה אוֹמְרִים זַכַּאי וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ פּוֹטְרִין אוֹתוֹ. אַרְבָּעָה וּשְׁלֹשִׁים אוֹמְרִים זַכַּאי וְשִׁשָּׁה וּשְׁלֹשִׁים אוֹמְרִים חַיָּב וְאֶחָד אוֹמֵר אֵינִי יוֹדֵעַ חַיָּב שֶׁהֲרֵי רַבּוּ הַמְחַיְּבִין שְׁנַיִם: 
+</div><div class="halacha-en long">The following rules apply when there is a difference of opinion in a minor <i>Sanhedrin</i>. If twelve judges say that he should be exonerated and eleven say that he should be held liable, he is exonerated. If twelve say that he is liable and eleven say that he should be exonerated or eleven say that he should be exonerated and eleven say that he is liable, and one says: "I don't know," we add two judges. Even if there are twelve who wish to exonerate him and twelve who hold him liable, and one who one says: "I don't know," we add two judges. The rationale is that the judge who says: "I don't know," is considered as if he does not exist, for he cannot change his mind and explain why the defendant should be held liable. Thus after the addition, there are 24 judges aside from the person who says: "I don't know."<br>If twelve say that he should be exonerated and twelve say that he is liable, he is exonerated. If eleven say that he should be exonerated and thirteen say that he is liable, he is liable. This applies even if one of the original judges says: "I don't know." For there are two more judges who rule that he is liable.<br>If twelve say that he should be exonerated and twelve say that he is liable, we add two judges. And similarly, if the balance is not broken, we continue to add two judges until there is at least one more judge who rules that he should be exonerated or at least two more judges who rule that he should be held liable. If there are an even number of judges on both sides, and one says: "I don't know," or if the number of judges who rule that he is liable is only one more than those who rule that he should be exonerated, we continue to add judges until we reach 71.<br>The following rules apply when the court reaches that size. If 36 say that he should be exonerated and 35 say that he is liable, he should be exonerated. If 36 say that he is liable and 35 say that he should be exonerated, they debate back and forth against each other until one of them sees the other's perspective and either exonerates him or holds him liable. If such a change in perspective does not take place, the judge of the greatest stature declares: "This judgment has become aged," and he is released.<br>If 35 say that he is liable and 35 say that he should be exonerated, and one says "I don't know," we release him. If 34 say that he should be exonerated and 36 say that he is liable, and one says: "I don't know," he is held liable. For there is a majority of two judges who hold him liable.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⚖️ 23-Judge Rules</div>In a minor Sanhedrin of 23: a majority of <strong>12 to 11 exonerates</strong>; a majority of <strong>13 to 10 convicts</strong>. A 12-to-11 majority for liability requires adding 2 judges at a time — up to <strong>71</strong> — until resolution.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Supreme Sanhedrin: No Expansion Needed</h2><div class="subtitle">הלכות ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">בֵּית דִּין הַגָּדוֹל שֶׁבָּא לָהֶם מַחְלֹקֶת בֵּין בְּדִינֵי נְפָשׁוֹת בֵּין בְּדִינֵי מָמוֹנוֹת בֵּין בְּדִינֵי תּוֹרָה. אֵין מוֹסִיפִין עֲלֵיהֶן אֶלָּא דָּנִין אֵלּוּ כְּנֶגֶד אֵלּוּ וְהוֹלְכִין אַחַר הָרֹב שֶׁלָּהֶן. וְאִם בְּדִין אֶחָד מִן הַנֶּהֱרָגִין נֶחְלְקוּ דָּנִין אֵלּוּ כְּנֶגֶד אֵלּוּ עַד שֶׁיִּפְטְרוּהוּ אוֹ יִתְחַיֵּב: 
+</div><div class="halacha-en long">When there is a difference of opinion in the Supreme <i>Sanhedrin</i>, whether with regard to a law involving capital punishment, monetary law, or other matters of Torah law, we do not add judges. Instead, they debate against each other and the ruling follows the majority. If their difference of opinion involves whether a person will be executed, they should debate against each other until they either exonerate him or hold him liable.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🏛️ 71 Decides All</div>When the Supreme Sanhedrin of 71 reaches a split decision on any matter — capital, monetary, or Torah law — they <strong>do not add judges</strong>. They debate until a majority of the 71 is reached. The <strong>majority rules</strong>.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/7</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 9</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🛡️</div><strong>The Defendant's Safeguard Against Unanimity</strong><br><span style="font-size:.9rem">The requirement that at least one judge argue for exoneration in capital cases is a profound protection against mob mentality and groupthink. If nobody advocates for the defendant, the system itself has failed him.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📏</div><strong>Asymmetric Majority Requirements</strong><br><span style="font-size:.9rem">Capital cases require more than a bare majority to convict (13 of 23), but only a bare majority to exonerate (12 of 23). This asymmetry expresses the principle that we err on the side of life.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🔢</div><strong>Expanding the Court to Break Deadlock</strong><br><span style="font-size:.9rem">When a minor Sanhedrin of 23 deadlocks at 12-12, it expands by two judges at a time — potentially reaching the full 71. This exhaustive process reflects how seriously halacha takes capital decisions.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌐</div><strong>The Supreme Sanhedrin as Final Authority</strong><br><span style="font-size:.9rem">The Great Sanhedrin of 71 is the court of last resort for all matters — capital, monetary, and matters of Torah law. Its majority opinion is binding with no mechanism for further appeal or expansion.</span></div></div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/7</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות סנהדרין פרק ט</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=7;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

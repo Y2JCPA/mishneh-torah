@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות אבל פרק ו</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות אבל</a><span class="title">פרק ו · Ch 6</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/8</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">🕯️</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות אבל</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Mourning</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ו</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 6 · 13 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Chapter 6 — The Thirty Days of Mourning</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Chapter 6 — The Thirty Days of Mourning</h2><div class="subtitle">Chapter 6</div><div class="flowchart"><div class="flow-box highlight">The Five Prohibitions of the Thirty Days<br><span style="font-size:.8rem;color:#888">הלכות א׳–ב׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Haircut and Clothing Rules<br><span style="font-size:.8rem;color:#888">הלכות ג׳–ד׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Marriage, Celebrations, and Business Travel<br><span style="font-size:.8rem;color:#888">הלכות ה׳–ט׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">The Seventh and Thirtieth Days as Partial Days<br><span style="font-size:.8rem;color:#888">הלכות י״א–י״ב</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Five Prohibitions of the Thirty Days</h2><div class="subtitle">הלכות א׳–ב׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">מִדִבְרֵי סוֹפְרִים שֶׁיִּהְיֶה הָאָבֵל נוֹהֵג בְּמִקְצָת דִּבְרֵי אֲבֵלוּת כָּל שְׁלֹשִׁים יוֹם. וּמִנַּיִן סָמְכוּ חֲכָמִים לִשְׁלֹשִׁים יוֹם. שֶׁנֶּאֱמַר <small>(דברים כא יג)</small> "וּבָכְתָה אֶת אָבִיהָ וְאֶת אִמָּהּ יֶרַח יָמִים". מִכְלַל שֶׁהָאָבֵל מִצְטַעֵר כָּל שְׁלֹשִׁים יוֹם: 
+</div><div class="halacha-en long">According to Rabbinic Law, a mourner should observe some of the mourning practices for 30 days. Which source did our Sages use as a support for the concept of 30 days? Deuteronomy 21:13 states: "And she shall cry for her father and mother for a month." Implied is that a mourner will feel discomfort for a month.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">וְאֵלּוּ דְּבָרִים שֶׁהָאָבֵל אָסוּר בָּהֶן כָּל שְׁלֹשִׁים יוֹם. אָסוּר בְּתִסְפֹּרֶת. וּבְגִהוּץ. וּבְנִשּׂוּאִין. וּבְשִׂמְחַת מֵרֵעוּת. וְלֵילֵךְ בִּסְחוֹרָה מִמְּדִינָה לִמְדִינָה. הַכּל חֲמִשָּׁה דְּבָרִים: 
+</div><div class="halacha-en long">These are the practices forbidden to a mourner for the entire 30-day period. He is forbidden to cut his hair, to wear freshly ironed clothing, to marry, to enter a celebration of friends, and to go on a business trip to another city; five matters in all.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">📅 Thirty Day Restrictions</div>For <strong>thirty days</strong> (sheloshim), a mourner is forbidden from: haircut, wearing freshly ironed clothing, marriage, attending joyous celebrations, and long-distance business travel — <strong>five prohibitions</strong>.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Haircut and Clothing Rules</h2><div class="subtitle">הלכות ג׳–ד׳</div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">בְּתִסְפֹּרֶת כֵּיצַד. כְּשֵׁם שֶׁאָסוּר לְסַפֵּר כָּל שְׂעַר גּוּפוֹ. אוֹ לְגַלֵּחַ שְׂפָמוֹ. אוֹ לָקֹץ צִפָּרְנָיו בִּכְלִי כָּל שִׁבְעָה. כָּךְ אָסוּר כָּל שְׁלֹשִׁים יוֹם. בַּמֶּה דְּבָרִים אֲמוּרִים בְּאִישׁ. אֲבָל בְּאִשָּׁה מֻתֶּרֶת בִּנְטִילַת שֵׂעָר לְאַחַר שִׁבְעָה וְהָאִישׁ עַד שְׁלֹשִׁים יוֹם. וְעַל אָבִיו וְעַל אִמּוֹ חַיָּב לְגַדֵּל שְׂעָרוֹ עַד שֶׁיִּשְׁלַח פֶּרַע אוֹ עַד שֶׁיִּגְעֲרוּ בּוֹ חֲבֵרָיו: 
+</div><div class="halacha-en long">What does the prohibition against cutting one's hair involve? Just as it is forbidden to cut any of the hair of one's body, to shave one's mustache, or to cut one's nails with a utensil through the seven days of mourning; so too, he is forbidden throughout these 30 days.<br>To whom does the above apply? To a man. A woman, by contrast, is permitted to remove hair after seven days although a man must wait 30. For one's father or mother, a man is obligated to let his hair grow until it becomes noticeably long or until his colleagues rebuke him for not attending to his appearance.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">וְכֵן אָסוּר לִלְבּשׁ כֵּלִים לְבָנִים חֲדָשִׁים וּמְגֹהָצִין כָּל שְׁלֹשִׁים יוֹם. אֶחָד הָאִישׁ וְאֶחָד הָאִשָּׁה. הָיוּ צְבוּעִין וּמְגֹהָצִין מֻתָּרִין. וְכֵן אִם לֹא הָיוּ חֲדָשִׁים אַף עַל פִּי שֶׁהֵן לְבָנִים וּמְגֹהָצִין מֻתָּרִין. וּכְלֵי פִּשְׁתָּן אֵין בָּהֶן מִשּׁוּם גִּהוּץ. וּלְאַחַר שְׁלֹשִׁים יוֹם מֻתָּר בְּגִהוּץ אֲפִלּוּ עַל אָבִיו וְעַל אִמּוֹ: 
+</div><div class="halacha-en long">Similarly, a mourner is forbidden to wear new white clothes that have been ironed for 30 days. This applies to both a man and a woman. If they are colored and ironed, it is permitted. Similarly, if they are not new although they are white and ironed, it is permitted. There is no prohibition against wearing linen clothes that were ironed.<br>After 30 days, one may wear ironed clothes, even if one is in mourning for one's father or mother.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">✂️ No Haircut for 30 Days</div>Men may not cut any body hair for 30 days. Women may after 7. For <strong>parents</strong>, a man must grow his hair until friends rebuke him or it becomes obviously overgrown — no fixed deadline.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Marriage, Celebrations, and Business Travel</h2><div class="subtitle">הלכות ה׳–ט׳</div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">בְּנִשּׂוּאִין כֵּיצַד. אָסוּר לִשָּׂא אִשָּׁה כָּל שְׁלֹשִׁים יוֹם. וּמֻתָּר לְאָרְשָׂהּ אֲפִלּוּ בְּיוֹם הַמִּיתָה. וּמִי שֶׁמֵּתָה אִשְׁתּוֹ אִם כְּבָר קִיֵּם מִצְוַת פְּרִיָּה וּרְבִיָּה וְיֵשׁ לוֹ מִי שֶׁיְּשַׁמְּשֶׁנּוּ וְאֵין לוֹ בָּנִים קְטַנִּים הֲרֵי זֶה אָסוּר לִשָּׂא אִשָּׁה אַחֶרֶת עַד שֶׁיַּעַבְרוּ עָלָיו שְׁלֹשָׁה רְגָלִים. אֲבָל מִי שֶׁלֹּא קִיֵּם מִצְוַת פְּרִיָּה וּרְבִיָּה אוֹ שֶׁקִּיֵּם וְיֵשׁ לוֹ בָּנִים קְטַנִּים אוֹ שֶׁאֵין לוֹ מִי שֶׁיְּשַׁמְּשֶׁנּוּ הֲרֵי זֶה מֻתָּר לְאָרְשָׂהּ וְלִכְנֹס מִיָּד. וְאָסוּר לוֹ לָבוֹא עָלֶיהָ עַד שְׁלֹשִׁים יוֹם. וְכֵן הָאִשָּׁה שֶׁהָיְתָה אֲבֵלָה לֹא תִּבָּעֵל עַד שְׁלֹשִׁים יוֹם: 
+</div><div class="halacha-en long">What does the prohibition against marriage involve? It is forbidden to marry a woman throughout these 30 days. It is, however, permitted to consecrate her even on the day of the death of one's relative.<br>When a man's wife dies, if he already fulfilled the mitzvah of procreation, and he has someone to attend to him and he does not have young children, he may not remarry until three festivals pass. If, however, a person has not fulfilled the mitzvah of procreation, or fulfilled the mitzvah and has young children, or does not have someone to attend to him, he is permitted to consecrate and marry immediately. It is, however, forbidden for him to enter into relations with his wife until 30 days have passed. Similarly, a woman who was in mourning should not enter into relations until 30 days have passed.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">שִׂמְחַת מֵרֵעוּת שֶׁהָיָה חַיָּב לִפְרֹעַ אוֹתָהּ מִיָּד. מֻתָּר לַעֲשׂוֹתָהּ מִיָּד לְאַחַר שִׁבְעָה. אֲבָל אִם אֵינוֹ חַיָּב לְפָרְעָהּ אָסוּר לְהִכָּנֵס לָהּ עַד שְׁלֹשִׁים יוֹם: 
+</div><div class="halacha-en">A friendly get-together which a person is obligated to requite immediately may be held immediately after the seven days of mourning. If, however, he is not obligated to requite such a gathering, he is forbidden to enter one until 30 days pass.</div></div><div class="halacha-card"><div class="halacha-num">הלכה ז׳</div><div class="halacha-he">בַּמֶּה דְּבָרִים אֲמוּרִים בִּשְׁאָר כָּל מֵתִים. אֲבָל עַל אָבִיו וְעַל אִמּוֹ בֵּין כָּךְ וּבֵין כָּךְ לֹא יִכָּנֵס לְשִׂמְחַת מֵרֵעוּת עַד י"ב חֹדֶשׁ: 
+</div><div class="halacha-en">When does the above apply? When one is mourning for other deceased persons. When mourning for one's father or mother, by contrast, under all circumstances, one is forbidden to enter a friendly gathering for twelve months.</div></div><div class="halacha-card"><div class="halacha-num">הלכה ח׳</div><div class="halacha-he">עַל כָּל הַמֵּתִים כֻּלָּן מֻתָּר לֵילֵךְ בִּסְחוֹרָה לְאַחַר שְׁלֹשִׁים. עַל אָבִיו וְעַל אִמּוֹ עַד שֶׁיִּגְעֲרוּ בּוֹ חֲבֵרָיו וְיֹאמְרוּ לוֹ לֵךְ עִמָּנוּ: 
+</div><div class="halacha-en long">When mourning for all other deceased persons, one is permitted to go on a business trip immediately after 30 days pass. When mourning for one's father or mother, by contrast, one should not go until his colleagues rebuke him and tell him: "Come with us."</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ט׳</div><div class="halacha-he">עַל כָּל הַמֵּתִים כֻּלָּן רָצָה מְמַעֵט בְּעִסְקוֹ רָצָה אֵינוֹ מְמַעֵט. עַל אָבִיו וְעַל אִמּוֹ מְמַעֵט בְּעִסְקוֹ: 
+</div><div class="halacha-en">When mourning for all other deceased persons, if one desires, one may reduce his business activities. If he does not desire, he need not reduce them. When mourning for one's father or mother, by contrast, one should reduce one's business activities.</div></div><div class="callout"><div class="label">💍 No Marriage for 30 Days</div>Marriage is forbidden during sheloshim. If one has not fulfilled procreation, or has young children, he may betroth immediately but not consummate until 30 days. For <strong>parents</strong>: no celebration for 12 months.</div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">The Seventh and Thirtieth Days as Partial Days</h2><div class="subtitle">הלכות י״א–י״ב</div><div class="halacha-card"><div class="halacha-num">הלכה י״א׳</div><div class="halacha-he">מִי שֶׁהָיָה בַּעְלָהּ צָלוּב בָּעִיר אוֹ אִשְׁתּוֹ צְלוּבָה אוֹ אָבִיו וְאִמּוֹ. אָסוּר לוֹ לִשְׁכֹּן בְּאוֹתָהּ הָעִיר עַד שֶׁיִּכְלֶה הַבָּשָׂר. וְאִם הָיְתָה עִיר גְּדוֹלָה כְּאַנְטוֹכְיָא יֵשׁ לוֹ לִשְׁכֹּן בַּצַּד הָאַחֵר שֶׁאֵינָן צְלוּבִין בּוֹ: 
+</div><div class="halacha-en long">When a person's husband, wife, father, or mother was crucified in a city, it is forbidden for him to dwell in that city until the flesh of the corpse decomposes. If it is a major metropolis like Antioch, one may dwell in the other portion of the city, where one's relatives are not crucified.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה י״ב׳</div><div class="halacha-he">יוֹם שְׁבִיעִי מִקְצָתוֹ כְּכֻלּוֹ וְהוּא עוֹלֶה לְכָאן וּלְכָאן. וּלְפִיכָךְ מֻתָּר לְכַבֵּס וְלִרְחֹץ וְלַעֲשׂוֹת שְׁאָר הַדְּבָרִים בְּיוֹם שְׁבִיעִי. וְכֵן יוֹם שְׁלֹשִׁים מִקְצָתוֹ כְּכֻלּוֹ וּמֻתָּר לְסַפֵּר וּלְגַהֵץ בְּיוֹם שְׁלֹשִׁים: 
+</div><div class="halacha-en long">Even a portion of the seventh day is considered as the entire day and is counted both as part of the seven days of acute mourning and the 30 days of mourning. Therefore it is permissible to launder, to wash, and to perform other activities on the seventh day. Similarly, even a portion of the thirtieth day is considered as the entire day and it is permitted to cut one's hair and iron one's clothes on that day.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">⏳ Partial Day = Full Day</div>The <strong>seventh day</strong> counts for both the seven days and the thirty days. Any time spent mourning on day 7 fulfills the day — laundering is then permitted. Day 30 similarly concludes sheloshim.</div></div>
+<div class="slide" data-slide="6"><div class="slide-num">7/8</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 6</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📅</div><strong>Sheloshim: The Second Layer of Mourning</strong><br><span style="font-size:.9rem">The thirty-day period of mourning (sheloshim) is a rabbinic institution supported by a verse in Deuteronomy. It is less intense than shiva but maintains five key restrictions.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">✂️</div><strong>Hair Grows as Grief Lingers</strong><br><span style="font-size:.9rem">The prohibition on haircuts for thirty days is a visible symbol of mourning. For parents, the duration is open-ended — the mourner lets hair grow until it becomes disorderly or friends urge him to cut it.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">💍</div><strong>Marriage During Grief Is Deferred</strong><br><span style="font-size:.9rem">Marriage is forbidden during sheloshim because one cannot fully celebrate while mourning. However, betrothal is permitted even on the day of death. If someone has not yet fulfilled procreation, urgency may allow earlier marriage.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⏳</div><strong>A Moment Counts as the Whole Day</strong><br><span style="font-size:.9rem">Halacha applies the principle that 'part of the day is like the whole day.' Mourning briefly on day 7 or day 30 counts as completing those entire periods, enabling certain resumptions immediately afterward.</span></div></div></div>
+<div class="slide" data-slide="7"><div class="slide-num">8/8</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות אבל פרק ו</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div><div class="dot" onclick="goTo(6)"></div><div class="dot" onclick="goTo(7)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=8;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>הלכות עדות פרק ט״ו</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100dvh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-bottom:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav a{color:#c9a84c;text-decoration:none;font-size:0.85rem}
+.nav .title{color:#a89060;font-size:0.85rem}
+.slide-wrap{position:fixed;top:40px;bottom:50px;left:0;right:0;overflow-y:auto;overflow-x:hidden}
+.slide{display:none;min-height:100%;max-width:700px;margin:0 auto;padding:1.5rem 1rem}
+.slide.active{display:block}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#1a1a1ae0;backdrop-filter:blur(8px);border-top:1px solid #333;padding:0.5rem 1rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.arrow{background:none;border:2px solid #c9a84c;color:#c9a84c;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.arrow:hover{background:#c9a84c;color:#1a1a1a}
+.arrow:disabled{opacity:0.3;cursor:default}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all 0.2s;cursor:pointer}
+.dot.active{background:#c9a84c;transform:scale(1.3)}
+.slide-num{text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.5rem}
+strong,.gold{color:#c9a84c}
+.subtitle{text-align:center;color:#888;font-size:0.85rem;margin-bottom:1rem}
+.emoji{text-align:center;font-size:3rem;margin:0.5rem 0}
+
+
+/* Expandable halacha text */
+.halacha-card{background:#222;border:1px solid #333;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:right}
+.halacha-num{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.5rem}
+.halacha-he{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;font-size:0.95rem;line-height:1.8;margin-bottom:0.6rem}
+.halacha-en{color:#e0d5c1;font-size:0.9rem;line-height:1.6;text-align:right}
+.halacha-en.long{max-height:120px;overflow:hidden;position:relative}
+.halacha-en.long::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#222)}
+.halacha-en.expanded{max-height:none}
+.halacha-en.expanded::after{display:none}
+.expand-btn{display:inline-block;color:#c9a84c;font-size:0.8rem;cursor:pointer;margin-top:0.3rem;border:none;background:none;padding:0.2rem 0}
+.expand-btn:hover{text-decoration:underline}
+
+/* === VISUAL COMPONENTS === */
+
+/* Callout box */
+.callout{background:#222;border-right:4px solid #c9a84c;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.95rem;line-height:1.6;text-align:right}
+.callout .label{color:#c9a84c;font-size:0.8rem;font-weight:bold;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px}
+
+/* Hebrew source text */
+.hebrew{direction:rtl;font-family:'David','Noto Serif Hebrew',serif;color:#a89060;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:1rem;line-height:1.8}
+
+/* Flowchart */
+.flowchart{display:flex;flex-direction:column;align-items:center;gap:0;margin:1rem 0}
+.flow-box{background:#222;border:2px solid #444;border-radius:10px;padding:0.8rem 1.2rem;text-align:center;font-size:0.9rem;max-width:90%;width:fit-content;min-width:200px}
+.flow-box.question{border-color:#c9a84c;background:#2a2520}
+.flow-box.action{border-color:#5b8def;background:#1a2030}
+.flow-box.result-good{border-color:#4caf50;background:#1a2a1a}
+.flow-box.result-bad{border-color:#f44336;background:#2a1a1a}
+.flow-box.highlight{border-color:#c9a84c;background:linear-gradient(135deg,#2a2520,#222);box-shadow:0 0 15px #c9a84c20}
+.flow-arrow{color:#c9a84c;font-size:1.2rem;margin:0.3rem 0}
+.flow-branch{display:flex;gap:1rem;justify-content:center;width:100%;margin:0.5rem 0}
+.flow-branch .flow-box{flex:1;min-width:0}
+.flow-label{color:#888;font-size:0.75rem;margin-bottom:0.2rem}
+
+/* Comparison boxes */
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.compare-box{background:#222;border-radius:10px;padding:1rem;border-top:3px solid #c9a84c}
+.compare-box.green{border-top-color:#4caf50}
+.compare-box.red{border-top-color:#f44336}
+.compare-box.blue{border-top-color:#5b8def}
+.compare-box.purple{border-top-color:#9c27b0}
+.compare-box h3{color:#c9a84c;font-size:0.9rem;margin-bottom:0.5rem}
+.compare-box.green h3{color:#4caf50}
+.compare-box.red h3{color:#f44336}
+.compare-box.blue h3{color:#5b8def}
+.compare-box ul{list-style:none;font-size:0.85rem;line-height:1.6;text-align:right}
+.compare-box li::before{content:'• ';color:#c9a84c}
+
+/* Debate bubbles */
+.debate{margin:1rem 0}
+.debate-line{display:flex;gap:0.8rem;margin-bottom:0.8rem;align-items:flex-start}
+.debate-line.right{flex-direction:row-reverse}
+.speaker{min-width:40px;width:40px;height:40px;border-radius:50%;background:#c9a84c;color:#1a1a1a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:0.8rem;flex-shrink:0}
+.debate-line.right .speaker{background:#5b8def}
+.speech{background:#222;border-radius:12px;padding:0.8rem 1rem;font-size:0.9rem;line-height:1.5;max-width:85%;border:1px solid #333;text-align:right}
+
+/* Process steps */
+.process-bar{display:flex;gap:0;margin:1rem 0;overflow-x:auto}
+.process-step{flex:1;min-width:0;background:#222;padding:1rem 0.8rem;text-align:center;border:1px solid #333;font-size:0.85rem}
+.process-step:first-child{border-radius:0 8px 8px 0}
+.process-step:last-child{border-radius:8px 0 0 8px}
+.process-step.highlight{background:#2a2520;border-color:#c9a84c}
+.process-step .num{font-size:1.3rem;margin-bottom:0.3rem}
+.process-step .step-title{color:#c9a84c;font-weight:bold;font-size:0.8rem;margin-bottom:0.3rem}
+.process-arrow{color:#c9a84c;display:flex;align-items:center;font-size:1.2rem;padding:0 0.2rem}
+
+/* Concept cards */
+.concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.concept-card{background:linear-gradient(135deg,#2a2520,#222);border:1px solid #c9a84c40;border-radius:10px;padding:1rem;text-align:center}
+.concept-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.concept-card h4{color:#c9a84c;font-size:0.85rem;margin-bottom:0.4rem}
+.concept-card p{font-size:0.8rem;line-height:1.4;color:#ccc}
+
+/* Diagram / visual illustration */
+.visual-box{background:#222;border:1px solid #333;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:center}
+.visual-box .diagram{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin:1rem 0}
+.ring{width:120px;height:120px;border-radius:50%;border:3px solid #c9a84c;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;color:#c9a84c;font-weight:bold;position:relative}
+.ring.outer{width:180px;height:180px;border-color:#555;color:#888}
+.ring-label{color:#888;font-size:0.75rem;margin-top:0.3rem}
+
+@media(max-width:500px){
+  .compare-row{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+  .flow-branch{flex-direction:column;align-items:center}
+}
+</style></head><body><div class="nav"><a href="../">← הלכות עדות</a><span class="title">פרק ט״ו · Ch 15</span></div><div class="slide-wrap"><div class="slide active" data-slide="0"><div class="slide-num">1/6</div><div style="text-align:center;padding:1rem 0"><div style="font-size:.9rem;color:#888;margin-bottom:1rem">📖 ספר שופטים · Sefer Shoftim</div><div class="emoji">📋</div><h1 style="font-size:1.8rem;color:#c9a84c;margin:.5rem 0">הלכות עדות</h1><h2 style="font-size:1rem;color:#a89060;margin-bottom:1.5rem">Testimony</h2><div style="width:60px;height:2px;background:#c9a84c;margin:0 auto 1.5rem"></div><div style="font-size:1.6rem;color:#c9a84c">פרק ט״ו</div><div style="color:#888;margin:.5rem 0 1.5rem">Chapter 15 · 6 Halachot</div><div style="color:#e0d5c1;font-size:1.1rem;text-align:center">Interested Witnesses — When personal benefit disqualifies testimony</div></div></div>
+<div class="slide" data-slide="1"><div class="slide-num">2/6</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.5rem">Interested Witnesses — When personal benefit disqualifies testimony</h2><div class="subtitle">Chapter 15</div><div class="flowchart"><div class="flow-box highlight">Community Interest Disqualifies City Members<br><span style="font-size:.8rem;color:#888">הלכות א׳–ג׳</span></div><div class="flow-arrow">⬇️</div><div class="flow-box">Partners, Renters, and Financial Entanglements<br><span style="font-size:.8rem;color:#888">הלכות ד׳–ו׳</span></div></div></div>
+<div class="slide" data-slide="2"><div class="slide-num">3/6</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Community Interest Disqualifies City Members</h2><div class="subtitle">הלכות א׳–ג׳</div><div class="halacha-card"><div class="halacha-num">הלכה א׳</div><div class="halacha-he">כָּל עֵדוּת שֶׁתָּבוֹא הֲנָאָה לְאָדָם מִמֶּנָּה אֵינוֹ מֵעִיד בָּהּ שֶׁזֶּה הוּא כְּמֵעִיד עַל עַצְמוֹ. לְפִיכָךְ בְּנֵי הָעִיר שֶׁבָּא מְעַרְעֵר לְעַרְעֵר עֲלֵיהֶם בַּמֶּרְחָץ אוֹ בִּרְחוֹב שֶׁל עִיר. אֵין אֶחָד מִבַּעֲלֵי הָעִיר מֵעִיד בְּדָבָר זֶה וְלֹא דָּן עַד שֶׁיְּסַלֵּק עַצְמוֹ בְּקִנְיָן גָּמוּר וְאַחַר כָּךְ יָעִיד אוֹ יָדִין: 
+</div><div class="halacha-en long">Whenever a person will benefit from giving testimony, he may not give such testimony for it is as if he is testifying concerning himself. Therefore when a person comes to the inhabitants of a city with a complaint concerning the public bathhouse or thoroughfare, none of the inhabitants of the city can testify regarding this matter nor serve as a judge regarding this matter until they undertake a contractual act removing themselves from any connection to the property in question. Afterwards, they may testify or serve as a judge.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ב׳</div><div class="halacha-he">בְּנֵי הָעִיר שֶׁנִּגְנַב סֵפֶר תּוֹרָה שֶׁלָּהֶן הוֹאִיל וְלִשְׁמִיעָה הוּא עָשׂוּי שֶׁאִי אֶפְשָׁר לְאָדָם לְסַלֵּק עַצְמוֹ מִמֶּנּוּ אֵין דָּנִין בְּדַיָּנֵי אוֹתָהּ הָעִיר וְאֵין מְבִיאִין רְאָיָה מֵאַנְשֵׁי אוֹתָהּ הָעִיר. וְכֵן כָּל כַּיּוֹצֵא בָּזֶה: 
+</div><div class="halacha-en long">The following rules apply when a communal Torah scroll is stolen from the inhabitants of a city. Since it is intended to be listened to by all the members of the community, it is impossible for a person to withdraw his share of ownership from it. Hence, the matter should not be adjudicated by the judges of the city, and the inhabitants of the city may not testify to prove the city's ownership. Similar laws apply in all analogous situations.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ג׳</div><div class="halacha-he">הָאוֹמֵר תְּנוּ מָנֶה לַעֲנִיֵּי עִירִי אֵין דָּנִין בְּדַיָּנֵי אוֹתָהּ הָעִיר וְאֵין מְבִיאִין רְאָיָה מֵאַנְשֵׁי אוֹתָהּ הָעִיר. בַּמֶּה דְּבָרִים אֲמוּרִים כְּשֶׁהָיוּ הָעֲנִיִּים סְמוּכִים עֲלֵיהֶם וּפוֹסְקִין עֲלֵיהֶן צְדָקָה. אֲפִלּוּ אָמְרוּ שְׁנַיִם מֵאַנְשֵׁי אוֹתָהּ הָעִיר אָנוּ נִתֵּן דָּבָר הַקָּצוּב עָלֵינוּ וְנָעִיד אֵין שׁוֹמְעִין לָהֶם. שֶׁהֲנָאָה הוּא לָהֶם שֶׁיִּתְעַשְּׁרוּ עֲנִיִּים אֵלּוּ הוֹאִיל וְהֵן סְמוּכִין עַל בְּנֵי הָעִיר. וְכֵן כָּל כַּיּוֹצֵא בָּזֶה: 
+</div><div class="halacha-en long">When a person says: "Give a <i>manah</i> to the poor people of my city," the matter may not be adjudicated by the judges of that city and the inhabitants of the city may not testify to prove that the pledge was made.<br>When does the above apply? When the poor people depend upon them and they allocate charity to them. In such a situation, even if two members of the city promised: "We will give the fixed amount required of us regardless; let us testify," we do not heed their request. For they receive benefit from the fact that these poor people become wealthier for the poor are dependent on the inhabitants of the city. Similar laws apply in all analogous situations.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🏙️ Community Stake</div>Residents of a city cannot testify about communal property — bathhouses, public streets, communal Torah scroll — because they all <strong>benefit from the outcome</strong>.</div></div>
+<div class="slide" data-slide="3"><div class="slide-num">4/6</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">Partners, Renters, and Financial Entanglements</h2><div class="subtitle">הלכות ד׳–ו׳</div><div class="halacha-card"><div class="halacha-num">הלכה ד׳</div><div class="halacha-he">קַרְקַע שֶׁבֵּין שְׁנֵי שֻׁתָּפִין שֶׁבָּא מְעַרְעֵר לְהוֹצִיאָהּ מִתַּחַת יַד הַשֻׁתָּף. אֵינוֹ מֵעִיד לְשֻׁתָּפוֹ עָלֶיהָ אֶלָּא אִם סִלֵּק עַצְמוֹ מִמֶּנָּה וְקָנוּ מִיָּדוֹ שֶׁנְּתָנָהּ לַשֻּׁתָּף וְשֶׁאִם בָּא בַּעַל חוֹב שֶׁלּוֹ וּטְרָפָהּ מִיַּד הַשֻׁתָּף מְשַׁלֵּם לוֹ דָּמֶיהָ. וְאַחַר כָּךְ מֵעִיד לוֹ עָלֶיהָ. וְכֵן כָּל כַּיּוֹצֵא בָּזֶה: 
+</div><div class="halacha-en long">The following rules apply when a person raises a protest and seeks to expropriate land that is owned by two partners from the possession of one of the partners. The other partner may not testify on behalf of his partner concerning the land unless he withdraws from ownership of the land and undertakes an act of contract affirming that he gave his portion to his partner and committing himself to reimburse him for its value if his own creditor expropriates it from his partner. After undertaking such an agreement, he may testify concerning the field. Similar laws apply in all analogous situations.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ה׳</div><div class="halacha-he">הָעוֹרֵר עַל הַשָּׂדֶה אִם יֵשׁ בָּהּ פֵּרוֹת אֵין הָאָרִיס מֵעִיד לוֹ עָלֶיהָ. שֶׁהֲרֵי רוֹצֶה הָאָרִיס לְהַעֲמִידָהּ בְּיַד בְּעָלֶיהָ כְּדֵי שֶׁיִּטּל חֶלְקוֹ בַּפֵּרוֹת. וְאִם אֵין בָּהּ פֵּרוֹת מֵעִיד. אֲבָל הַשּׂוֹכֵר אִם לָקַח הַשְּׂכִירוּת בְּיָדוֹ וְאָמַר כָּל מִי שֶׁתִּתְקַיֵּם שָׂדֶה זוֹ בְּיָדוֹ יִטּל הֲרֵי זֶה מֵעִיד. וְאִם כְּבָר נָתַן הַשְּׂכִירוּת לְבַעַל הַשָּׂדֶה אֵינוֹ מֵעִיד. כֵּיוָן שֶׁאִם תֵּצֵא הַשָּׂדֶה לַמְעַרְעֵר חַיָּב לִתֵּן לוֹ שְׂכַר כָּל הַשָּׁנִים שֶׁיָּשַׁב בָּהּ אֵינוֹ מֵעִיד. וְכֵן כָּל כַּיּוֹצֵא בָּזֶה: 
+</div><div class="halacha-en long">The following rules apply when a person protests the ownership of a field. If it contains produce, a sharecropper may not testify with regard to it. For the sharecropper wishes it to remain in the possession of the owner so that he will receive his portion of the crops. If there is no produce in the field, he may testify concerning it.<br>Different rules apply with regard to a renter. If he brings the rent with him and says: "Let whoever is established as the owner of this field take this," he may offer testimony. If, however, he already paid the rent to the owner of the field he may not testify. For if the field is expropriated by the claimant, he would have to pay him rent for all the years he dwelled in it. Hence, he may not offer testimony. Similar laws apply in all analogous situations.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="halacha-card"><div class="halacha-num">הלכה ו׳</div><div class="halacha-he">שִׁמְעוֹן שֶׁלָּוָה וְהָיָה רְאוּבֵן עָרֵב וּבָא יְהוּדָה לְעַרְעֵר עַל שִׁמְעוֹן הַלּוֶֹה וְהוֹצִיא קַרְקַע מִתַּחַת יָדוֹ. אִם יֵשׁ לְשִׁמְעוֹן שָׂדֶה אַחֶרֶת כְּנֶגֶד הַחוֹב הֲרֵי רְאוּבֵן הֶעָרֵב יֵשׁ לוֹ לְהָעִיד עַל אוֹתוֹ קַרְקַע שֶׁהִיא שֶׁל שִׁמְעוֹן. שֶׁאֵין לוֹ הֲנָאָה בָּזֶה שֶׁאִם לְקָחָהּ יְהוּדָה הֲרֵי שָׂדֶה אַחֶרֶת שֶׁיִּפָּרַע מִמֶּנָּה בַּעַל חוֹבוֹ. וְכֵן לוֹקֵחַ רִאשׁוֹן מֵעִיד לְלוֹקֵחַ שֵׁנִי שֶׁלָּקַח אַחֲרָיו שֶׁזֶּה הַשָּׂדֶה שֶׁלּוֹ. וְהוּא שֶׁיֵּשׁ לַמּוֹכֵר שָׂדֶה בֶּן חוֹרִין כְּנֶגֶד דְּמֵי שָׂדֶה שֶׁל לוֹקֵחַ רִאשׁוֹן. שֶׁאֵין לְלוֹקֵחַ רִאשׁוֹן הֲנָאָה בַּעֲמִידַת זֶה הַשָּׂדֶה בְּיַד לוֹקֵחַ שֵׁנִי. שֶׁאֲפִלּוּ נִטְרַף לוֹקֵחַ הָרִאשׁוֹן עַל הַמּוֹכֵר הוּא חוֹזֵר וַהֲרֵי יֵשׁ לוֹ שָׂדֶה אַחֶרֶת שֶׁיִּגְבֶּה מִמֶּנָּה: 
+</div><div class="halacha-en long">The following rules apply if Shimon borrowed money and Reuven guaranteed the debt. Yehudah entered into litigation against Shimon and sought to expropriate landed property from his possession. If Shimon possesses another field equal in value to the debt guaranteed by Reuven, Reuven may testify with regard to the land, asserting that it belongs to Shimon. He does not derive any benefit from this, for even if Yehudah would expropriate the field, Shimon possesses another field from which the creditor could derive payment.<br>Similarly, a person who purchased a field may testify on behalf of another person who purchased a field from the same seller and affirm that the field is his. This applies provided the seller owns a field that is not on lien that is equivalent to the value of the field acquired by the first purchaser. In such a situation, the first purchaser does not derive any benefit from the field remaining in the possession of the second purchaser, for even if the field he purchased is expropriated from him, he may seek reimbursement from the seller and the seller possesses another field from which he could expropriate his due.</div><button class="expand-btn" onclick="toggleExpand(this)">Read full text ▼</button></div><div class="callout"><div class="label">🤝 Conflict of Interest</div>A partner cannot testify for his partner unless he <strong>formally withdraws</strong> from the property. A sharecropper cannot testify if there is current produce at stake. Renters' eligibility depends on payment status.</div></div>
+<div class="slide" data-slide="4"><div class="slide-num">5/6</div><h2 style="text-align:center;color:#c9a84c;margin-bottom:.3rem">🎓 Key Principles</h2><div class="subtitle">Chapter 15</div><div class="flowchart" style="gap:.8rem"><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">💰</div><strong>Benefit Disqualifies — Even Indirectly</strong><br><span style="font-size:.9rem">Any time a witness will gain from the outcome of the testimony — even in a remote or unusual way — he is disqualified. Testimony with a financial stake is legally equivalent to testifying on one's own behalf.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">📜</div><strong>Formal Withdrawal Restores Eligibility</strong><br><span style="font-size:.9rem">A partner can testify for his co-partner only after performing a full kinyan (contractual act) transferring his share to the partner and committing to reimburse if a creditor expropriates it.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">🌾</div><strong>Produce Changes the Sharecropper's Status</strong><br><span style="font-size:.9rem">When a field has produce in it, the sharecropper cannot testify — he wants the current owner to keep it so he gets his share. When there is no produce, he has no stake and may testify.</span></div><div class="flow-box highlight" style="width:100%;max-width:100%;text-align:right"><div style="font-size:1.5rem;margin-bottom:.3rem;text-align:center">⚖️</div><strong>Judges and Witnesses Share Disqualification Rules</strong><br><span style="font-size:.9rem">Just as a financial interest disqualifies a witness, it disqualifies a judge. These rules are not purely about witnesses — they flow to anyone exercising legal authority over a matter in which they have a stake.</span></div></div></div>
+<div class="slide" data-slide="5"><div class="slide-num">6/6</div><div style="text-align:center;padding:3rem 1rem"><div style="font-size:4rem;margin-bottom:1rem">📝</div><h2 style="color:#c9a84c;font-size:1.8rem;margin-bottom:.5rem">Ready to Test Yourself?</h2><p style="color:#888;margin-bottom:.5rem">הלכות עדות פרק ט״ו</p><p style="color:#666;margin-bottom:2rem;font-size:.9rem">5 questions · Multiple choice</p><a href="quiz.html" style="display:inline-block;background:#c9a84c;color:#1a1a1a;padding:1rem 2.5rem;border-radius:10px;text-decoration:none;font-weight:bold;font-size:1.2rem">Start Quiz →</a></div></div></div><div class="controls"><button class="arrow" id="prev" onclick="go(-1)" disabled>→</button><div class="dots"><div class="dot active" onclick="goTo(0)"></div><div class="dot" onclick="goTo(1)"></div><div class="dot" onclick="goTo(2)"></div><div class="dot" onclick="goTo(3)"></div><div class="dot" onclick="goTo(4)"></div><div class="dot" onclick="goTo(5)"></div></div><button class="arrow" id="next" onclick="go(1)">←</button></div><script>function toggleExpand(b){const c=b.closest('.halacha-card'),t=c.querySelector('.halacha-en');t.classList.contains('expanded')?(t.classList.remove('expanded'),b.textContent='Read full text ▼'):(t.classList.add('expanded'),b.textContent='Show less ▲')}let cur=0;const tot=6;function go(d){goTo(cur+d)}function goTo(n){if(n<0||n>=tot)return;document.querySelector('.slide.active').classList.remove('active');document.querySelectorAll('.slide')[n].classList.add('active');document.querySelector('.dot.active').classList.remove('active');document.querySelectorAll('.dot')[n].classList.add('active');cur=n;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===tot-1;document.querySelector('.slide-wrap').scrollTop=0}document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(1);if(e.key==='ArrowRight')go(-1)});let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?go(1):go(-1)}},{passive:true});</script></body></html>
