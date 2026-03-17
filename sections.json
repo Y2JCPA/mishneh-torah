@@ -505,5 +505,50 @@
     "book": "ספר קניין · Sefer Kinyan",
     "chapters": 9,
     "sefaria": "Mishneh Torah, Slaves"
+  },
+  "hiring": {
+    "prefix": "hiring",
+    "dir": "mishpatim/hiring",
+    "secHe": "הלכות שכירות",
+    "secEn": "Hiring",
+    "emoji": "💼",
+    "book": "ספר משפטים · Sefer Mishpatim",
+    "chapters": 13
+  },
+  "borrowing-and-deposit": {
+    "prefix": "borrowing-and-deposit",
+    "dir": "mishpatim/borrowing-and-deposit",
+    "secHe": "הלכות שאלה ופיקדון",
+    "secEn": "Borrowing and Deposit",
+    "emoji": "🔄",
+    "book": "ספר משפטים · Sefer Mishpatim",
+    "chapters": 8
+  },
+  "creditor-and-debtor": {
+    "prefix": "creditor-and-debtor",
+    "dir": "mishpatim/creditor-and-debtor",
+    "secHe": "הלכות מלוה ולווה",
+    "secEn": "Creditor and Debtor",
+    "emoji": "💰",
+    "book": "ספר משפטים · Sefer Mishpatim",
+    "chapters": 27
+  },
+  "plaintiff-and-defendant": {
+    "prefix": "plaintiff-and-defendant",
+    "dir": "mishpatim/plaintiff-and-defendant",
+    "secHe": "הלכות טוען ונטען",
+    "secEn": "Plaintiff and Defendant",
+    "emoji": "⚖️",
+    "book": "ספר משפטים · Sefer Mishpatim",
+    "chapters": 16
+  },
+  "inheritances": {
+    "prefix": "inheritances",
+    "dir": "mishpatim/inheritances",
+    "secHe": "הלכות נחלות",
+    "secEn": "Inheritances",
+    "emoji": "📜",
+    "book": "ספר משפטים · Sefer Mishpatim",
+    "chapters": 11
   }
 }
