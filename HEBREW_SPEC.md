@@ -11,42 +11,34 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 
 ## Current State (as of Mar 18, 2026)
 
-### Already Done in Hebrew (143 chapters)
-| Book | Hebrew | Sections Done | Chapters | Status |
-|------|--------|--------------|----------|--------|
-| Zemanim | ספר זמנים | 6 of 10 sections | 55 | ⚠️ Partial |
-| Avodah | ספר עבודה | 8 of 8 sections | 68 | ✅ Complete |
-| Zeraim | ספר זרעים | 4 of 7 sections | 20 | ⚠️ Partial |
+### Completed in Hebrew
+| Book | Hebrew | Chapters | Status |
+|------|--------|----------|--------|
+| Zemanim | ספר זמנים | 55 of 109 | ⚠️ Partial (pre-existing) |
+| Avodah | ספר עבודה | 68 of 95 | ⚠️ Partial (pre-existing) |
+| Zeraim | ספר זרעים | 20 of 85 | ⚠️ Partial (pre-existing) |
+| **Nashim** | **ספר נשים** | **53 of 53** | **✅ Complete (translated via pipeline)** |
 
-### Missing Zemanim sections (not yet in Hebrew)
-- שבת (Sabbath) — 30 chapters
-- עירובין (Eruvin) — 8 chapters
-- יום טוב (Rest on a Holiday) — 8 chapters
-- יום הכיפורים (Rest on the Tenth) — 3 chapters
-Total missing from Zemanim: 49 chapters
+### Total Hebrew chapters: ~196 of 1,012
 
-### Missing Zeraim sections (not yet in Hebrew)
-- תרומות (Heave Offerings) — 15 chapters
-- מתנות עניים (Gifts to the Poor) — 10 chapters
-- ערלה ונטע רבעי (Orlah) — included partially?
-Total missing from Zeraim: ~25 chapters
+### Remaining Books (not yet in Hebrew)
+| Book | Hebrew | Chapters | Notes |
+|------|--------|----------|-------|
+| Madda | ספר המדע | 46 | High priority (Book 1) |
+| Ahavah | ספר אהבה | 46 | High priority (Book 2) |
+| Kedushah | ספר קדושה | 53 | |
+| Hafla'ah | ספר הפלאה | 43 | |
+| Korbanot | ספר קרבנות | 45 | |
+| Taharah | ספר טהרה | 144 | Largest book |
+| Nezikin | ספר נזיקין | 62 | |
+| Kinyan | ספר קניין | 75 | |
+| Mishpatim | ספר משפטים | 75 | |
+| Shoftim | ספר שופטים | 81 | |
+| Zemanim (gaps) | ספר זמנים | ~54 | Sabbath, Eruvin, Holiday, Yom Kippur |
+| Avodah (gaps) | ספר עבודה | ~27 | Partial sections |
+| Zeraim (gaps) | ספר זרעים | ~65 | Heave Offerings, Gifts to Poor, etc. |
 
-### Books Not Started in Hebrew (11 books, ~824 chapters)
-| Book | Hebrew | Chapters | Priority |
-|------|--------|----------|----------|
-| Madda | ספר המדע | 46 | High (Book 1) |
-| Ahavah | ספר אהבה | 46 | High (Book 2) |
-| Nashim | ספר נשים | 53 | Medium |
-| Kedushah | ספר קדושה | 53 | Medium |
-| Hafla'ah | ספר הפלאה | 43 | Medium |
-| Korbanot | ספר קרבנות | 45 | Medium |
-| Taharah | ספר טהרה | 144 | Low (largest) |
-| Nezikin | ספר נזיקין | 62 | Medium |
-| Kinyan | ספר קניין | 75 | Medium |
-| Mishpatim | ספר משפטים | 75 | Medium |
-| Shoftim | ספר שופטים | 81 | Medium |
-
-**Total remaining: ~869 chapters**
+**Total remaining: ~816 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
@@ -70,271 +62,145 @@ Each English chapter has these translatable text elements:
 - The actual halacha text (Hebrew source from Sefaria) — already in Hebrew
 - Halacha references (הלכות א׳–ה׳) — already in Hebrew
 
-### Estimated Translatable Text Per Chapter
-- ~15-25 short text blocks per chapter
-- ~200-400 words total per chapter
-- Sub-agent prompt: ~800 tokens input, ~600 tokens output
-- Total for 869 chapters: ~1.2M tokens (very efficient)
-
-## Architecture
+## Pipeline (proven with Nashim build)
 
 ### Step 1: Extract English Content
-Script reads each English chapter's HTML and extracts:
-```json
-{
-  "book": "zemanim",
-  "section": "leavened-and-unleavened-bread",
-  "chapter": 1,
-  "title": "Leavened and Unleavened Bread",
-  "groups": [
-    {
-      "title": "Chametz Prohibitions and Their Penalties",
-      "sub": "הלכות א׳–ב׳",
-      "callout_label": "📦 Core Prohibitions",
-      "callout_text": "Eating chametz on Pesach carries karet..."
-    }
-  ],
-  "principles": [
-    { "icon": "⚖️", "title": "Karet for Chametz", "desc": "..." }
-  ],
-  "quiz": [
-    {
-      "q": "What is the penalty for...",
-      "options": ["Lashes", "Karet", "Death", "Sin offering"],
-      "correct": 1,
-      "explanation": "Halacha 1: one who intentionally..."
-    }
-  ]
-}
+**Script**: `/tmp/extract_english_v2.js`
 ```
+node /tmp/extract_english_v2.js <book> <repo_dir> <output_dir>
+# Example: node /tmp/extract_english_v2.js nashim /tmp/mishneh-torah /tmp/he_translate
+```
+- Reads each English chapter's `index.html` + `quiz.html`
+- Extracts: section title, group titles, callout labels/text, principles (title+desc), quiz (question+options+correct+explanation)
+- Outputs: `/tmp/he_translate/{book}_{section}_ch{N}.json`
+- **Extraction patterns** (learned from Nashim build):
+  - Group titles: `<h2>` tags (skip first = section title, skip "Key Principles" and "Ready to Test")
+  - Callouts: `class="callout"` divs — emoji is first char, rest is text
+  - Principles: text blocks after "Key Principles" heading, parsed as title/desc pairs
+  - Quiz: from separate `quiz.html` — question text after "Question N", then 4 options, then explanation
+  - Correct answers: extracted from `check(this, true/false)` onclick handlers
 
 ### Step 2: Translate via Sub-agents
-Each sub-agent receives the extracted JSON and returns Hebrew translations:
-```json
+**Spawn pattern** (optimized from Nashim experience):
+```
+sessions_spawn with:
+  model: sonnet
+  mode: run
+  runTimeoutSeconds: 300
+  batch size: 2-3 files per agent (NOT 5+)
+  max concurrent: 5 agents
+```
+
+**Critical instruction for sub-agents**: Include "WRITE EACH FILE IMMEDIATELY after translating it" in the prompt. Agents that translate all files first then write tend to timeout before writing.
+
+**Translation prompt** (proven effective):
+```
+Translate Mishneh Torah chapters from English to Hebrew. Read each file, 
+translate ALL English text to Hebrew, WRITE IMMEDIATELY after each translation.
+mkdir -p /tmp/he_translated first.
+
+Keep JSON structure, "book","section","chapter" unchanged, emojis unchanged, 
+"sub" fields unchanged. Use standard halachic Hebrew.
+```
+
+### Step 3: Fix JSON Issues
+After translation, validate all JSON files:
+```python
+for f in nashim_*.json:
+    python3 -c "import json; json.load(open('$f'))" 2>/dev/null || echo "INVALID: $f"
+```
+**Common issues found in Nashim build:**
+- `""word""` — doubled quotes from Hebrew abbreviations. Fix: replace `""` with `\"`
+- `ט"ו` — Hebrew date abbreviations with unescaped ASCII quotes. Fix: regex replace Hebrew+`"`+Hebrew with Hebrew gershayim (״)
+- Control characters — rare, fix with targeted regex
+
+### Step 4: Build Hebrew HTML
+**Script**: `/tmp/build_hebrew.js`
+```
+node /tmp/build_hebrew.js <translated_dir> <repo_dir> <book>
+# Example: node /tmp/build_hebrew.js /tmp/he_translated /tmp/mishneh-torah nashim
+```
+- Reads translated JSON + original English HTML (extracts halacha cards with Hebrew/English text)
+- Generates `he/{book}/{section}/{chapter}/index.html` + `quiz.html`
+- **IMPORTANT**: Builder needs section metadata (Hebrew names, chapter counts, icons) hardcoded per book. Update the `SECTIONS` object in `build_hebrew.js` for each new book.
+
+### Step 5: Build Index Pages
+Python script builds:
+- Section index pages (`he/{book}/{section}/index.html`) — chapter list
+- Book index page (`he/{book}/index.html`) — section list
+- Updates Hebrew homepage (`he/index.html`) — add new book link
+
+### Step 6: Deploy
+```bash
+cd /tmp/mishneh-torah
+git add -A
+git commit -m "Add Hebrew Sefer X: N chapters (...)"
+git push
+```
+GitHub Pages auto-deploys.
+
+## Lessons Learned (from Nashim build, Mar 18 2026)
+
+### Sub-agent Timing
+- **5-minute timeout is tight** for 5+ chapters. Agents spend ~1-2 min reading files, ~2-3 min translating, then run out of time writing.
+- **2-3 files per agent is optimal**. Agents reliably complete 2-3 translations within 5 minutes.
+- **5 files per agent works but often produces partial results** — some files get written, some don't.
+- **"Write immediately" instruction is critical**. Without it, agents buffer all translations in memory and try to write at the end, often timing out.
+- **Multiple rounds are normal**. Expect 2-3 rounds of spawning agents to cover all chapters. After each round, check which files are still missing and respawn for those.
+
+### Token Usage
+- Nashim (53 chapters) used approximately 130K tokens total across all sub-agents
+- That's ~2.5K tokens per chapter on average (very efficient)
+- Translation-only approach is confirmed 5-10x cheaper than full content generation
+
+### JSON Validation
+- **Always validate JSON after translation before building HTML**. Sub-agents sometimes produce invalid JSON with Hebrew quote characters.
+- Hebrew abbreviations like ט"ו, י"ג use ASCII double-quote which breaks JSON. Fix with: `re.sub(r'([\u0590-\u05FF])"([\u0590-\u05FF])', r'\1״\2', content)` (replace with Hebrew gershayim ״)
+- Run validation loop and fix before building.
+
+### HTML Builder
+- The English HTML structure varies slightly across books/chapters. The extractor handles: `<h2>` group titles, `class="callout"` boxes, inline-styled principle blocks, separate `quiz.html` files.
+- Filter out meta-groups like "Ready to Test Yourself?" and "🎓 Key Principles" from the groups array before building.
+- Halacha cards are extracted from English HTML (they contain both Hebrew source and English translation) and placed into Hebrew pages with an "English ↕" toggle.
+
+### Existing Hebrew Chapters
+- **Keep them.** The pre-existing 143 chapters (Zemanim partial, Avodah, Zeraim partial) were hand-crafted and differ slightly in structure from the pipeline output.
+- The pipeline should **skip** any section that already has chapters in `/he/`.
+- When filling gaps in partially-complete books (e.g., adding Sabbath to Zemanim), check which chapters already exist before generating.
+
+### Process Summary (cookbook for next book)
+1. `node /tmp/extract_english_v2.js <book> /tmp/mishneh-torah /tmp/he_translate`
+2. Spawn sub-agents: 2-3 files each, sonnet, 300s timeout, "write immediately"
+3. Monitor: check `ls /tmp/he_translated/<book>_*.json | wc -l` between rounds
+4. Respawn for missing files until all are done
+5. Validate JSON: fix Hebrew quote issues
+6. `node /tmp/build_hebrew.js /tmp/he_translated /tmp/mishneh-torah <book>`
+7. Build index pages (section + book + update homepage)
+8. `git add -A && git commit && git push`
+
+## File Locations
+- **Extractor script**: `/tmp/extract_english_v2.js`
+- **Builder script**: `/tmp/build_hebrew.js`
+- **Extracted English JSONs**: `/tmp/he_translate/{book}_{section}_ch{N}.json`
+- **Translated Hebrew JSONs**: `/tmp/he_translated/{book}_{section}_ch{N}.json`
+- **Repo clone**: `/tmp/mishneh-torah/`
+- **Hebrew pages**: `/tmp/mishneh-torah/he/{book}/{section}/{chapter}/`
+
+## Section Metadata Registry
+Each book needs its sections defined for the builder. Here's what's been configured:
+
+### Nashim (complete)
+```javascript
 {
-  "title": "הלכות חמץ ומצה",
-  "groups": [
-    {
-      "title": "איסורי חמץ ועונשיהם",
-      "callout_label": "📦 איסורים עיקריים",
-      "callout_text": "אכילת חמץ בפסח חייבת כרת..."
-    }
-  ],
-  "principles": [
-    { "title": "כרת על חמץ", "desc": "..." }
-  ],
-  "quiz": [
-    {
-      "q": "מה העונש על...",
-      "options": ["מלקות", "כרת", "מיתה", "חטאת"],
-      "correct": 1,
-      "explanation": "הלכה א: האוכל כזית חמץ..."
-    }
-  ]
+  'marriage': { he: 'הלכות אישות', chapters: 25, icon: '💍' },
+  'divorce': { he: 'הלכות גירושין', chapters: 13, icon: '📜' },
+  'levirate-marriage-and-release': { he: 'הלכות ייבום וחליצה', chapters: 8, icon: '👞' },
+  'virgin-maiden': { he: 'הלכות נערה בתולה', chapters: 3, icon: '⚖️' },
+  'woman-suspected-of-infidelity': { he: 'הלכות סוטה', chapters: 4, icon: '🏛️' },
 }
 ```
 
-### Step 3: Build Hebrew HTML
-Builder script takes:
-- Hebrew translation JSON (from step 2)
-- Original English HTML as template (for halacha cards, which are already bilingual)
-- Hebrew HTML template (CSS, layout — from existing `/he/` pages)
-
-Generates: `he/{book}/{section}/{chapter}/index.html` + `quiz.html`
-
-## Hebrew Page Template (from existing Book 3 — Zemanim)
-
-### Lesson Page Structure
-```
-┌─────────────────────────────────┐
-│ לרפואת פייגא בת יטא רבקה (banner)│
-├─────────────────────────────────┤
-│ ← nav: הלכות חמץ ומצה פרק א     │
-│   chapter dots · ■ □ □ □ □ □ □   │
-├─────────────────────────────────┤
-│ SLIDE 1: Title slide             │
-│   📖 ספר זמנים                   │
-│   הלכות חמץ ומצה                 │
-│   פרק א · 10 הלכות              │
-├─────────────────────────────────┤
-│ SLIDE 2-N: Group slides          │
-│   Group title (Hebrew)           │
-│   הלכות א׳–ב׳                   │
-│   ┌─ Halacha card ─────────────┐ │
-│   │ Hebrew text (from Sefaria) │ │
-│   │ [toggle: English]          │ │
-│   └────────────────────────────┘ │
-│   ┌─ Callout box ──────────────┐ │
-│   │ 📦 Label                   │ │
-│   │ Hebrew summary text        │ │
-│   └────────────────────────────┘ │
-├─────────────────────────────────┤
-│ SLIDE N+1: Flow diagram         │
-│   Group1 ⬇️ Group2 ⬇️ Group3    │
-│   (all Hebrew titles)           │
-├─────────────────────────────────┤
-│ SLIDE N+2: Quiz CTA             │
-│   🎯 מוכן למבחן?               │
-│   התחל מבחן →                   │
-└─────────────────────────────────┘
-```
-
-### Quiz Page Structure
-```
-┌─────────────────────────────────┐
-│ 🎓 מבחן                         │
-│ הלכות חמץ ומצה פרק א · 5 שאלות  │
-├─────────────────────────────────┤
-│ שאלה 1                          │
-│ מה העונש על אכילת כזית חמץ...?  │
-│ ○ מלקות                         │
-│ ● כרת              ← correct    │
-│ ○ מיתה בידי שמים                │
-│ ○ חטאת קבועה                    │
-│ [explanation after answering]    │
-│ הלכה א: האוכל כזית חמץ...       │
-├─────────────────────────────────┤
-│ ... שאלות 2-5 ...               │
-├─────────────────────────────────┤
-│ Score: X/5                       │
-│ ← חזרה לפרק 1                   │
-└─────────────────────────────────┘
-```
-
-### Hebrew UI Strings (constants)
-```javascript
-const UI_HE = {
-  chapter: "פרק",
-  halachot: "הלכות",
-  questions: "שאלות",
-  question: "שאלה",
-  startQuiz: "התחל מבחן →",
-  readyForQuiz: "🎯 מוכן למבחן?",
-  quiz: "🎓 מבחן",
-  backToChapter: "← חזרה לפרק",
-  keyPrinciples: "עקרונות מפתח",
-  correct: "✅ נכון!",
-  incorrect: "❌ לא נכון",
-  score: "ציון",
-  nextChapter: "פרק הבא →",
-  prevChapter: "← פרק קודם",
-  backToSection: "← חזרה",
-  englishVersion: "English Version →",
-};
-
-// Hebrew chapter numerals (already exist in English builder)
-const HEB_NUMERALS = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י",
-  "יא", "יב", "יג", "יד", "טו", "טז", "יז", "יח", "יט", "כ",
-  "כא", "כב", "כג", "כד", "כה", "כו", "כז", "כח", "כט", "ל"];
-```
-
-### Section Index Pages
-Each section (e.g., `he/zemanim/chametz-umatzah/index.html`) has a chapter list:
-```html
-<a href="1/" class="chapter">
-  <span class="ch-num">פרק א׳</span>
-  <span class="ch-title">Hebrew chapter title</span>
-</a>
-```
-
-### Book Index Pages
-Each book (e.g., `he/zemanim/index.html`) lists sections:
-```html
-<a href="chametz-umatzah/" class="book">
-  <div class="book-title">🍞 הלכות חמץ ומצה</div>
-  <div class="book-sub">9 פרקים</div>
-</a>
-```
-
-### Hebrew Homepage (`he/index.html`)
-Lists all 14 books with link back to English version.
-
-## Directory Structure
-```
-mishneh-torah/
-├── he/
-│   ├── index.html              ← Hebrew homepage (all 14 books)
-│   ├── madda/
-│   │   ├── index.html          ← Book index
-│   │   ├── foundations-of-the-torah/
-│   │   │   ├── index.html      ← Section index (chapter list)
-│   │   │   ├── 1/
-│   │   │   │   ├── index.html  ← Lesson page
-│   │   │   │   └── quiz.html   ← Quiz page
-│   │   │   ├── 2/
-│   │   │   ...
-│   │   ├── human-dispositions/
-│   │   ...
-│   ├── zemanim/                 ← (partially exists)
-│   ...
-```
-
-## Pipeline
-
-### Scripts Needed
-1. **`extract_english.js`** — Reads all English chapter HTML files, extracts translatable content into JSON files
-   - Input: `{book}/{section}/{chapter}/index.html` + `quiz.html`
-   - Output: `/tmp/he_translate/{book}_{section}_ch{N}.json`
-
-2. **`translate_chapter.js`** — Sub-agent prompt template for translating one chapter's content
-   - Input: extracted English JSON
-   - Output: Hebrew translation JSON
-
-3. **`build_hebrew.js`** — Builder script that generates Hebrew HTML from translations + original halacha data
-   - Input: Hebrew translation JSON + English HTML (for halacha cards)
-   - Output: `he/{book}/{section}/{chapter}/index.html` + `quiz.html`
-
-4. **`build_hebrew_indexes.js`** — Generates section index, book index, and homepage
-   - Input: Section/book metadata + chapter titles
-   - Output: index.html files at each level
-
-### Sub-agent Config
-- **Model**: `sonnet` (good quality Hebrew, fast)
-- **Batch size**: 10 chapters per sub-agent (they're just translating, not generating)
-- **Max concurrent**: 5 sub-agents
-- **Timeout**: 120s per batch
-- **Estimated time**: ~1-2 hours for all 869 chapters
-
-### Translation Prompt Template
-```
-You are translating Mishneh Torah study content from English to Hebrew.
-Translate ONLY the English text. Keep all emojis, HTML tags, and Hebrew source references unchanged.
-
-Rules:
-- Use modern Hebrew, clear and accessible
-- Halachic terms should use standard Hebrew terminology (כרת, מלקות, חטאת, etc.)
-- Quiz questions should be natural Hebrew questions, not word-for-word translation
-- Keep explanations concise — reference הלכה number as in the source
-- Group titles should be descriptive Hebrew titles (2-5 words)
-- Principle titles: 2-4 word Hebrew titles
-- DO NOT translate the halacha text itself (it's already in Hebrew from Sefaria)
-
-Input JSON:
-{extracted_english_json}
-
-Return ONLY valid JSON with the same structure, all English text replaced with Hebrew.
-```
-
-## Quality Checks
-- [ ] Compare 5 random translated chapters against existing Hebrew chapters for consistency
-- [ ] Verify all quiz answers are correct (correct index preserved from English)
-- [ ] Verify halacha card Hebrew text renders properly (RTL, nikud if present)
-- [ ] Verify navigation links between chapters, sections, books
-- [ ] Verify homepage lists all 14 books
-- [ ] Cross-link: each Hebrew page links to its English equivalent and vice versa
-
-## Existing Hebrew Chapters — Keep or Redo?
-**Keep them.** The 143 existing Hebrew chapters were hand-crafted and are high quality. The translation pipeline should:
-1. Skip chapters that already exist in `/he/`
-2. Only generate missing chapters
-3. Existing section/book indexes may need updating to include new chapters
-
-## Deployment
-Same as English — push to `main` branch, GitHub Pages auto-deploys.
-No separate build step needed (static HTML).
-
-## Lessons (from English build)
-- Always batch large sections (>15 chapters) into groups of ~10 for sub-agents
-- Save progress frequently — don't let 30+ chapters build in memory
-- Check for existing files before regenerating
-- Hebrew numerals beyond כ״ח need special handling (כ״ט = 29, ל׳ = 30, etc.)
+### For future books
+- Check English repo directory names: `ls /tmp/mishneh-torah/<book>/`
+- Map each directory to its Hebrew name + chapter count + emoji
+- Add to the `SECTIONS` object in `build_hebrew.js`
