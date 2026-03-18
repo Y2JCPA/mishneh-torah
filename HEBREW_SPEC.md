@@ -9,24 +9,34 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
 - **Git email**: `yaacovtimes2@gmail.com`
 
-## Current State (as of Mar 18, 2026)
+## Current State (as of Mar 18, 2026 — 9:20 AM)
 
 ### Completed in Hebrew
 | Book | Hebrew | Chapters | Status |
 |------|--------|----------|--------|
-| Zemanim | ספר זמנים | 55 of 109 | ⚠️ Partial (pre-existing) |
-| Avodah | ספר עבודה | 68 of 95 | ⚠️ Partial (pre-existing) |
-| Zeraim | ספר זרעים | 20 of 85 | ⚠️ Partial (pre-existing) |
-| **Nashim** | **ספר נשים** | **53 of 53** | **✅ Complete (translated via pipeline)** |
+| **Madda** | **ספר המדע** | **46 of 46** | **✅ Complete (translated + deployed Mar 18)** |
+| **Ahavah** | **ספר אהבה** | **46 of 46** | **✅ Complete (translated + deployed Mar 18)** |
+| **Nashim** | **ספר נשים** | **53 of 53** | **✅ Complete (translated + deployed Mar 18)** |
+| Zemanim | ספר זמנים | 48 of 109 | ⚠️ Partial (pre-existing) |
+| Avodah | ספר עבודה | 60 of 95 | ⚠️ Partial (pre-existing) |
+| Zeraim | ספר זרעים | 16 of 85 | ⚠️ Partial (pre-existing) |
 
-### Total Hebrew chapters: ~196 of 1,012
+### Total Hebrew chapters deployed: ~269 of 1,012
 
-### Remaining Books (not yet in Hebrew)
+### In-Progress: Sefer Kedushah (ספר קדושה)
+- **Translation status**: 11/53 chapters translated (saved in `/tmp/he_translated/kedushah_*.json`)
+- **Translated so far**:
+  - Forbidden Intercourse (איסורי ביאה): ch1-9 ✅ (ch10 NOT done)
+  - Forbidden Foods (מאכלות אסורות): ch9-10 ✅ (ch1-8, ch11-17 NOT done)
+  - Ritual Slaughter (שחיטה): 0/14
+- **Extracted source files**: All 53 in `/tmp/he_translate/kedushah_*.json`
+- **NOT yet built/deployed** — translations need to finish first, then build + index + push
+- **To resume**: spawn agents for remaining 42 files, then build/deploy
+
+### Remaining Books (not yet started)
 | Book | Hebrew | Chapters | Notes |
 |------|--------|----------|-------|
-| Madda | ספר המדע | 46 | High priority (Book 1) |
-| Ahavah | ספר אהבה | 46 | High priority (Book 2) |
-| Kedushah | ספר קדושה | 53 | |
+| Kedushah | ספר קדושה | 42 remaining | 11/53 translated, paused |
 | Hafla'ah | ספר הפלאה | 43 | |
 | Korbanot | ספר קרבנות | 45 | |
 | Taharah | ספר טהרה | 144 | Largest book |
@@ -34,11 +44,11 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | Kinyan | ספר קניין | 75 | |
 | Mishpatim | ספר משפטים | 75 | |
 | Shoftim | ספר שופטים | 81 | |
-| Zemanim (gaps) | ספר זמנים | ~54 | Sabbath, Eruvin, Holiday, Yom Kippur |
-| Avodah (gaps) | ספר עבודה | ~27 | Partial sections |
-| Zeraim (gaps) | ספר זרעים | ~65 | Heave Offerings, Gifts to Poor, etc. |
+| Zemanim (gaps) | ספר זמנים | ~61 | Sabbath, Eruvin, Holiday, Yom Kippur |
+| Avodah (gaps) | ספר עבודה | ~35 | Partial sections |
+| Zeraim (gaps) | ספר זרעים | ~69 | Heave Offerings, Gifts to Poor, etc. |
 
-**Total remaining: ~816 chapters**
+**Total remaining: ~732 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
@@ -197,6 +207,38 @@ Each book needs its sections defined for the builder. Here's what's been configu
   'levirate-marriage-and-release': { he: 'הלכות ייבום וחליצה', chapters: 8, icon: '👞' },
   'virgin-maiden': { he: 'הלכות נערה בתולה', chapters: 3, icon: '⚖️' },
   'woman-suspected-of-infidelity': { he: 'הלכות סוטה', chapters: 4, icon: '🏛️' },
+}
+```
+
+### Madda (complete)
+```javascript
+{
+  'foundations-of-the-torah': { he: 'הלכות יסודי התורה', chapters: 10, icon: '📖' },
+  'human-dispositions': { he: 'הלכות דעות', chapters: 7, icon: '🧠' },
+  'torah-study': { he: 'הלכות תלמוד תורה', chapters: 7, icon: '📚' },
+  'foreign-worship': { he: 'הלכות עבודה זרה וחוקות הגויים', chapters: 12, icon: '🚫' },
+  'repentance': { he: 'הלכות תשובה', chapters: 10, icon: '🔄' },
+}
+```
+
+### Ahavah (complete)
+```javascript
+{
+  'prayer': { he: 'הלכות תפילה וברכת כהנים', chapters: 15, icon: '🙏' },
+  'kriat-shema': { he: 'הלכות קריאת שמע', chapters: 4, icon: '📖' },
+  'fringes': { he: 'הלכות ציצית', chapters: 3, icon: '🔵' },
+  'tefillin-mezuzah-sefer-torah': { he: 'הלכות תפילין מזוזה וספר תורה', chapters: 10, icon: '📜' },
+  'blessings': { he: 'הלכות ברכות', chapters: 11, icon: '🍷' },
+  'circumcision': { he: 'הלכות מילה', chapters: 3, icon: '✂️' },
+}
+```
+
+### Kedushah (in progress — sections for builder)
+```javascript
+{
+  'forbidden-intercourse': { he: 'הלכות איסורי ביאה', chapters: 22, icon: '🚫' },
+  'forbidden-foods': { he: 'הלכות מאכלות אסורות', chapters: 17, icon: '🍖' },
+  'ritual-slaughter': { he: 'הלכות שחיטה', chapters: 14, icon: '🔪' },
 }
 ```
 
