@@ -224,12 +224,34 @@ Each book needs its sections defined for the builder. Here's what's been configu
 }
 ```
 
-### Kedushah (complete)
+### Kedushah (complete — deployed Mar 19)
 ```javascript
 {
   'forbidden-intercourse': { he: 'הלכות איסורי ביאה', chapters: 22, icon: '🚫' },
   'forbidden-foods': { he: 'הלכות מאכלות אסורות', chapters: 17, icon: '🍖' },
   'ritual-slaughter': { he: 'הלכות שחיטה', chapters: 14, icon: '🔪' },
+}
+```
+
+### Hafla'ah (complete — deployed Mar 19)
+```javascript
+{
+  'oaths': { he: 'הלכות שבועות', chapters: 12, icon: '✋' },
+  'vows': { he: 'הלכות נדרים', chapters: 13, icon: '🗣️' },
+  'nazariteship': { he: 'הלכות נזירות', chapters: 10, icon: '✂️' },
+  'appraisals-and-devoted-property': { he: 'הלכות ערכין וחרמין', chapters: 8, icon: '⚖️' },
+}
+```
+
+### Korbanot (complete — deployed Mar 19)
+```javascript
+{
+  'paschal-offering': { he: 'הלכות קרבן פסח', chapters: 10, icon: '🐑' },
+  'festival-offering': { he: 'הלכות חגיגה', chapters: 3, icon: '🎉' },
+  'firstlings': { he: 'הלכות בכורות', chapters: 8, icon: '🐄' },
+  'offerings-for-unintentional-transgressions': { he: 'הלכות שגגות', chapters: 15, icon: '📜' },
+  'offerings-for-those-with-incomplete-atonement': { he: 'הלכות מחוסרי כפרה', chapters: 5, icon: '🔄' },
+  'substitution': { he: 'הלכות תמורה', chapters: 4, icon: '🔀' },
 }
 ```
 
