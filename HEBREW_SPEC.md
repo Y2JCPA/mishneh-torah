@@ -9,7 +9,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
 - **Git email**: `yaacovtimes2@gmail.com`
 
-## Current State (as of Mar 19, 2026 — 6:20 AM)
+## Current State (as of Mar 19, 2026 — 7:12 AM)
 
 ### Completed in Hebrew
 | Book | Hebrew | Chapters | Status |
@@ -18,16 +18,16 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | **Ahavah** | **ספר אהבה** | **46 of 46** | **✅ Complete (translated + deployed Mar 18)** |
 | **Nashim** | **ספר נשים** | **53 of 53** | **✅ Complete (translated + deployed Mar 18)** |
 | **Kedushah** | **ספר קדושה** | **53 of 53** | **✅ Complete (translated + deployed Mar 19)** |
+| **Hafla'ah** | **ספר הפלאה** | **43 of 43** | **✅ Complete (translated + deployed Mar 19)** |
 | Zemanim | ספר זמנים | 48 of 109 | ⚠️ Partial (pre-existing) |
 | Avodah | ספר עבודה | 60 of 95 | ⚠️ Partial (pre-existing) |
 | Zeraim | ספר זרעים | 16 of 85 | ⚠️ Partial (pre-existing) |
 
-### Total Hebrew chapters deployed: ~322 of 1,012
+### Total Hebrew chapters deployed: ~365 of 1,012
 
 ### Remaining Books (not yet started)
 | Book | Hebrew | Chapters | Notes |
 |------|--------|----------|-------|
-| Hafla'ah | ספר הפלאה | 43 | |
 | Korbanot | ספר קרבנות | 45 | |
 | Taharah | ספר טהרה | 144 | Largest book |
 | Nezikin | ספר נזיקין | 62 | |
@@ -38,7 +38,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | Avodah (gaps) | ספר עבודה | ~35 | Partial sections |
 | Zeraim (gaps) | ספר זרעים | ~69 | Heave Offerings, Gifts to Poor, etc. |
 
-**Total remaining: ~732 chapters**
+**Total remaining: ~689 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
