@@ -9,7 +9,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
 - **Git email**: `yaacovtimes2@gmail.com`
 
-## Current State (as of Mar 19, 2026 — 7:12 AM)
+## Current State (as of Mar 19, 2026 — 7:35 AM)
 
 ### Completed in Hebrew
 | Book | Hebrew | Chapters | Status |
@@ -38,7 +38,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | Avodah (gaps) | ספר עבודה | ~35 | Partial sections |
 | Zeraim (gaps) | ספר זרעים | ~69 | Heave Offerings, Gifts to Poor, etc. |
 
-**Total remaining: ~689 chapters**
+**Total remaining: ~647 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
@@ -162,6 +162,7 @@ GitHub Pages auto-deploys.
 - The English HTML structure varies slightly across books/chapters. The extractor handles: `<h2>` group titles, `class="callout"` boxes, inline-styled principle blocks, separate `quiz.html` files.
 - Filter out meta-groups like "Ready to Test Yourself?" and "🎓 Key Principles" from the groups array before building.
 - Halacha cards are extracted from English HTML (they contain both Hebrew source and English translation) and placed into Hebrew pages with an "English ↕" toggle.
+- **⚠️ CRITICAL FIX (Mar 19 2026):** The halacha card regex must handle `class="halacha-en long"` (not just `class="halacha-en"`). The English source uses an extra CSS class "long" for overflow handling. Old regex silently dropped ALL halacha cards from books 2-5. Fixed regex: `/class="halacha-en[^"]*"[^>]*>/` instead of `/class="halacha-en">/`. Always verify rebuilt pages have the expected card count before deploying.
 
 ### Existing Hebrew Chapters
 - **Keep them.** The pre-existing 143 chapters (Zemanim partial, Avodah, Zeraim partial) were hand-crafted and differ slightly in structure from the pipeline output.
