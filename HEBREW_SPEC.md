@@ -9,7 +9,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
 - **Git email**: `yaacovtimes2@gmail.com`
 
-## Current State (as of Mar 18, 2026 — 9:20 AM)
+## Current State (as of Mar 19, 2026 — 6:20 AM)
 
 ### Completed in Hebrew
 | Book | Hebrew | Chapters | Status |
@@ -17,26 +17,16 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | **Madda** | **ספר המדע** | **46 of 46** | **✅ Complete (translated + deployed Mar 18)** |
 | **Ahavah** | **ספר אהבה** | **46 of 46** | **✅ Complete (translated + deployed Mar 18)** |
 | **Nashim** | **ספר נשים** | **53 of 53** | **✅ Complete (translated + deployed Mar 18)** |
+| **Kedushah** | **ספר קדושה** | **53 of 53** | **✅ Complete (translated + deployed Mar 19)** |
 | Zemanim | ספר זמנים | 48 of 109 | ⚠️ Partial (pre-existing) |
 | Avodah | ספר עבודה | 60 of 95 | ⚠️ Partial (pre-existing) |
 | Zeraim | ספר זרעים | 16 of 85 | ⚠️ Partial (pre-existing) |
 
-### Total Hebrew chapters deployed: ~269 of 1,012
-
-### In-Progress: Sefer Kedushah (ספר קדושה)
-- **Translation status**: 11/53 chapters translated (saved in `/tmp/he_translated/kedushah_*.json`)
-- **Translated so far**:
-  - Forbidden Intercourse (איסורי ביאה): ch1-9 ✅ (ch10 NOT done)
-  - Forbidden Foods (מאכלות אסורות): ch9-10 ✅ (ch1-8, ch11-17 NOT done)
-  - Ritual Slaughter (שחיטה): 0/14
-- **Extracted source files**: All 53 in `/tmp/he_translate/kedushah_*.json`
-- **NOT yet built/deployed** — translations need to finish first, then build + index + push
-- **To resume**: spawn agents for remaining 42 files, then build/deploy
+### Total Hebrew chapters deployed: ~322 of 1,012
 
 ### Remaining Books (not yet started)
 | Book | Hebrew | Chapters | Notes |
 |------|--------|----------|-------|
-| Kedushah | ספר קדושה | 42 remaining | 11/53 translated, paused |
 | Hafla'ah | ספר הפלאה | 43 | |
 | Korbanot | ספר קרבנות | 45 | |
 | Taharah | ספר טהרה | 144 | Largest book |
@@ -233,7 +223,7 @@ Each book needs its sections defined for the builder. Here's what's been configu
 }
 ```
 
-### Kedushah (in progress — sections for builder)
+### Kedushah (complete)
 ```javascript
 {
   'forbidden-intercourse': { he: 'הלכות איסורי ביאה', chapters: 22, icon: '🚫' },
