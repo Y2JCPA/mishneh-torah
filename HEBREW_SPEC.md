@@ -9,7 +9,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
 - **Git email**: `y2jadvisors@gmail.com`
 
-## Current State (as of Mar 19, 2026 — 11:20 PM)
+## Current State (as of Mar 20, 2026 — 7:20 AM)
 
 ### Completed in Hebrew
 | Book | Hebrew | Chapters | Status |
@@ -21,24 +21,24 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | **Hafla'ah** | **ספר הפלאה** | **43 of 43** | **✅ Complete (translated + deployed Mar 19)** |
 | **Korbanot** | **ספר קרבנות** | **45 of 45** | **✅ Complete (translated + deployed Mar 19)** |
 | **Nezikim** | **ספר נזיקין** | **62 of 62** | **✅ Complete (translated + deployed Mar 19)** |
-| Zemanim | ספר זמנים | 48 of 109 | ⚠️ Partial (pre-existing) |
+| **Kinyan** | **ספר קניין** | **75 of 75** | **✅ Complete (translated + deployed Mar 20)** |
+| **Zemanim** | **ספר זמנים** | **97 of 109** | **✅ Near-complete (deployed Mar 20 — added Sabbath 30, Eruvin 8, Holiday 8, Yom Kippur 3; remaining 12 are duplicate English slugs already covered)** |
 | Avodah | ספר עבודה | 60 of 95 | ⚠️ Partial (pre-existing) |
 | Zeraim | ספר זרעים | 16 of 85 | ⚠️ Partial (pre-existing) |
 
-### Total Hebrew chapters deployed: ~472 of 1,012
+### Total Hebrew chapters deployed: 596 of 1,038 (57%)
 
 ### Remaining Books (not yet started)
 | Book | Hebrew | Chapters | Notes |
 |------|--------|----------|-------|
 | Taharah | ספר טהרה | 144 | Largest book |
-| Kinyan | ספר קניין | 75 | |
 | Mishpatim | ספר משפטים | 75 | |
-| Shoftim | ספר שופטים | 81 | |
-| Zemanim (gaps) | ספר זמנים | ~61 | Sabbath, Eruvin, Holiday, Yom Kippur |
+| Shoftim | ספר שופטים | 107 | |
 | Avodah (gaps) | ספר עבודה | ~35 | Partial sections |
 | Zeraim (gaps) | ספר זרעים | ~69 | Heave Offerings, Gifts to Poor, etc. |
+| Zemanim (gaps) | ספר זמנים | ~12 | Duplicate English slugs — may already be covered |
 
-**Total remaining: ~540 chapters**
+**Total remaining: ~442 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
@@ -254,6 +254,28 @@ Each book needs its sections defined for the builder. Here's what's been configu
   'substitution': { he: 'הלכות תמורה', chapters: 4, icon: '🔀' },
 }
 ```
+
+### Kinyan (complete — deployed Mar 20)
+```javascript
+{
+  'sales': { he: 'הלכות מכירה', chapters: 30, icon: '🤝' },
+  'ownerless-property-and-gifts': { he: 'הלכות זכייה ומתנה', chapters: 12, icon: '🎁' },
+  'neighbors': { he: 'הלכות שכנים', chapters: 14, icon: '🏘️' },
+  'agents-and-partners': { he: 'הלכות שלוחין ושותפין', chapters: 10, icon: '👥' },
+  'slaves': { he: 'הלכות עבדים', chapters: 9, icon: '⚖️' },
+}
+```
+
+### Zemanim (new sections — deployed Mar 20)
+```javascript
+{
+  'sabbath': { he: 'הלכות שבת', chapters: 30, icon: '🕯️' },
+  'eruvin': { he: 'הלכות עירובין', chapters: 8, icon: '🔗' },
+  'rest-on-a-holiday': { he: 'הלכות שביתת יום טוב', chapters: 8, icon: '🎉' },
+  'rest-on-the-tenth-of-tishrei': { he: 'הלכות שביתת עשור', chapters: 3, icon: '🙏' },
+}
+```
+Note: Pre-existing Zemanim sections (chametz-umatzah, shofar-sukkah-lulav, shekalim, sanctification-of-the-new-month, taaniyot, megillah-chanukah) were kept as-is.
 
 ### For future books
 - Check English repo directory names: `ls /tmp/mishneh-torah/<book>/`
