@@ -168,7 +168,7 @@ const heCNmap = {1:'א',2:'ב',3:'ג',4:'ד',5:'ה',6:'ו',7:'ז',8:'ח',9:'ט',
 - Repo: https://github.com/Y2JCPA/mishneh-torah
 - Pages: https://y2jcpa.github.io/mishneh-torah/
 - Branch: main
-- Git user: yaacovtimes2@gmail.com
+- Git user: (removed)
 
 ## Model Usage & Build Workflow
 

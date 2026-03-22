@@ -7,7 +7,7 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 - **Live site**: https://y2jcpa.github.io/mishneh-torah/he/
 - **English site**: https://y2jcpa.github.io/mishneh-torah/
 - **Repo**: https://github.com/Y2JCPA/mishneh-torah (same repo, `/he/` directory)
-- **Git email**: `y2jadvisors@gmail.com`
+- **Git email**: `(removed)`
 
 ## Current State (as of Mar 20, 2026 — 7:20 AM)
 
