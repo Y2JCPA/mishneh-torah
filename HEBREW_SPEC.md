@@ -23,10 +23,10 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | **Nezikim** | **ספר נזיקין** | **62 of 62** | **✅ Complete (translated + deployed Mar 19)** |
 | **Kinyan** | **ספר קניין** | **75 of 75** | **✅ Complete (translated + deployed Mar 20)** |
 | **Zemanim** | **ספר זמנים** | **97 of 109** | **✅ Near-complete (deployed Mar 20 — added Sabbath 30, Eruvin 8, Holiday 8, Yom Kippur 3; remaining 12 are duplicate English slugs already covered)** |
-| Avodah | ספר עבודה | 60 of 95 | ⚠️ Partial (pre-existing) |
-| Zeraim | ספר זרעים | 16 of 85 | ⚠️ Partial (pre-existing) |
+| **Avodah** | **ספר עבודה** | **95 of 95** | **✅ Complete (translated + deployed Mar 23)** |
+| **Zeraim** | **ספר זרעים** | **85 of 85** | **✅ Complete (translated + deployed Mar 23)** |
 
-### Total Hebrew chapters deployed: 596 of 1,038 (57%)
+### Total Hebrew chapters deployed: 780 of 1,038 (75%)
 
 ### Remaining Books (not yet started)
 | Book | Hebrew | Chapters | Notes |
@@ -34,11 +34,11 @@ Hebrew-language version of the Mishneh Torah interactive learning site. Lives in
 | Taharah | ספר טהרה | 144 | Largest book |
 | Mishpatim | ספר משפטים | 75 | |
 | Shoftim | ספר שופטים | 107 | |
-| Avodah (gaps) | ספר עבודה | ~35 | Partial sections |
-| Zeraim (gaps) | ספר זרעים | ~69 | Heave Offerings, Gifts to Poor, etc. |
+| ~~Avodah~~ | ~~ספר עבודה~~ | ~~35~~ | ~~Done Mar 23~~ |
+| ~~Zeraim~~ | ~~ספר זרעים~~ | ~~69~~ | ~~Done Mar 23~~ |
 | Zemanim (gaps) | ספר זמנים | ~12 | Duplicate English slugs — may already be covered |
 
-**Total remaining: ~442 chapters**
+**Total remaining: ~258 chapters**
 
 ## Strategy: Translate from English, Don't Regenerate
 
@@ -170,14 +170,25 @@ GitHub Pages auto-deploys.
 - When filling gaps in partially-complete books (e.g., adding Sabbath to Zemanim), check which chapters already exist before generating.
 
 ### Process Summary (cookbook for next book)
-1. `node /tmp/extract_english_v2.js <book> /tmp/mishneh-torah /tmp/he_translate`
-2. Spawn sub-agents: 2-3 files each, sonnet, 300s timeout, "write immediately"
-3. Monitor: check `ls /tmp/he_translated/<book>_*.json | wc -l` between rounds
-4. Respawn for missing files until all are done
-5. Validate JSON: fix Hebrew quote issues
-6. `node /tmp/build_hebrew.js /tmp/he_translated /tmp/mishneh-torah <book>`
-7. Build index pages (section + book + update homepage)
-8. `git add -A && git commit && git push`
+1. `node /tmp/extract_english_v2.js <book> /tmp/mishneh-torah /tmp/he_translate --gaps-only`
+2. **Translate via Claude CLI** (proven faster/more reliable than sub-agents — Mar 23 lesson):
+   ```bash
+   ls /tmp/he_translate/<book>_*.json | while read f; do
+     bash /tmp/translate_for_builder.sh "$f" &
+   done
+   wait
+   ```
+   Script: `/tmp/translate_for_builder.sh` — calls `claude -p --model claude-sonnet-4-6`, outputs builder-format JSON directly.
+   Run 10-15 in parallel. Each takes ~30s. 
+3. Validate: `python3 -c "import json,glob; [print('BAD:',f) for f in glob.glob('/tmp/he_translated/<book>_*.json') if not json.load(open(f)).get('groups')]"`
+4. `node /tmp/build_hebrew.js /tmp/he_translated /tmp/mishneh-torah <book>`
+5. `node /tmp/build_indexes.js /tmp/mishneh-torah <book>`
+6. Update `he/index.html` with correct chapter count
+7. `git add -A && git commit -m "Add Hebrew Sefer X: N chapters" && git push`
+
+**⚠️ Sub-agent approach (old):** Sub-agents frequently timed out or fell back to Llama (local model) which can't translate Hebrew. Claude CLI is the reliable method.
+
+**⚠️ JSON format:** `translate_for_builder.sh` outputs builder-compatible format directly: `{groups:[{title, sub, callout_label, callout_text}], principles:[{emoji,title,desc}], quiz:[{q,o[],c,e}], sectionTitle, book, section, chapter}`. Do NOT run the old converter script — it destroys the data.
 
 ## File Locations
 - **Extractor script**: `/tmp/extract_english_v2.js`
