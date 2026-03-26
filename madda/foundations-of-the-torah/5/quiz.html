@@ -49,6 +49,7 @@
   <div class="explanation">The Rambam permits using prohibited substances for healing only when life is in danger and only when the therapeutic benefit doesn't come through the normal way of eating.</div>
 </div><div class="score" id="score"><h2 id="score-text"></h2><p style="color:#888;margin-top:0.5rem" id="score-sub"></p></div><a href="./" class="back">← Back to Chapter 5</a></div><script>let answered=0,correct=0;function check(btn,isCorrect){const q=btn.closest('.q');if(q.classList.contains('done'))return;q.classList.add('done');answered++;if(isCorrect){correct++;btn.classList.add('correct')}else{btn.classList.add('wrong')}q.querySelectorAll('.option').forEach(o=>o.style.pointerEvents='none');q.querySelector('.explanation').style.display='block';if(answered===5){const s=document.getElementById('score');s.style.display='block';document.getElementById('score-text').textContent=correct+'/5';const msgs=['Keep studying! 📖','Getting there! 💪','Not bad! 📚','Great job! 🌟','Perfect! 🎉'];document.getElementById('score-sub').textContent=msgs[correct]}}</script>
 
+
 <!-- Font Size Control -->
 <style>
 .fs-ctl{position:fixed;bottom:60px;left:12px;z-index:999;display:flex;align-items:center;gap:0;background:#222e;border:1px solid #333;border-radius:20px;padding:2px;opacity:0.35;transition:opacity 0.3s;backdrop-filter:blur(6px);user-select:none}

@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>הלכות עדות</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#1a1a1a;color:#e0d5c1;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;direction:rtl}header{background:#111;border-bottom:1px solid #333;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}.back{color:#c9a84c;text-decoration:none;font-size:.9rem}h1{color:#c9a84c;font-size:1.8rem}.subtitle{color:#888;font-size:.95rem;margin-top:.3rem}main{max-width:700px;margin:2rem auto;padding:0 1rem}.section-card{background:#222;border:1px solid #333;border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.2rem}.section-title{color:#c9a84c;font-size:1.1rem;margin-bottom:.8rem;font-family:'David','Noto Serif Hebrew',serif}.chapters{display:flex;flex-wrap:wrap;gap:.5rem}a.ch{background:#1a1a1a;border:1px solid #444;border-radius:8px;padding:.4rem .7rem;color:#e0d5c1;text-decoration:none;font-size:.9rem;font-family:'David','Noto Serif Hebrew',serif}a.ch:hover{border-color:#c9a84c;color:#c9a84c}.book-card{background:#222;border:1px solid #333;border-radius:12px;padding:1.2rem;margin-bottom:1rem;display:block;text-decoration:none;color:inherit}.book-card:hover{border-color:#c9a84c}.book-card h3{color:#c9a84c;font-family:'David','Noto Serif Hebrew',serif;font-size:1.1rem}.book-card p{color:#888;font-size:.85rem;margin-top:.3rem}</style></head><body><div style="background:#2a2520;border-bottom:2px solid #c9a84c;padding:8px 40px 8px 16px;text-align:center;font-family:'David','Noto Serif Hebrew',serif;color:#c9a84c;font-size:1rem;position:relative">לרפואת פייגא בת יטא רבקה<button onclick="this.parentElement.style.display='none'" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#888;font-size:1.1rem;cursor:pointer">✕</button></div><header><a class="back" href="../">← ספר שופטים</a><div><h1>📋 הלכות עדות</h1><div class="subtitle">22 פרקים</div></div></header><main><div class="section-card"><div class="section-title">הלכות עדות</div><div class="chapters"><a class="ch" href="1/">פרק א</a><a class="ch" href="2/">פרק ב</a><a class="ch" href="3/">פרק ג</a><a class="ch" href="4/">פרק ד</a><a class="ch" href="5/">פרק ה</a><a class="ch" href="6/">פרק ו</a><a class="ch" href="7/">פרק ז</a><a class="ch" href="8/">פרק ח</a><a class="ch" href="9/">פרק ט</a><a class="ch" href="10/">פרק י</a><a class="ch" href="11/">פרק יא</a><a class="ch" href="12/">פרק יב</a><a class="ch" href="13/">פרק יג</a><a class="ch" href="14/">פרק יד</a><a class="ch" href="15/">פרק טו</a><a class="ch" href="16/">פרק טז</a><a class="ch" href="17/">פרק יז</a><a class="ch" href="18/">פרק יח</a><a class="ch" href="19/">פרק יט</a><a class="ch" href="20/">פרק כ</a><a class="ch" href="21/">פרק כא</a><a class="ch" href="22/">פרק כב</a></div></div></main>
+<!-- Font Size Control -->
+<style>
+.fs-ctl{position:fixed;bottom:60px;left:12px;z-index:999;display:flex;align-items:center;gap:0;background:#222e;border:1px solid #333;border-radius:20px;padding:2px;opacity:0.35;transition:opacity 0.3s;backdrop-filter:blur(6px);user-select:none}
+.fs-ctl:hover{opacity:1}
+.fs-btn{background:none;border:none;color:#c9a84c;font-weight:700;cursor:pointer;padding:4px 8px;font-size:14px;line-height:1;border-radius:16px;transition:background 0.2s}
+.fs-btn:hover{background:#c9a84c22}
+.fs-btn:active{background:#c9a84c44}
+.fs-label{color:#888;font-size:11px;padding:0 2px;min-width:28px;text-align:center}
+</style>
+<div class="fs-ctl" title="Adjust font size">
+<button class="fs-btn" onclick="adjFS(-1)" aria-label="Decrease font size">A−</button>
+<span class="fs-label" id="fs-pct">100%</span>
+<button class="fs-btn" onclick="adjFS(1)" aria-label="Increase font size">A+</button>
+</div>
+<script>
+(function(){
+  var STEPS=[80,85,90,95,100,105,110,115,120,130,140,150];
+  var idx=parseInt(localStorage.getItem('mt-fs-idx'));
+  if(isNaN(idx))idx=4;
+  apply();
+  window.adjFS=function(d){idx=Math.max(0,Math.min(STEPS.length-1,idx+d));localStorage.setItem('mt-fs-idx',idx);apply()};
+  function apply(){
+    var pct=STEPS[idx];
+    document.documentElement.style.fontSize=pct+'%';
+    var el=document.getElementById('fs-pct');
+    if(el)el.textContent=pct+'%';
+  }
+})();
+</script>
+
+</body></html>
